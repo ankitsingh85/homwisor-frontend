@@ -5,52 +5,48 @@ import experionLogo from "../images/experion.avif";
 import m3mLogo from "../images/m3m.avif";
 import maxLogo from "../images/max.avif";
 
-const developers = [
-  {
-    name: "DLF",
-    logo: dlfLogo,
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85",
-    projects: "50+ Projects",
-    location: "Gurugram | Delhi NCR",
-  },
-  {
-    name: godrejLogo,
-    logo: "https://dummyimage.com/220x90/ffffff/111111&text=Godrej+Properties",
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85",
-    projects: "40+ Projects",
-    location: "Mumbai | Pune | NCR",
-  },
-  {
-    name: experionLogo,
-    logo: "https://dummyimage.com/220x90/ffffff/111111&text=PRESTIGE+GROUP",
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85",
-    projects: "35+ Projects",
-    location: "Bangalore | Hyderabad",
-  },
-  {
-    name: "Lodha",
-    logo: m3mLogo,
-    image: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85",
-    projects: "35+ Projects",
-    location: "Mumbai | Thane",
-  },
-  {
-    name: "Sobha",
-    logo: maxLogo,
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85",
-    projects: "25+ Projects",
-    location: "Bangalore | NCR",
-  },
-  {
-    name: "Brigade",
-    logo: "https://dummyimage.com/220x90/ffffff/111111&text=BRIGADE",
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=85",
-    projects: "20+ Projects",
-    location: "Bangalore | Chennai",
-  },
+// Local logos for builders whose name starts with one of these keys
+const localLogos = {
+  dlf: dlfLogo,
+  godrej: godrejLogo,
+  experion: experionLogo,
+  m3m: m3mLogo,
+  max: maxLogo,
+};
+
+const fallbackImages = [
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85",
+  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=85",
 ];
 
-export default function DeveloperSection() {
+const firstWord = (str = "") => str.trim().split(/s+/)[0].toLowerCase();
+
+const toDeveloper = (builder, index, properties) => {
+  const key = firstWord(builder.name);
+  const project = properties.find((p) => firstWord(p.developer) === key);
+  const hasUsableLogo = builder.logo && !builder.logo.includes("via.placeholder.com");
+  const city = project?.location?.split(",").pop().trim();
+
+  return {
+    id: builder.id || builder.name,
+    name: builder.name,
+    logo:
+      localLogos[key] ||
+      (hasUsableLogo
+        ? builder.logo
+        : `https://dummyimage.com/220x90/ffffff/111111&text=${encodeURIComponent(builder.name)}`),
+    image: project?.image || fallbackImages[index % fallbackImages.length],
+    projects: builder.projects || (builder.count ? `${builder.count} Projects` : ""),
+    location: city || builder.subtext || "",
+  };
+};
+
+export default function DeveloperSection({ builders = [], properties = [] }) {
+  const developers = builders.map((b, i) => toDeveloper(b, i, properties));
   const sliderRef = useRef(null);
 
   const scrollSlider = (direction) => {
@@ -61,6 +57,8 @@ export default function DeveloperSection() {
       behavior: "smooth",
     });
   };
+
+  if (!developers.length) return null;
 
   return (
     <section className="hw-developer-section">
@@ -98,7 +96,7 @@ export default function DeveloperSection() {
             {developers.map((developer) => (
               <article
                 className="hw-developer-card"
-                key={developer.name}
+                key={developer.id}
               >
                 <div className="hw-developer-logo">
                   <img
@@ -119,13 +117,13 @@ export default function DeveloperSection() {
                 <div className="hw-developer-info">
                   <h3>{developer.projects}</h3>
 
-                  <div className="hw-developer-location">
+                  {developer.location && <div className="hw-developer-location">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" />
                       <circle cx="12" cy="9" r="2.2" />
                     </svg>
                     <span>{developer.location}</span>
-                  </div>
+                  </div>}
                 </div>
               </article>
             ))}

@@ -1,49 +1,26 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const properties = [
-  {
-    title: "DLF Privana North",
-    subtitle: "Luxury Apartments",
-    location: "Sector 76, Golf Course Extension Road, Gurugram",
-    bhk: "3, 4 BHK",
-    area: "2,500 - 5,000 Sq.Ft.",
-    price: "₹ 18.50 Cr",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=90",
-  },
-  {
-    title: "M3M Crown",
-    subtitle: "Ultra Luxury Residences",
-    location: "Sector 111, Dwarka Expressway, Gurugram",
-    bhk: "3, 4 BHK",
-    area: "3,000 - 5,000 Sq.Ft.",
-    price: "₹ 20.00 Cr",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=90",
-  },
-  {
-    title: "Emaar Palm Grove",
-    subtitle: "Premium Villas",
-    location: "Sector 102, Dwarka Expressway, Gurugram",
-    bhk: "4, 5 BHK",
-    area: "5,000+ Sq.Ft.",
-    price: "₹ 25.00 Cr",
-    image:
-      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=90",
-  },
-  {
-    title: "Godrej Green Estate",
-    subtitle: "Premium Plots & Land",
-    location: "Sector 150, Noida",
-    bhk: "Residential Plots",
-    area: "180 - 500 Sq.Yds.",
-    price: "₹ 5.91 Cr",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=90",
-  },
-];
+export default function RecommendedProperties({ properties = [] }) {
+  const navigate = useNavigate();
 
-export default function RecommendedProperties() {
+  const recommended = properties
+    .filter((p) => p.category === "recommended")
+    .slice(0, 4)
+    .map((p) => ({
+      id: p.id,
+      title: p.title,
+      subtitle: [p.type, p.developer].filter(Boolean).join(" · "),
+      location: p.location,
+      bhk: p.bhk,
+      area: p.area,
+      price: p.priceRange || p.price,
+      image: p.image,
+      tag: p.tag,
+    }));
+
+  if (!recommended.length) return null;
+
   return (
     <section className="hw-recommended-section">
 
@@ -81,11 +58,11 @@ export default function RecommendedProperties() {
 
       <div className="hw-recommended-grid">
 
-        {properties.map((property, index) => (
+        {recommended.map((property) => (
 
           <article
             className="hw-recommended-card"
-            key={index}
+            key={property.id}
           >
 
             {/* IMAGE */}
@@ -100,7 +77,7 @@ export default function RecommendedProperties() {
               <div className="hw-image-gradient"></div>
 
               <span className="hw-founder-badge">
-                FOUNDER CHOICE
+                {(property.tag || "Founder Choice").toUpperCase()}
               </span>
 
             </div>
@@ -170,7 +147,7 @@ export default function RecommendedProperties() {
                 </span>
 
 
-                <span>
+                {property.area && <span>
 
                   <svg
                     viewBox="0 0 24 24"
@@ -191,7 +168,7 @@ export default function RecommendedProperties() {
 
                   {property.area}
 
-                </span>
+                </span>}
 
               </div>
 
@@ -216,6 +193,7 @@ export default function RecommendedProperties() {
                 <button
                   className="hw-view-button"
                   type="button"
+                  onClick={() => navigate(`/property/${property.id}`)}
                 >
                   <span>
                     View Details
@@ -252,6 +230,7 @@ export default function RecommendedProperties() {
         <button
           className="hw-view-all"
           type="button"
+          onClick={() => navigate("/search?category=recommended")}
         >
           <span>
             View All Recommended Properties

@@ -614,7 +614,7 @@ export default function Home(){
 
 {/* recommended properties */}
 
-<RecommendedProperties />
+<RecommendedProperties properties={properties} />
 
  {/* =========================================
           TRENDING
@@ -1521,7 +1521,7 @@ export default function Home(){
         </div>
 
       </section>
-<DeveloperSection />  
+<DeveloperSection builders={builders} properties={properties} />  
 
       {/* =========================================
           STATS
