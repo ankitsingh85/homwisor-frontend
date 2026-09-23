@@ -6,7 +6,7 @@ import PropertyCard from "./PropertyCard";
 import s1 from "../images/s4.webp";
 import s2 from "../images/s5.webp";
 import s3 from "../images/s6.webp";
-import './TrendingProjects.css'
+import './trendingProjects.css'
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
