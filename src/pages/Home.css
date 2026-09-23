@@ -1,0 +1,1444 @@
+/* =========================================================
+   HOMWISOR HOME PAGE STYLES
+   Extracted from Home component
+   ========================================================= */
+
+.hw-bhk-premium-grid::-webkit-scrollbar{display:none;}
+          .hw-bhk-premium-grid{scrollbar-width:none;}
+          @media (max-width: 1100px){
+            .hw-bhk-premium-grid{grid-template-columns:repeat(6,150px)!important;}
+          }
+          @media (max-width: 768px){
+            .hw-bhk-premium-section{padding:24px 10px 0!important;}
+            .hw-bhk-premium-section h2{font-size:23px!important;}
+            .hw-bhk-premium-grid{grid-template-columns:repeat(6,128px)!important;gap:7px!important;margin-top:9px!important;}
+            .hw-bhk-premium-card{min-width:128px!important;}
+            .hw-bhk-premium-card > div:first-child{min-height:96px!important;padding:8px!important;}
+            .hw-bhk-premium-card > div:last-child{height:132px!important;}
+          }
+
+@media (max-width: 768px){
+            .hw-why-premium-section{
+              padding:24px 10px 0 !important;
+            }
+
+            .hw-why-premium-section h2{
+              font-size:28px !important;
+            }
+
+            .hw-why-feature-grid{
+              grid-template-columns:repeat(3, 250px) !important;
+              overflow-x:auto !important;
+              scrollbar-width:none !important;
+              gap:7px !important;
+              padding-bottom:2px;
+            }
+
+            .hw-why-feature-grid::-webkit-scrollbar{
+              display:none;
+            }
+
+            .hw-why-feature-card{
+              height:185px !important;
+            }
+
+            .hw-why-stats{
+              grid-template-columns:repeat(5, 105px) !important;
+              overflow-x:auto !important;
+              scrollbar-width:none !important;
+            }
+
+            .hw-why-stats::-webkit-scrollbar{
+              display:none;
+            }
+          }
+
+.hw-testimonial-grid{
+            overflow:hidden;
+          }
+
+          @media (max-width: 900px){
+            .hw-testimonial-grid{
+              grid-template-columns:repeat(4, 235px) !important;
+              overflow-x:auto !important;
+              scrollbar-width:none;
+              padding-bottom:2px;
+            }
+
+            .hw-testimonial-grid::-webkit-scrollbar{
+              display:none;
+            }
+          }
+
+          @media (max-width: 600px){
+            .hw-testimonials-premium{
+              padding:26px 10px 0 !important;
+            }
+
+            .hw-testimonials-premium h2{
+              font-size:30px !important;
+            }
+
+            .hw-testimonial-grid{
+              grid-template-columns:repeat(4, 225px) !important;
+              gap:7px !important;
+            }
+
+            .hw-testimonial-card{
+              height:174px !important;
+            }
+          }
+
+/* =========================================================
+   HOME HERO WRAPPER
+========================================================= */
+
+.hw-home-hero {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+
+/* =========================================================
+   DESKTOP SEARCH OVERLAY
+========================================================= */
+
+.hw-search-overlay {
+  position: absolute;
+
+  left: 50%;
+  bottom: -80px;
+
+  transform: translateX(-50%);
+
+  width: min(
+    1180px,
+    calc(100% - 80px)
+  );
+
+  z-index: 999;
+}
+
+
+/* SEARCH PANEL */
+
+.hw-search-overlay > div {
+  background:
+    rgba(8, 8, 7, 0.96) !important;
+
+  border:
+    1px solid rgba(212, 175, 55, 0.65) !important;
+
+  border-radius: 14px !important;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.50) !important;
+
+  backdrop-filter: blur(14px);
+
+  -webkit-backdrop-filter: blur(14px);
+
+  padding:
+    10px 14px 12px !important;
+}
+
+
+/* SEARCH FONT */
+
+.hw-search-overlay button,
+.hw-search-overlay input,
+.hw-search-overlay select {
+  font-family: "Manrope", Arial, sans-serif;
+}
+
+
+/* =========================================================
+   SEARCH TABS
+========================================================= */
+
+.hw-search-overlay .scrollbar-hide {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding:
+    0 2px 10px !important;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.hw-search-overlay .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
+.hw-search-overlay .scrollbar-hide button {
+
+  min-height: 40px;
+
+  padding:
+    0 18px !important;
+
+  border-radius:
+    9px !important;
+
+  font-size:
+    12px !important;
+
+  font-weight:
+    700 !important;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   SEARCH GRID
+========================================================= */
+
+.hw-search-overlay .search-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    1.45fr
+    1fr
+    1fr
+    1.1fr;
+
+  gap: 10px !important;
+
+  background: transparent !important;
+
+  border: none !important;
+
+  padding: 0 !important;
+}
+
+
+/* LABELS */
+
+.hw-search-overlay .search-grid label {
+  display: none !important;
+}
+
+
+/* INPUTS */
+
+.hw-search-overlay .search-grid input,
+.hw-search-overlay .search-grid select {
+
+  height: 46px !important;
+
+  border:
+    1px solid rgba(255,255,255,.20) !important;
+
+  background:
+    rgba(20,20,20,.90) !important;
+
+  color:
+    rgba(255,255,255,.88) !important;
+
+  border-radius:
+    8px !important;
+
+  font-size:
+    12px !important;
+
+  font-weight:
+    500 !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+}
+
+
+/* OPTIONS */
+
+.hw-search-overlay .search-grid select option {
+  background: #111;
+  color: #fff;
+}
+
+
+/* PLACEHOLDER */
+
+.hw-search-overlay
+.search-grid
+input::placeholder {
+
+  color:
+    rgba(255,255,255,.55);
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+.hw-search-overlay
+.search-grid
+button {
+
+  height: 46px !important;
+
+  border-radius:
+    8px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #F6D365,
+      #D4AF37
+    ) !important;
+
+  color:
+    #111 !important;
+
+  border: none !important;
+
+  padding:
+    0 22px !important;
+
+  font-size:
+    12px !important;
+
+  font-weight:
+    800 !important;
+
+  box-shadow:
+    0 5px 15px
+    rgba(212,175,55,.18);
+
+  transition: .25s ease;
+}
+
+
+.hw-search-overlay
+.search-grid
+button:hover {
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(212,175,55,.30);
+}
+
+
+/* =========================================================
+   HIDE POPULAR SEARCH
+========================================================= */
+
+.hw-search-overlay
+.container > div:last-child {
+
+  display: none !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .hw-search-overlay {
+
+    width:
+      calc(100% - 40px);
+
+    bottom: 55px;
+  }
+
+
+  .hw-search-overlay
+  .search-grid {
+
+    grid-template-columns:
+      1.2fr
+      1fr
+      1fr
+      1fr;
+  }
+
+
+  .hw-search-overlay
+  .scrollbar-hide
+  button {
+
+    padding:
+      0 14px !important;
+
+    font-size:
+      11px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   SEARCH ABOVE HERO
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* =========================================
+     HERO WRAPPER
+  ========================================= */
+
+  .hw-home-hero {
+
+    position: relative !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    margin-top: 10px !important;
+
+    padding: 0 !important;
+
+    overflow: visible !important;
+
+    background: #fff !important;
+  }
+
+
+  /* =========================================
+     SEARCH
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-overlay {
+
+    position: relative !important;
+
+    top: auto !important;
+
+    right: auto !important;
+
+    bottom: auto !important;
+
+    left: auto !important;
+
+    transform: none !important;
+
+    order: 1 !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    margin-top: 10px !important;
+
+    padding: 0 !important;
+
+    z-index: 50 !important;
+
+    background: #fff !important;
+  }
+
+
+  /* SEARCH PANEL */
+
+  .hw-search-overlay > div {
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding:
+      6px 7px 7px !important;
+
+    border: none !important;
+
+    border-radius: 0 !important;
+
+    background: #fff !important;
+
+    box-shadow: none !important;
+
+    backdrop-filter: none !important;
+
+    -webkit-backdrop-filter: none !important;
+  }
+
+
+  /* =========================================
+     TABS
+  ========================================= */
+
+  .hw-search-overlay
+  .scrollbar-hide {
+
+    display: flex !important;
+
+    width: 100% !important;
+
+    height: 40px !important;
+
+    min-height: 40px !important;
+
+    gap: 0 !important;
+
+    padding:
+      0 !important;
+
+    margin: 0 !important;
+
+    overflow-x: auto !important;
+
+    overflow-y: hidden !important;
+
+    scrollbar-width: none;
+  }
+
+
+  .hw-search-overlay
+  .scrollbar-hide::-webkit-scrollbar {
+
+    display: none;
+  }
+
+
+  .hw-search-overlay
+  .scrollbar-hide
+  button {
+
+    flex:
+      0 0 62px !important;
+
+    width: 62px !important;
+
+    min-width: 62px !important;
+
+    height: 40px !important;
+
+    min-height: 40px !important;
+
+    margin: 0 !important;
+
+    padding:
+      0 3px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 3px !important;
+
+    border: none !important;
+
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    color: #666 !important;
+
+    font-family: "Manrope", Arial, sans-serif;
+
+    font-size: 7px !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  /* ACTIVE TAB */
+
+  .hw-search-overlay
+  .scrollbar-hide
+  button.active {
+
+    color: #D4AF37 !important;
+
+    background: transparent !important;
+
+    font-weight: 800 !important;
+  }
+
+
+  /* =========================================
+     SEARCH GRID
+  ========================================= */
+
+  .hw-search-overlay
+  .search-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      38px !important;
+
+    width: 100% !important;
+
+    gap: 6px !important;
+
+    padding:
+      5px 0 0 !important;
+
+    margin: 0 !important;
+
+    background: transparent !important;
+  }
+
+
+  /* =========================================
+     HIDE BUDGET
+  ========================================= */
+
+  .hw-search-overlay
+  .search-grid
+  > *:nth-child(2) {
+
+    display: none !important;
+  }
+
+
+  /* =========================================
+     HIDE PROPERTY TYPE
+  ========================================= */
+
+  .hw-search-overlay
+  .search-grid
+  > *:nth-child(3) {
+
+    display: none !important;
+  }
+
+
+  /* =========================================
+     LOCATION INPUT
+  ========================================= */
+
+  .hw-search-overlay
+  .search-grid
+  input {
+
+    width: 100% !important;
+
+    height: 35px !important;
+
+    min-height: 35px !important;
+
+    padding:
+      0 10px !important;
+
+    border:
+      1px solid #d8d8d8 !important;
+
+    border-radius:
+      5px !important;
+
+    background:
+      #fff !important;
+
+    color:
+      #333 !important;
+
+    font-family: "Manrope", Arial, sans-serif;
+
+    font-size:
+      9px !important;
+
+    font-weight:
+      500 !important;
+
+    box-shadow: none !important;
+  }
+
+
+  .hw-search-overlay
+  .search-grid
+  input::placeholder {
+
+    color: #999 !important;
+
+    opacity: 1 !important;
+  }
+
+
+  /* =========================================
+     SEARCH BUTTON
+  ========================================= */
+
+  .hw-search-overlay
+  .search-grid
+  button {
+
+    width: 38px !important;
+
+    height: 35px !important;
+
+    min-height: 35px !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    border: none !important;
+
+    border-radius: 5px !important;
+
+    background:
+      linear-gradient(
+        135deg,
+        #F6D365,
+        #D4AF37
+      ) !important;
+
+    color: #111 !important;
+
+    font-size: 0 !important;
+
+    box-shadow: none !important;
+  }
+
+
+  .hw-search-overlay
+  .search-grid
+  button svg {
+
+    width: 15px !important;
+
+    height: 15px !important;
+  }
+
+
+  /* =========================================
+     HERO
+  ========================================= */
+
+  .hw-home-hero
+  > .hw-hero {
+
+    position: relative !important;
+
+    order: 2 !important;
+
+    width: 100% !important;
+
+    height: 205px !important;
+
+    min-height: 205px !important;
+
+    margin-top: 10px !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    flex-shrink: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hw-home-hero
+  .hw-search-overlay {
+
+    width: 100% !important;
+  }
+
+
+  .hw-search-overlay > div {
+
+    padding:
+      5px 7px 6px !important;
+  }
+
+
+  .hw-search-overlay
+  .scrollbar-hide {
+
+    height: 38px !important;
+
+    min-height: 38px !important;
+  }
+
+
+  .hw-search-overlay
+  .scrollbar-hide
+  button {
+
+    flex-basis: 60px !important;
+
+    width: 60px !important;
+
+    min-width: 60px !important;
+
+    height: 38px !important;
+
+    min-height: 38px !important;
+
+    font-size: 6.5px !important;
+  }
+
+
+  .hw-search-overlay
+  .search-grid {
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      36px !important;
+
+    gap: 5px !important;
+
+    padding-top: 5px !important;
+  }
+
+
+  .hw-search-overlay
+  .search-grid
+  input {
+
+    height: 34px !important;
+
+    min-height: 34px !important;
+
+    font-size: 8.5px !important;
+  }
+
+
+  .hw-search-overlay
+  .search-grid
+  button {
+
+    width: 36px !important;
+
+    height: 34px !important;
+
+    min-height: 34px !important;
+  }
+
+
+  .hw-home-hero
+  > .hw-hero {
+
+    height: 200px !important;
+
+    min-height: 200px !important;
+  }
+}
+  /* =========================================================
+   FINAL MOBILE FIX
+   HEADER -> SEARCH TABS -> SEARCH -> HERO
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* =========================================
+     HOME HERO AREA
+  ========================================= */
+
+  .hw-home-hero {
+
+    position: relative !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    margin-top: 15px !important;
+
+    padding: 0 !important;
+
+    overflow: visible !important;
+
+    background: #fff !important;
+  }
+
+
+  /* =========================================
+     SEARCH
+     PUSH BELOW EXISTING HEADER
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-overlay {
+
+    position: relative !important;
+
+    order: 1 !important;
+
+    top: auto !important;
+
+    right: auto !important;
+
+    bottom: auto !important;
+
+    left: auto !important;
+
+    transform: none !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    margin-top: 44px !important;
+
+    margin-right: 0 !important;
+
+    margin-bottom: 0 !important;
+
+    margin-left: 0 !important;
+
+    padding: 0 !important;
+
+    z-index: 50 !important;
+
+    background: #fff !important;
+  }
+
+
+  /* =========================================
+     ACTUAL SEARCH SECTION
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-section {
+
+    position: relative !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    margin: 0 !important;
+
+    padding: 5px 7px 7px !important;
+
+    background: #fff !important;
+
+    z-index: 50 !important;
+  }
+
+
+  /* =========================================
+     SEARCH CONTAINER
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-container {
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    border: none !important;
+
+    border-radius: 0 !important;
+
+    background: #fff !important;
+
+    box-shadow: none !important;
+
+    overflow: visible !important;
+
+    backdrop-filter: none !important;
+  }
+
+
+  /* =========================================
+     TABS
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-tabs {
+
+    position: relative !important;
+
+    z-index: 60 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+
+    height: 42px !important;
+
+    min-height: 42px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    gap: 0 !important;
+
+    overflow-x: auto !important;
+
+    overflow-y: hidden !important;
+
+    border: none !important;
+
+    scrollbar-width: none !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-tabs::-webkit-scrollbar {
+
+    display: none !important;
+  }
+
+
+  /* =========================================
+     TAB
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-tab {
+
+    flex:
+      0 0 62px !important;
+
+    width: 62px !important;
+
+    min-width: 62px !important;
+
+    height: 42px !important;
+
+    min-height: 42px !important;
+
+    margin: 0 !important;
+
+    padding: 2px 3px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 3px !important;
+
+    border: none !important;
+
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    color: #666 !important;
+
+    font-family: "Manrope", Arial, sans-serif;
+
+    font-size: 7px !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  /* ACTIVE */
+
+  .hw-home-hero
+  .hw-search-tab.active {
+
+    color: #D4AF37 !important;
+
+    background: transparent !important;
+
+    font-weight: 800 !important;
+  }
+
+
+  /* ICON */
+
+  .hw-home-hero
+  .hw-tab-icon {
+
+    width: 16px !important;
+
+    height: 16px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    color: #888 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1 !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-tab.active
+  .hw-tab-icon {
+
+    color: #D4AF37 !important;
+  }
+
+
+  /* =========================================
+     SEARCH FIELDS
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-fields {
+
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      38px !important;
+
+    width: 100% !important;
+
+    height: 35px !important;
+
+    gap: 6px !important;
+
+    margin: 5px 0 0 !important;
+
+    padding: 0 !important;
+  }
+
+
+  /* =========================================
+     LOCATION
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-field {
+
+    width: 100% !important;
+
+    height: 35px !important;
+
+    min-height: 35px !important;
+
+    margin: 0 !important;
+
+    padding: 0 9px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    border:
+      1px solid #dedede !important;
+
+    border-radius: 5px !important;
+
+    background: #fff !important;
+
+    box-shadow: none !important;
+  }
+
+
+  /* HIDE BUDGET */
+
+  .hw-home-hero
+  .hw-search-fields
+  .hw-search-field:nth-child(2) {
+
+    display: none !important;
+  }
+
+
+  /* HIDE PROPERTY TYPE */
+
+  .hw-home-hero
+  .hw-search-fields
+  .hw-search-field:nth-child(3) {
+
+    display: none !important;
+  }
+
+
+  /* SEARCH ICON */
+
+  .hw-home-hero
+  .hw-search-icon {
+
+    width: 15px !important;
+
+    height: 15px !important;
+
+    min-width: 15px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    color: #D4AF37 !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-icon svg {
+
+    width: 14px !important;
+
+    height: 14px !important;
+  }
+
+
+  /* INPUT */
+
+  .hw-home-hero
+  .hw-search-field input {
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+    min-width: 0 !important;
+
+    padding: 0 !important;
+
+    border: none !important;
+
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: #333 !important;
+
+    font-family: "Manrope", Arial, sans-serif;
+
+    font-size: 9px !important;
+
+    font-weight: 500 !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-field input::placeholder {
+
+    color: #999 !important;
+
+    opacity: 1 !important;
+  }
+
+
+  /* =========================================
+     SEARCH BUTTON
+  ========================================= */
+
+  .hw-home-hero
+  .hw-search-button {
+
+    width: 38px !important;
+
+    height: 35px !important;
+
+    min-height: 35px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    border: none !important;
+
+    border-radius: 5px !important;
+
+    background:
+      linear-gradient(
+        135deg,
+        #F6D365,
+        #D4AF37
+      ) !important;
+
+    color: #111 !important;
+
+    font-size: 0 !important;
+
+    box-shadow: none !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-button span {
+
+    display: none !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-button svg {
+
+    width: 15px !important;
+
+    height: 15px !important;
+  }
+
+
+  /* =========================================
+     HERO IMAGE
+  ========================================= */
+
+  .hw-home-hero
+  > .hw-hero {
+
+    position: relative !important;
+
+    order: 2 !important;
+
+    width: 100% !important;
+
+    height: 205px !important;
+
+    min-height: 205px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    flex-shrink: 0 !important;
+
+    z-index: 1 !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hw-home-hero
+  .hw-search-overlay {
+
+    margin-top: 42px !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-tabs {
+
+    height: 40px !important;
+
+    min-height: 40px !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-tab {
+
+    flex-basis: 60px !important;
+
+    width: 60px !important;
+
+    min-width: 60px !important;
+
+    height: 40px !important;
+
+    min-height: 40px !important;
+
+    font-size: 6.5px !important;
+  }
+
+
+  .hw-home-hero
+  .hw-tab-icon {
+
+    font-size: 12px !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-fields {
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      36px !important;
+
+    height: 34px !important;
+
+    gap: 5px !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-field {
+
+    height: 34px !important;
+
+    min-height: 34px !important;
+  }
+
+
+  .hw-home-hero
+  .hw-search-button {
+
+    width: 36px !important;
+
+    height: 34px !important;
+
+    min-height: 34px !important;
+  }
+
+
+  .hw-home-hero
+  > .hw-hero {
+
+    height: 200px !important;
+
+    min-height: 200px !important;
+  }
+}

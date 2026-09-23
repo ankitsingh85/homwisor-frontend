@@ -1,71 +1,938 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from "react";
 
-export default function Hero({ banners=[] }){
-  const [idx, setIdx] = useState(0)
-  const hero = banners.length ? banners : [
-    { image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=650&fit=crop", title:"Godrej Verano - Sector 63A", developer:"GODREJ PROPERTIES" },
-    { image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&h=650&fit=crop", title:"BPTP Downtown 66", developer:"BPTP LIMITED" },
-    { image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&h=650&fit=crop", title:"M3M Brabus Residences", developer:"M3M GROUP" }
-  ]
+export default function Hero({ banners = [] }) {
+  const [idx, setIdx] = useState(0);
 
-  useEffect(()=>{
-    const t = setInterval(()=> setIdx(i=> (i+1)%hero.length), 4000)
-    return ()=> clearInterval(t)
-  }, [hero.length])
+  const hero = banners.length
+    ? banners
+    : [
+        {
+          image:
+            "../images/bn2.png",
+        },
+        {
+          image:
+            "../images/bn2.png",
+        },
+        {
+          image:
+            "../images/bn1.png",
+        },
+      ];
+
+  useEffect(() => {
+    if (hero.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setIdx((prev) => (prev + 1) % hero.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [hero.length]);
+
+  const nextSlide = () => {
+    setIdx((prev) => (prev + 1) % hero.length);
+  };
+
+  const prevSlide = () => {
+    setIdx(
+      (prev) =>
+        (prev - 1 + hero.length) % hero.length
+    );
+  };
 
   return (
-    <div style={{position:'relative', background:'#000', overflow:'hidden'}}>
-      <div style={{position:'relative', height:'420px', overflow:'hidden'}} className="hero-height">
-        {hero.map((b,i)=>(
-          <div key={i} style={{
-            position:'absolute', inset:0,
-            opacity: i===idx?1:0,
-            transform: i===idx? 'scale(1)':'scale(1.03)',
-            transition:'all .8s ease',
-            pointerEvents: i===idx? 'auto':'none'
-          }}>
-            <img src={b.image} alt={b.title} style={{width:'100%', height:'100%', objectFit:'cover', opacity:.9}}/>
-            <div style={{position:'absolute', inset:0, background:'linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.15) 55%, rgba(0,0,0,.25) 100%)'}}/>
-            <div style={{position:'absolute', left:'5%', bottom:'18%', maxWidth:560, color:'#fff'}}>
-              <div style={{display:'inline-block', background:'rgba(255,255,255,.95)', color:'#111', fontWeight:800, fontSize:11, letterSpacing:.8, padding:'6px 10px', borderRadius:4, marginBottom:12}}>
-                {b.developer || 'FEATURED PROJECT'}
-              </div>
-              <h1 style={{fontFamily:"'Playfair Display', serif", fontSize:'34px', lineHeight:1.1, fontWeight:700, textShadow:'0 4px 24px rgba(0,0,0,.5)', marginBottom:10}}>
-                {b.title}
-              </h1>
-              <p style={{fontSize:14, opacity:.9, marginBottom:16}}>Experience luxury living at Golf Course Extension Road</p>
-              <button style={{background:'#d8232a', color:'#fff', border:'none', padding:'10px 22px', borderRadius:24, fontWeight:700, fontSize:13, cursor:'pointer', display:'flex', alignItems:'center', gap:8}}>
-                Explore Now <span>→</span>
-              </button>
-            </div>
+    <section className="hw-hero">
+
+      {/* BACKGROUND */}
+
+      <div className="hw-slides">
+
+        {hero.map((banner, index) => (
+          <div
+            key={index}
+            className={`hw-slide ${
+              index === idx
+                ? "hw-slide-active"
+                : ""
+            }`}
+          >
+            <img
+              src={banner.image}
+              alt="Premium Property"
+            />
+
+
           </div>
         ))}
 
-        {/* arrows */}
-        <button onClick={()=> setIdx(i=> (i-1+hero.length)%hero.length)} style={{position:'absolute', left:16, top:'50%', transform:'translateY(-50%)', width:38, height:38, borderRadius:'50%', background:'rgba(255,255,255,.9)', border:'none', display:'grid', placeItems:'center', cursor:'pointer', boxShadow:'0 4px 12px rgba(0,0,0,.2)'}}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button onClick={()=> setIdx(i=> (i+1)%hero.length)} style={{position:'absolute', right:16, top:'50%', transform:'translateY(-50%)', width:38, height:38, borderRadius:'50%', background:'rgba(255,255,255,.9)', border:'none', display:'grid', placeItems:'center', cursor:'pointer', boxShadow:'0 4px 12px rgba(0,0,0,.2)'}}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-
-        {/* dots */}
-        <div style={{position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', gap:8}}>
-          {hero.map((_,i)=>(
-            <button key={i} onClick={()=>setIdx(i)} style={{width: i===idx?28:8, height:8, borderRadius:8, border:'none', background: i===idx?'#d8232a':'rgba(255,255,255,.7)', cursor:'pointer', transition:'all .3s'}}/>
-          ))}
-        </div>
       </div>
 
+
+      {/* ARROWS */}
+
+      {hero.length > 1 && (
+        <>
+          <button
+            type="button"
+            className="hw-arrow hw-arrow-left"
+            onClick={prevSlide}
+            aria-label="Previous slide"
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            className="hw-arrow hw-arrow-right"
+            onClick={nextSlide}
+            aria-label="Next slide"
+          >
+            ›
+          </button>
+        </>
+      )}
+
+
+      {/* DOTS */}
+
+      {/* {hero.length > 1 && (
+        <div className="hw-dots">
+
+          {hero.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setIdx(index)}
+              className={
+                index === idx
+                  ? "hw-dot hw-dot-active"
+                  : "hw-dot"
+              }
+              aria-label={`Slide ${index + 1}`}
+            />
+          ))}
+
+        </div>
+      )} */}
+
+
       <style>{`
-        @media(max-width:768px){
-          .hero-height{ height: 340px !important; }
-          .hero-height h1{ font-size:22px !important; }
-        }
-        @media(min-width:1280px){
-          .hero-height{ height: 460px !important; }
-        }
+
+       @import url(
+  'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap'
+);
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hw-hero {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 430px;
+
+  overflow: visible;
+
+  background: #080808;
+
+  color: #fff;
+
+  font-family:
+    "Manrope",
+    Arial,
+    sans-serif;
+}
+
+
+/* =========================================================
+   SLIDER
+========================================================= */
+
+.hw-slides {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: hidden;
+}
+
+
+.hw-slide {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  opacity: 0;
+
+  transform: scale(1.04);
+
+  transition:
+    opacity 1s ease,
+    transform 5s ease;
+}
+
+
+.hw-slide-active {
+
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+.hw-slide img {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center;
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.hw-image-overlay {
+  display: none;
+
+}
+
+
+.hw-bottom-overlay {
+  display: none;
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hw-hero-content {
+  display: none;
+
+}
+
+
+.hw-hero-left {
+
+  width: 100%;
+
+  max-width: 700px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.hw-eyebrow {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 12px;
+
+  color:
+    rgba(255,255,255,.75);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.6px;
+}
+
+
+.hw-eyebrow b {
+
+  color: #d9ad42;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.hw-title {
+
+  margin: 0;
+
+  color: #fff;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 64px;
+
+  line-height: .98;
+
+  font-weight: 600;
+
+  letter-spacing: -1.8px;
+
+  text-shadow:
+    0 5px 25px
+    rgba(0,0,0,.60);
+}
+
+
+.hw-title em {
+
+  color: #d9ad42;
+
+  font-style: italic;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.hw-description {
+
+  margin: 13px 0 0;
+
+  color:
+    rgba(255,255,255,.84);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.hw-benefits {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 24px;
+
+  margin-top: 15px;
+}
+
+
+.hw-benefit {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color:
+    rgba(255,255,255,.92);
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+
+.hw-benefit-icon {
+
+  color: #d9ad42;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   SIDE CONTENT
+========================================================= */
+
+.hw-side-content {
+
+  width: 90px;
+
+  margin-right: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  color:
+    rgba(255,255,255,.72);
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  line-height: 1.55;
+
+  letter-spacing: 1px;
+}
+
+
+.hw-side-a {
+
+  color: #d9ad42;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size: 14px;
+}
+
+
+.hw-side-line {
+
+  width: 28px;
+
+  height: 1px;
+
+  margin-top: 6px;
+
+  background: #d9ad42;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.hw-features {
+  display: none;
+
+}
+
+
+.hw-feature {
+
+  min-width: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 0 14px;
+}
+
+
+.hw-feature-icon {
+
+  width: 36px;
+
+  height: 36px;
+
+  min-width: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #d9ad42;
+
+  border:
+    1px solid
+    rgba(217,173,66,.80);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0,0,0,.20);
+}
+
+
+.hw-feature-info {
+
+  min-width: 0;
+}
+
+
+.hw-feature-info h4 {
+
+  margin: 0 0 3px;
+
+  color: #fff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+}
+
+
+.hw-feature-info p {
+
+  margin: 0;
+
+  color:
+    rgba(255,255,255,.56);
+
+  font-size: 10px;
+
+  line-height: 1.35;
+
+  white-space: nowrap;
+}
+
+
+.hw-feature-divider {
+
+  width: 1px;
+
+  height: 34px;
+
+  background:
+    rgba(255,255,255,.18);
+}
+
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.hw-arrow {
+
+  position: absolute;
+
+  z-index: 20;
+
+  top: 50%;
+
+  width: 38px;
+
+  height: 38px;
+
+  padding: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transform:
+    translateY(-50%);
+
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0,0,0,.28);
+
+  color: #fff;
+
+  font-size: 30px;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+}
+
+
+.hw-arrow:hover {
+
+  color: #111;
+
+  background: #d9ad42;
+
+  border-color: #d9ad42;
+}
+
+
+.hw-arrow-left {
+
+  left: 13px;
+}
+
+
+.hw-arrow-right {
+
+  right: 13px;
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.hw-dots {
+
+  position: absolute;
+
+  z-index: 20;
+
+  left: 50%;
+
+  bottom: 80px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+
+.hw-dot {
+
+  width: 6px;
+
+  height: 6px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,.55);
+
+  cursor: pointer;
+}
+
+
+.hw-dot-active {
+
+  width: 21px;
+
+  background: #d9ad42;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+  .hw-hero {
+
+    height: 570px;
+  }
+
+  .hw-title {
+
+    font-size: 64px;
+  }
+
+  .hw-description {
+
+    font-size: 13px;
+  }
+
+  .hw-feature-info h4 {
+
+    font-size: 10px;
+  }
+
+  .hw-feature-info p {
+
+    font-size: 7px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .hw-hero-content {
+
+    width: calc(100% - 80px);
+
+  }
+
+  .hw-features {
+
+    width: calc(100% - 80px);
+
+  }
+
+  .hw-title {
+
+    font-size: 48px;
+  }
+
+  .hw-feature {
+
+    padding: 0 7px;
+  }
+
+  .hw-feature-icon {
+
+    width: 31px;
+
+    height: 31px;
+
+    min-width: 31px;
+  }
+
+  .hw-feature-info h4 {
+
+    font-size: 8px;
+  }
+
+  .hw-feature-info p {
+
+    font-size: 5.5px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   IMAGE ONLY
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hw-hero-content {
+
+    width: 100%;
+
+    margin: 0;
+
+  }
+
+  .hw-features {
+
+    width: 100%;
+
+    left: 0;
+
+    transform: none;
+
+  }
+
+  .hw-hero {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 205px !important;
+
+    min-height: 205px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    background: #111;
+  }
+
+
+  /* SLIDER */
+
+  .hw-slides {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 205px !important;
+
+    overflow: hidden;
+  }
+
+
+  .hw-slide {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 205px !important;
+
+    opacity: 0;
+
+    transform: scale(1.02);
+
+    transition:
+      opacity .8s ease,
+      transform 5s ease;
+  }
+
+
+  .hw-slide-active {
+
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+
+  .hw-slide img {
+
+    width: 100%;
+
+    height: 205px !important;
+
+    display: block;
+
+    object-fit: cover !important;
+
+    object-position: center !important;
+  }
+
+
+  /* MOBILE IMAGE OVERLAY */
+
+  .hw-image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0,0,0,.02),
+        rgba(0,0,0,.12)
+      ) !important;
+  }
+
+
+  .hw-bottom-overlay {
+
+    display: none !important;
+  }
+
+
+  /* HIDE DESKTOP CONTENT */
+
+  .hw-hero-content {
+
+    display: none !important;
+  }
+
+
+  /* HIDE FEATURES */
+
+  .hw-features {
+
+    display: none !important;
+  }
+
+
+  /* HIDE ARROWS */
+
+  .hw-arrow {
+
+    display: none !important;
+  }
+
+
+  /* HIDE DOTS */
+
+  .hw-dots {
+
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hw-hero {
+
+    height: 200px !important;
+
+    min-height: 200px !important;
+
+    margin: 0 !important;
+  }
+
+
+  .hw-slides {
+
+    height: 200px !important;
+  }
+
+
+  .hw-slide {
+
+    height: 200px !important;
+  }
+
+
+  .hw-slide img {
+
+    height: 200px !important;
+
+    object-fit: cover !important;
+
+    object-position: center !important;
+  }
+}
+
       `}</style>
-    </div>
-  )
+    </section>
+  );
 }

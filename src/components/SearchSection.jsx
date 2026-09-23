@@ -1,105 +1,1194 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function SearchSection(){
-  const navigate = useNavigate()
-  const [activeTab, setActiveTab] = useState('All')
-  const [type, setType] = useState('')
-  const [location, setLocation] = useState('')
-  const [budget, setBudget] = useState('')
+export default function SearchSection() {
+  const navigate = useNavigate();
 
-  const tabs = ['All','Apartments','Villas','Builder Floor','Plots / Land','Commercial','Farmhouse']
+  const [activeTab, setActiveTab] =
+    useState("Apartment");
 
-  const handleSearch = ()=>{
-    const params = new URLSearchParams()
-    if(type) params.set('type', type)
-    if(location) params.set('location', location)
-    if(activeTab !== 'All') params.set('type', activeTab)
-    if(budget) params.set('search', budget)
-    navigate(`/search?${params.toString()}`)
-  }
+  const [type, setType] = useState("");
+
+  const [location, setLocation] =
+    useState("");
+
+  const [budget, setBudget] =
+    useState("");
+
+  const tabs = [
+    {
+      name: "Apartment",
+      value: "Apartment",
+      icon: "▦",
+    },
+    {
+      name: "Villa",
+      value: "Villa",
+      icon: "⌂",
+    },
+    {
+      name: "Farmhouse",
+      value: "Farmhouse",
+      icon: "⌂",
+    },
+    {
+      name: "Commercial",
+      value: "Commercial",
+      icon: "▥",
+    },
+    {
+      name: "Branded",
+      value: "Branded",
+      icon: "✪",
+    },
+    {
+      name: "Luxury",
+      value: "Luxury",
+      icon: "◇",
+    },
+    {
+      name: "Plots / Land",
+      value: "Plots / Land",
+      icon: "△",
+    },
+  ];
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+
+    if (activeTab) {
+      params.set("type", activeTab);
+    }
+
+    if (type) {
+      params.set("propertyType", type);
+    }
+
+    if (location) {
+      params.set("location", location);
+    }
+
+    if (budget) {
+      params.set("budget", budget);
+    }
+
+    navigate(
+      `/search?${params.toString()}`
+    );
+  };
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab.value);
+    setType(tab.value);
+  };
 
   return (
-    <div style={{background:'#fff', borderBottom:'1px solid #eee', padding:'14px 0 18px'}}>
-      <div className="container">
-        {/* tabs - like HomWisor filter pills */}
-        <div style={{display:'flex', gap:8, overflowX:'auto', paddingBottom:12}} className="scrollbar-hide">
-          {tabs.map(t=>(
-            <button key={t} onClick={()=>setActiveTab(t)} style={{
-              whiteSpace:'nowrap', padding:'8px 16px', borderRadius:20, fontSize:12.5, fontWeight:600,
-              border: activeTab===t? '1px solid #111':'1px solid #e5e7eb',
-              background: activeTab===t? '#111':'#fff',
-              color: activeTab===t? '#fff':'#374151',
-              cursor:'pointer', transition:'all .2s'
-            }}>{t}</button>
+    <section className="hw-search-section">
+
+      <div className="hw-search-container">
+
+        {/* TABS */}
+
+        <div className="hw-search-tabs">
+
+          {tabs.map((tab) => (
+            <button
+              key={tab.value}
+              type="button"
+              className={`hw-search-tab ${
+                activeTab === tab.value
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                handleTabClick(tab)
+              }
+            >
+
+              <span className="hw-tab-icon">
+                {tab.icon}
+              </span>
+
+              <span>
+                {tab.name}
+              </span>
+
+            </button>
           ))}
-          <div style={{marginLeft:'auto', display:'flex', gap:6, alignItems:'center', fontSize:12, color:'#6b7280'}}>
-            <span style={{display:'none'}} className="hide-mobile">Cities</span>
-          </div>
+
         </div>
 
-        {/* Search bar big */}
-        <div style={{
-          display:'grid', gridTemplateColumns:'1.2fr 1fr 1fr auto', gap:12,
-          background:'#f9fafb', border:'1px solid #e5e7eb', borderRadius:14, padding:12, alignItems:'center'
-        }} className="search-grid">
 
-          <div style={{position:'relative'}}>
-            <label style={{fontSize:10, fontWeight:700, letterSpacing:.6, color:'#6b7280', display:'block', marginBottom:4, marginLeft:4}}>PROPERTY TYPE</label>
-            <div style={{position:'relative'}}>
-              <select value={type} onChange={e=>setType(e.target.value)} style={{width:'100%', height:42, borderRadius:10, border:'1px solid #e5e7eb', background:'#fff', padding:'0 36px 0 12px', fontSize:13, fontWeight:500, appearance:'none', outline:'none', cursor:'pointer'}}>
-                <option value="">Select property type</option>
-                <option>Flat/Apartment</option>
-                <option>Builder Floor</option>
-                <option>Villa</option>
-                <option>Residential Land</option>
-                <option>Commercial</option>
-                <option>Farmhouse</option>
-              </select>
-              <svg style={{position:'absolute', right:12, top:14, pointerEvents:'none'}} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
-            </div>
+        {/* SEARCH FIELDS */}
+
+        <div className="hw-search-fields">
+
+          {/* LOCATION */}
+
+          <div className="hw-search-field">
+
+            <span className="hw-search-icon">
+
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                />
+
+                <path d="M20 20l-4-4" />
+
+              </svg>
+
+            </span>
+
+            <input
+              type="text"
+              value={location}
+              onChange={(e) =>
+                setLocation(e.target.value)
+              }
+              placeholder="Search city, locality or project..."
+            />
+
           </div>
 
-          <div>
-            <label style={{fontSize:10, fontWeight:700, letterSpacing:.6, color:'#6b7280', display:'block', marginBottom:4, marginLeft:4}}>LOCATION</label>
-            <select value={location} onChange={e=>setLocation(e.target.value)} style={{width:'100%', height:42, borderRadius:10, border:'1px solid #e5e7eb', background:'#fff', padding:'0 36px 0 12px', fontSize:13, fontWeight:500, appearance:'none', outline:'none', cursor:'pointer'}}>
-              <option value="">Select location</option>
-              <option>Golf Course Road</option>
-              <option>Golf Course Extension Road</option>
-              <option>Sohna Road</option>
-              <option>Dwarka Expressway</option>
-              <option>New Gurgaon</option>
-              <option>Southern Peripheral Road</option>
+
+          {/* BUDGET */}
+
+          <div className="hw-search-field">
+
+            <span className="hw-search-icon">
+              ₹
+            </span>
+
+            <select
+              value={budget}
+              onChange={(e) =>
+                setBudget(e.target.value)
+              }
+            >
+
+              <option value="">
+                Budget
+              </option>
+
+              <option value="Under 1 Cr">
+                Under ₹1 Cr
+              </option>
+
+              <option value="1 Cr - 4 Cr">
+                ₹1 Cr - ₹4 Cr
+              </option>
+
+              <option value="4 Cr - 8 Cr">
+                ₹4 Cr - ₹8 Cr
+              </option>
+
+              <option value="8 Cr - 12 Cr">
+                ₹8 Cr - ₹12 Cr
+              </option>
+
+              <option value="12 Cr - 16 Cr">
+                ₹12 Cr - ₹16 Cr
+              </option>
+
+              <option value="16 Cr Onwards">
+                ₹16 Cr Onwards
+              </option>
+
             </select>
+
+            <span className="hw-select-arrow">
+              ↓
+            </span>
+
           </div>
 
-          <div>
-            <label style={{fontSize:10, fontWeight:700, letterSpacing:.6, color:'#6b7280', display:'block', marginBottom:4, marginLeft:4}}>BUDGET / SEARCH</label>
-            <input value={budget} onChange={e=>setBudget(e.target.value)} placeholder="Search Project, Builder..." style={{width:'100%', height:42, borderRadius:10, border:'1px solid #e5e7eb', background:'#fff', padding:'0 12px', fontSize:13, outline:'none'}}/>
+
+          {/* PROPERTY TYPE */}
+
+          <div className="hw-search-field">
+
+            <span className="hw-search-icon">
+
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+              >
+                <rect
+                  x="4"
+                  y="4"
+                  width="16"
+                  height="16"
+                  rx="1"
+                />
+
+                <path d="M8 8h8" />
+                <path d="M8 12h8" />
+                <path d="M8 16h5" />
+
+              </svg>
+
+            </span>
+
+            <select
+              value={type}
+              onChange={(e) =>
+                setType(e.target.value)
+              }
+            >
+
+              <option value="">
+                Property Type
+              </option>
+
+              <option value="Apartment">
+                Apartment
+              </option>
+
+              <option value="Villa">
+                Villa
+              </option>
+
+              <option value="Farmhouse">
+                Farmhouse
+              </option>
+
+              <option value="Builder Floor">
+                Builder Floor
+              </option>
+
+              <option value="Commercial">
+                Commercial
+              </option>
+
+              <option value="Plots / Land">
+                Plots / Land
+              </option>
+
+            </select>
+
+            <span className="hw-select-arrow">
+              ↓
+            </span>
+
           </div>
 
-          <button onClick={handleSearch} style={{height:42, alignSelf:'end', background:'#d8232a', color:'#fff', border:'none', padding:'0 26px', borderRadius:10, fontWeight:700, fontSize:14, cursor:'pointer', display:'flex', alignItems:'center', gap:8, whiteSpace:'nowrap'}}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-3-3"/></svg>
-            Search
+
+          {/* SEARCH */}
+
+          <button
+            type="button"
+            className="hw-search-button"
+            onClick={handleSearch}
+          >
+
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="7"
+              />
+
+              <path d="M20 20l-4-4" />
+
+            </svg>
+
+            <span>
+              Search Properties
+            </span>
+
           </button>
+
         </div>
 
-        <div style={{display:'flex', gap:12, marginTop:10, fontSize:11, color:'#6b7280', flexWrap:'wrap'}}>
-          <span>Popular Searches:</span>
-          <span style={{color:'#d8232a', fontWeight:600, cursor:'pointer'}} onClick={()=>navigate('/search?type=Apartment')}>Flat/Apartment</span>
-          <span>•</span>
-          <span style={{color:'#d8232a', fontWeight:600, cursor:'pointer'}} onClick={()=>navigate('/search?type=Villa')}>Independent House/Villa</span>
-          <span>•</span>
-          <span style={{color:'#d8232a', fontWeight:600, cursor:'pointer'}} onClick={()=>navigate('/search?location=Gurugram')}>Projects in Gurugram</span>
-        </div>
       </div>
 
+
       <style>{`
-        @media(max-width:900px){
-          .search-grid{ grid-template-columns:1fr !important; }
-          .search-grid button{ width:100%; justify-content:center; }
+
+        @import url(
+          'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap'
+        );
+
+        .hw-search-section {
+
+          position: relative;
+
+          z-index: 60;
+
+          width: 100%;
+
+          font-family:
+            "Manrope",
+            Arial,
+            sans-serif;
+
         }
+
+
+        .hw-search-container {
+
+          width: calc(100% - 80px);
+          max-width: 850px;
+          margin: 0 auto;
+         height:160px;
+         padding-top:20px;
+          overflow: hidden;
+
+          border:
+            1px solid
+            rgba(216,170,66,.42);
+
+          border-radius: 12px;
+
+          background: #ffffff;
+
+          box-shadow: 0 10px 28px rgba(17, 24, 39, 0.07);
+
+          backdrop-filter: none;
+
+        }
+
+
+        /* =========================
+           TABS
+        ========================= */
+
+        .hw-search-tabs {
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 3px;
+
+          min-height: 55px;
+
+          padding:
+            7px 10px;
+
+          overflow-x: auto;
+
+          scrollbar-width: none;
+
+          border-bottom: 1px solid #eee8d8;
+
+        }
+
+
+        .hw-search-tabs::-webkit-scrollbar {
+          display: none;
+        }
+
+
+        .hw-search-tab {
+
+          height: 39px;
+
+          flex-shrink: 0;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          gap: 7px;
+
+          padding:
+            0 17px;
+
+          border: 1px solid #f6d36b;
+
+          border-radius: 7px;
+
+          background: transparent;
+
+          color:
+            rgba(17, 17, 17, 0.72);
+
+          font-family: inherit;
+
+          font-size: 11px;
+
+          font-weight: 600;
+
+          white-space: nowrap;
+
+          cursor: pointer;
+
+          transition: .2s ease;
+
+        }
+
+
+        .hw-search-tab:hover {
+
+          color: #050505;
+
+          background: #faf9f5;
+
+        }
+
+
+        .hw-search-tab.active {
+
+          color: #ffffff;
+
+          background: #b9943a;
+
+          font-weight: 800;
+
+        }
+
+
+        .hw-tab-icon {
+
+          color: #d9ad42;
+
+          font-size: 16px;
+
+          line-height: 1;
+
+        }
+
+
+        .hw-search-tab.active
+        .hw-tab-icon {
+
+          color: #ffffff;
+
+        }
+
+
+        /* =========================
+           SEARCH FIELDS
+        ========================= */
+
+        .hw-search-fields {
+
+          display: grid;
+
+          grid-template-columns:
+            1.45fr
+            .90fr
+            .95fr
+            1fr;
+
+          gap: 10px;
+
+          padding: 10px;
+
+        }
+
+
+        .hw-search-field {
+
+          position: relative;
+
+          height: 46px;
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 9px;
+
+          padding:
+            0 13px;
+
+          border:
+            1px solid
+            rgba(216,170,66,.70);
+
+          border-radius: 7px;
+
+          background: #ffffff;
+
+          color:
+            rgba(12, 12, 12, 0.82);
+
+          transition: .2s ease;
+
+        }
+
+
+        .hw-search-field:focus-within {
+
+          border-color:
+            rgba(216,170,66,.70);
+
+        }
+
+
+        .hw-search-icon {
+
+          flex-shrink: 0;
+
+          width: 19px;
+
+          height: 19px;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          color: #d9ad42;
+
+          font-size: 16px;
+
+          font-weight: 700;
+
+        }
+
+
+        .hw-search-field input,
+        .hw-search-field select {
+
+          width: 100%;
+
+          height: 100%;
+
+          min-width: 0;
+
+          border: none;
+
+          outline: none;
+
+          background: transparent;
+
+          color:
+            rgba(8, 8, 8, 0.88);
+
+          font-family: inherit;
+
+          font-size: 11px;
+
+          font-weight: 500;
+
+        }
+
+
+        .hw-search-field input::placeholder {
+
+          color:
+            rgba(12, 12, 12, 0.58);
+
+        }
+
+
+        .hw-search-field select {
+
+          appearance: none;
+
+          -webkit-appearance: none;
+
+          padding-right: 22px;
+
+          cursor: pointer;
+
+        }
+
+
+        .hw-search-field select option {
+
+          background: #111;
+
+          color: #fff;
+
+        }
+
+
+        .hw-select-arrow {
+
+          position: absolute;
+
+          right: 12px;
+
+          top: 50%;
+
+          transform:
+            translateY(-50%);
+
+          color: #d9ad42;
+
+          font-size: 13px;
+
+          pointer-events: none;
+
+        }
+
+
+        /* =========================
+           SEARCH BUTTON
+        ========================= */
+
+        .hw-search-button {
+
+          height: 46px;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          gap: 8px;
+
+          padding:
+            0 22px;
+
+          border: none;
+
+          border-radius: 7px;
+
+          background: #b9943a;
+
+          color: #ffffff;
+
+          font-family: inherit;
+
+          font-size: 11px;
+
+          font-weight: 800;
+
+          white-space: nowrap;
+
+          cursor: pointer;
+
+          transition: .2s ease;
+
+        }
+
+
+        .hw-search-button:hover {
+
+          transform:
+            translateY(-1px);
+
+          box-shadow: 0 6px 20px rgba(185,148,58,.22);
+
+        }
+
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 1200px) and (min-width: 901px) {
+          .hw-search-container {
+            width: calc(100% - 48px);
+            max-width: 1100px;
+          }
+        }
+
+        @media (max-width: 900px) {
+
+          .hw-search-fields {
+
+            grid-template-columns:
+              1fr 1fr;
+
+          }
+
+
+          .hw-search-button {
+
+            grid-column:
+              span 2;
+
+          }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+          .hw-search-container {
+
+            border-radius: 10px;
+
+          }
+
+
+          .hw-search-tabs {
+
+            min-height: 50px;
+
+          }
+
+
+          .hw-search-tab {
+
+            height: 36px;
+
+            padding:
+              0 13px;
+
+            font-size: 10px;
+
+          }
+
+
+          .hw-search-fields {
+
+            grid-template-columns:
+              1fr;
+
+            gap: 8px;
+
+          }
+
+
+          .hw-search-field {
+
+            height: 43px;
+
+          }
+
+
+          .hw-search-button {
+
+            grid-column: auto;
+
+            height: 43px;
+
+            width: 100%;
+
+          }
+
+        }
+          /* =========================================================
+   MOBILE SEARCH
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hw-search-section {
+
+    position: relative;
+
+    z-index: 60;
+
+    width: 100%;
+
+    padding: 6px 8px 8px;
+
+    margin: 0;
+
+    background: #ffffff;
+  }
+
+
+  .hw-search-container {
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
+    border: none !important;
+
+    border-radius: 0 !important;
+
+    background: #fff !important;
+
+    box-shadow: none !important;
+
+    backdrop-filter: none !important;
+
+    overflow: visible;
+  }
+
+
+  /* =========================================
+     TABS
+  ========================================= */
+
+  .hw-search-tabs {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    height: 38px;
+
+    min-height: 38px;
+
+    gap: 0;
+
+    padding: 0;
+
+    border: none !important;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+  }
+
+
+  .hw-search-tabs::-webkit-scrollbar {
+
+    display: none;
+  }
+
+
+  .hw-search-tab {
+
+    flex: 0 0 62px;
+
+    width: 62px;
+
+    height: 38px;
+
+    padding: 0 3px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 2px;
+
+    border: none;
+
+    border-radius: 0;
+
+    background: transparent;
+
+    color: #666;
+
+    font-family:
+      "Manrope",
+      Arial,
+      sans-serif;
+
+    font-size: 7px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+  }
+
+
+  .hw-search-tab.active {
+
+    color: #D4AF37;
+
+    background: transparent;
+
+    font-weight: 800;
+  }
+
+
+  .hw-tab-icon {
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1;
+  }
+
+
+  .hw-search-tab.active
+  .hw-tab-icon {
+
+    color: #D4AF37;
+  }
+
+
+  /* =========================================
+     SEARCH FIELDS
+  ========================================= */
+
+  .hw-search-fields {
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      38px;
+
+    gap: 6px;
+
+    padding: 6px 0 0;
+
+    width: 100%;
+  }
+
+
+  /* LOCATION */
+
+  .hw-search-field {
+
+    position: relative;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0 9px;
+
+    border:
+      1px solid
+      #dedede;
+
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    color: #555;
+
+    box-shadow: none;
+  }
+
+
+  /* HIDE BUDGET */
+
+  .hw-search-fields
+  .hw-search-field:nth-child(2) {
+
+    display: none;
+  }
+
+
+  /* HIDE PROPERTY TYPE */
+
+  .hw-search-fields
+  .hw-search-field:nth-child(3) {
+
+    display: none;
+  }
+
+
+  .hw-search-icon {
+
+    flex-shrink: 0;
+
+    width: 15px;
+
+    height: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #D4AF37;
+
+    font-size: 13px;
+  }
+
+
+  .hw-search-field input {
+
+    width: 100%;
+
+    height: 100%;
+
+    min-width: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #333;
+
+    font-family:
+      "Manrope",
+      Arial,
+      sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 500;
+  }
+
+
+  .hw-search-field input::placeholder {
+
+    color: #999;
+  }
+
+
+  /* =========================================
+     SEARCH BUTTON
+  ========================================= */
+
+  .hw-search-button {
+
+    width: 38px;
+
+    height: 34px;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 0;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: #b9943a;
+
+    color: #ffffff;
+
+    font-size: 0;
+
+    box-shadow: none;
+
+    cursor: pointer;
+  }
+
+
+  .hw-search-button span {
+
+    display: none;
+  }
+
+
+  .hw-search-button svg {
+
+    width: 15px;
+
+    height: 15px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE SEARCH
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hw-search-section {
+
+    padding:
+      5px
+      7px
+      7px;
+  }
+
+
+  .hw-search-tabs {
+
+    height: 36px;
+
+    min-height: 36px;
+  }
+
+
+  .hw-search-tab {
+
+    flex-basis: 60px;
+
+    width: 60px;
+
+    height: 36px;
+
+    font-size: 6.5px;
+  }
+
+
+  .hw-tab-icon {
+
+    font-size: 12px;
+  }
+
+
+  .hw-search-fields {
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      36px;
+
+    gap: 5px;
+
+    padding-top: 5px;
+  }
+
+
+  .hw-search-field {
+
+    height: 33px;
+
+    padding: 0 8px;
+  }
+
+
+  .hw-search-field input {
+
+    font-size: 8.5px;
+  }
+
+
+  .hw-search-button {
+
+    width: 36px;
+
+    height: 33px;
+  }
+
+
+  .hw-search-button svg {
+
+    width: 14px;
+
+    height: 14px;
+  }
+}
+
       `}</style>
-    </div>
-  )
+
+    </section>
+  );
 }

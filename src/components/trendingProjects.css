@@ -1,0 +1,2835 @@
+/* =========================================================
+   HOMWISOR TRENDING PROJECTS STYLES
+   Extracted from TrendingProjects component
+   ========================================================= */
+
+/* =====================================================
+           TOP BUDGET PROJECTS
+        ===================================================== */
+
+        .hw-budget-section {
+          width: 100%;
+          padding: 28px 0 6px;
+          background: #fff;
+          box-sizing: border-box;
+        }
+
+        .hw-budget-header {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 24px;
+          margin-bottom: 12px;
+        }
+
+        .hw-budget-eyebrow {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          color: #9a7418;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 3px;
+          line-height: 1;
+          margin-bottom: 4px;
+        }
+
+        .hw-budget-eyebrow-line {
+          width: 24px;
+          height: 1px;
+          background: #d4af37;
+        }
+
+        .hw-budget-heading h2 {
+          margin: 0;
+          color: #102a43;
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 25px;
+          font-weight: 700;
+          line-height: 1.05;
+          letter-spacing: -.35px;
+        }
+
+        .hw-budget-heading h2 span {
+          color: #9a7418;
+        }
+
+        .hw-budget-heading p {
+          margin: 3px 0 0;
+          color: #718096;
+          font-size: 11px;
+          font-weight: 600;
+          line-height: 1.35;
+        }
+
+        .hw-budget-view-all {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          flex-shrink: 0;
+          color: #8b6818;
+          text-decoration: none;
+          font-size: 11px;
+          font-weight: 800;
+          white-space: nowrap;
+        }
+
+        .hw-budget-round-arrow {
+          width: 22px;
+          height: 22px;
+          border: 1px solid #d8b55a;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #9a7418;
+          font-size: 13px;
+          line-height: 1;
+          background: #fff;
+        }
+
+        .hw-budget-grid {
+          display: grid;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: 8px;
+          width: 100%;
+        }
+
+        .hw-budget-card {
+          position: relative;
+          height: 105px;
+          min-width: 0;
+          overflow: hidden;
+          display: block;
+          border: 1px solid #e1e5ea;
+          border-radius: 5px;
+          background: #ddd;
+          text-decoration: none;
+          isolation: isolate;
+        }
+
+        .hw-budget-card img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform .35s ease;
+          z-index: -2;
+        }
+
+        .hw-budget-card-overlay {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,.90) 0%, rgba(255,255,255,.63) 42%, rgba(5,18,30,.30) 100%),
+            linear-gradient(90deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.06) 100%);
+          z-index: -1;
+        }
+
+        .hw-budget-card:hover img {
+          transform: scale(1.06);
+        }
+
+        .hw-budget-icon {
+          position: absolute;
+          top: 7px;
+          left: 8px;
+          width: 23px;
+          height: 23px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(212,175,55,.75);
+          border-radius: 50%;
+          background: rgba(255,255,255,.88);
+          color: #b1841e;
+          font-size: 15px;
+          font-weight: 900;
+          line-height: 1;
+        }
+
+        .hw-budget-card-content {
+          position: absolute;
+          left: 9px;
+          right: 7px;
+          top: 37px;
+        }
+
+        .hw-budget-card-content h3 {
+          margin: 0;
+          color: #17324a;
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 12px;
+          font-weight: 900;
+          line-height: 1.15;
+          letter-spacing: -.1px;
+        }
+
+        .hw-budget-card-content p {
+          max-width: 120px;
+          margin: 3px 0 0;
+          color: #536577;
+          font-size: 10px;
+          font-weight: 600;
+          line-height: 1.25;
+        }
+
+        .hw-budget-card-arrow {
+          position: absolute;
+          left: 8px;
+          bottom: 7px;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #c89e32;
+          border-radius: 50%;
+          background: rgba(255,255,255,.9);
+          color: #9a7418;
+          font-size: 14px;
+          font-weight: 900;
+          line-height: 1;
+        }
+
+        @media (max-width: 900px) {
+          .hw-budget-grid {
+            grid-template-columns: repeat(5, 150px);
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 3px;
+          }
+
+          .hw-budget-grid::-webkit-scrollbar {
+            display: none;
+          }
+
+          .hw-budget-card {
+            height: 104px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .hw-budget-section {
+            padding: 24px 0 4px;
+          }
+
+          .hw-budget-header {
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+          }
+
+          .hw-budget-heading h2 {
+            font-size: 22px;
+          }
+
+          .hw-budget-heading p {
+            font-size: 10px;
+          }
+
+          .hw-budget-view-all {
+            margin-top: 4px;
+            font-size: 10px;
+          }
+
+          .hw-budget-view-all > .hw-budget-round-arrow:nth-last-child(1) {
+            display: none;
+          }
+
+          .hw-budget-grid {
+            grid-template-columns: repeat(5, 145px);
+            gap: 7px;
+          }
+
+          .hw-budget-card {
+            height: 102px;
+          }
+        }
+
+
+        /* =====================================================
+           BASE
+        ===================================================== */
+
+        .hw-trending-section {
+
+          width: 100%;
+
+          padding:
+            42px 0 55px;
+
+          background: #fff;
+
+          font-family: "Manrope", Arial, sans-serif;
+
+          box-sizing: border-box;
+
+          /*
+             IMPORTANT:
+             Do NOT use overflow:hidden here.
+             Sticky right slider needs overflow visible.
+          */
+
+          overflow: visible !important;
+
+        }
+
+
+        .hw-trending-container {
+
+          width:
+            min(1360px, calc(100% - 70px));
+
+          margin: 0 auto;
+
+          overflow: visible !important;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .hw-trending-header {
+
+          display: flex;
+
+          align-items: flex-end;
+
+          justify-content: space-between;
+
+          gap: 20px;
+
+          margin-bottom: 22px;
+
+        }
+
+
+        .hw-trending-eyebrow {
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 7px;
+
+          margin-bottom: 6px;
+
+          color: #a77b18;
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+          letter-spacing: 3px;
+
+        }
+
+
+        .hw-trending-eyebrow span {
+
+          display: block;
+
+          width: 27px;
+
+          height: 1px;
+
+          background: #D4AF37;
+
+        }
+
+
+        .hw-trending-heading h2 {
+
+          margin: 0;
+
+          color: #161616;
+
+          font-family: "Manrope", Arial, sans-serif;
+
+          font-size: 36px;
+
+          line-height: 1.12;
+
+          font-weight: 600;
+
+          letter-spacing: -.6px;
+
+        }
+
+
+        .hw-trending-heading h2 span {
+
+          color: #a77b18;
+
+        }
+
+
+        .hw-trending-heading p {
+
+          margin: 7px 0 0;
+
+          color: #777;
+
+          font-size: 14px;
+
+          line-height: 1.5;
+
+        }
+
+
+        /* =====================================================
+           VIEW ALL
+        ===================================================== */
+
+        .hw-trending-view-all {
+
+          flex-shrink: 0;
+
+          display: inline-flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          gap: 7px;
+
+          height: 36px;
+
+          padding: 0 16px;
+
+          border:
+            1px solid #D4AF37;
+
+          border-radius: 22px;
+
+          background: white;
+
+          color: #D4AF37;
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+          text-decoration: none;
+
+          white-space: nowrap;
+
+          transition: .25s ease;
+
+        }
+
+
+        .hw-trending-view-all:hover {
+
+          background: #D4AF37;
+
+          color: white;
+
+        }
+
+
+        .hw-trending-view-all svg {
+
+          width: 13px;
+
+          height: 13px;
+
+        }
+
+
+        /* =====================================================
+           MAIN TWO COLUMN LAYOUT
+        ===================================================== */
+
+        .hw-trending-layout {
+
+          display: grid;
+
+          grid-template-columns:
+            minmax(0, 1fr) 150px;
+
+          gap: 14px;
+
+          align-items: start;
+
+          width: 100%;
+
+          overflow: visible !important;
+
+        }
+
+
+        /* =====================================================
+           LEFT COLUMN
+        ===================================================== */
+
+        .hw-trending-left {
+
+          width: 100%;
+
+          min-width: 0;
+
+          overflow: visible !important;
+
+        }
+
+
+        /* =====================================================
+           TRENDING PROPERTY GRID
+        ===================================================== */
+
+        .hw-trending-properties {
+
+          width: 100%;
+
+          display: grid;
+
+          grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+          gap: 13px;
+
+          align-items: start;
+
+        }
+
+
+        /* =====================================================
+           PROPERTY CARD
+        ===================================================== */
+
+        .hw-trending-card {
+
+          display: block;
+
+          width: 100%;
+
+          min-width: 0;
+
+          overflow: hidden;
+
+          background: #fff;
+
+          border:
+            1px solid #e2e2e2;
+
+          border-radius: 9px;
+
+          text-decoration: none;
+
+          box-shadow:
+            0 2px 9px rgba(0,0,0,.045);
+
+          transition:
+            transform .25s ease,
+            box-shadow .25s ease,
+            border-color .25s ease;
+
+        }
+
+
+        .hw-trending-card:hover {
+
+          transform:
+            translateY(-3px);
+
+          border-color:
+            rgba(212,175,55,.55);
+
+          box-shadow:
+            0 10px 25px rgba(0,0,0,.10);
+
+        }
+
+
+        /* =====================================================
+           IMAGE
+        ===================================================== */
+
+        .hw-trending-image {
+
+          position: relative;
+
+          width: 100%;
+
+          height: 165px;
+
+          overflow: hidden;
+
+          background: #eee;
+
+        }
+
+
+        .hw-trending-image img {
+
+          width: 100%;
+
+          height: 100%;
+
+          display: block;
+
+          object-fit: cover;
+
+          transition:
+            transform .45s ease;
+
+        }
+
+
+        .hw-trending-card:hover
+        .hw-trending-image img {
+
+          transform:
+            scale(1.035);
+
+        }
+
+
+        .hw-image-overlay {
+
+          position: absolute;
+
+          inset: 0;
+
+          pointer-events: none;
+
+          background:
+            linear-gradient(
+              to bottom,
+              rgba(0,0,0,.04),
+              transparent 55%,
+              rgba(0,0,0,.24)
+            );
+
+        }
+
+
+        /* =====================================================
+           GREEN RERA
+        ===================================================== */
+
+        .hw-rera-group {
+
+          position: absolute;
+
+          top: 9px;
+
+          left: 9px;
+
+          z-index: 5;
+
+        }
+
+
+        .hw-rera-green {
+
+          height: 23px;
+
+          padding: 0 8px;
+
+          display: inline-flex;
+
+          align-items: center;
+
+          gap: 4px;
+
+          border-radius: 5px;
+
+          background: #10b95c;
+
+          color: #fff;
+
+          font-size: 12px;
+
+          line-height: 1;
+
+          font-weight: 800;
+
+          box-shadow:
+            0 2px 5px rgba(0,0,0,.12);
+
+        }
+
+
+        /* =====================================================
+           BHK
+        ===================================================== */
+
+        .hw-bhk-badge {
+
+          position: absolute;
+
+          right: 8px;
+
+          bottom: 8px;
+
+          max-width:
+            calc(100% - 16px);
+
+          padding:
+            6px 9px;
+
+          overflow: hidden;
+
+          border-radius: 14px;
+
+          background:
+            rgba(25,25,25,.84);
+
+          color: #fff;
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+          white-space: nowrap;
+
+          text-overflow: ellipsis;
+
+        }
+
+
+        /* =====================================================
+           CARD CONTENT
+        ===================================================== */
+
+        .hw-trending-card-content {
+
+          padding:
+            11px 10px 10px;
+
+        }
+
+
+        .hw-trending-card-content h3 {
+
+          margin: 0;
+
+          overflow: hidden;
+
+          color: #111827;
+
+          font-size: 15px;
+
+          line-height: 1.35;
+
+          font-weight: 800;
+
+          white-space: nowrap;
+
+          text-overflow: ellipsis;
+
+        }
+
+
+        .hw-card-price {
+
+          margin-top: 6px;
+
+          color: #b48722;
+
+          font-size: 15px;
+
+          font-weight: 900;
+
+        }
+
+
+        .hw-card-location {
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 4px;
+
+          margin-top: 5px;
+
+          min-width: 0;
+
+          color: #707070;
+
+          font-size: 12px;
+
+        }
+
+
+        .hw-card-location svg {
+
+          width: 11px;
+
+          height: 11px;
+
+          flex-shrink: 0;
+
+        }
+
+
+        .hw-card-location span {
+
+          overflow: hidden;
+
+          white-space: nowrap;
+
+          text-overflow: ellipsis;
+
+        }
+
+
+        /* =====================================================
+           CARD META
+        ===================================================== */
+
+        .hw-card-meta {
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 10px;
+
+          margin-top: 6px;
+
+        }
+
+
+        .hw-card-meta > div {
+
+          min-width: 0;
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 4px;
+
+          color: #777;
+
+          font-size: 11px;
+
+          font-weight: 600;
+
+          white-space: nowrap;
+
+        }
+
+
+        .hw-card-meta svg {
+
+          width: 10px;
+
+          height: 10px;
+
+          flex-shrink: 0;
+
+        }
+
+
+        /* =====================================================
+           WHATSAPP
+        ===================================================== */
+
+        .hw-card-whatsapp {
+
+          width: 100%;
+
+          height: 31px;
+
+          margin-top: 9px;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          gap: 5px;
+
+          box-sizing: border-box;
+
+          border-radius: 5px;
+
+          background: #087443;
+
+          color: #fff;
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+          text-decoration: none;
+
+          transition: .2s ease;
+
+        }
+
+
+        .hw-card-whatsapp:hover {
+
+          background: #075c36;
+
+          color: #fff;
+
+        }
+
+
+        .hw-card-whatsapp svg {
+
+          width: 12px;
+
+          height: 12px;
+
+        }
+
+
+        /* =====================================================
+           BRANDED RESIDENCES FEATURE BANNER
+        ===================================================== */
+
+        .hw-branded-feature {
+          width: 100%;
+          margin-top: 28px;
+          margin-bottom: 8px;
+        }
+
+        .hw-branded-feature-inner {
+          position: relative;
+          display: grid;
+          grid-template-columns: minmax(0, 1.08fr) minmax(420px, .92fr);
+          gap: 26px;
+          align-items: center;
+          min-height: 315px;
+          padding: 30px 28px;
+          overflow: hidden;
+          border: 1px solid #F2D47A;
+          border-left: 4px solid #D4AF37;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #FFFCF3 0%, #FFF5E5 48%, #FFFFFF 100%);
+          box-shadow: 0 10px 34px rgba(212,175,55,.12);
+          box-sizing: border-box;
+        }
+
+        .hw-branded-glow {
+          position: absolute;
+          right: 20%;
+          top: -100px;
+          width: 260px;
+          height: 260px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(212,175,55,.14), transparent 70%);
+          pointer-events: none;
+        }
+
+        .hw-branded-copy {
+          position: relative;
+          z-index: 2;
+          min-width: 0;
+        }
+
+        .hw-branded-label {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          color: #9A7418;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 2.2px;
+        }
+
+        .hw-branded-label-line {
+          width: 34px;
+          height: 1px;
+          background: #B9943A;
+        }
+
+        .hw-branded-copy h2 {
+          margin: 12px 0 0;
+          max-width: 650px;
+          color: #101828;
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: clamp(27px, 3vw, 43px);
+          line-height: 1.04;
+          letter-spacing: -.7px;
+          font-weight: 800;
+        }
+
+        .hw-branded-copy h2 span {
+          color: #A77B18;
+        }
+
+        .hw-branded-copy p {
+          max-width: 620px;
+          margin: 13px 0 0;
+          color: #64748B;
+          font-size: 13px;
+          line-height: 1.65;
+        }
+
+        .hw-branded-points {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 18px;
+          margin-top: 15px;
+          color: #334155;
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        .hw-branded-points > div {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+        }
+
+        .hw-branded-point-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          color: #A77B18;
+          background: #FFF8E7;
+          border: 1px solid #F1D77E;
+          font-size: 10px;
+        }
+
+        .hw-branded-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px;
+          margin-top: 17px;
+        }
+
+        .hw-branded-primary,
+        .hw-branded-secondary {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 34px;
+          padding: 0 14px;
+          border-radius: 7px;
+          box-sizing: border-box;
+          text-decoration: none;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: .15px;
+          transition: .2s ease;
+        }
+
+        .hw-branded-primary {
+          gap: 8px;
+          color: #D4AF37;
+          background: #090909;
+          border: 1px solid #D4AF37;
+        }
+
+        .hw-branded-primary span {
+          font-size: 15px;
+          line-height: 1;
+        }
+
+        .hw-branded-secondary {
+          color: #9A7418;
+          background: #fff;
+          border: 1px solid #D4AF37;
+        }
+
+        .hw-branded-primary:hover,
+        .hw-branded-secondary:hover {
+          transform: translateY(-1px);
+        }
+
+        .hw-branded-visual {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) 106px;
+          gap: 10px;
+          align-items: center;
+          min-width: 0;
+        }
+
+        .hw-branded-main-image {
+          position: relative;
+          height: 235px;
+          overflow: hidden;
+          border: 1px solid #E8C85D;
+          border-radius: 14px;
+          background: #fff;
+          box-shadow: 0 10px 26px rgba(0,0,0,.10);
+        }
+
+        .hw-branded-main-image img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .hw-branded-image-card {
+          position: absolute;
+          left: 9px;
+          right: 9px;
+          bottom: 9px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          padding: 8px 9px;
+          border: 1px solid rgba(212,175,55,.30);
+          border-radius: 9px;
+          background: rgba(255,255,255,.95);
+          backdrop-filter: blur(8px);
+        }
+
+        .hw-branded-image-card div {
+          min-width: 0;
+        }
+
+        .hw-branded-image-card small {
+          display: block;
+          color: #A77B18;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: .7px;
+        }
+
+        .hw-branded-image-card strong {
+          display: block;
+          margin-top: 2px;
+          color: #111827;
+          font-size: 12px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .hw-branded-image-card a {
+          flex: 0 0 auto;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 6px 8px;
+          border-radius: 5px;
+          color: #000;
+          background: #D4AF37;
+          text-decoration: none;
+          font-size: 10px;
+          font-weight: 900;
+        }
+
+        .hw-branded-side-card {
+          position: relative;
+          height: 250px;
+          overflow: hidden;
+          border: 1px solid #D4AF37;
+          border-radius: 11px;
+          background: #000;
+        }
+
+        .hw-branded-side-card img,
+        .hw-branded-side-overlay {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .hw-branded-side-card img {
+          object-fit: cover;
+          opacity: .9;
+        }
+
+        .hw-branded-side-overlay {
+          background: linear-gradient(to top, rgba(0,0,0,.9) 10%, rgba(0,0,0,.05) 72%);
+        }
+
+        .hw-branded-side-content {
+          position: absolute;
+          left: 7px;
+          right: 7px;
+          bottom: 8px;
+          color: #fff;
+          text-align: center;
+        }
+
+        .hw-branded-side-content span,
+        .hw-branded-side-content strong,
+        .hw-branded-side-content small,
+        .hw-branded-side-content em,
+        .hw-branded-side-content label,
+        .hw-branded-side-content b {
+          display: block;
+        }
+
+        .hw-branded-side-content span {
+          color: #D4AF37;
+          font-size: 10px;
+          letter-spacing: 1px;
+        }
+
+        .hw-branded-side-content strong {
+          margin-top: 2px;
+          color: #D4AF37;
+          font-size: 15px;
+          letter-spacing: .8px;
+        }
+
+        .hw-branded-side-content small {
+          font-size: 5px;
+          letter-spacing: 1.5px;
+        }
+
+        .hw-branded-side-content em {
+          margin-top: 8px;
+          color: rgba(255,255,255,.65);
+          font-size: 5px;
+          font-style: normal;
+          letter-spacing: .7px;
+        }
+
+        .hw-branded-side-content label {
+          margin-top: 9px;
+          color: #D4AF37;
+          font-size: 5px;
+          font-style: italic;
+        }
+
+        .hw-branded-side-content b {
+          margin-top: 2px;
+          font-size: 5px;
+          letter-spacing: .7px;
+        }
+
+        .hw-branded-side-content > div {
+          display: inline-block;
+          margin-top: 7px;
+          padding: 4px 5px;
+          border-radius: 4px;
+          color: #000;
+          background: linear-gradient(90deg, #D4AF37, #B9943A);
+          font-size: 5px;
+          font-weight: 900;
+          white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           TOP LUXURY PROJECTS
+           SAME VISUAL SYSTEM AS TRENDING PROJECTS
+        ===================================================== */
+
+        .hw-luxury-projects {
+          width: 100%;
+          margin-top: 38px;
+          overflow: visible;
+        }
+
+        .hw-luxury-header {
+          margin-bottom: 15px;
+        }
+
+        .hw-luxury-grid {
+          width: 100%;
+        }
+
+
+        /* =====================================================
+           PRIME LOCATIONS
+        ===================================================== */
+
+        .hw-prime-locations {
+
+          width: 100%;
+
+          margin-top: 36px;
+
+          overflow: visible;
+
+        }
+
+
+        .hw-subsection-header {
+
+          margin-bottom: 15px;
+
+        }
+
+
+        .hw-subsection-eyebrow {
+
+          margin-bottom: 5px;
+
+          color: #a77b18;
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+          letter-spacing: 2.5px;
+
+        }
+
+
+        .hw-prime-locations h2,
+        .hw-upcoming-projects h2 {
+
+          margin: 0;
+
+          color: #151515;
+
+          font-family: "Manrope", Arial, sans-serif;
+
+          font-size: 29px;
+
+          line-height: 1.15;
+
+          font-weight: 600;
+
+        }
+
+
+        .hw-prime-locations h2 span,
+        .hw-upcoming-projects h2 span {
+
+          color: #a77b18;
+
+        }
+
+
+        .hw-prime-locations p,
+        .hw-upcoming-projects p {
+
+          margin: 5px 0 0;
+
+          color: #777;
+
+          font-size: 12px;
+
+          line-height: 1.45;
+
+        }
+
+
+        /* =====================================================
+           LOCATION GRID
+        ===================================================== */
+
+        .hw-location-grid {
+
+          display: grid;
+
+          grid-template-columns:
+            repeat(6, minmax(0, 1fr));
+
+          gap: 9px;
+
+          width: 100%;
+
+        }
+
+
+        .hw-location-card {
+
+          position: relative;
+
+          display: block;
+
+          width: 100%;
+
+          aspect-ratio: 1.05;
+
+          overflow: hidden;
+
+          border-radius: 9px;
+
+          background: #111;
+
+          text-decoration: none;
+
+        }
+
+
+        .hw-location-card img {
+
+          width: 100%;
+
+          height: 100%;
+
+          display: block;
+
+          object-fit: cover;
+
+          transition:
+            transform .4s ease;
+
+        }
+
+
+        .hw-location-card:hover img {
+
+          transform:
+            scale(1.06);
+
+        }
+
+
+        .hw-location-overlay {
+
+          position: absolute;
+
+          inset: 0;
+
+          background:
+            linear-gradient(
+              to top,
+              rgba(0,0,0,.78) 5%,
+              rgba(0,0,0,.15) 65%,
+              transparent
+            );
+
+        }
+
+
+        .hw-location-content {
+
+          position: absolute;
+
+          left: 0;
+
+          right: 0;
+
+          bottom: 0;
+
+          padding: 10px;
+
+          color: #fff;
+
+        }
+
+
+        .hw-location-name {
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+        }
+
+
+        .hw-location-count {
+
+          margin-top: 3px;
+
+          color:
+            rgba(255,255,255,.82);
+
+          font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           UPCOMING
+        ===================================================== */
+
+        .hw-upcoming-projects {
+
+          width: 100%;
+
+          margin-top: 38px;
+
+          overflow: visible;
+
+        }
+
+
+        .hw-upcoming-header {
+
+          display: flex;
+
+          align-items: flex-end;
+
+          justify-content: space-between;
+
+          gap: 15px;
+
+          margin-bottom: 15px;
+
+        }
+
+
+        .hw-upcoming-view-all {
+
+          flex-shrink: 0;
+
+          display: inline-flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          gap: 6px;
+
+          height: 33px;
+
+          padding: 0 13px;
+
+          border:
+            1px solid #D4AF37;
+
+          border-radius: 20px;
+
+          background: white;
+
+          color: #D4AF37;
+
+          font-size: 12px;
+
+          font-weight: 800;
+
+          text-decoration: none;
+
+          white-space: nowrap;
+
+        }
+       .hw-upcoming-view-all:hover {
+
+          background: #D4AF37;
+
+          color: white;
+
+        }
+
+        .hw-upcoming-view-all svg {
+
+          width: 12px;
+
+          height: 12px;
+
+        }
+
+
+        .hw-upcoming-grid {
+
+          width: 100%;
+
+          display: grid;
+
+          grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+          gap: 12px;
+
+        }
+
+
+        /* =====================================================
+           FESTIVAL OFFERS
+        ===================================================== */
+
+        .hw-festival-offers {
+          width: 100%;
+          margin-top: 38px;
+          padding-top: 28px;
+          border-top: 1px solid #e7e0d1;
+          box-sizing: border-box;
+        }
+
+        .hw-festival-header {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 18px;
+          margin-bottom: 15px;
+        }
+
+        .hw-festival-title-wrap {
+          min-width: 0;
+        }
+
+        .hw-festival-brand-line {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 7px;
+          margin-bottom: 4px;
+          color: #8d6a22;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 2.7px;
+        }
+
+        .hw-festival-brand-line span {
+          width: 25px;
+          height: 1px;
+          background: #c7a75a;
+          display: block;
+        }
+
+        .hw-festival-title-wrap h2 {
+          margin: 0;
+          color: #111;
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 30px;
+          line-height: 1.08;
+          font-weight: 600;
+          letter-spacing: -.4px;
+        }
+
+        .hw-festival-title-wrap h2 span {
+          color: #a77b18;
+        }
+
+        .hw-festival-title-wrap p {
+          margin: 5px 0 0;
+          color: #777;
+          font-size: 13px;
+          line-height: 1.45;
+        }
+
+        .hw-festival-view-all {
+          flex-shrink: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          height: 29px;
+          padding: 0 12px;
+          border: 1px solid #D4AF37;
+          border-radius: 18px;
+          background: #fff;
+          color: #D4AF37;
+          font-size: 12px;
+          font-weight: 800;
+          text-decoration: none;
+          white-space: nowrap;
+          transition: .2s ease;
+        }
+
+        .hw-festival-view-all:hover {
+          background: #D4AF37;
+          color: white;
+          border-color: #D4AF37;
+        }
+
+        .hw-festival-view-all svg {
+          width: 11px;
+          height: 11px;
+        }
+
+        .hw-festival-layout {
+          display: grid;
+          grid-template-columns: 25% minmax(0, 1fr);
+          gap: 9px;
+          width: 100%;
+          align-items: stretch;
+        }
+
+        .hw-festival-banner {
+          position: relative;
+          min-height: 335px;
+          overflow: hidden;
+          border-radius: 7px;
+          background: #111;
+          box-shadow: 0 5px 18px rgba(0,0,0,.12);
+        }
+
+        .hw-festival-banner-bg {
+          position: absolute;
+          inset: 0;
+          background:
+            url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=90")
+            center / cover no-repeat;
+          transform: scale(1.03);
+        }
+
+        .hw-festival-banner-overlay {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(8,8,8,.18) 0%,
+              rgba(8,8,8,.48) 36%,
+              rgba(8,8,8,.94) 100%
+            );
+        }
+
+        .hw-festival-banner-content {
+          position: relative;
+          z-index: 2;
+          height: 100%;
+          min-height: 335px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 13px 14px 15px;
+          box-sizing: border-box;
+          color: #fff;
+        }
+
+        .hw-festival-mini-badge {
+          display: inline-flex;
+          align-items: center;
+          min-height: 17px;
+          padding: 0 7px;
+          border-radius: 10px;
+          background: #f4ca4f;
+          color: #17120a;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: .2px;
+        }
+
+        .hw-festival-banner-kicker {
+          margin-top: 19px;
+          color: #e9c55c;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 1.8px;
+        }
+
+        .hw-festival-banner-content h3 {
+          margin: 5px 0 0;
+          color: #fff;
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 29px;
+          line-height: .94;
+          font-weight: 700;
+          letter-spacing: -.4px;
+        }
+
+        .hw-festival-banner-content p {
+          max-width: 180px;
+          margin: 10px 0 0;
+          color: rgba(255,255,255,.83);
+          font-size: 12px;
+          line-height: 1.45;
+        }
+
+        .hw-festival-perks {
+          display: grid;
+          gap: 7px;
+          margin-top: 12px;
+        }
+
+        .hw-festival-perks div {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          color: #fff;
+          font-size: 12px;
+          line-height: 1.2;
+        }
+
+        .hw-festival-perks span {
+          width: 17px;
+          height: 17px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          border-radius: 50%;
+          background: #f0c64f;
+          color: #20180b;
+          font-size: 12px;
+        }
+
+        .hw-festival-perks b {
+          font-weight: 700;
+        }
+
+        .hw-festival-explore {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          min-height: 25px;
+          margin-top: auto;
+          padding: 0 10px;
+          border-radius: 4px;
+          background: #eac14c;
+          color: #18130a;
+          font-size: 12px;
+          font-weight: 900;
+          text-decoration: none;
+        }
+
+        .hw-festival-explore span {
+          font-size: 14px;
+          line-height: 1;
+        }
+
+        .hw-festival-banner-brand {
+          position: absolute;
+          right: 9px;
+          bottom: 8px;
+          z-index: 3;
+          color: rgba(255,255,255,.72);
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 10px;
+          letter-spacing: 2px;
+        }
+
+        .hw-festival-grid {
+          min-width: 0;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 8px;
+        }
+
+        .hw-festival-card {
+          position: relative;
+          min-width: 0;
+          overflow: hidden;
+          border: 1px solid #dedede;
+          border-radius: 6px;
+          background: #fff;
+          text-decoration: none;
+          box-shadow: 0 2px 8px rgba(0,0,0,.045);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .hw-festival-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 18px rgba(0,0,0,.10);
+        }
+
+        .hw-festival-card-image {
+          position: relative;
+          height: 106px;
+          overflow: hidden;
+          background: #eee;
+        }
+
+        .hw-festival-card-image img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          transition: transform .35s ease;
+        }
+
+        .hw-festival-card:hover .hw-festival-card-image img {
+          transform: scale(1.045);
+        }
+
+        .hw-festival-card-badge {
+          position: absolute;
+          top: 6px;
+          left: 6px;
+          max-width: calc(100% - 30px);
+          padding: 3px 5px;
+          overflow: hidden;
+          border-radius: 3px;
+          background: #f2ca50;
+          color: #1a1408;
+          font-size: 10px;
+          line-height: 1;
+          font-weight: 900;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .hw-festival-card-arrow {
+          position: absolute;
+          right: 6px;
+          bottom: 6px;
+          width: 21px;
+          height: 21px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background: rgba(255,255,255,.88);
+          color: #7b5a18;
+          font-size: 15px;
+          font-weight: 800;
+          box-shadow: 0 2px 5px rgba(0,0,0,.12);
+        }
+
+        .hw-festival-card-content {
+          padding: 7px 7px 8px;
+        }
+
+        .hw-festival-card-content h3 {
+          margin: 0;
+          overflow: hidden;
+          color: #202020;
+          font-size: 13px;
+          line-height: 1.25;
+          font-weight: 800;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .hw-festival-card-price {
+          margin-top: 4px;
+          color: #a77b18;
+          font-size: 13px;
+          font-weight: 900;
+        }
+
+        .hw-festival-card-location {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          margin-top: 4px;
+          min-width: 0;
+          color: #777;
+          font-size: 12px;
+        }
+
+        .hw-festival-card-location svg {
+          width: 9px;
+          height: 9px;
+          flex-shrink: 0;
+        }
+
+        .hw-festival-card-location span {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+
+
+        /* =====================================================
+           RIGHT STICKY AD
+        ===================================================== */
+
+        .hw-upcoming-empty {
+          grid-column: 1 / -1;
+          min-height: 130px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          padding: 24px;
+          border: 1px dashed #d8d8d8;
+          border-radius: 9px;
+          background: #fafafa;
+          color: #555;
+          text-align: center;
+          box-sizing: border-box;
+        }
+
+        .hw-upcoming-empty strong {
+          color: #222;
+          font-size: 15px;
+          font-weight: 800;
+        }
+
+        .hw-upcoming-empty span {
+          color: #888;
+          font-size: 12px;
+          line-height: 1.5;
+        }
+
+        .hw-upcoming-empty code {
+          color: #a77b18;
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 12px;
+        }
+
+
+        .hw-trending-ad {
+
+          width: 150px;
+
+          min-width: 150px;
+
+          position: sticky !important;
+
+          top: 86px !important;
+
+          align-self: start;
+
+          height:
+            min(680px, calc(100vh - 110px));
+
+          z-index: 100;
+
+        }
+
+
+        .hw-ad-slider {
+
+          position: relative;
+
+          width: 100%;
+
+          height: 100%;
+
+          min-height: 0;
+
+          overflow: hidden;
+
+          border-radius: 9px;
+
+          background: #111;
+
+          box-shadow:
+            0 8px 25px rgba(0,0,0,.16);
+
+        }
+
+
+        .hw-ad-slider img {
+
+          position: absolute;
+
+          inset: 0;
+
+          width: 100%;
+
+          height: 100%;
+
+          object-fit: contain;
+
+          object-position: center top;
+
+          background: #111;
+
+          opacity: 0;
+
+          transition:
+            opacity .8s ease;
+
+        }
+
+
+        .hw-ad-slider img.active {
+
+          opacity: 1;
+
+        }
+
+
+        .hw-ad-dark {
+
+          position: absolute;
+
+          inset: 0;
+
+          z-index: 2;
+
+          pointer-events: none;
+
+          background:
+            linear-gradient(
+              to bottom,
+              rgba(0,0,0,.3),
+              rgba(0,0,0,.06) 45%,
+              rgba(0,0,0,.65)
+            );
+
+        }
+
+
+        .hw-ad-overlay {
+
+          position: absolute;
+
+          inset: 0;
+
+          z-index: 3;
+
+          display: flex;
+
+          flex-direction: column;
+
+          align-items: center;
+
+          padding: 22px 12px;
+
+          text-align: center;
+
+          color: #fff;
+
+          pointer-events: none;
+
+        }
+
+
+        .hw-ad-brand {
+
+          color: #D4AF37;
+
+          font-family: "Manrope", Arial, sans-serif;
+
+          font-size: 15px;
+
+          letter-spacing: 2px;
+
+          font-weight: 600;
+
+        }
+
+
+        .hw-ad-tagline {
+
+          margin-top: 5px;
+
+          font-size: 11px;
+
+          line-height: 1.45;
+
+          letter-spacing: 1.1px;
+
+          font-weight: 700;
+
+        }
+
+
+        .hw-ad-line {
+
+          width: 38px;
+
+          height: 1px;
+
+          margin: 11px 0;
+
+          background:
+            #D4AF37;
+
+        }
+
+
+        .hw-ad-title {
+
+          font-size: 12px;
+
+          line-height: 1.7;
+
+          letter-spacing: 1px;
+
+          font-weight: 800;
+
+        }
+
+
+        /* =====================================================
+           AD DOTS
+        ===================================================== */
+
+        .hw-ad-dots {
+
+          position: absolute;
+
+          left: 0;
+
+          right: 0;
+
+          bottom: 12px;
+
+          z-index: 10;
+
+          display: flex;
+
+          justify-content: center;
+
+          gap: 5px;
+
+        }
+
+
+        .hw-ad-dots button {
+
+          width: 6px;
+
+          height: 6px;
+
+          padding: 0;
+
+          border: 0;
+
+          border-radius: 50%;
+
+          background:
+            rgba(255,255,255,.45);
+
+          cursor: pointer;
+
+        }
+
+
+        .hw-ad-dots button.active {
+
+          width: 17px;
+
+          border-radius: 8px;
+
+          background: #ed2435;
+
+        }
+
+
+        /* =====================================================
+           LAPTOP
+        ===================================================== */
+
+        @media (max-width: 1150px) {
+
+          .hw-trending-container {
+
+            width:
+              calc(100% - 40px);
+
+          }
+
+
+          .hw-trending-layout {
+
+            grid-template-columns:
+              minmax(0,1fr) 135px;
+
+          }
+
+
+          .hw-trending-ad {
+
+            width: 135px;
+
+            min-width: 135px;
+
+            top: 76px !important;
+
+            height: min(620px, calc(100vh - 100px));
+
+          }
+
+
+          .hw-trending-properties {
+
+            gap: 9px;
+
+          }
+
+
+          .hw-trending-image {
+
+            height: 145px;
+
+          }
+
+
+          .hw-location-grid {
+
+            gap: 7px;
+
+          }
+
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+          .hw-trending-layout {
+
+            grid-template-columns:
+              minmax(0,1fr) 115px;
+
+          }
+
+
+          .hw-trending-ad {
+
+            width: 115px;
+
+            min-width: 115px;
+
+            top: 72px !important;
+
+            height: min(560px, calc(100vh - 92px));
+
+          }
+
+
+          .hw-trending-image {
+
+            height: 130px;
+
+          }
+
+
+          .hw-location-grid {
+
+            grid-template-columns:
+              repeat(3,minmax(0,1fr));
+
+          }
+
+
+          .hw-prime-locations h2,
+          .hw-upcoming-projects h2 {
+
+            font-size: 26px;
+
+          }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+          .hw-trending-section {
+
+            padding:
+              32px 0 42px;
+
+          }
+
+
+          .hw-trending-container {
+
+            width:
+              calc(100% - 24px);
+
+          }
+
+
+          /*
+             Mobile par 2-column sticky hata diya.
+             Content normal flow mein.
+          */
+
+          .hw-trending-layout {
+
+            display: block;
+
+            overflow: visible !important;
+
+          }
+
+
+          .hw-trending-left {
+
+            width: 100%;
+
+          }
+
+
+          .hw-trending-properties {
+
+            grid-template-columns:
+              repeat(2,minmax(0,1fr));
+
+            gap: 9px;
+
+          }
+
+
+          .hw-trending-image {
+
+            height: 135px;
+
+          }
+
+
+          .hw-trending-card-content {
+
+            padding:
+              9px 8px;
+
+          }
+
+
+          .hw-trending-card-content h3 {
+
+            font-size: 13px;
+
+          }
+
+
+          .hw-card-price {
+
+            font-size: 14px;
+
+          }
+
+
+          .hw-card-location {
+
+            font-size: 11px;
+
+          }
+
+
+          .hw-card-meta > div {
+
+            font-size: 10px;
+
+          }
+
+
+          .hw-card-whatsapp {
+
+            height: 30px;
+
+            font-size: 11px;
+
+          }
+
+
+          /* FESTIVAL OFFERS */
+
+          .hw-festival-offers {
+            margin-top: 30px;
+            padding-top: 22px;
+          }
+
+          .hw-festival-header {
+            align-items: flex-start;
+          }
+
+          .hw-festival-title-wrap h2 {
+            font-size: 25px;
+          }
+
+          .hw-festival-title-wrap p {
+            font-size: 11px;
+          }
+
+          .hw-festival-view-all {
+            height: 27px;
+            padding: 0 9px;
+            font-size: 10px;
+          }
+
+          .hw-festival-layout {
+            grid-template-columns: 1fr;
+            gap: 9px;
+          }
+
+          .hw-festival-banner {
+            min-height: 255px;
+          }
+
+          .hw-festival-banner-content {
+            min-height: 255px;
+            padding: 12px 13px;
+          }
+
+          .hw-festival-banner-content h3 {
+            font-size: 30px;
+          }
+
+          .hw-festival-banner-content p {
+            max-width: 230px;
+            font-size: 11px;
+          }
+
+          .hw-festival-perks div {
+            font-size: 11px;
+          }
+
+          .hw-festival-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+          }
+
+          .hw-festival-card-image {
+            height: 105px;
+          }
+
+          .hw-festival-card-content h3 {
+            font-size: 12px;
+          }
+
+          .hw-festival-card-price {
+            font-size: 12px;
+          }
+
+          .hw-festival-card-location {
+            font-size: 10px;
+          }
+
+
+
+          /* PRIME LOCATION */
+
+          .hw-location-grid {
+
+            grid-template-columns:
+              repeat(3,minmax(0,1fr));
+
+            gap: 8px;
+
+          }
+
+
+          /* UPCOMING */
+
+          .hw-upcoming-grid {
+
+            grid-template-columns:
+              repeat(2,minmax(0,1fr));
+
+            gap: 9px;
+
+          }
+
+
+          .hw-upcoming-header {
+
+            align-items:
+              flex-start;
+
+          }
+
+
+          /* AD */
+
+          .hw-trending-ad {
+
+            position: relative !important;
+
+            top: auto !important;
+
+            width: 190px;
+
+            min-width: 190px;
+
+            height: 400px;
+
+            margin:
+              28px auto 0;
+
+          }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+          .hw-branded-feature {
+            margin-top: 20px;
+          }
+
+          .hw-branded-feature-inner {
+            grid-template-columns: 1fr;
+            gap: 14px;
+            min-height: auto;
+            padding: 20px 16px;
+            border-left-width: 3px;
+            border-radius: 14px;
+          }
+
+          .hw-branded-label {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+          }
+
+          .hw-branded-label-line {
+            width: 22px;
+          }
+
+          .hw-branded-copy h2 {
+            font-size: 25px;
+            line-height: 1.08;
+          }
+
+          .hw-branded-copy p {
+            font-size: 11px;
+            line-height: 1.6;
+          }
+
+          .hw-branded-points {
+            gap: 8px 14px;
+            font-size: 10px;
+          }
+
+          .hw-branded-point-icon {
+            width: 17px;
+            height: 17px;
+            font-size: 10px;
+          }
+
+          .hw-branded-actions {
+            gap: 7px;
+            margin-top: 14px;
+          }
+
+          .hw-branded-primary,
+          .hw-branded-secondary {
+            min-height: 30px;
+            padding: 0 10px;
+            font-size: 10px;
+          }
+
+          .hw-branded-visual {
+            grid-template-columns: minmax(0, 1fr) 76px;
+            gap: 7px;
+          }
+
+          .hw-branded-main-image {
+            height: 170px;
+            border-radius: 10px;
+          }
+
+          .hw-branded-side-card {
+            height: 180px;
+            border-radius: 9px;
+          }
+
+          .hw-branded-image-card {
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            padding: 6px 7px;
+          }
+
+          .hw-branded-image-card small {
+            font-size: 5px;
+          }
+
+          .hw-branded-image-card strong {
+            font-size: 10px;
+          }
+
+          .hw-branded-image-card a {
+            padding: 5px 6px;
+            font-size: 5px;
+          }
+
+          .hw-branded-side-content strong {
+            font-size: 14px;
+          }
+        }
+
+        @media (max-width: 520px) {
+
+          .hw-trending-container {
+
+            width:
+              calc(100% - 18px);
+
+          }
+
+
+          .hw-trending-heading h2 {
+
+            font-size: 26px;
+
+          }
+
+
+          .hw-trending-heading p {
+
+            font-size: 12px;
+
+          }
+
+
+          .hw-trending-view-all {
+
+            height: 32px;
+
+            padding: 0 11px;
+
+            font-size: 11px;
+
+          }
+
+
+          .hw-trending-properties {
+
+            gap: 8px;
+
+          }
+
+
+          .hw-trending-image {
+
+            height: 120px;
+
+          }
+
+
+          .hw-rera-green {
+
+            height: 21px;
+
+            padding: 0 7px;
+
+            font-size: 11px;
+
+          }
+
+
+          .hw-bhk-badge {
+
+            font-size: 10px;
+
+            padding: 5px 7px;
+
+          }
+
+
+          .hw-trending-card-content {
+
+            padding:
+              8px 7px;
+
+          }
+
+
+          .hw-trending-card-content h3 {
+
+            font-size: 12px;
+
+          }
+
+
+          .hw-card-price {
+
+            font-size: 13px;
+
+          }
+
+
+          .hw-card-location {
+
+            font-size: 10px;
+
+          }
+
+
+          .hw-card-meta {
+
+            gap: 5px;
+
+          }
+
+
+          .hw-card-meta > div {
+
+            font-size: 10px;
+
+          }
+
+
+          .hw-card-whatsapp {
+
+            height: 28px;
+
+            font-size: 10px;
+
+          }
+
+
+          .hw-location-grid {
+
+            grid-template-columns:
+              repeat(2,minmax(0,1fr));
+
+          }
+
+
+          .hw-prime-locations h2,
+          .hw-upcoming-projects h2 {
+
+            font-size: 22px;
+
+          }
+
+
+          .hw-prime-locations p,
+          .hw-upcoming-projects p {
+
+            font-size: 12px;
+
+          }
+
+
+          .hw-festival-header {
+            gap: 8px;
+          }
+
+          .hw-festival-brand-line {
+            font-size: 10px;
+            letter-spacing: 2px;
+          }
+
+          .hw-festival-title-wrap h2 {
+            font-size: 22px;
+          }
+
+          .hw-festival-title-wrap p {
+            font-size: 10px;
+          }
+
+          .hw-festival-view-all {
+            height: 25px;
+            padding: 0 7px;
+            font-size: 10px;
+          }
+
+          .hw-festival-banner {
+            min-height: 235px;
+          }
+
+          .hw-festival-banner-content {
+            min-height: 235px;
+          }
+
+          .hw-festival-banner-content h3 {
+            font-size: 25px;
+          }
+
+          .hw-festival-card-image {
+            height: 92px;
+          }
+
+          .hw-festival-card-content {
+            padding: 6px;
+          }
+
+          .hw-festival-card-content h3 {
+            font-size: 12px;
+          }
+
+
+
+          .hw-upcoming-view-all {
+
+            height: 30px;
+
+            padding: 0 9px;
+
+            font-size: 10px;
+
+          }
+
+
+          .hw-trending-ad {
+
+            width: 175px;
+
+            min-width: 175px;
+
+            height: 370px;
+
+          }
+
+        }
