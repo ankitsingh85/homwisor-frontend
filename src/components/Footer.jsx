@@ -150,7 +150,6 @@ export default function Footer() {
                 <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Terms & Conditions</a>
                 <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Disclaimer</a>
                 <Link to="/property-snaps" style={{ color: GOLD, fontWeight: 700 }}>Property Snaps →</Link>
-                <Link to="/admin" style={{ color: 'rgba(255,255,255,.5)', fontSize: 12 }}>Admin Panel</Link>
               </div>
             </div>
           </div>
