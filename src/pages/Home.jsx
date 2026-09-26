@@ -971,7 +971,7 @@ export default function Home(){
               letterSpacing: '-.4px'
             }}
           >
-            Why Choose <span style={{ color: '#9A641A' }}>HomWisor?</span>
+            Why Choose Us
           </h2>
 
           <p
@@ -1254,247 +1254,112 @@ export default function Home(){
         }}
       >
 
-        {/* Heading */}
-        <div
-          style={{
-            textAlign: 'center',
-            marginBottom: 18
-          }}
-        >
+        
+
+
+       {/* =========================================
+    CUSTOMER TESTIMONIALS
+========================================= */}
+
+<section className="container hw-testimonials-premium">
+
+  {/* Heading */}
+  <div className="hw-testimonial-heading">
+
+    <div className="hw-testimonial-eyebrow">
+      <span></span>
+      <strong>REAL STORIES, REAL HOMES</strong>
+      <span></span>
+    </div>
+
+    <h2>
+      Customer Testimonials
+    </h2>
+
+    <p>
+      Hear from our happy homeowners who found their dream properties with us.
+    </p>
+
+  </div>
+
+
+  {/* Testimonial Cards */}
+  <div className="hw-testimonial-grid">
+
+    {testimonialsFallback.slice(0, 4).map((t, index) => (
+
+      <div
+        key={t.id}
+        className="hw-testimonial-card"
+      >
+
+        {/* Top */}
+        <div className="hw-testimonial-top">
 
           <div
+            className="hw-review-icon"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              marginBottom: 4
+              background: t.color || '#E5E7EB',
+              color: t.textColor || '#64748B'
             }}
           >
-            <span
-              style={{
-                width: 38,
-                height: 1,
-                background: GOLD,
-                display: 'inline-block'
-              }}
-            />
-
-            <span
-              style={{
-                fontSize: 8,
-                letterSpacing: 2.5,
-                fontWeight: 800,
-                color: '#9A7A22'
-              }}
-            >
-              REAL STORIES, REAL HOMES
-            </span>
-
-            <span
-              style={{
-                width: 38,
-                height: 1,
-                background: GOLD,
-                display: 'inline-block'
-              }}
-            />
+            “
           </div>
 
-          <h2
-            style={{
-              margin: 0,
-              fontSize: 36,
-              lineHeight: 1.08,
-              fontWeight: 800,
-              color: '#8B5E1A',
-              fontFamily: "'Playfair Display', Georgia, serif"
-            }}
-          >
-            Customer Testimonials
-          </h2>
-
-          <p
-            style={{
-              margin: '4px 0 0',
-              fontSize: 12,
-              color: '#64748B'
-            }}
-          >
-            Hear from our happy homeowners who found their dream properties with us.
-          </p>
+          <div className="hw-google">
+            <span className="google-g">G</span>
+            <span>Google</span>
+          </div>
 
         </div>
 
 
-        {/* Testimonial cards */}
-        <div
-          className="hw-testimonial-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-            gap: 8
-          }}
-        >
-
-          {testimonialsFallback.slice(0, 4).map((t, index) => (
-
-            <div
-              key={t.id}
-              className="hw-testimonial-card"
-              style={{
-                minWidth: 0,
-                height: 200,
-                padding: '10px 10px 9px',
-                borderRadius: 7,
-                border: '1px solid #E7E7E7',
-                background:
-                  index === 0 ? '#FFF9EF' :
-                  index === 1 ? '#F3F8FD' :
-                  index === 2 ? '#FFF6F7' :
-                  '#F3FAF4',
-                boxShadow: '0 2px 8px rgba(15,23,42,.05)',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden'
-              }}
-            >
-
-              {/* Top row */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}
-              >
-
-                <div
-                  style={{
-                    width: 27,
-                    height: 27,
-                    borderRadius: '50%',
-                    background: t.color || '#FFF0D2',
-                    color: t.textColor || '#A66A18',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 15,
-                    fontWeight: 900
-                  }}
-                >
-                  “
-                </div>
-
-                <div
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 800,
-                    color: '#4285F4',
-                    letterSpacing: -.3
-                  }}
-                >
-                  Google
-                </div>
-
-              </div>
+        {/* Rating */}
+        <div className="hw-testimonial-stars">
+          ★★★★★
+        </div>
 
 
-              {/* Rating */}
-              <div
-                style={{
-                  color: '#F4B400',
-                  fontSize: 13,
-                  letterSpacing: 1,
-                  marginTop: 6
-                }}
-              >
-                ★★★★★
-              </div>
+        {/* Review */}
+        <div className="hw-testimonial-review">
+          "{t.text}"
+        </div>
 
 
-              {/* Review */}
-              <div
-                style={{
-                  fontSize: 11.5,
-                  lineHeight: 1.5,
-                  color: '#475569',
-                  marginTop: 6,
-                  fontStyle: 'italic',
-                  flex: 1
-                }}
-              >
-                "{t.text}"
-              </div>
+        {/* User */}
+        <div className="hw-testimonial-user">
 
+          <div
+            className="hw-testimonial-avatar"
+            style={{
+              background: t.color || '#E5E7EB',
+              color: t.textColor || '#475569'
+            }}
+          >
+            {t.initials}
+          </div>
 
-              {/* User */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 7,
-                  marginTop: 7
-                }}
-              >
+          <div className="hw-testimonial-user-info">
 
-                <div
-                  style={{
-                    width: 31,
-                    height: 31,
-                    flexShrink: 0,
-                    borderRadius: '50%',
-                    background: t.color || '#E5E7EB',
-                    display: 'grid',
-                    placeItems: 'center',
-                    fontWeight: 800,
-                    fontSize: 9,
-                    color: t.textColor || '#475569',
-                    border: '1px solid rgba(0,0,0,.06)'
-                  }}
-                >
-                  {t.initials}
-                </div>
-
-                <div
-                  style={{
-                    minWidth: 0
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: 11,
-                      lineHeight: 1.1,
-                      fontWeight: 800,
-                      color: '#17324D',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis'
-                    }}
-                  >
-                    {t.name}
-                  </div>
-
-                  <div
-                    style={{
-                      fontSize: 8,
-                      lineHeight: 1.2,
-                      marginTop: 2,
-                      color: '#64748B',
-                      fontWeight: 600
-                    }}
-                  >
-                    VERIFIED BUYER
-                  </div>
-                </div>
-
-              </div>
-
+            <div className="hw-testimonial-name">
+              {t.name}
             </div>
 
-          ))}
+            <div className="hw-testimonial-verified">
+              VERIFIED BUYER
+            </div>
+
+          </div>
 
         </div>
 
+      </div>
+
+    ))}
+
+  </div>
+
+</section>
 
         {/* Slider dots */}
         <div
@@ -1514,7 +1379,7 @@ export default function Home(){
                 height: i === 0 ? 7 : 6,
                 borderRadius: '50%',
                 background: i === 0 ? GOLD_DARK : '#D1D5DB',
-                display: 'block'
+                display: 'none'
               }}
             />
           ))}
@@ -1528,7 +1393,7 @@ export default function Home(){
       ========================================= */}
 
       <div
-        className="container"
+        className="container" 
         style={{
           padding:
             '22px 16px'
