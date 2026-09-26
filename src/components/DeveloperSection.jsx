@@ -165,11 +165,11 @@ export default function DeveloperSection() {
         .hw-developer-section {
           position: relative;
           width: 100%;
-          min-height: 680px;
+          min-height: 0;
           overflow: hidden;
-          padding: 72px 0 20px;
+          padding: 42px 0 10px;
           background: #ffffff;
-          font-family: "Manrope", sans-serif;
+          font-family: "Manrope", Arial, sans-serif;
           color: #111827;
           box-sizing: border-box;
         }
@@ -189,7 +189,7 @@ export default function DeveloperSection() {
         }
 
         .hw-developer-heading {
-          margin: 0 auto 38px;
+          margin: 0 auto 22px;
           padding: 0 20px;
           text-align: center;
         }
@@ -350,6 +350,7 @@ export default function DeveloperSection() {
         }
 
         .hw-developer-arrow {
+          display: none;
           position: absolute;
           top: 166px;
           z-index: 5;
@@ -387,10 +388,12 @@ export default function DeveloperSection() {
 
         .hw-developer-prev {
           left: 10px;
+          display: none;
         }
 
         .hw-developer-next {
           right: 10px;
+          display:none;
         }
 
         .hw-developer-action {
@@ -398,7 +401,7 @@ export default function DeveloperSection() {
           z-index: 4;
           display: flex;
           justify-content: center;
-          margin-top: 25px;
+          margin-top: 8px;
         }
 
         .hw-developer-action button {
@@ -445,7 +448,7 @@ export default function DeveloperSection() {
           align-items: center;
           justify-content: center;
           gap: 7px;
-          margin-top: 17px;
+          margin-top: 10px;
         }
 
         .hw-developer-dots span {
@@ -503,7 +506,7 @@ export default function DeveloperSection() {
           }
 
           .hw-developer-card {
-            flex-basis: calc((100% - 48px) / 4);
+            flex-basis: calc((100% - 80px) / 6);
           }
 
           .hw-developer-slider {
@@ -522,7 +525,7 @@ export default function DeveloperSection() {
 
         @media (max-width: 900px) {
           .hw-developer-section {
-            min-height: 650px;
+            min-height: 0;
             padding-top: 60px;
           }
 
@@ -539,8 +542,8 @@ export default function DeveloperSection() {
           }
 
           .hw-developer-card {
-            flex-basis: calc((100% - 32px) / 3);
-            height: 365px;
+            flex-basis: calc((100% - 80px) / 6);
+            height: 320px;
           }
 
           .hw-developer-logo {
@@ -564,12 +567,12 @@ export default function DeveloperSection() {
 
         @media (max-width: 650px) {
           .hw-developer-section {
-            min-height: 610px;
-            padding: 50px 0 105px;
+            min-height: 0;
+            padding: 28px 0 8px;
           }
 
           .hw-developer-heading {
-            margin-bottom: 28px;
+            margin-bottom: 16px;
           }
 
           .hw-developer-label {
@@ -584,7 +587,10 @@ export default function DeveloperSection() {
 
           .hw-developer-heading h2 {
             font-size: 29px;
-            letter-spacing: -.8px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            font-weight: 800;
+            font-family: "Manrope", Arial, sans-serif;
           }
 
           .hw-developer-heading p {
@@ -593,18 +599,22 @@ export default function DeveloperSection() {
             padding: 0 10px;
             font-size: 13px;
             line-height: 1.6;
+            font-family: "Manrope", Arial, sans-serif;
           }
 
           .hw-developer-slider {
-            gap: 12px;
-            padding: 0 22px 10px;
+            gap: 8px;
+            padding: 0 10px 10px;
+            overflow-x: auto;
+            overflow-y: hidden;
             scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
           }
 
           .hw-developer-card {
-            flex: 0 0 calc(100vw - 54px);
-            min-width: 0;
-            height: 350px;
+            flex: 0 0 calc((100% - 8px) / 2);
+            min-width: calc((100% - 8px) / 2);
+            height: 330px;
           }
 
           .hw-developer-logo {
@@ -624,11 +634,17 @@ export default function DeveloperSection() {
           }
 
           .hw-developer-info h3 {
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.25;
+            font-weight: 800;
+            font-family: "Manrope", Arial, sans-serif;
           }
 
           .hw-developer-location {
             font-size: 11px;
+            line-height: 1.35;
+            font-weight: 500;
+            font-family: "Manrope", Arial, sans-serif;
           }
 
           .hw-developer-location svg {
@@ -637,6 +653,7 @@ export default function DeveloperSection() {
           }
 
           .hw-developer-arrow {
+            display: flex;
             top: 150px;
             width: 40px;
             height: 40px;
@@ -656,7 +673,7 @@ export default function DeveloperSection() {
           }
 
           .hw-developer-action {
-            margin-top: 18px;
+            margin-top: 10px;
           }
 
           .hw-developer-action button {

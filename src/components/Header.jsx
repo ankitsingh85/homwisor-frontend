@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../images/logo-homwiser.png";
 
 export default function Header() {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   const [mobileMenu, setMobileMenu] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [scrolled, setScrolled] = useState(false);
@@ -12,7 +15,9 @@ export default function Header() {
       setScrolled(window.scrollY > 40);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -35,7 +40,6 @@ export default function Header() {
   ===================================================== */
 
   const cities = [
-    
     {
       label: "Gurugram",
       children: [
@@ -57,6 +61,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Noida",
       children: [
@@ -74,6 +79,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "New Delhi",
       children: [
@@ -91,6 +97,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Faridabad",
       children: [
@@ -108,6 +115,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Bengaluru",
       children: [
@@ -133,6 +141,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Hyderabad",
       children: [
@@ -154,6 +163,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Mumbai",
       children: [
@@ -179,6 +189,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Pune",
       children: [
@@ -259,6 +270,7 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "Commercial Projects",
       children: [
@@ -284,10 +296,12 @@ export default function Header() {
         },
       ],
     },
+
     {
       label: "SCO Plots",
       link: "/property-type/sco-plots",
     },
+
     {
       label: "Residential Plots",
       link: "/property-type/residential-plots",
@@ -326,39 +340,46 @@ export default function Header() {
       label: "Home",
       link: "/",
     },
+
     {
       label: "About",
       link: "about",
     },
+
     {
       label: "Budget",
       type: "simple",
       data: budgets,
     },
+
     {
       label: "Property Type",
       type: "mega",
       data: propertyTypes,
     },
+
     {
       label: "Project Status",
       type: "simple",
       data: projectStatuses,
     },
-     {
+
+    {
       label: "Cities",
       type: "mega",
       data: cities,
     },
-    {
-      label: "Resale",
-      link: "/status/for-sale",
-    },
-   
+
+    // {
+    //   label: "Resale",
+    //   link: "/status/for-sale",
+    // },
+
     {
       label: "Contact",
-      link: "/contact",
+      link: "./Contact",
     },
+
     {
       label: "Blog",
       type: "simple",
@@ -375,12 +396,17 @@ export default function Header() {
     <>
       <header
         className={`hw-header ${
+          !isHomePage ? "hw-header-inner-page" : ""
+        } ${
           scrolled ? "hw-header-scrolled" : ""
         }`}
       >
+
         <div className="hw-header-inner">
 
-          {/* LOGO */}
+          {/* =================================================
+              LOGO
+          ================================================= */}
 
           <Link
             to="/"
@@ -394,14 +420,41 @@ export default function Header() {
             />
           </Link>
 
-          {/* SCROLL SEARCH - hidden on hero, visible after scroll */}
+
+          {/* =================================================
+              SCROLL SEARCH
+          ================================================= */}
+
           <div className="hw-scroll-search">
+
             <div className="hw-location-select">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 10.5C20 16 12 21 12 21S4 16 4 10.5a8 8 0 1 1 16 0Z" stroke="currentColor" strokeWidth="1.7"/>
-                <circle cx="12" cy="10.5" r="2.4" stroke="currentColor" strokeWidth="1.7"/>
+
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20 10.5C20 16 12 21 12 21S4 16 4 10.5a8 8 0 1 1 16 0Z"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                />
+
+                <circle
+                  cx="12"
+                  cy="10.5"
+                  r="2.4"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                />
               </svg>
-              <select defaultValue="Gurugram" aria-label="Select city">
+
+              <select
+                defaultValue="Gurugram"
+                aria-label="Select city"
+              >
                 <option>Gurugram</option>
                 <option>Noida</option>
                 <option>New Delhi</option>
@@ -411,61 +464,123 @@ export default function Header() {
                 <option>Mumbai</option>
                 <option>Pune</option>
               </select>
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2"/>
+
+              <svg
+                width="9"
+                height="9"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
               </svg>
+
             </div>
 
+
             <div className="hw-search-box">
+
               <input
                 type="text"
                 placeholder="Search projects, localities..."
                 aria-label="Search projects and localities"
               />
-              <button type="button" aria-label="Search">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="10.8" cy="10.8" r="6.4" stroke="currentColor" strokeWidth="1.8"/>
-                  <path d="m16 16 4.2 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+
+              <button
+                type="button"
+                aria-label="Search"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="10.8"
+                    cy="10.8"
+                    r="6.4"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+
+                  <path
+                    d="m16 16 4.2 4.2"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
+
             </div>
+
           </div>
 
-          {/* DESKTOP NAV */}
+
+          {/* =================================================
+              DESKTOP NAV
+          ================================================= */}
 
           <nav className="hw-nav">
 
             {menuItems.map((item) => {
+
               const hasDropdown =
                 item.type === "simple" ||
                 item.type === "mega";
+
+              const scrollOnlyItem = [
+                "Project Status",
+                "Cities",
+                "Resale",
+              ].includes(item.label);
 
               return (
                 <div
                   key={item.label}
                   className={`hw-nav-item ${
-                    ["Project Status", "Cities", "Resale"].includes(item.label)
-                      ? `hw-scroll-menu-item hw-scroll-${item.label.toLowerCase().replace(/\s+/g, "-")}`
+                    scrollOnlyItem
+                      ? `hw-scroll-menu-item hw-scroll-${item.label
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`
                       : "hw-scroll-menu-hide"
                   }`}
-                  onMouseEnter={() =>
-                    hasDropdown &&
-                    setOpenDropdown(item.label)
-                  }
-                  onMouseLeave={() =>
-                    hasDropdown &&
-                    setOpenDropdown(null)
-                  }
+
+                  onMouseEnter={() => {
+                    if (hasDropdown) {
+                      setOpenDropdown(item.label);
+                    }
+                  }}
+
+                  onMouseLeave={() => {
+                    if (hasDropdown) {
+                      setOpenDropdown(null);
+                    }
+                  }}
                 >
 
+                  {/* =================================================
+                      NAV BUTTON / LINK
+                  ================================================= */}
+
                   {hasDropdown ? (
+
                     <button
                       className="hw-nav-link hw-nav-dropdown-button"
                       onClick={() =>
                         toggleDropdown(item.label)
                       }
                     >
-                      <span>{item.label}</span>
+
+                      <span>
+                        {item.label}
+                      </span>
 
                       <svg
                         width="11"
@@ -477,24 +592,33 @@ export default function Header() {
                       >
                         <path d="M6 9l6 6 6-6" />
                       </svg>
+
                     </button>
+
                   ) : (
+
                     <Link
                       to={item.link}
                       className="hw-nav-link"
                     >
                       {item.label}
                     </Link>
+
                   )}
 
-                  {/* SIMPLE DROPDOWN */}
+
+                  {/* =================================================
+                      SIMPLE DROPDOWN
+                  ================================================= */}
 
                   {hasDropdown &&
                     item.type === "simple" &&
                     openDropdown === item.label && (
+
                       <div className="hw-dropdown hw-simple-dropdown">
 
                         {item.data.map((child) => (
+
                           <Link
                             key={child.label}
                             to={child.link}
@@ -502,57 +626,74 @@ export default function Header() {
                           >
                             {child.label}
                           </Link>
+
                         ))}
 
                       </div>
-                    )}
 
-                  {/* MEGA DROPDOWN */}
+                  )}
+
+
+                  {/* =================================================
+                      MEGA DROPDOWN
+                  ================================================= */}
 
                   {hasDropdown &&
                     item.type === "mega" &&
                     openDropdown === item.label && (
+
                       <div className="hw-dropdown hw-mega-dropdown">
 
                         <div className="hw-mega-grid">
 
                           {item.data.map((group) => (
+
                             <div
                               className="hw-menu-group"
                               key={group.label}
                             >
 
                               {group.link ? (
+
                                 <Link
                                   to={group.link}
                                   className="hw-group-title hw-direct-link"
                                 >
                                   {group.label}
                                 </Link>
+
                               ) : (
+
                                 <div className="hw-group-title">
                                   {group.label}
                                 </div>
+
                               )}
 
+
                               {group.children &&
-                                group.children.map((child) => (
-                                  <Link
-                                    key={child.label}
-                                    to={child.link}
-                                    className="hw-dropdown-child"
-                                  >
-                                    {child.label}
-                                  </Link>
+                                group.children.map(
+                                  (child) => (
+
+                                    <Link
+                                      key={child.label}
+                                      to={child.link}
+                                      className="hw-dropdown-child"
+                                    >
+                                      {child.label}
+                                    </Link>
+
                                 ))}
 
                             </div>
+
                           ))}
 
                         </div>
 
                       </div>
-                    )}
+
+                  )}
 
                 </div>
               );
@@ -560,7 +701,10 @@ export default function Header() {
 
           </nav>
 
-          {/* RIGHT ACTIONS */}
+
+          {/* =================================================
+              RIGHT ACTIONS
+          ================================================= */}
 
           <div className="hw-header-actions">
 
@@ -569,6 +713,7 @@ export default function Header() {
               className="hw-user-button"
               aria-label="Account"
             >
+
               <svg
                 width="18"
                 height="18"
@@ -577,6 +722,7 @@ export default function Header() {
                 stroke="currentColor"
                 strokeWidth="1.5"
               >
+
                 <circle
                   cx="12"
                   cy="7"
@@ -586,53 +732,45 @@ export default function Header() {
                 <path
                   d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"
                 />
+
               </svg>
+
             </Link>
 
+
+            {/* MOBILE MENU TOGGLE */}
             <button
               type="button"
               className="hw-menu-button"
-              onClick={() =>
-                setMobileMenu(!mobileMenu)
-              }
+              onClick={() => setMobileMenu((prev) => !prev)}
+              aria-label={mobileMenu ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenu}
             >
-
               {mobileMenu ? (
-                <svg
-                  width="27"
-                  height="27"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                   <path d="M18 6L6 18" />
                   <path d="M6 6l12 12" />
                 </svg>
               ) : (
-                <svg
-                  width="27"
-                  height="27"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                   <path d="M3 6h18" />
                   <path d="M3 12h18" />
                   <path d="M3 18h18" />
                 </svg>
               )}
-
             </button>
 
           </div>
 
         </div>
 
-        {/* MOBILE MENU */}
+
+        {/* =====================================================
+            MOBILE MENU
+        ===================================================== */}
 
         {mobileMenu && (
+
           <div className="hw-mobile-menu">
 
             {menuItems.map((item) => {
@@ -642,13 +780,16 @@ export default function Header() {
                 item.type === "mega";
 
               return (
+
                 <div
                   key={item.label}
                   className="hw-mobile-item"
                 >
 
                   {hasDropdown ? (
+
                     <>
+
                       <button
                         className="hw-mobile-main"
                         onClick={() =>
@@ -673,14 +814,17 @@ export default function Header() {
 
                       </button>
 
-                      {openDropdown ===
-                        item.label && (
+
+                      {openDropdown === item.label && (
+
                         <div className="hw-mobile-submenu">
 
                           {item.data.map((group) => (
+
                             <div key={group.label}>
 
                               {group.link ? (
+
                                 <Link
                                   to={group.link}
                                   className="hw-mobile-group"
@@ -688,32 +832,43 @@ export default function Header() {
                                 >
                                   {group.label}
                                 </Link>
+
                               ) : (
+
                                 <div className="hw-mobile-group">
                                   {group.label}
                                 </div>
+
                               )}
 
+
                               {group.children &&
-                                group.children.map((child) => (
-                                  <Link
-                                    key={child.label}
-                                    to={child.link}
-                                    className="hw-mobile-child"
-                                    onClick={closeMenu}
-                                  >
-                                    {child.label}
-                                  </Link>
+                                group.children.map(
+                                  (child) => (
+
+                                    <Link
+                                      key={child.label}
+                                      to={child.link}
+                                      className="hw-mobile-child"
+                                      onClick={closeMenu}
+                                    >
+                                      {child.label}
+                                    </Link>
+
                                 ))}
 
                             </div>
+
                           ))}
 
                         </div>
+
                       )}
 
                     </>
+
                   ) : (
+
                     <Link
                       to={item.link}
                       className="hw-mobile-main"
@@ -721,16 +876,24 @@ export default function Header() {
                     >
                       {item.label}
                     </Link>
+
                   )}
 
                 </div>
+
               );
             })}
 
           </div>
+
         )}
 
       </header>
+
+
+      {/* =======================================================
+          COMPLETE HEADER CSS
+      ======================================================= */}
 
       <style>{`
 
@@ -738,220 +901,135 @@ export default function Header() {
           'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap'
         );
 
-        /* ===============================================
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        .hw-header,
+        .hw-header *,
+        .hw-header *::before,
+        .hw-header *::after {
+          box-sizing: border-box;
+        }
+
+        .hw-header button,
+        .hw-header input,
+        .hw-header select {
+          font-family: inherit;
+        }
+
+
+        /* =====================================================
            HEADER
-        =============================================== */
+        ===================================================== */
 
-       .hw-header {
-  position: absolute;
+        .hw-header {
+          position: absolute;
 
-  top: 0;
-  left: 0;
-  right: 0;
+          top: 0;
+          left: 0;
+          right: 0;
 
-  width: 100%;
+          width: 100%;
+          max-width: 100%;
 
-  z-index: 99999;
+          z-index: 99999;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.55),
-      rgba(0,0,0,.15),
-      transparent
-    );
+          background:
+            linear-gradient(
+              180deg,
+              rgba(0,0,0,.55),
+              rgba(0,0,0,.15),
+              transparent
+            );
 
-  font-family:
-    "Manrope",
-    Arial,
-    sans-serif;
+          font-family:
+            "Manrope",
+            Arial,
+            sans-serif;
 
-  transition: .3s ease;
-}
+          transition:
+            background .3s ease,
+            box-shadow .3s ease,
+            border-color .3s ease;
+        }
 
-        .hw-header-scrolled {
+
+        /* =====================================================
+           INNER PAGES
+           BLACK HEADER FROM TOP
+        ===================================================== */
+
+        .hw-header-inner-page {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
-          background: rgba(255,255,255,.98);
-          backdrop-filter: blur(14px);
-          box-shadow: 0 5px 25px rgba(0,0,0,.12);
-          border-bottom: 1px solid rgba(0,0,0,.08);
-        }
-
-        /* Search is shown only after scrolling */
-        .hw-scroll-search {
-          display: none;
-          align-items: center;
-          gap: 8px;
-          flex: 0 1 390px;
-          min-width: 280px;
-          margin-left: 4px;
-        }
-
-        .hw-header-scrolled .hw-scroll-search {
-          display: flex;
-        }
-
-        /* ===============================================
-           SCROLL HEADER MENU
-           Top: full menu
-           Scroll: ONLY Project Status, Cities, Resale
-        =============================================== */
-        .hw-header-scrolled .hw-scroll-menu-hide {
-          display: none !important;
-        }
-
-        .hw-header-scrolled .hw-scroll-menu-item {
-          display: flex !important;
-        }
-
-        .hw-header-scrolled .hw-scroll-project-status {
-          order: 1;
-        }
-
-        .hw-header-scrolled .hw-scroll-cities {
-          order: 2;
-        }
-
-        .hw-header-scrolled .hw-scroll-resale {
-          order: 3;
-        }
-
-        .hw-location-select {
-          position: relative;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          padding: 0 10px;
-          background: #fff;
-          border: 1px solid #dcdfe3;
-          border-radius: 6px;
-          color: #59616b;
-          flex: 0 0 112px;
-          box-sizing: border-box;
-          box-shadow: 0 1px 2px rgba(0,0,0,.03);
-          transition: border-color .2s ease, box-shadow .2s ease;
-        }
-
-        .hw-location-select:hover {
-          border-color: #c9cdd2;
-          box-shadow: 0 2px 8px rgba(0,0,0,.06);
-        }
-
-        .hw-location-select select {
           width: 100%;
-          min-width: 0;
-          border: 0;
-          outline: 0;
-          background: transparent;
-          color: #3f4650;
-          font-family: inherit;
-          font-size: 12px;
-          font-weight: 600;
-          appearance: none;
-          cursor: pointer;
+          max-width: 100%;
+          background: #000 !important;
+          backdrop-filter: blur(14px);
+          box-shadow: 0 5px 25px rgba(0,0,0,.35);
+          border-bottom: 1px solid rgba(255,255,255,.10);
         }
 
-        .hw-search-box {
-          height: 40px;
-          display: flex;
-          align-items: center;
-          flex: 1;
-          min-width: 0;
-          background: #fff;
-          border: 1px solid #e3e3e3;
-          border-radius: 6px;
-          overflow: hidden;
-        }
-
-        .hw-search-box input {
-          flex: 1;
-          min-width: 0;
-          height: 100%;
-          padding: 0 11px;
-          border: 0;
-          outline: 0;
-          background: transparent;
-          color: #252525;
-          font-family: inherit;
-          font-size: 12px;
-        }
-
-        .hw-search-box input::placeholder {
-          color: #9aa0a6;
-        }
-
-        .hw-search-box button {
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          border: 0;
-          background: #a77c1d;
+        .hw-header-inner-page .hw-nav-link {
           color: #fff;
-          cursor: pointer;
-        }
-
-        .hw-header-scrolled .hw-nav-link {
-          color: #252525;
           text-shadow: none;
         }
 
-        .hw-header-scrolled .hw-nav-link:hover {
-          color: #b78b2c;
+        .hw-header-inner-page .hw-nav-link:hover {
+          color: #d8aa42;
         }
 
-        .hw-header-scrolled .hw-user-button {
-          color: #252525;
-          border-color: #cfcfcf;
-          background: #fff;
+        .hw-header-inner-page .hw-user-button {
+          color: #fff;
+          border-color: rgba(255,255,255,.55);
+          background: rgba(255,255,255,.08);
         }
 
-        /* Account + hamburger stay visible on scroll */
-        .hw-header-scrolled .hw-header-actions {
-          display: flex !important;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 10px;
-          flex-shrink: 0;
+        .hw-header-inner-page .hw-menu-button {
+          color: #fff;
         }
 
-        .hw-header-scrolled .hw-user-button {
-          width: 36px;
-          height: 36px;
-          display: flex !important;
-          align-items: center;
-          justify-content: center;
-          color: #252525;
-          border: 1px solid #cfcfcf;
-          border-radius: 50%;
-          background: #fff;
+
+        /* =====================================================
+           SCROLLED HEADER
+           BLACK BACKGROUND
+        ===================================================== */
+
+        .hw-header-scrolled {
+          position: fixed;
+
+          top: 0;
+          left: 0;
+          right: 0;
+
+          width: 100%;
+          max-width: 100%;
+
+          background: #000 !important;
+
+          backdrop-filter: blur(14px);
+
+          box-shadow:
+            0 5px 25px rgba(0,0,0,.35);
+
+          border-bottom:
+            1px solid rgba(255,255,255,.10);
         }
 
-        .hw-header-scrolled .hw-menu-button {
-          width: 36px;
-          height: 36px;
-          display: flex !important;
-          align-items: center;
-          justify-content: center;
-          color: #252525;
-          border: 0;
-          background: transparent;
-        }
 
-        /* ===============================================
+        /* =====================================================
            HEADER INNER
-        =============================================== */
+        ===================================================== */
 
         .hw-header-inner {
           height: 72px;
 
           width: 100%;
+          max-width: 100%;
 
           padding:
             0 48px;
@@ -963,11 +1041,14 @@ export default function Header() {
           justify-content: space-between;
 
           gap: 25px;
+
+          box-sizing: border-box;
         }
 
-        /* ===============================================
+
+        /* =====================================================
            LOGO
-        =============================================== */
+        ===================================================== */
 
         .hw-logo {
           width: 190px;
@@ -981,6 +1062,8 @@ export default function Header() {
           align-items: center;
 
           text-decoration: none;
+
+          min-width: 0;
         }
 
         .hw-logo-image {
@@ -995,16 +1078,192 @@ export default function Header() {
           object-position: left center;
 
           display: block;
+
+          max-width: 100%;
         }
 
-        /* ===============================================
-           NAV - RIGHT SIDE
-        =============================================== */
+
+        /* =====================================================
+           SCROLL SEARCH
+        ===================================================== */
+
+        .hw-scroll-search {
+          display: none;
+
+          align-items: center;
+
+          gap: 8px;
+
+          flex: 0 1 390px;
+
+          min-width: 280px;
+
+          margin-left: 4px;
+
+          min-width: 0;
+        }
+
+        .hw-header-scrolled .hw-scroll-search {
+          display: flex;
+        }
+
+
+        /* =====================================================
+           LOCATION SELECT
+        ===================================================== */
+
+        .hw-location-select {
+          position: relative;
+
+          height: 40px;
+
+          display: flex;
+
+          align-items: center;
+
+          gap: 7px;
+
+          padding: 0 10px;
+
+          background: #fff;
+
+          border: 1px solid #dcdfe3;
+
+          border-radius: 6px;
+
+          color: #59616b;
+
+          flex: 0 0 112px;
+
+          min-width: 0;
+
+          box-sizing: border-box;
+
+          box-shadow:
+            0 1px 2px rgba(0,0,0,.03);
+
+          transition:
+            border-color .2s ease,
+            box-shadow .2s ease;
+        }
+
+        .hw-location-select:hover {
+          border-color: #c9cdd2;
+
+          box-shadow:
+            0 2px 8px rgba(0,0,0,.06);
+        }
+
+        .hw-location-select select {
+          width: 100%;
+
+          min-width: 0;
+
+          border: 0;
+
+          outline: 0;
+
+          background: transparent;
+
+          color: #3f4650;
+
+          font-family: inherit;
+
+          font-size: 12px;
+
+          font-weight: 600;
+
+          appearance: none;
+
+          cursor: pointer;
+        }
+
+
+        /* =====================================================
+           SEARCH BOX
+        ===================================================== */
+
+        .hw-search-box {
+          height: 40px;
+
+          display: flex;
+
+          align-items: center;
+
+          flex: 1;
+
+          min-width: 0;
+
+          background: #fff;
+
+          border: 1px solid #e3e3e3;
+
+          border-radius: 6px;
+
+          overflow: hidden;
+        }
+
+        .hw-search-box input {
+          flex: 1;
+
+          min-width: 0;
+
+          width: 100%;
+
+          height: 100%;
+
+          padding: 0 11px;
+
+          border: 0;
+
+          outline: 0;
+
+          background: transparent;
+
+          color: #252525;
+
+          font-family: inherit;
+
+          font-size: 12px;
+        }
+
+        .hw-search-box input::placeholder {
+          color: #9aa0a6;
+        }
+
+        .hw-search-box button {
+          width: 40px;
+
+          height: 40px;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          flex-shrink: 0;
+
+          border: 0;
+
+          background: #a77c1d;
+
+          color: #fff;
+
+          cursor: pointer;
+        }
+
+
+        /* =====================================================
+           DESKTOP NAV
+        ===================================================== */
 
         .hw-nav {
           height: 100%;
 
           flex: 1;
+
+          min-width: 0;
 
           display: flex;
 
@@ -1025,6 +1284,8 @@ export default function Header() {
           display: flex;
 
           align-items: center;
+
+          flex-shrink: 0;
         }
 
         .hw-nav-link {
@@ -1074,9 +1335,156 @@ export default function Header() {
           outline: none;
         }
 
-        /* ===============================================
+
+        /* =====================================================
+           SCROLL MENU
+        ===================================================== */
+
+        .hw-header-scrolled .hw-scroll-menu-hide {
+          display: none !important;
+        }
+
+        .hw-header-scrolled .hw-scroll-menu-item {
+          display: flex !important;
+        }
+
+        .hw-header-scrolled .hw-scroll-project-status {
+          order: 1;
+        }
+
+        .hw-header-scrolled .hw-scroll-cities {
+          order: 2;
+        }
+
+        .hw-header-scrolled .hw-scroll-resale {
+          order: 3;
+        }
+
+
+        /* =====================================================
+           SCROLL NAV COLORS
+        ===================================================== */
+
+        .hw-header-scrolled .hw-nav-link {
+          color: #fff;
+
+          text-shadow: none;
+        }
+
+        .hw-header-scrolled .hw-nav-link:hover {
+          color: #d8aa42;
+        }
+
+
+        /* =====================================================
+           HEADER ACTIONS
+        ===================================================== */
+
+        .hw-header-actions {
+          width: 10px;
+
+          flex-shrink: 0;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: flex-end;
+
+          gap: 12px;
+        }
+
+        .hw-user-button {
+          width: 34px;
+
+          height: 34px;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          color: #fff;
+
+          border:
+            1px solid
+            rgba(255,255,255,.60);
+
+          border-radius: 50%;
+
+          background:
+            rgba(0,0,0,.20);
+
+          text-decoration: none;
+
+          transition: .2s ease;
+
+          flex-shrink: 0;
+        }
+
+        .hw-user-button:hover {
+          color: #d8aa42;
+
+          border-color: #d8aa42;
+        }
+
+        .hw-header-scrolled .hw-user-button {
+          color: #fff;
+
+          border-color:
+            rgba(255,255,255,.55);
+
+          background:
+            rgba(255,255,255,.08);
+        }
+
+
+        /* =====================================================
+           MENU BUTTON
+        ===================================================== */
+
+        .hw-menu-button {
+          width: 34px;
+
+          height: 34px;
+
+          padding: 0;
+
+          display: flex;
+
+          align-items: center;
+
+          justify-content: center;
+
+          color: #fff;
+
+          border: none;
+
+          background: transparent;
+
+          cursor: pointer;
+
+          transition: .2s ease;
+
+          flex-shrink: 0;
+
+          /* Hamburger is mobile-only */
+          display: none;
+        }
+
+        .hw-menu-button:hover {
+          color: #d8aa42;
+        }
+
+        .hw-header-scrolled .hw-menu-button {
+          color: #fff;
+        }
+
+
+        /* =====================================================
            DROPDOWN
-        =============================================== */
+        ===================================================== */
 
         .hw-dropdown {
           position: absolute;
@@ -1131,9 +1539,10 @@ export default function Header() {
 
         }
 
-        /* ===============================================
+
+        /* =====================================================
            SIMPLE DROPDOWN
-        =============================================== */
+        ===================================================== */
 
         .hw-simple-dropdown {
           min-width: 230px;
@@ -1170,47 +1579,81 @@ export default function Header() {
             rgba(214,170,66,.08);
         }
 
-        /* ===============================================
+
+        /* =====================================================
            MEGA DROPDOWN
-        =============================================== */
+        ===================================================== */
 
         .hw-mega-dropdown {
           width: 900px;
 
           max-width:
-            calc(100vw - 40px);
+            calc(100vw - 30px);
 
           padding: 24px;
+
+          box-sizing: border-box;
         }
 
-        /* Cities mega menu: keep the complete panel inside the viewport */
-        .hw-nav-item.hw-scroll-cities .hw-mega-dropdown {
-          left: auto;
-          right: 0;
-          transform: none;
-          width: min(900px, calc(100vw - 30px));
-          max-width: calc(100vw - 30px);
+
+        /* =====================================================
+           CITIES DROPDOWN
+           KEEP INSIDE VIEWPORT
+        ===================================================== */
+
+        .hw-nav-item.hw-scroll-cities
+          .hw-mega-dropdown {
+
+          left: auto !important;
+
+          right: 0 !important;
+
+          transform: none !important;
+
+          width:
+            min(
+              900px,
+              calc(100vw - 30px)
+            ) !important;
+
+          max-width:
+            calc(100vw - 30px) !important;
+
+          box-sizing: border-box;
         }
 
-        .hw-nav-item.hw-scroll-cities:hover .hw-mega-dropdown,
-        .hw-nav-item.hw-scroll-cities .hw-mega-dropdown {
-          transform: none;
-        }
+
+        /* Cities animation */
 
         @keyframes hwCitiesDropdown {
+
           from {
             opacity: 0;
-            transform: translateY(-7px);
+
+            transform:
+              translateY(-7px);
           }
+
           to {
             opacity: 1;
-            transform: translateY(0);
+
+            transform:
+              translateY(0);
           }
+
         }
 
-        .hw-nav-item.hw-scroll-cities .hw-mega-dropdown {
-          animation: hwCitiesDropdown .18s ease;
+        .hw-nav-item.hw-scroll-cities
+          .hw-mega-dropdown {
+
+          animation:
+            hwCitiesDropdown .18s ease;
         }
+
+
+        /* =====================================================
+           MEGA GRID
+        ===================================================== */
 
         .hw-mega-grid {
           display: grid;
@@ -1220,6 +1663,8 @@ export default function Header() {
 
           gap:
             24px 32px;
+
+          min-width: 0;
         }
 
         .hw-menu-group {
@@ -1269,88 +1714,10 @@ export default function Header() {
           color: #fff;
         }
 
-        /* ===============================================
-           RIGHT ACTIONS
-        =============================================== */
 
-        .hw-header-actions {
-          width: 90px;
-
-          flex-shrink: 0;
-
-          display: flex;
-
-          align-items: center;
-
-          justify-content: flex-end;
-
-          gap: 12px;
-        }
-
-        .hw-user-button {
-          width: 34px;
-
-          height: 34px;
-
-          display: flex;
-
-          align-items: center;
-
-          justify-content: center;
-
-          color: #fff;
-
-          border:
-            1px solid
-            rgba(255,255,255,.60);
-
-          border-radius: 50%;
-
-          background:
-            rgba(0,0,0,.20);
-
-          text-decoration: none;
-
-          transition: .2s ease;
-        }
-
-        .hw-user-button:hover {
-          color: #d8aa42;
-
-          border-color: #d8aa42;
-        }
-
-        .hw-menu-button {
-          width: 34px;
-
-          height: 34px;
-
-          padding: 0;
-
-          display: flex;
-
-          align-items: center;
-
-          justify-content: center;
-
-          color: #fff;
-
-          border: none;
-
-          background: transparent;
-
-          cursor: pointer;
-
-          transition: .2s ease;
-        }
-
-        .hw-menu-button:hover {
-          color: #d8aa42;
-        }
-
-        /* ===============================================
+        /* =====================================================
            MOBILE MENU
-        =============================================== */
+        ===================================================== */
 
         .hw-mobile-menu {
           display: none;
@@ -1372,6 +1739,8 @@ export default function Header() {
 
           padding:
             10px 20px 24px;
+
+          box-sizing: border-box;
         }
 
         .hw-mobile-item {
@@ -1455,177 +1824,654 @@ export default function Header() {
           color: #fff;
         }
 
-        /* ===============================================
-           TABLET
-        =============================================== */
 
-        @media (max-width: 1200px) {
+        /* =====================================================
+           TABLET / SMALL DESKTOP
+           769px - 1200px
+        ===================================================== */
 
-          .hw-header-scrolled .hw-scroll-search {
-            flex-basis: 300px;
-            min-width: 220px;
-          }
+        @media (max-width: 1200px) and (min-width: 769px) {
 
           .hw-header-inner {
             padding:
-              0 30px;
+              0 20px !important;
+
+            gap:
+              12px !important;
           }
 
           .hw-logo {
-            width: 165px;
+            width:
+              145px !important;
           }
 
           .hw-logo-image {
-            width: 150px;
+            width:
+              135px !important;
 
-            max-height: 58px;
+            max-height:
+              58px !important;
+          }
+
+          .hw-header-scrolled
+            .hw-scroll-search {
+
+            flex:
+              0 1 250px !important;
+
+            min-width:
+              190px !important;
           }
 
           .hw-nav {
-            gap: 15px;
+            gap:
+              10px !important;
 
-            padding-right: 10px;
+            padding-right:
+              5px !important;
           }
 
           .hw-nav-link {
-            font-size: 11px;
+            font-size:
+              10px !important;
 
-            gap: 4px;
+            gap:
+              3px !important;
           }
 
-          .hw-mega-dropdown {
-            width: min(760px, calc(100vw - 30px));
-            max-width: calc(100vw - 30px);
+          .hw-header-actions {
+            width:
+              70px !important;
+
+            gap:
+              7px !important;
           }
 
-          .hw-nav-item.hw-scroll-cities .hw-mega-dropdown {
-            right: 0;
-            left: auto;
-            width: min(760px, calc(100vw - 30px));
+          /* =========================================
+             CITIES DROPDOWN
+          ========================================= */
+
+          .hw-nav-item.hw-scroll-cities
+            .hw-mega-dropdown {
+
+            left:
+              auto !important;
+
+            right:
+              0 !important;
+
+            width:
+              min(
+                700px,
+                calc(100vw - 24px)
+              ) !important;
+
+            max-width:
+              calc(100vw - 24px) !important;
+
+            padding:
+              18px !important;
+          }
+
+          .hw-mega-grid {
+            grid-template-columns:
+              repeat(
+                3,
+                minmax(0, 1fr)
+              ) !important;
+
+            gap:
+              18px 20px !important;
           }
 
           .hw-group-title {
-            font-size: 12px;
+            font-size:
+              12px !important;
           }
 
           .hw-dropdown-child {
-            font-size: 10px;
+            font-size:
+              10px !important;
           }
+
         }
 
-        /* ===============================================
+
+        /* =====================================================
+           VERY SMALL DESKTOP
+           769px - 900px
+        ===================================================== */
+
+        @media (max-width: 900px) and (min-width: 769px) {
+
+          .hw-header-inner {
+            padding:
+              0 14px !important;
+
+            gap:
+              8px !important;
+          }
+
+          .hw-logo {
+            width:
+              125px !important;
+          }
+
+          .hw-logo-image {
+            width:
+              120px !important;
+          }
+
+          .hw-header-scrolled
+            .hw-scroll-search {
+
+            flex:
+              0 1 210px !important;
+
+            min-width:
+              165px !important;
+          }
+
+          .hw-nav {
+            gap:
+              6px !important;
+
+            padding-right:
+              3px !important;
+          }
+
+          .hw-nav-link {
+            font-size:
+              9px !important;
+
+            padding:
+              0 2px !important;
+
+            gap:
+              2px !important;
+          }
+
+          .hw-nav-link svg {
+            width:
+              8px !important;
+
+            height:
+              8px !important;
+          }
+
+          .hw-header-actions {
+            width:
+              62px !important;
+
+            gap:
+              5px !important;
+          }
+
+          .hw-user-button {
+            width:
+              30px !important;
+
+            height:
+              30px !important;
+          }
+
+          .hw-menu-button {
+            width:
+              30px !important;
+
+            height:
+              30px !important;
+          }
+
+          /* =========================================
+             CITIES
+          ========================================= */
+
+          .hw-nav-item.hw-scroll-cities
+            .hw-mega-dropdown {
+
+            right:
+              0 !important;
+
+            left:
+              auto !important;
+
+            width:
+              calc(100vw - 20px) !important;
+
+            max-width:
+              calc(100vw - 20px) !important;
+
+            padding:
+              16px !important;
+          }
+
+          .hw-mega-grid {
+            grid-template-columns:
+              repeat(
+                2,
+                minmax(0, 1fr)
+              ) !important;
+
+            gap:
+              16px !important;
+          }
+
+        }
+
+
+        /* =====================================================
            MOBILE
-        =============================================== */
+        ===================================================== */
 
         @media (max-width: 768px) {
 
           .hw-header {
-            background:
-              linear-gradient(
-                180deg,
-                rgba(0,0,0,.62),
-                transparent
-              );
+            background: #000 !important;
+          }
+
+          /* Inner pages remain black before scroll */
+          .hw-header-inner-page {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            background: #000 !important;
+            box-shadow: 0 5px 25px rgba(0,0,0,.35);
+            border-bottom: 1px solid rgba(255,255,255,.10);
           }
 
           .hw-header-scrolled {
-            background: rgba(255,255,255,.98);
-            box-shadow: 0 5px 25px rgba(0,0,0,.12);
+
+            position:
+              fixed !important;
+
+            top:
+              0 !important;
+
+            left:
+              0 !important;
+
+            right:
+              0 !important;
+
+            width:
+              100% !important;
+
+            background:
+              #000 !important;
+
+            box-shadow:
+              0 5px 25px
+              rgba(0,0,0,.35);
+
+            border-bottom:
+              1px solid
+              rgba(255,255,255,.10);
           }
 
           .hw-header-inner {
-            height: 68px;
+
+            height:
+              68px;
 
             padding:
               0 18px;
+
+            gap:
+              10px;
           }
 
           .hw-logo {
-            width: auto;
+            width:
+              auto;
+
+            min-width:
+              0;
           }
 
           .hw-logo-image {
-            width: 145px;
 
-            max-height: 52px;
+            width:
+              145px;
+
+            max-height:
+              52px;
           }
 
           .hw-nav {
-            display: none;
-          }
-
-          .hw-scroll-search {
             display: none !important;
           }
 
+          /* Mobile search is hidden before scroll and becomes sticky with the fixed header */
+          .hw-scroll-search {
+            display: none !important;
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            gap: 0 !important;
+          }
+
           .hw-header-scrolled .hw-scroll-search {
+            display: flex !important;
+          }
+
+          .hw-header-scrolled .hw-location-select {
+            display: none !important;
+          }
+
+          .hw-header-scrolled .hw-search-box {
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            display: flex !important;
+            flex: 1 1 auto !important;
+            background: #fff !important;
+            border: 1px solid #e3e3e3 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            overflow: hidden;
+          }
+
+          .hw-header-scrolled .hw-search-box button {
+            width: 48px;
+            height: 40px;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #a77c1d !important;
+            color: #fff !important;
+          }
+
+          .hw-header-scrolled .hw-search-box button svg {
+            width: 25px !important;
+            height: 25px !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+          }
+
+          .hw-header-scrolled .hw-header-inner {
+            gap: 10px;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+
+          .hw-header-scrolled .hw-scroll-search {
+            width: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+
+          .hw-header-scrolled .hw-search-box input {
+            background: #fff !important;
+            color: #222 !important;
+            font-size: 13px;
+            padding: 0 13px;
+          }
+
+          .hw-header-scrolled .hw-search-box input::placeholder {
+            color: #9aa0a6 !important;
+          }
+
+          /* On mobile scroll: only search field + search icon remain */
+          .hw-header-scrolled .hw-logo {
+            display: none !important;
+          }
+
+          .hw-header-scrolled .hw-header-actions {
             display: none !important;
           }
 
           .hw-header-actions {
-            width: auto;
 
-            gap: 10px;
+            width:
+              auto;
+
+            gap:
+              10px;
           }
 
           .hw-user-button {
             width: 34px;
-
             height: 34px;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .hw-header-scrolled .hw-user-button {
+            display: none !important;
           }
 
           .hw-menu-button {
-            width: 36px;
 
-            height: 36px;
+            width:
+              36px;
+
+            height:
+              36px;
+
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
           }
 
           .hw-mobile-menu {
-            display: block;
+            display:
+              block;
           }
+
         }
 
-        /* ===============================================
+
+        /* =====================================================
            SMALL MOBILE
-        =============================================== */
+        ===================================================== */
 
         @media (max-width: 480px) {
 
           .hw-header-inner {
-            height: 64px;
+
+            height:
+              64px;
 
             padding:
               0 14px;
-              background-color:black;
-              
+
+            background:
+              transparent;
           }
-              
 
           .hw-logo-image {
-            width: 135px;
 
-            max-height: 48px;
+            width:
+              135px;
+
+            max-height:
+              48px;
+          }
+
+          .hw-header-actions {
+            gap: 5px;
+          }
+
+          .hw-mobile-search-button,
+          .hw-menu-button {
+            width: 32px;
+            height: 32px;
+          }
+
+          .hw-mobile-search-button svg,
+          .hw-menu-button svg {
+            width: 20px;
+            height: 20px;
           }
 
           .hw-mobile-menu {
-            padding-left: 15px;
 
-            padding-right: 15px;
+            padding-left:
+              15px;
+
+            padding-right:
+              15px;
           }
 
           .hw-mobile-main {
-            font-size: 13px;
+
+            font-size:
+              13px;
           }
 
           .hw-mobile-group {
-            font-size: 11px;
+
+            font-size:
+              11px;
           }
 
           .hw-mobile-child {
-            font-size: 10px;
+
+            font-size:
+              10px;
+          }
+
+        }
+
+
+        /* =====================================================
+           EXTRA SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 360px) {
+
+          .hw-header-inner {
+            padding:
+              0 10px;
+          }
+
+          .hw-logo-image {
+            width:
+              125px;
+          }
+
+          .hw-user-button {
+            width:
+              32px;
+
+            height:
+              32px;
+          }
+
+          .hw-menu-button,
+          .hw-mobile-search-button {
+            width: 31px;
+            height: 31px;
+          }
+
+        }
+
+
+        /* =====================================================
+           FINAL MOBILE SCROLL SEARCH OVERRIDE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+          .hw-header.hw-header-scrolled {
+            background: #fff !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-header-inner {
+            background: #fff !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+            gap: 10px !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-scroll-search {
+            display: flex !important;
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box {
+            width: 100% !important;
+            height: 44px !important;
+            min-height: 44px !important;
+            margin: 0 !important;
+            background: #fff !important;
+            border: 1px solid #d9d9d9 !important;
+            border-radius: 8px !important;
+            box-shadow: none !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box input {
+            height: 44px !important;
+            background: #fff !important;
+            font-size: 13px !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box button {
+            width: 52px !important;
+            height: 44px !important;
+            background: #a77c1d !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box button svg {
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            min-height: 28px !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box button svg circle,
+          .hw-header.hw-header-scrolled .hw-search-box button svg path {
+            stroke-width: 2 !important;
+          }
+
+          .hw-header:not(.hw-header-scrolled) .hw-user-button svg {
+            width: 23px !important;
+            height: 23px !important;
+          }
+
+          .hw-header:not(.hw-header-scrolled) .hw-menu-button svg {
+            width: 24px !important;
+            height: 24px !important;
           }
         }
-          
+
+        @media (max-width: 480px) {
+          .hw-header.hw-header-scrolled .hw-header-inner {
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box {
+            height: 44px !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box button {
+            width: 52px !important;
+            height: 44px !important;
+          }
+
+          .hw-header.hw-header-scrolled .hw-search-box button svg {
+            width: 28px !important;
+            height: 28px !important;
+          }
+        }
 
       `}</style>
     </>

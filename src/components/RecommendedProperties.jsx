@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 const properties = [
   {
@@ -44,16 +44,99 @@ const properties = [
 ];
 
 export default function RecommendedProperties() {
+  const sliderRef = useRef(null);
+
+  /* ==========================================================
+     MOBILE AUTO SLIDER
+  ========================================================== */
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+
+    if (!slider) return;
+
+    let interval = null;
+
+    const startAutoSlide = () => {
+      clearInterval(interval);
+
+      interval = setInterval(() => {
+        if (window.innerWidth > 600) return;
+
+        const cards = slider.querySelectorAll(
+          ".hw-recommended-card"
+        );
+
+        if (!cards.length) return;
+
+        const cardWidth =
+          cards[0].getBoundingClientRect().width;
+
+        const gap = 8;
+
+        const moveDistance =
+          (cardWidth + gap) * 2;
+
+        const maxScroll =
+          slider.scrollWidth - slider.clientWidth;
+
+        if (slider.scrollLeft >= maxScroll - 5) {
+          slider.scrollTo({
+            left: 0,
+            behavior: "smooth",
+          });
+        } else {
+          slider.scrollBy({
+            left: moveDistance,
+            behavior: "smooth",
+          });
+        }
+      }, 3500);
+    };
+
+    startAutoSlide();
+
+    const handleUserInteraction = () => {
+      startAutoSlide();
+    };
+
+    slider.addEventListener(
+      "touchend",
+      handleUserInteraction,
+      { passive: true }
+    );
+
+    slider.addEventListener(
+      "pointerup",
+      handleUserInteraction
+    );
+
+    return () => {
+      clearInterval(interval);
+
+      slider.removeEventListener(
+        "touchend",
+        handleUserInteraction
+      );
+
+      slider.removeEventListener(
+        "pointerup",
+        handleUserInteraction
+      );
+    };
+  }, []);
+
   return (
     <section className="hw-recommended-section">
 
-      {/* =========================================
-          SECTION HEADER
-      ========================================= */}
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
 
       <div className="hw-recommended-header">
 
         <div className="hw-recommended-brand">
+
           <span className="hw-recommended-line"></span>
 
           <span className="hw-recommended-label">
@@ -61,10 +144,11 @@ export default function RecommendedProperties() {
           </span>
 
           <span className="hw-recommended-line reverse"></span>
+
         </div>
 
         <h2>
-          Recommended Properties
+          Recommended <span>Properties</span>
         </h2>
 
         <p>
@@ -75,11 +159,14 @@ export default function RecommendedProperties() {
       </div>
 
 
-      {/* =========================================
-          PROPERTY CARDS
-      ========================================= */}
+      {/* =====================================================
+          PROPERTY SLIDER
+      ===================================================== */}
 
-      <div className="hw-recommended-grid">
+      <div
+        className="hw-recommended-grid"
+        ref={sliderRef}
+      >
 
         {properties.map((property, index) => (
 
@@ -95,6 +182,7 @@ export default function RecommendedProperties() {
               <img
                 src={property.image}
                 alt={property.title}
+                loading="lazy"
               />
 
               <div className="hw-image-gradient"></div>
@@ -124,21 +212,26 @@ export default function RecommendedProperties() {
               <div className="hw-property-location">
 
                 <span className="hw-location-icon">
+
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.8"
                   >
+
                     <path
                       d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"
                     />
+
                     <circle
                       cx="12"
                       cy="10"
                       r="2.5"
                     />
+
                   </svg>
+
                 </span>
 
                 <span>
@@ -160,9 +253,17 @@ export default function RecommendedProperties() {
                     stroke="currentColor"
                     strokeWidth="1.8"
                   >
-                    <path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16" />
+
+                    <path
+                      d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16"
+                    />
+
                     <path d="M3 21h18" />
-                    <path d="M7 7h2M7 11h2M7 15h2M15 7h2M15 11h2M15 15h2" />
+
+                    <path
+                      d="M7 7h2M7 11h2M7 15h2M15 7h2M15 11h2M15 15h2"
+                    />
+
                   </svg>
 
                   {property.bhk}
@@ -178,6 +279,7 @@ export default function RecommendedProperties() {
                     stroke="currentColor"
                     strokeWidth="1.8"
                   >
+
                     <rect
                       x="3"
                       y="3"
@@ -186,7 +288,10 @@ export default function RecommendedProperties() {
                       rx="2"
                     />
 
-                    <path d="M8 3v18M16 3v18M3 8h5M16 8h5M3 16h5M16 16h5" />
+                    <path
+                      d="M8 3v18M16 3v18M3 8h5M16 8h5M3 16h5M16 16h5"
+                    />
+
                   </svg>
 
                   {property.area}
@@ -196,7 +301,7 @@ export default function RecommendedProperties() {
               </div>
 
 
-              {/* BOTTOM */}
+              {/* PRICE */}
 
               <div className="hw-property-bottom">
 
@@ -217,6 +322,7 @@ export default function RecommendedProperties() {
                   className="hw-view-button"
                   type="button"
                 >
+
                   <span>
                     View Details
                   </span>
@@ -227,9 +333,13 @@ export default function RecommendedProperties() {
                     stroke="currentColor"
                     strokeWidth="2"
                   >
+
                     <path d="M5 12h14" />
+
                     <path d="m13 6 6 6-6 6" />
+
                   </svg>
+
                 </button>
 
               </div>
@@ -243,9 +353,9 @@ export default function RecommendedProperties() {
       </div>
 
 
-      {/* =========================================
+      {/* =====================================================
           VIEW ALL
-      ========================================= */}
+      ===================================================== */}
 
       <div className="hw-recommended-footer">
 
@@ -253,6 +363,7 @@ export default function RecommendedProperties() {
           className="hw-view-all"
           type="button"
         >
+
           <span>
             View All Recommended Properties
           </span>
@@ -263,8 +374,11 @@ export default function RecommendedProperties() {
             stroke="currentColor"
             strokeWidth="2"
           >
+
             <path d="M5 12h14" />
+
             <path d="m13 6 6 6-6 6" />
+
           </svg>
 
         </button>
@@ -272,15 +386,15 @@ export default function RecommendedProperties() {
       </div>
 
 
-      {/* =========================================
+      {/* =====================================================
           STYLES
-      ========================================= */}
+      ===================================================== */}
 
       <style>{`
 
-        /* =========================================
+        /* =====================================================
            SECTION
-        ========================================= */
+        ===================================================== */
 
         .hw-recommended-section {
           width: 100%;
@@ -290,7 +404,7 @@ export default function RecommendedProperties() {
 
           padding: 70px 28px 60px;
 
-          background: #fff;
+          background: #ffffff;
 
           box-sizing: border-box;
 
@@ -298,12 +412,21 @@ export default function RecommendedProperties() {
             "Manrope",
             Arial,
             sans-serif;
+
+          color: #111827;
         }
 
 
-        /* =========================================
+        .hw-recommended-section *,
+        .hw-recommended-section *::before,
+        .hw-recommended-section *::after {
+          box-sizing: border-box;
+        }
+
+
+        /* =====================================================
            HEADER
-        ========================================= */
+        ===================================================== */
 
         .hw-recommended-header {
           width: 100%;
@@ -318,88 +441,89 @@ export default function RecommendedProperties() {
           display: flex;
 
           align-items: center;
+
           justify-content: center;
 
-          gap: 11px;
+          gap: 10px;
 
-          margin-bottom: 8px;
+          margin-bottom: 11px;
         }
 
 
         .hw-recommended-label {
-          color: #b58a25;
+          color: #b9943a;
 
-          font-size: 12px;
+          font-size: 11px;
 
           font-weight: 800;
 
-          letter-spacing: 4px;
+          letter-spacing: 2.5px;
 
           line-height: 1;
         }
 
 
         .hw-recommended-line {
-          width: 42px;
+          width: 34px;
+
           height: 1px;
 
-          background:
-            linear-gradient(
-              90deg,
-              transparent,
-              #d4af37
-            );
+          background: #d4af37;
         }
 
 
         .hw-recommended-line.reverse {
-          background:
-            linear-gradient(
-              90deg,
-              #d4af37,
-              transparent
-            );
+          background: #d4af37;
         }
 
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
 
         .hw-recommended-header h2 {
           margin: 0;
 
-          color: #171717;
+          color: #111827;
 
           font-family:
-            "Playfair Display",
-            Georgia,
-            serif;
+            "Manrope",
+            Arial,
+            sans-serif;
 
-          font-size: 40px;
-
-          font-weight: 600;
+          font-size: 36px;
 
           line-height: 1.15;
 
-          letter-spacing: -.8px;
+          font-weight: 800;
+
+          letter-spacing: -1.2px;
+        }
+
+
+        .hw-recommended-header h2 span {
+          color: #b9943a;
         }
 
 
         .hw-recommended-header p {
-          max-width: 700px;
+          max-width: 650px;
 
           margin: 12px auto 0;
 
-          color: #777;
+          color: #737b8c;
 
           font-size: 13px;
 
-          line-height: 1.7;
+          line-height: 1.65;
 
           font-weight: 500;
         }
 
 
-        /* =========================================
-           GRID
-        ========================================= */
+        /* =====================================================
+           DESKTOP GRID
+        ===================================================== */
 
         .hw-recommended-grid {
           display: grid;
@@ -408,12 +532,14 @@ export default function RecommendedProperties() {
             repeat(4, minmax(0, 1fr));
 
           gap: 20px;
+
+          width: 100%;
         }
 
 
-        /* =========================================
+        /* =====================================================
            CARD
-        ========================================= */
+        ===================================================== */
 
         .hw-recommended-card {
           position: relative;
@@ -422,39 +548,39 @@ export default function RecommendedProperties() {
 
           overflow: hidden;
 
-          background: #fff;
+          background: #ffffff;
 
           border:
-            1px solid #e9e2d3;
+            1px solid #eee8d8;
 
-          border-radius: 15px;
+          border-radius: 16px;
 
           box-shadow:
             0 7px 24px
-            rgba(0, 0, 0, .055);
+            rgba(17, 24, 39, .055);
 
           transition:
-            transform .3s ease,
-            box-shadow .3s ease,
-            border-color .3s ease;
+            transform .28s ease,
+            box-shadow .28s ease,
+            border-color .28s ease;
         }
 
 
         .hw-recommended-card:hover {
-          transform: translateY(-7px);
+          transform: translateY(-5px);
 
           border-color:
-            rgba(212, 175, 55, .65);
+            rgba(185, 148, 58, .55);
 
           box-shadow:
-            0 20px 45px
-            rgba(0, 0, 0, .12);
+            0 17px 38px
+            rgba(17, 24, 39, .10);
         }
 
 
-        /* =========================================
+        /* =====================================================
            IMAGE
-        ========================================= */
+        ===================================================== */
 
         .hw-recommended-image {
           position: relative;
@@ -465,7 +591,7 @@ export default function RecommendedProperties() {
 
           overflow: hidden;
 
-          background: #eee;
+          background: #f5f5f2;
         }
 
 
@@ -473,6 +599,7 @@ export default function RecommendedProperties() {
           display: block;
 
           width: 100%;
+
           height: 100%;
 
           object-fit: cover;
@@ -480,15 +607,19 @@ export default function RecommendedProperties() {
           object-position: center;
 
           transition:
-            transform .65s ease;
+            transform .45s ease;
         }
 
 
         .hw-recommended-card:hover
         .hw-recommended-image img {
-          transform: scale(1.07);
+          transform: scale(1.045);
         }
 
+
+        /* =====================================================
+           GRADIENT
+        ===================================================== */
 
         .hw-image-gradient {
           position: absolute;
@@ -500,15 +631,15 @@ export default function RecommendedProperties() {
           background:
             linear-gradient(
               to top,
-              rgba(0,0,0,.25),
+              rgba(0, 0, 0, .25),
               transparent 50%
             );
         }
 
 
-        /* =========================================
+        /* =====================================================
            BADGE
-        ========================================= */
+        ===================================================== */
 
         .hw-founder-badge {
           position: absolute;
@@ -516,6 +647,7 @@ export default function RecommendedProperties() {
           z-index: 5;
 
           top: 12px;
+
           left: 12px;
 
           padding:
@@ -530,7 +662,7 @@ export default function RecommendedProperties() {
               #b88b20
             );
 
-          color: #fff;
+          color: #ffffff;
 
           font-size: 9px;
 
@@ -540,24 +672,24 @@ export default function RecommendedProperties() {
 
           box-shadow:
             0 4px 12px
-            rgba(0,0,0,.2);
+            rgba(0, 0, 0, .20);
         }
 
 
-        /* =========================================
+        /* =====================================================
            CONTENT
-        ========================================= */
+        ===================================================== */
 
         .hw-recommended-content {
           padding:
-            17px 17px 16px;
+            17px 16px 16px;
         }
 
 
         .hw-recommended-content h3 {
           margin: 0;
 
-          color: #171717;
+          color: #111827;
 
           font-family:
             "Manrope",
@@ -566,7 +698,7 @@ export default function RecommendedProperties() {
 
           font-size: 18px;
 
-          line-height: 1.25;
+          line-height: 1.3;
 
           font-weight: 800;
 
@@ -581,19 +713,19 @@ export default function RecommendedProperties() {
         .hw-property-subtitle {
           margin-top: 5px;
 
-          color: #b58a25;
+          color: #b9943a;
 
           font-size: 12px;
 
-          line-height: 1.4;
+          line-height: 1.45;
 
           font-weight: 700;
         }
 
 
-        /* =========================================
+        /* =====================================================
            LOCATION
-        ========================================= */
+        ===================================================== */
 
         .hw-property-location {
           display: flex;
@@ -604,11 +736,11 @@ export default function RecommendedProperties() {
 
           margin-top: 12px;
 
-          min-height: 34px;
+          min-height: 38px;
 
-          color: #6f6f6f;
+          color: #737b8c;
 
-          font-size: 10px;
+          font-size: 11px;
 
           line-height: 1.5;
 
@@ -620,9 +752,10 @@ export default function RecommendedProperties() {
           flex-shrink: 0;
 
           width: 15px;
+
           height: 15px;
 
-          color: #c49a2c;
+          color: #b9943a;
         }
 
 
@@ -630,13 +763,14 @@ export default function RecommendedProperties() {
           display: block;
 
           width: 100%;
+
           height: 100%;
         }
 
 
-        /* =========================================
+        /* =====================================================
            DETAILS
-        ========================================= */
+        ===================================================== */
 
         .hw-property-details {
           display: flex;
@@ -650,7 +784,7 @@ export default function RecommendedProperties() {
           padding-top: 11px;
 
           border-top:
-            1px solid #eeeae1;
+            1px solid #eee8d8;
         }
 
 
@@ -661,11 +795,11 @@ export default function RecommendedProperties() {
 
           gap: 6px;
 
-          color: #686868;
+          color: #737b8c;
 
-          font-size: 10px;
+          font-size: 11px;
 
-          line-height: 1.3;
+          line-height: 1.35;
 
           font-weight: 600;
 
@@ -674,18 +808,19 @@ export default function RecommendedProperties() {
 
 
         .hw-property-details svg {
-          width: 14px;
-          height: 14px;
+          width: 15px;
+
+          height: 15px;
 
           flex-shrink: 0;
 
-          color: #b78a20;
+          color: #b9943a;
         }
 
 
-        /* =========================================
-           BOTTOM
-        ========================================= */
+        /* =====================================================
+           PRICE
+        ===================================================== */
 
         .hw-property-bottom {
           display: flex;
@@ -706,9 +841,9 @@ export default function RecommendedProperties() {
         .hw-property-price {
           color: #a97914;
 
-          font-size: 18px;
+          font-size: 19px;
 
-          line-height: 1.1;
+          line-height: 1.15;
 
           font-weight: 900;
 
@@ -719,17 +854,17 @@ export default function RecommendedProperties() {
         .hw-property-emi {
           margin-top: 3px;
 
-          color: #888;
+          color: #737b8c;
 
-          font-size: 9px;
+          font-size: 10px;
 
           font-weight: 600;
         }
 
 
-        /* =========================================
-           VIEW BUTTON
-        ========================================= */
+        /* =====================================================
+           VIEW DETAILS BUTTON
+        ===================================================== */
 
         .hw-view-button {
           margin-left: auto;
@@ -742,17 +877,17 @@ export default function RecommendedProperties() {
 
           gap: 6px;
 
-          min-width: 98px;
+          min-width: 100px;
 
           padding:
-            9px 11px;
+            10px 12px;
 
           border:
-            1px solid #d4af37;
+            1px solid #b9943a;
 
           border-radius: 7px;
 
-          background: #fff;
+          background: #ffffff;
 
           color: #9a741e;
 
@@ -761,11 +896,13 @@ export default function RecommendedProperties() {
             Arial,
             sans-serif;
 
-          font-size: 9px;
+          font-size: 10px;
 
           font-weight: 800;
 
           cursor: pointer;
+
+          white-space: nowrap;
 
           transition:
             background .25s ease,
@@ -775,8 +912,9 @@ export default function RecommendedProperties() {
 
 
         .hw-view-button svg {
-          width: 13px;
-          height: 13px;
+          width: 14px;
+
+          height: 14px;
 
           transition:
             transform .25s ease;
@@ -784,9 +922,9 @@ export default function RecommendedProperties() {
 
 
         .hw-view-button:hover {
-          background: #d4af37;
+          background: #b9943a;
 
-          color: #fff;
+          color: #ffffff;
 
           transform: translateY(-1px);
         }
@@ -798,9 +936,9 @@ export default function RecommendedProperties() {
         }
 
 
-        /* =========================================
+        /* =====================================================
            VIEW ALL
-        ========================================= */
+        ===================================================== */
 
         .hw-recommended-footer {
           display: flex;
@@ -824,11 +962,11 @@ export default function RecommendedProperties() {
             12px 23px;
 
           border:
-            1px solid #d4af37;
+            1px solid #b9943a;
 
-          border-radius: 30px;
+          border-radius: 20px;
 
-          background: #fff;
+          background: #ffffff;
 
           color: #9a741e;
 
@@ -850,6 +988,7 @@ export default function RecommendedProperties() {
 
         .hw-view-all svg {
           width: 15px;
+
           height: 15px;
 
           transition:
@@ -858,13 +997,13 @@ export default function RecommendedProperties() {
 
 
         .hw-view-all:hover {
-          background: #d4af37;
+          background: #b9943a;
 
-          color: #fff;
+          color: #ffffff;
 
           box-shadow:
             0 8px 22px
-            rgba(212,175,55,.25);
+            rgba(185, 148, 58, .25);
         }
 
 
@@ -874,9 +1013,9 @@ export default function RecommendedProperties() {
         }
 
 
-        /* =========================================
+        /* =====================================================
            TABLET
-        ========================================= */
+        ===================================================== */
 
         @media (max-width: 1100px) {
 
@@ -901,74 +1040,121 @@ export default function RecommendedProperties() {
         }
 
 
-        /* =========================================
+        /* =====================================================
            MOBILE
-        ========================================= */
+           LEFT / RIGHT PADDING
+           2 CARDS
+           HORIZONTAL SLIDER
+           AUTO SLIDE
+        ===================================================== */
 
         @media (max-width: 600px) {
 
           .hw-recommended-section {
+            width: 100%;
+
             padding:
-              42px 14px 38px;
+              42px 10px 38px;
+
+            background: #ffffff;
           }
 
 
+          /* HEADER */
+
           .hw-recommended-header {
+            padding-left: 0;
+
+            padding-right: 0;
+
             margin-bottom: 25px;
           }
 
 
           .hw-recommended-brand {
             gap: 7px;
+
+            margin-bottom: 10px;
           }
 
 
           .hw-recommended-label {
-            font-size: 9px;
+            font-size: 10px;
 
-            letter-spacing: 3px;
+            letter-spacing: 2px;
           }
 
 
           .hw-recommended-line {
-            width: 25px;
+            width: 24px;
           }
 
 
           .hw-recommended-header h2 {
+
             font-size: 29px;
 
             line-height: 1.15;
+
+            font-weight: 800;
+
+            letter-spacing: -.7px;
+          }
+
+
+          .hw-recommended-header h2 span {
+            color: #b9943a;
           }
 
 
           .hw-recommended-header p {
-            max-width: 350px;
 
-            margin-top: 9px;
+            max-width: 370px;
 
-            font-size: 11px;
+            margin:
+              9px auto 0;
 
-            line-height: 1.65;
+            padding:
+              0 8px;
+
+            color: #737b8c;
+
+            font-size: 13px;
+
+            line-height: 1.6;
           }
 
 
-          /* horizontal cards */
+          /* =================================================
+             MOBILE SLIDER
+             LEFT + RIGHT PADDING
+          ================================================= */
 
           .hw-recommended-grid {
+
             display: flex;
 
-            gap: 13px;
+            flex-wrap: nowrap;
+
+            gap: 8px;
+
+            width: 100%;
 
             overflow-x: auto;
 
+            overflow-y: hidden;
+
             padding:
               3px 2px 12px;
+
+            margin: 0;
 
             scroll-snap-type:
               x mandatory;
 
             scrollbar-width: none;
+
+            -webkit-overflow-scrolling: touch;
           }
 
 
@@ -977,117 +1163,353 @@ export default function RecommendedProperties() {
           }
 
 
+          /* =================================================
+             2 CARDS VISIBLE
+          ================================================= */
+
           .hw-recommended-card {
+
             flex:
-              0 0 290px;
+              0 0 calc(
+                (100vw - 36px) / 2
+              );
+
+            width:
+              calc(
+                (100vw - 36px) / 2
+              );
+
+            min-width:
+              calc(
+                (100vw - 36px) / 2
+              );
 
             scroll-snap-align: start;
 
-            border-radius: 14px;
+            border-radius: 13px;
+
+            box-shadow:
+              0 6px 20px
+              rgba(17, 24, 39, .055);
           }
 
+
+          /* IMAGE */
 
           .hw-recommended-image {
-            height: 180px;
+
+            width: 100%;
+
+            height: 145px;
           }
 
+
+          /* CONTENT */
 
           .hw-recommended-content {
+
             padding:
-              16px 15px;
+              13px 11px 14px;
           }
 
+
+          /* TITLE */
 
           .hw-recommended-content h3 {
-            font-size: 17px;
+
+            font-size: 15px;
+
+            line-height: 1.3;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
           }
 
+
+          /* SUBTITLE */
 
           .hw-property-subtitle {
+
+            margin-top: 5px;
+
             font-size: 11px;
+
+            line-height: 1.35;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
           }
 
+
+          /* LOCATION */
 
           .hw-property-location {
-            font-size: 9px;
 
-            min-height: 32px;
+            gap: 5px;
+
+            margin-top: 9px;
+
+            min-height: 34px;
+
+            font-size: 12px;
+
+            line-height: 1.45;
           }
 
 
-          .hw-property-details {
-            gap: 10px;
-          }
+          .hw-location-icon {
 
-
-          .hw-property-details span {
-            font-size: 9px;
-          }
-
-
-          .hw-property-details svg {
             width: 13px;
+
             height: 13px;
           }
 
 
-          .hw-property-price {
-            font-size: 17px;
+          /* DETAILS */
+
+          .hw-property-details {
+
+            gap: 8px;
+
+            margin-top: 9px;
+
+            padding-top: 9px;
           }
 
 
+          .hw-property-details span {
+
+            gap: 4px;
+
+            font-size: 10.5px;
+
+            line-height: 1.35;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+          }
+
+
+          .hw-property-details svg {
+
+            width: 12px;
+
+            height: 12px;
+          }
+
+
+          /* PRICE */
+
+          .hw-property-bottom {
+
+            gap: 5px;
+
+            margin-top: 11px;
+
+            align-items: flex-end;
+          }
+
+
+          .hw-property-price {
+
+            font-size: 16px;
+
+            line-height: 1.15;
+
+            font-weight: 900;
+          }
+
+
+          .hw-property-emi {
+
+            margin-top: 2px;
+
+            font-size: 10px;
+          }
+
+
+          /* BUTTON */
+
           .hw-view-button {
-            min-width: 88px;
+
+            min-width: auto;
 
             padding:
               8px 9px;
 
-            font-size: 8px;
+            gap: 4px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+            white-space: nowrap;
           }
 
 
           .hw-view-button svg {
+
             width: 11px;
+
             height: 11px;
           }
 
 
+          /* BADGE */
+
+          .hw-founder-badge {
+
+            top: 8px;
+
+            left: 8px;
+
+            padding:
+              5px 7px;
+
+            font-size: 9px;
+
+            letter-spacing: .3px;
+          }
+
+
+          /* FOOTER */
+
           .hw-recommended-footer {
-            margin-top: 25px;
+
+            margin-top: 22px;
+          }
+
+
+          .hw-view-all {
+
+            padding:
+              10px 17px;
+
+            font-size: 12px;
           }
 
         }
 
 
-        /* =========================================
+        /* =====================================================
            SMALL MOBILE
-        ========================================= */
+        ===================================================== */
 
         @media (max-width: 380px) {
 
           .hw-recommended-section {
-            padding-left: 10px;
-            padding-right: 10px;
+
+            padding-left: 8px;
+
+            padding-right: 8px;
+          }
+
+
+          .hw-recommended-header {
+
+            padding-left: 0;
+
+            padding-right: 0;
           }
 
 
           .hw-recommended-header h2 {
+
             font-size: 27px;
           }
 
 
+          .hw-recommended-grid {
+
+            gap: 7px;
+
+            padding-left: 2px;
+
+            padding-right: 2px;
+          }
+
+
           .hw-recommended-card {
-            flex-basis: 275px;
+
+            flex:
+              0 0 calc(
+                (100vw - 30px) / 2
+              );
+
+            width:
+              calc(
+                (100vw - 30px) / 2
+              );
+
+            min-width:
+              calc(
+                (100vw - 30px) / 2
+              );
           }
 
 
           .hw-recommended-image {
-            height: 170px;
+
+            height: 135px;
+          }
+
+
+          .hw-recommended-content {
+
+            padding:
+              11px 9px 12px;
+          }
+
+
+          .hw-recommended-content h3 {
+
+            font-size: 14px;
+          }
+
+
+          .hw-property-subtitle {
+
+            font-size: 9px;
+          }
+
+
+          .hw-property-location {
+
+            font-size: 8px;
+          }
+
+
+          .hw-property-details span {
+
+            font-size: 8px;
           }
 
 
           .hw-property-price {
-            font-size: 16px;
+
+            font-size: 15px;
+          }
+
+
+          .hw-view-button {
+
+            padding:
+              7px 7px;
+
+            font-size: 10px;
           }
 
         }

@@ -36,7 +36,7 @@ export default function Footer() {
       {/* Main Footer - HomWisor black with gold, structure as per screenshot */}
       <div style={{ background: '#0A0A0A', color: 'rgba(255,255,255,.75)', borderTop: '1px solid #1a1a1a' }}>
         <div className="container" style={{ padding: '36px 16px 18px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr .9fr 1fr 1fr 1.1fr .95fr', gap: 24 }} className="footer-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', gap: 24 }} className="footer-grid">
             {/* Logo col */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -68,12 +68,12 @@ export default function Footer() {
                   </span>
                   support@homwisor.com
                 </a>
-                <div style={{ display: 'flex', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.65)' }}>
+                {/* <div style={{ display: 'flex', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.65)' }}>
                   <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(212,175,55,.15)', border: '1px solid rgba(212,175,55,.3)', display: 'grid', placeItems: 'center', color: GOLD, flexShrink: 0, marginTop: 1 }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.7"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                   </span>
                   <span style={{ lineHeight: 1.5 }}>Gurugram, Haryana<br /></span>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -83,61 +83,8 @@ export default function Footer() {
               <div style={{ display: 'grid', gap: 9, fontSize: 13 }}>
                 <Link to="/" style={{ color: 'rgba(255,255,255,.7)' }}>Home</Link>
                 <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>About Us</Link>
-                <Link to="/search?type=Luxury" style={{ color: 'rgba(255,255,255,.7)' }}>Luxury Projects</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Branded Residences</Link>
                 <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Blog</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Resale Properties</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Rental Properties</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Career with Us</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Testimonials</Link>
                 <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Contact</Link>
-              </div>
-            </div>
-
-            {/* POPULAR CITIES */}
-            <div>
-              <h4 style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: 1, marginBottom: 14, borderBottom: `2px solid ${GOLD}`, display: 'inline-block', paddingBottom: 6 }}>POPULAR CITIES</h4>
-              <div style={{ display: 'grid', gap: 9, fontSize: 13 }}>
-                <Link to="/search?location=Gurugram" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Gurugram</Link>
-                <Link to="/search?location=Noida" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Noida</Link>
-                <Link to="/search?location=Ayodhya" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Ayodhya</Link>
-                <Link to="/search?location=Panipat" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Panipat</Link>
-                <Link to="/search?location=Kasauli" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Kasauli</Link>
-                <Link to="/search?location=Karnal" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Karnal</Link>
-                <Link to="/search?location=Pushkar" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Pushkar</Link>
-                <Link to="/search?location=Delhi" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Delhi</Link>
-                <Link to="/search?location=Goa" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Goa</Link>
-                <Link to="/search?location=Mumbai" style={{ color: 'rgba(255,255,255,.7)' }}>Flats in Mumbai</Link>
-              </div>
-            </div>
-
-            {/* TOP DEVELOPERS */}
-            <div>
-              <h4 style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: 1, marginBottom: 14, borderBottom: `2px solid ${GOLD}`, display: 'inline-block', paddingBottom: 6 }}>TOP DEVELOPERS<span style={{ fontWeight: 400, color: GOLD, fontSize: 11 }}>(24)</span></h4>
-              <div style={{ display: 'grid', gap: 9, fontSize: 13 }}>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Godrej Properties</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>DLF Homes</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Emaar India</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Birla Estates</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Adani Realty</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Experion Developers</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Signature Global</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Sobha Developers</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Central Park</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Trump Towers</a>
-              </div>
-            </div>
-
-            {/* PRIME LOCATIONS */}
-            <div>
-              <h4 style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: 1, marginBottom: 14, borderBottom: `2px solid ${GOLD}`, display: 'inline-block', paddingBottom: 6 }}>PRIME LOCATIONS</h4>
-              <div style={{ display: 'grid', gap: 9, fontSize: 13 }}>
-                <Link to="/search?location=Sohna" style={{ color: 'rgba(255,255,255,.7)' }}>Projects on Sohna Road</Link>
-                <Link to="/search?location=Golf" style={{ color: 'rgba(255,255,255,.7)' }}>Projects on Golf Course Road</Link>
-                <Link to="/search?location=Dwarka" style={{ color: 'rgba(255,255,255,.7)' }}>Projects on Dwarka Expressway</Link>
-                <Link to="/search?location=New Gurgaon" style={{ color: 'rgba(255,255,255,.7)' }}>Projects on New Gurgaon</Link>
-                <Link to="/search?location=Southern" style={{ color: 'rgba(255,255,255,.7)' }}>Projects on Southern Peripheral Road</Link>
-                <Link to="/search?location=Golf Extension" style={{ color: 'rgba(255,255,255,.7)' }}>Projects on Golf Course Extension</Link>
               </div>
             </div>
 
@@ -145,18 +92,32 @@ export default function Footer() {
             <div>
               <h4 style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: 1, marginBottom: 14, borderBottom: `2px solid ${GOLD}`, display: 'inline-block', paddingBottom: 6 }}>TOOLS & SERVICES</h4>
               <div style={{ display: 'grid', gap: 9, fontSize: 13 }}>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>EMI Calculator</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Privacy Policy</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Terms & Conditions</a>
+                <Link to="/privacy-policy" style={{ color: 'rgba(255,255,255,.7)' }}>Privacy Policy</Link>
+                <Link to="/terms-and-conditions" style={{ color: 'rgba(255,255,255,.7)' }}>Terms & Conditions</Link>
                 <a href="#" style={{ color: 'rgba(255,255,255,.7)' }}>Disclaimer</a>
-                <Link to="/property-snaps" style={{ color: GOLD, fontWeight: 700 }}>Property Snaps →</Link>
                 <Link to="/admin" style={{ color: 'rgba(255,255,255,.5)', fontSize: 12 }}>Admin Panel</Link>
               </div>
             </div>
+            {/* ADDRESS */}
+            <div>
+              <h4 style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: 1, marginBottom: 14, borderBottom: `2px solid ${GOLD}`, display: 'inline-block', paddingBottom: 6 }}>ADDRESS</h4>
+              <div style={{ display: 'grid', gap: 12, fontSize: 13 }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, color: 'rgba(255,255,255,.7)', lineHeight: 1.6 }}>
+                  <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(212,175,55,.15)', border: '1px solid rgba(212,175,55,.3)', display: 'grid', placeItems: 'center', flexShrink: 0, marginTop: 1 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.7">
+                      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </span>
+                  <span>Gurugram, Haryana</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div style={{ borderTop: '1px solid #1a1a1a', marginTop: 28, paddingTop: 14, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, fontSize: 12, color: 'rgba(255,255,255,.45)' }}>
-            <span>© 2026 HomWisor.com — Rishto Ki Shuruwat. All rights reserved. | RERA Registered • HomWisor palette: Black → <span style={{ color: GOLD }}>Gold #D4AF37</span> (from homwisor.com)</span>
+            <span>© 2026 HomWisor.com — Rishto Ki Shuruwat. All rights reserved. | RERA Registered</span>
             <span style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <span style={{ width: 28, height: 28, borderRadius: '50%', background: '#1a1a1a', display: 'grid', placeItems: 'center', color: GOLD, fontWeight: 700, fontSize: 10, border: '1px solid rgba(212,175,55,.25)' }}>f</span>
               <span style={{ width: 28, height: 28, borderRadius: '50%', background: '#1a1a1a', display: 'grid', placeItems: 'center', color: GOLD, fontWeight: 700, fontSize: 10, border: '1px solid rgba(212,175,55,.25)' }}>in</span>
@@ -171,10 +132,14 @@ export default function Footer() {
           .footer-grid{ grid-template-columns: 1fr 1fr 1fr !important; }
         }
         @media(max-width:700px){
-          .footer-grid{ grid-template-columns: 1fr 1fr !important; }
-        }
-        @media(max-width:500px){
-          .footer-grid{ grid-template-columns: 1fr !important; }
+          .footer-grid{
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px 16px !important;
+          }
+
+          .footer-grid > div:first-child{
+            grid-column: 1 / -1 !important;
+          }
         }
       `}</style>
     </footer>

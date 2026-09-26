@@ -7,16 +7,13 @@ export default function Hero({ banners = [] }) {
     ? banners
     : [
         {
-          image:
-            "../images/bn2.png",
+          image: "../images/bn2.png",
         },
         {
-          image:
-            "../images/bn2.png",
+          image: "../images/bn2.png",
         },
         {
-          image:
-            "../images/bn1.png",
+          image: "../images/bn1.png",
         },
       ];
 
@@ -45,7 +42,6 @@ export default function Hero({ banners = [] }) {
     <section className="hw-hero">
 
       {/* BACKGROUND */}
-
       <div className="hw-slides">
 
         {hero.map((banner, index) => (
@@ -61,8 +57,6 @@ export default function Hero({ banners = [] }) {
               src={banner.image}
               alt="Premium Property"
             />
-
-
           </div>
         ))}
 
@@ -70,7 +64,6 @@ export default function Hero({ banners = [] }) {
 
 
       {/* ARROWS */}
-
       {hero.length > 1 && (
         <>
           <button
@@ -95,7 +88,6 @@ export default function Hero({ banners = [] }) {
 
 
       {/* DOTS */}
-
       {/* {hero.length > 1 && (
         <div className="hw-dots">
 
@@ -119,818 +111,795 @@ export default function Hero({ banners = [] }) {
 
       <style>{`
 
-       @import url(
-  'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap'
-);
+        @import url(
+          'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap'
+        );
 
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
 
-* {
-  box-sizing: border-box;
-}
+        * {
+          box-sizing: border-box;
+        }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+        /* =========================================================
+           HERO
+        ========================================================= */
 
-.hw-hero {
+        .hw-hero {
+          position: relative;
+          width: 100%;
+          height: 430px;
+          overflow: visible;
+          background: #080808;
+          color: #fff;
+          font-family:
+            "Manrope",
+            Arial,
+            sans-serif;
+        }
 
-  position: relative;
 
-  width: 100%;
+        /* =========================================================
+           SLIDER
+        ========================================================= */
 
-  height: 430px;
+        .hw-slides {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
 
-  overflow: visible;
 
-  background: #080808;
+        .hw-slide {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          transform: scale(1.04);
 
-  color: #fff;
+          transition:
+            opacity 1s ease,
+            transform 5s ease;
+        }
 
-  font-family:
-    "Manrope",
-    Arial,
-    sans-serif;
-}
 
+        .hw-slide-active {
+          opacity: 1;
+          transform: scale(1);
+        }
 
-/* =========================================================
-   SLIDER
-========================================================= */
 
-.hw-slides {
+        .hw-slide img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          object-position: center;
+        }
 
-  position: absolute;
 
-  inset: 0;
+        /* =========================================================
+           IMAGE OVERLAY
+        ========================================================= */
 
-  width: 100%;
+        .hw-image-overlay {
+          display: none;
+        }
 
-  height: 100%;
 
-  overflow: hidden;
-}
+        .hw-bottom-overlay {
+          display: none;
+        }
 
 
-.hw-slide {
+        /* =========================================================
+           HERO CONTENT
+        ========================================================= */
 
-  position: absolute;
+        .hw-hero-content {
+          display: none;
+        }
 
-  inset: 0;
 
-  width: 100%;
+        .hw-hero-left {
+          width: 100%;
+          max-width: 700px;
+        }
 
-  height: 100%;
 
-  opacity: 0;
+        /* =========================================================
+           EYEBROW
+        ========================================================= */
 
-  transform: scale(1.04);
+        .hw-eyebrow {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 12px;
 
-  transition:
-    opacity 1s ease,
-    transform 5s ease;
-}
+          color:
+            rgba(255,255,255,.75);
 
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1.6px;
+        }
 
-.hw-slide-active {
 
-  opacity: 1;
+        .hw-eyebrow b {
+          color: #d9ad42;
+        }
 
-  transform: scale(1);
-}
 
+        /* =========================================================
+           TITLE
+        ========================================================= */
 
-.hw-slide img {
+        .hw-title {
+          margin: 0;
+          color: #fff;
 
-  width: 100%;
+          font-family:
+            "Playfair Display",
+            Georgia,
+            serif;
 
-  height: 100%;
+          font-size: 64px;
+          line-height: .98;
+          font-weight: 600;
+          letter-spacing: -1.8px;
 
-  display: block;
+          text-shadow:
+            0 5px 25px
+            rgba(0,0,0,.60);
+        }
 
-  object-fit: cover;
 
-  object-position: center;
-}
+        .hw-title em {
+          color: #d9ad42;
+          font-style: italic;
+          font-weight: 500;
+        }
 
 
-/* =========================================================
-   IMAGE OVERLAY
-========================================================= */
+        /* =========================================================
+           DESCRIPTION
+        ========================================================= */
 
-.hw-image-overlay {
-  display: none;
+        .hw-description {
+          margin: 13px 0 0;
 
-}
+          color:
+            rgba(255,255,255,.84);
 
+          font-size: 14px;
+          line-height: 1.5;
+        }
 
-.hw-bottom-overlay {
-  display: none;
 
-}
+        /* =========================================================
+           BENEFITS
+        ========================================================= */
 
+        .hw-benefits {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          margin-top: 15px;
+        }
 
-/* =========================================================
-   HERO CONTENT
-========================================================= */
 
-.hw-hero-content {
-  display: none;
+        .hw-benefit {
+          display: flex;
+          align-items: center;
+          gap: 6px;
 
-}
+          color:
+            rgba(255,255,255,.92);
 
+          font-size: 11px;
+          font-weight: 500;
+        }
 
-.hw-hero-left {
 
-  width: 100%;
+        .hw-benefit-icon {
+          color: #d9ad42;
+          font-size: 16px;
+        }
 
-  max-width: 700px;
-}
 
+        /* =========================================================
+           SIDE CONTENT
+        ========================================================= */
 
-/* =========================================================
-   EYEBROW
-========================================================= */
+        .hw-side-content {
+          width: 90px;
+          margin-right: 0;
 
-.hw-eyebrow {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
 
-  display: flex;
+          color:
+            rgba(255,255,255,.72);
 
-  align-items: center;
+          font-size: 8px;
+          font-weight: 500;
+          line-height: 1.55;
+          letter-spacing: 1px;
+        }
 
-  gap: 8px;
 
-  margin-bottom: 12px;
+        .hw-side-a {
+          color: #d9ad42;
 
-  color:
-    rgba(255,255,255,.75);
+          font-family:
+            "Playfair Display",
+            Georgia,
+            serif;
 
-  font-size: 11px;
+          font-size: 14px;
+        }
 
-  font-weight: 700;
 
-  letter-spacing: 1.6px;
-}
+        .hw-side-line {
+          width: 28px;
+          height: 1px;
+          margin-top: 6px;
+          background: #d9ad42;
+        }
 
 
-.hw-eyebrow b {
+        /* =========================================================
+           FEATURES
+        ========================================================= */
 
-  color: #d9ad42;
-}
+        .hw-features {
+          display: none;
+        }
 
 
-/* =========================================================
-   TITLE
-========================================================= */
+        .hw-feature {
+          min-width: 0;
 
-.hw-title {
+          display: flex;
+          align-items: center;
 
-  margin: 0;
+          gap: 9px;
+          padding: 0 14px;
+        }
 
-  color: #fff;
 
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
+        .hw-feature-icon {
+          width: 36px;
+          height: 36px;
+          min-width: 36px;
 
-  font-size: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-  line-height: .98;
+          color: #d9ad42;
 
-  font-weight: 600;
+          border:
+            1px solid
+            rgba(217,173,66,.80);
 
-  letter-spacing: -1.8px;
+          border-radius: 50%;
 
-  text-shadow:
-    0 5px 25px
-    rgba(0,0,0,.60);
-}
+          background:
+            rgba(0,0,0,.20);
+        }
 
 
-.hw-title em {
+        .hw-feature-info {
+          min-width: 0;
+        }
 
-  color: #d9ad42;
 
-  font-style: italic;
+        .hw-feature-info h4 {
+          margin: 0 0 3px;
+          color: #fff;
 
-  font-weight: 500;
-}
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 1.2;
+          white-space: nowrap;
+        }
 
 
-/* =========================================================
-   DESCRIPTION
-========================================================= */
+        .hw-feature-info p {
+          margin: 0;
 
-.hw-description {
+          color:
+            rgba(255,255,255,.56);
 
-  margin: 13px 0 0;
+          font-size: 10px;
+          line-height: 1.35;
+          white-space: nowrap;
+        }
 
-  color:
-    rgba(255,255,255,.84);
 
-  font-size: 14px;
+        .hw-feature-divider {
+          width: 1px;
+          height: 34px;
 
-  line-height: 1.5;
-}
+          background:
+            rgba(255,255,255,.18);
+        }
 
 
-/* =========================================================
-   BENEFITS
-========================================================= */
+        /* =========================================================
+           ARROWS
+        ========================================================= */
 
-.hw-benefits {
+        .hw-arrow {
+          position: absolute;
+          z-index: 20;
 
-  display: flex;
+          top: 50%;
 
-  align-items: center;
+          width: 38px;
+          height: 38px;
 
-  gap: 24px;
+          padding: 0;
 
-  margin-top: 15px;
-}
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
+          transform:
+            translateY(-50%);
 
-.hw-benefit {
+          border:
+            1px solid
+            rgba(255,255,255,.35);
 
-  display: flex;
+          border-radius: 50%;
 
-  align-items: center;
+          background:
+            rgba(0,0,0,.28);
 
-  gap: 6px;
+          color: #fff;
 
-  color:
-    rgba(255,255,255,.92);
+          font-size: 30px;
 
-  font-size: 11px;
+          cursor: pointer;
 
-  font-weight: 500;
-}
+          transition: .25s ease;
+        }
 
 
-.hw-benefit-icon {
+        .hw-arrow:hover {
+          color: #111;
+          background: #d9ad42;
+          border-color: #d9ad42;
+        }
 
-  color: #d9ad42;
 
-  font-size: 16px;
-}
+        .hw-arrow-left {
+          left: 13px;
+        }
 
 
-/* =========================================================
-   SIDE CONTENT
-========================================================= */
+        .hw-arrow-right {
+          right: 13px;
+        }
 
-.hw-side-content {
 
-  width: 90px;
+        /* =========================================================
+           DOTS
+        ========================================================= */
 
-  margin-right: 0;
+        .hw-dots {
+          position: absolute;
+          z-index: 20;
 
-  display: flex;
+          left: 50%;
+          bottom: 80px;
 
-  flex-direction: column;
+          transform:
+            translateX(-50%);
 
-  align-items: flex-start;
+          display: flex;
+          align-items: center;
 
-  color:
-    rgba(255,255,255,.72);
+          gap: 5px;
+        }
 
-  font-size: 8px;
 
-  font-weight: 500;
+        .hw-dot {
+          width: 6px;
+          height: 6px;
 
-  line-height: 1.55;
+          padding: 0;
 
-  letter-spacing: 1px;
-}
+          border: none;
+          border-radius: 20px;
 
+          background:
+            rgba(255,255,255,.55);
 
-.hw-side-a {
+          cursor: pointer;
+        }
 
-  color: #d9ad42;
 
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
+        .hw-dot-active {
+          width: 21px;
+          background: #d9ad42;
+        }
 
-  font-size: 14px;
-}
 
+        /* =========================================================
+           LARGE DESKTOP
+        ========================================================= */
 
-.hw-side-line {
+        @media (min-width: 1400px) {
 
-  width: 28px;
+          .hw-hero {
+            height: 570px;
+          }
 
-  height: 1px;
+          .hw-title {
+            font-size: 64px;
+          }
 
-  margin-top: 6px;
+          .hw-description {
+            font-size: 13px;
+          }
 
-  background: #d9ad42;
-}
+          .hw-feature-info h4 {
+            font-size: 10px;
+          }
 
+          .hw-feature-info p {
+            font-size: 7px;
+          }
+        }
 
-/* =========================================================
-   FEATURES
-========================================================= */
 
-.hw-features {
-  display: none;
+        /* =========================================================
+           TABLET
+        ========================================================= */
 
-}
+        @media (max-width: 1100px) {
 
+          .hw-hero-content {
+            width: calc(100% - 80px);
+          }
 
-.hw-feature {
+          .hw-features {
+            width: calc(100% - 80px);
+          }
 
-  min-width: 0;
+          .hw-title {
+            font-size: 48px;
+          }
 
-  display: flex;
+          .hw-feature {
+            padding: 0 7px;
+          }
 
-  align-items: center;
+          .hw-feature-icon {
+            width: 31px;
+            height: 31px;
+            min-width: 31px;
+          }
 
-  gap: 9px;
+          .hw-feature-info h4 {
+            font-size: 8px;
+          }
 
-  padding: 0 14px;
-}
+          .hw-feature-info p {
+            font-size: 5.5px;
+          }
+        }
 
 
-.hw-feature-icon {
+        /* =========================================================
+           MOBILE
+           IMAGE ONLY
+        ========================================================= */
 
-  width: 36px;
+        @media (max-width: 768px) {
 
-  height: 36px;
+          .hw-hero-content {
+            width: 100%;
+            margin: 0;
+          }
 
-  min-width: 36px;
 
-  display: flex;
+          .hw-features {
+            width: 100%;
+            left: 0;
+            transform: none;
+          }
 
-  align-items: center;
 
-  justify-content: center;
+          /* =====================================================
+             MOBILE HERO
+             LEFT + RIGHT 10PX GAP
+             ===================================================== */
 
-  color: #d9ad42;
+          .hw-home-hero > .hw-hero,
+          .hw-hero {
+            position: relative !important;
 
-  border:
-    1px solid
-    rgba(217,173,66,.80);
+            width: calc(100% - 20px) !important;
+            max-width: calc(100% - 20px) !important;
 
-  border-radius: 50%;
+            height: 205px !important;
+            min-height: 205px !important;
 
-  background:
-    rgba(0,0,0,.20);
-}
+            margin-top: 0 !important;
+            margin-right: 10px !important;
+            margin-bottom: 0 !important;
+            margin-left: 10px !important;
 
+            padding: 0 !important;
 
-.hw-feature-info {
+            overflow: hidden !important;
 
-  min-width: 0;
-}
+            border-radius: 12px !important;
 
+            background: #111;
+          }
 
-.hw-feature-info h4 {
 
-  margin: 0 0 3px;
+          /* =====================================================
+             SLIDER
+          ===================================================== */
 
-  color: #fff;
+          .hw-home-hero > .hw-hero .hw-slides,
+          .hw-hero .hw-slides {
 
-  font-size: 12px;
+            position: absolute !important;
 
-  font-weight: 700;
+            top: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
 
-  line-height: 1.2;
+            width: 100% !important;
+            height: 205px !important;
 
-  white-space: nowrap;
-}
+            overflow: hidden !important;
 
+            border-radius: 12px !important;
+          }
 
-.hw-feature-info p {
 
-  margin: 0;
+          /* =====================================================
+             SLIDE
+          ===================================================== */
 
-  color:
-    rgba(255,255,255,.56);
+          .hw-home-hero > .hw-hero .hw-slide,
+          .hw-hero .hw-slide {
 
-  font-size: 10px;
+            position: absolute !important;
 
-  line-height: 1.35;
+            top: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
 
-  white-space: nowrap;
-}
+            width: 100% !important;
+            height: 205px !important;
 
+            overflow: hidden !important;
 
-.hw-feature-divider {
+            border-radius: 12px !important;
 
-  width: 1px;
+            opacity: 0;
 
-  height: 34px;
+            transform: scale(1.02);
 
-  background:
-    rgba(255,255,255,.18);
-}
+            transition:
+              opacity .8s ease,
+              transform 5s ease;
+          }
 
 
-/* =========================================================
-   ARROWS
-========================================================= */
+          .hw-home-hero > .hw-hero .hw-slide-active,
+          .hw-hero .hw-slide-active {
+            opacity: 1;
+            transform: scale(1);
+          }
 
-.hw-arrow {
 
-  position: absolute;
+          /* =====================================================
+             IMAGE
+          ===================================================== */
 
-  z-index: 20;
+          .hw-home-hero > .hw-hero .hw-slide img,
+          .hw-hero .hw-slide img {
 
-  top: 50%;
+            width: 100% !important;
+            height: 205px !important;
 
-  width: 38px;
+            min-width: 100% !important;
+            max-width: 100% !important;
 
-  height: 38px;
+            display: block !important;
 
-  padding: 0;
+            object-fit: cover !important;
+            object-position: center !important;
 
-  display: flex;
+            border-radius: 12px !important;
+          }
 
-  align-items: center;
 
-  justify-content: center;
+          /* =====================================================
+             IMAGE OVERLAY
+          ===================================================== */
 
-  transform:
-    translateY(-50%);
+          .hw-home-hero > .hw-hero .hw-image-overlay,
+          .hw-hero .hw-image-overlay {
 
-  border:
-    1px solid
-    rgba(255,255,255,.35);
+            position: absolute;
 
-  border-radius: 50%;
+            inset: 0;
 
-  background:
-    rgba(0,0,0,.28);
+            background:
+              linear-gradient(
+                180deg,
+                rgba(0,0,0,.02),
+                rgba(0,0,0,.12)
+              ) !important;
 
-  color: #fff;
+            border-radius: 12px !important;
+          }
 
-  font-size: 30px;
 
-  cursor: pointer;
+          /* =====================================================
+             HIDE DESKTOP CONTENT
+          ===================================================== */
 
-  transition: .25s ease;
-}
+          .hw-hero-content {
+            display: none !important;
+          }
 
 
-.hw-arrow:hover {
+          /* =====================================================
+             HIDE FEATURES
+          ===================================================== */
 
-  color: #111;
+          .hw-features {
+            display: none !important;
+          }
 
-  background: #d9ad42;
 
-  border-color: #d9ad42;
-}
+          /* =====================================================
+             HIDE ARROWS
+          ===================================================== */
 
+          .hw-arrow {
+            display: none !important;
+          }
 
-.hw-arrow-left {
 
-  left: 13px;
-}
+          /* =====================================================
+             HIDE DOTS
+          ===================================================== */
 
+          .hw-dots {
+            display: none !important;
+          }
+        }
 
-.hw-arrow-right {
 
-  right: 13px;
-}
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================= */
 
+        @media (max-width: 480px) {
 
-/* =========================================================
-   DOTS
-========================================================= */
+          .hw-home-hero > .hw-hero,
+          .hw-hero {
 
-.hw-dots {
+            width: calc(100% - 20px) !important;
+            max-width: calc(100% - 20px) !important;
 
-  position: absolute;
+            height: 200px !important;
+            min-height: 200px !important;
 
-  z-index: 20;
+            margin-top: 0 !important;
+            margin-right: 10px !important;
+            margin-bottom: 0 !important;
+            margin-left: 10px !important;
 
-  left: 50%;
+            padding: 0 !important;
 
-  bottom: 80px;
+            border-radius: 12px !important;
 
-  transform:
-    translateX(-50%);
+            overflow: hidden !important;
+          }
 
-  display: flex;
 
-  align-items: center;
+          .hw-home-hero > .hw-hero .hw-slides,
+          .hw-hero .hw-slides {
 
-  gap: 5px;
-}
+            width: 100% !important;
+            height: 200px !important;
 
+            border-radius: 12px !important;
+            overflow: hidden !important;
+          }
 
-.hw-dot {
 
-  width: 6px;
+          .hw-home-hero > .hw-hero .hw-slide,
+          .hw-hero .hw-slide {
 
-  height: 6px;
+            width: 100% !important;
+            height: 200px !important;
 
-  padding: 0;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+          }
 
-  border: none;
 
-  border-radius: 20px;
+          .hw-home-hero > .hw-hero .hw-slide img,
+          .hw-hero .hw-slide img {
 
-  background:
-    rgba(255,255,255,.55);
+            width: 100% !important;
+            height: 200px !important;
 
-  cursor: pointer;
-}
+            border-radius: 12px !important;
 
+            object-fit: cover !important;
+            object-position: center !important;
+          }
 
-.hw-dot-active {
 
-  width: 21px;
+          .hw-home-hero > .hw-hero .hw-image-overlay,
+          .hw-hero .hw-image-overlay {
+            border-radius: 12px !important;
+          }
+        }
 
-  background: #d9ad42;
-}
 
+        /* =========================================================
+           FINAL FORCE FIX
+           This rule specifically overrides any parent stylesheet
+        ========================================================= */
 
-/* =========================================================
-   LARGE DESKTOP
-========================================================= */
+        @media (max-width: 768px) {
 
-@media (min-width: 1400px) {
+          .hw-home-hero > .hw-hero {
+            width: calc(100% - 20px) !important;
+            max-width: calc(100% - 20px) !important;
+            margin-top:10px !important;
+            margin-left: 20px !important;
+            margin-right: 20px !important;
 
-  .hw-hero {
+            border-radius: 12px !important;
+            overflow: hidden !important;
+          }
 
-    height: 570px;
-  }
+        }
 
-  .hw-title {
 
-    font-size: 64px;
-  }
+        @media (max-width: 480px) {
 
-  .hw-description {
+          .hw-home-hero > .hw-hero {
+            width: calc(100% - 30px) !important;
+            max-width: calc(100% - 30px) !important;
 
-    font-size: 13px;
-  }
+            margin-left: 15px !important;
+            margin-right: 15px !important;
 
-  .hw-feature-info h4 {
+            border-radius: 12px !important;
+            overflow: hidden !important;
+          }
 
-    font-size: 10px;
-  }
-
-  .hw-feature-info p {
-
-    font-size: 7px;
-  }
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 1100px) {
-
-  .hw-hero-content {
-
-    width: calc(100% - 80px);
-
-  }
-
-  .hw-features {
-
-    width: calc(100% - 80px);
-
-  }
-
-  .hw-title {
-
-    font-size: 48px;
-  }
-
-  .hw-feature {
-
-    padding: 0 7px;
-  }
-
-  .hw-feature-icon {
-
-    width: 31px;
-
-    height: 31px;
-
-    min-width: 31px;
-  }
-
-  .hw-feature-info h4 {
-
-    font-size: 8px;
-  }
-
-  .hw-feature-info p {
-
-    font-size: 5.5px;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   IMAGE ONLY
-========================================================= */
-
-@media (max-width: 768px) {
-
-  .hw-hero-content {
-
-    width: 100%;
-
-    margin: 0;
-
-  }
-
-  .hw-features {
-
-    width: 100%;
-
-    left: 0;
-
-    transform: none;
-
-  }
-
-  .hw-hero {
-
-    position: relative;
-
-    width: 100%;
-
-    height: 205px !important;
-
-    min-height: 205px !important;
-
-    margin: 0 !important;
-
-    padding: 0 !important;
-
-    overflow: hidden !important;
-
-    background: #111;
-  }
-
-
-  /* SLIDER */
-
-  .hw-slides {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-
-    height: 205px !important;
-
-    overflow: hidden;
-  }
-
-
-  .hw-slide {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-
-    height: 205px !important;
-
-    opacity: 0;
-
-    transform: scale(1.02);
-
-    transition:
-      opacity .8s ease,
-      transform 5s ease;
-  }
-
-
-  .hw-slide-active {
-
-    opacity: 1;
-
-    transform: scale(1);
-  }
-
-
-  .hw-slide img {
-
-    width: 100%;
-
-    height: 205px !important;
-
-    display: block;
-
-    object-fit: cover !important;
-
-    object-position: center !important;
-  }
-
-
-  /* MOBILE IMAGE OVERLAY */
-
-  .hw-image-overlay {
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0,0,0,.02),
-        rgba(0,0,0,.12)
-      ) !important;
-  }
-
-
-  .hw-bottom-overlay {
-
-    display: none !important;
-  }
-
-
-  /* HIDE DESKTOP CONTENT */
-
-  .hw-hero-content {
-
-    display: none !important;
-  }
-
-
-  /* HIDE FEATURES */
-
-  .hw-features {
-
-    display: none !important;
-  }
-
-
-  /* HIDE ARROWS */
-
-  .hw-arrow {
-
-    display: none !important;
-  }
-
-
-  /* HIDE DOTS */
-
-  .hw-dots {
-
-    display: none !important;
-  }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .hw-hero {
-
-    height: 200px !important;
-
-    min-height: 200px !important;
-
-    margin: 0 !important;
-  }
-
-
-  .hw-slides {
-
-    height: 200px !important;
-  }
-
-
-  .hw-slide {
-
-    height: 200px !important;
-  }
-
-
-  .hw-slide img {
-
-    height: 200px !important;
-
-    object-fit: cover !important;
-
-    object-position: center !important;
-  }
-}
+        }
 
       `}</style>
     </section>
