@@ -79,7 +79,7 @@ export default function PropertyDetail() {
   const startingFrom = p.price || "₹20 Cr*"
 
   return (
-    <div className="property-detail-page" style={{ background: '#f8f9fb' }}>
+    <div className="property-detail-page" style={{ background: '#f8f9fb', fontFamily: 'Manrope, Arial, sans-serif' }}>
 
 
       {/* Developer Navbar - sticky, updates on scroll */}
@@ -126,7 +126,7 @@ export default function PropertyDetail() {
       {/* HERO - Black background with large number, as in Experion One 42 SC */}
       <div className="property-hero" style={{ background: '#0a0a0a', color: '#fff', position: 'relative', overflow: 'hidden', minHeight: 460 }}>
         {/* large watermark number */}
-        <div style={{ position: 'absolute', left: '45%', top: '50%', transform: 'translate(-50%,-50%)', fontSize: 380, fontWeight: 900, color: 'rgba(210,140,90,.95)', lineHeight: 1, opacity: .95, pointerEvents: 'none', fontFamily: "'Inter', sans-serif", letterSpacing: -12, userSelect: 'none' }} className="hero-number">{heroNumber}</div>
+        <div style={{ position: 'absolute', left: '45%', top: '50%', transform: 'translate(-50%,-50%)', fontSize: 380, fontWeight: 900, color: 'rgba(210,140,90,.95)', lineHeight: 1, opacity: .95, pointerEvents: 'none', fontFamily: 'Manrope, Arial, sans-serif', letterSpacing: -12, userSelect: 'none' }} className="hero-number">{heroNumber}</div>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,.5) 100%)' }}></div>
 
         <div className="container property-hero-inner" style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.2fr 380px', gap: 24, alignItems: 'center', padding: '36px 16px' }}>
@@ -165,7 +165,7 @@ export default function PropertyDetail() {
           {/* Right form - Get in Touch */}
           <div className="property-hero-form" style={{ background: '#fff', borderRadius: 16, padding: 20, color: '#111', boxShadow: '0 20px 60px rgba(0,0,0,.3)', border: '1px solid #eef0f3' }}>
             <h3 style={{ fontWeight: 800, fontSize: 18, color: '#111' }}>Get in Touch with us.</h3>
-            <p style={{ fontSize: 11, letterSpacing: .5, color: '#6b7280', fontWeight: 600, marginTop: 4 }}>ENTER YOUR DETAILS BELOW TO PROCEED</p>
+            <p style={{ fontSize: 14, letterSpacing: .5, color: '#6b7280', fontWeight: 600, marginTop: 4 }}>ENTER YOUR DETAILS BELOW TO PROCEED</p>
             {heroSent && <div style={{ marginTop: 10, background: '#ecfdf5', color: '#065f46', padding: '8px 10px', borderRadius: 8, fontSize: 12, fontWeight: 700, border: '1px solid #a7f3d0' }}>✓ Submitted! We'll call you shortly.</div>}
             <form onSubmit={handleHeroSubmit} style={{ display: 'grid', gap: 12, marginTop: 14 }}>
               <div>
@@ -251,7 +251,7 @@ export default function PropertyDetail() {
 
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 800,
             letterSpacing: 2,
             color: "#a17b39",
@@ -300,7 +300,7 @@ export default function PropertyDetail() {
       <p
         style={{
           margin: 0,
-          fontSize: 12.5,
+          fontSize: 14,
           lineHeight: 1.75,
           color: "#596878",
         }}
@@ -745,7 +745,7 @@ export default function PropertyDetail() {
     <h2
       style={{
         margin: 0,
-        fontSize: 27,
+        fontSize: 29,
         lineHeight: 1.15,
         fontWeight: 800,
         color: "#173b63",
@@ -1449,7 +1449,7 @@ export default function PropertyDetail() {
 
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 800,
             letterSpacing: 2,
             color: "#a17b39",
@@ -1832,7 +1832,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39'
@@ -1845,7 +1845,7 @@ export default function PropertyDetail() {
   <h2
     style={{
       margin: 0,
-      fontSize: 28,
+      fontSize: 29,
       lineHeight: 1.15,
       fontWeight: 800,
       color: '#173b63',
@@ -1871,7 +1871,7 @@ export default function PropertyDetail() {
 
   <p
     style={{
-      fontSize: 13,
+      fontSize: 14,
       color: '#6b7280',
       marginTop: 10
     }}
@@ -1979,7 +1979,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39'
@@ -1995,7 +1995,7 @@ export default function PropertyDetail() {
   <h2
     style={{
       margin: 0,
-      fontSize: 28,
+      fontSize: 29,
       lineHeight: 1.15,
       fontWeight: 800,
       color: '#173b63',
@@ -2220,7 +2220,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 9,
+          fontSize: 10,
           fontWeight: 800,
           letterSpacing: 2,
           color: "#9b7b3e",
@@ -2236,7 +2236,7 @@ export default function PropertyDetail() {
     <h2
       style={{
         margin: 0,
-        fontSize: 27,
+        fontSize: 29,
         lineHeight: 1.15,
         fontWeight: 800,
         color: "#17365d",
@@ -2258,7 +2258,7 @@ export default function PropertyDetail() {
     <p
       style={{
         margin: "6px 0 0",
-        fontSize: 14.5,
+        fontSize: 14,
         lineHeight: 1.55,
         color: "#68778a",
         maxWidth: 650,
@@ -3329,7 +3329,7 @@ export default function PropertyDetail() {
       <h2
         style={{
           margin: 0,
-          fontSize: 27,
+          fontSize: 29,
           lineHeight: 1.1,
           fontWeight: 800,
           color: "#172f55",
@@ -4404,7 +4404,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 8,
+          fontSize: 10,
           fontWeight: 800,
           letterSpacing: 2.5,
           color: "#a17c3d",
@@ -4428,7 +4428,7 @@ export default function PropertyDetail() {
     <h2
       style={{
         margin: 0,
-        fontSize: 27,
+        fontSize: 29,
         lineHeight: 1.15,
         fontWeight: 800,
         color: "#17365d",
@@ -4451,7 +4451,7 @@ export default function PropertyDetail() {
     <p
       style={{
         margin: "6px auto 0",
-        fontSize: 10,
+        fontSize: 14,
         lineHeight: 1.5,
         color: "#7c8795",
         maxWidth: 430,
@@ -4462,7 +4462,7 @@ export default function PropertyDetail() {
         {p.title}
       </strong>
       .
-      <br />
+      
       Our team is here to help you at every step of your journey.
     </p>
 
@@ -4477,7 +4477,7 @@ export default function PropertyDetail() {
         position: "absolute",
         right: 0,
         top: 0,
-        minWidth: 170,
+        minWidth: 200,
         background: "#fff",
         border: "1px solid #d8b76e",
         borderRadius: 30,
@@ -4507,7 +4507,7 @@ export default function PropertyDetail() {
       <div style={{ textAlign: "left" }}>
         <div
           style={{
-            fontSize: 8,
+            fontSize: 9,
             color: "#7d8997",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -4530,7 +4530,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 8,
+            fontSize: 9,
             color: "#8b96a3",
             marginTop: 1,
           }}
@@ -4595,14 +4595,14 @@ export default function PropertyDetail() {
           <span
             className="faq-number"
             style={{
-              width: 23,
-              height: 23,
+              width: 30,
+              height: 30,
               borderRadius: "50%",
               background: "#f8f4e9",
               border: "1px solid #e4cf9f",
               display: "grid",
               placeItems: "center",
-              fontSize: 10,
+              fontSize: 14,
               fontWeight: 800,
               color: "#8e6c31",
             }}
@@ -4612,7 +4612,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 15,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4623,14 +4623,14 @@ export default function PropertyDetail() {
           <span
             className="faq-plus"
             style={{
-              width: 21,
-              height: 21,
+              width: 25,
+              height: 25,
               borderRadius: "50%",
               background: "#f0f3f6",
               color: "#6d7b8b",
               display: "grid",
               placeItems: "center",
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: 500,
             }}
           >
@@ -4641,7 +4641,7 @@ export default function PropertyDetail() {
         <div
           style={{
             padding: "0 42px 10px",
-            fontSize: 11,
+            fontSize: 14,
             lineHeight: 1.6,
             color: "#8a95a2",
           }}
@@ -4682,7 +4682,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4731,7 +4731,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4781,7 +4781,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4829,7 +4829,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4887,7 +4887,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -4896,7 +4896,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -4905,7 +4905,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Dedicated
@@ -4935,7 +4935,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -4944,7 +4944,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -4953,7 +4953,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Latest Project
@@ -4983,7 +4983,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -4992,7 +4992,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -5001,7 +5001,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Site Visit
@@ -5030,7 +5030,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -5039,7 +5039,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -5048,7 +5048,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Exclusive Offers
@@ -5099,7 +5099,7 @@ export default function PropertyDetail() {
       <h3
         style={{
           margin: 0,
-          fontSize: 19,
+          fontSize: 18,
           lineHeight: 1.15,
           fontWeight: 800,
           color: "#fff",
@@ -5119,7 +5119,7 @@ export default function PropertyDetail() {
       <p
         style={{
           margin: "4px 0 9px",
-          fontSize: 9,
+          fontSize: 14,
           lineHeight: 1.4,
           color: "rgba(255,255,255,.7)",
         }}
@@ -5501,7 +5501,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39'
@@ -5517,7 +5517,7 @@ export default function PropertyDetail() {
   <h2
     style={{
       margin: 0,
-      fontSize: 28,
+      fontSize: 29,
       lineHeight: 1.15,
       fontWeight: 800,
       color: '#173b63',
@@ -5545,7 +5545,7 @@ export default function PropertyDetail() {
 
   <p
     style={{
-      fontSize: 13,
+      fontSize: 14,
       color: '#6b7280',
       marginTop: 10,
       marginBottom: 0
@@ -5805,7 +5805,7 @@ export default function PropertyDetail() {
 
         {/* Developer */}
         {/* <div id="developer" style={{ background: '#fff', border: '1px solid #eef0f3', borderRadius: 16, padding: 20, marginTop: 16 }}>
-          <h2 style={{ fontWeight: 800, fontSize: 18, color: '#111' }}>About Developer</h2>
+          <h2 style={{ fontWeight: 800, fontSize: 29, color: '#111' }}>About Developer</h2>
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginTop: 12, background: '#f9fafb', padding: 14, borderRadius: 12, border: '1px solid #eee' }}>
             <img src={logo} alt={p.developer} style={{ height: 40, background: '#fff', padding: '6px 10px', borderRadius: 6, border: '1px solid #eee' }} />
             <div>
@@ -5866,7 +5866,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39',
@@ -5883,7 +5883,7 @@ export default function PropertyDetail() {
     style={{
       margin: 0,
       fontWeight: 800,
-      fontSize: 27,
+      fontSize: 29,
       lineHeight: 1.15,
       color: '#173b63',
       letterSpacing: '-0.6px',
@@ -6326,7 +6326,7 @@ export default function PropertyDetail() {
         <p
           style={{
             margin: 0,
-            fontSize: 11,
+            fontSize: 14,
             lineHeight: 1.65,
             color: "#657386",
           }}
@@ -6344,7 +6344,7 @@ export default function PropertyDetail() {
         <p
           style={{
             margin: "4px 0 0",
-            fontSize: 11,
+            fontSize: 14,
             lineHeight: 1.65,
             color: "#657386",
           }}
@@ -7141,8 +7141,8 @@ export default function PropertyDetail() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'grid', placeItems: 'center', zIndex: 60, padding: 16 }}>
           <div style={{ background: '#fff', borderRadius: 16, padding: 20, width: '100%', maxWidth: 420, position: 'relative' }}>
             <button onClick={() => setShowEnquiry(false)} style={{ position: 'absolute', top: 12, right: 12, width: 30, height: 30, borderRadius: '50%', background: '#f3f4f6', border: 'none', cursor: 'pointer' }}>✕</button>
-            <h3 style={{ fontWeight: 800, fontSize: 16 }}>Enquire About {p.title}</h3>
-            <p style={{ fontSize: 12, color: '#6b7280', marginTop: 4 }}>Get best deals & site visit – expert callback in 30 mins</p>
+            <h3 style={{ fontWeight: 800, fontSize: 18}}>Enquire About {p.title}</h3>
+            <p style={{ fontSize: 14, color: '#6b7280', marginTop: 4 }}>Get best deals & site visit – expert callback in 30 mins</p>
             {sent && <div style={{ marginTop: 12, background: '#ecfdf5', color: '#065f46', padding: '10px 12px', borderRadius: 8, fontWeight: 600, fontSize: 13, border: '1px solid #a7f3d0' }}>✓ Enquiry sent! Our team will contact you shortly.</div>}
             <form onSubmit={handleEnquiry} style={{ display: 'grid', gap: 10, marginTop: 14 }}>
               <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your Name *" style={{ height: 42, borderRadius: 10, border: '1px solid #e5e7eb', padding: '0 12px', fontSize: 13, outline: 'none' }} />
