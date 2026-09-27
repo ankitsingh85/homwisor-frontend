@@ -343,7 +343,7 @@ export default function Header() {
 
     {
       label: "About",
-      link: "about",
+      link: "/about",
     },
 
     {
@@ -376,11 +376,6 @@ export default function Header() {
     // },
 
     {
-      label: "Contact",
-      link: "./Contact",
-    },
-
-    {
       label: "Blog",
       type: "simple",
       data: [
@@ -389,6 +384,10 @@ export default function Header() {
           link: "/blog",
         },
       ],
+    },
+    {
+      label: "Contact",
+      link: "./contact",
     },
   ];
 

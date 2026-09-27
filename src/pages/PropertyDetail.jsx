@@ -79,7 +79,7 @@ export default function PropertyDetail() {
   const startingFrom = p.price || "₹20 Cr*"
 
   return (
-    <div className="property-detail-page" style={{ background: '#f8f9fb' }}>
+    <div className="property-detail-page" style={{ background: '#f8f9fb', fontFamily: 'Manrope, Arial, sans-serif' }}>
 
 
       {/* Developer Navbar - sticky, updates on scroll */}
@@ -126,7 +126,7 @@ export default function PropertyDetail() {
       {/* HERO - Black background with large number, as in Experion One 42 SC */}
       <div className="property-hero" style={{ background: '#0a0a0a', color: '#fff', position: 'relative', overflow: 'hidden', minHeight: 460 }}>
         {/* large watermark number */}
-        <div style={{ position: 'absolute', left: '45%', top: '50%', transform: 'translate(-50%,-50%)', fontSize: 380, fontWeight: 900, color: 'rgba(210,140,90,.95)', lineHeight: 1, opacity: .95, pointerEvents: 'none', fontFamily: "'Inter', sans-serif", letterSpacing: -12, userSelect: 'none' }} className="hero-number">{heroNumber}</div>
+        <div style={{ position: 'absolute', left: '45%', top: '50%', transform: 'translate(-50%,-50%)', fontSize: 380, fontWeight: 900, color: 'rgba(210,140,90,.95)', lineHeight: 1, opacity: .95, pointerEvents: 'none', fontFamily: 'Manrope, Arial, sans-serif', letterSpacing: -12, userSelect: 'none' }} className="hero-number">{heroNumber}</div>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,.5) 100%)' }}></div>
 
         <div className="container property-hero-inner" style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.2fr 380px', gap: 24, alignItems: 'center', padding: '36px 16px' }}>
@@ -165,7 +165,7 @@ export default function PropertyDetail() {
           {/* Right form - Get in Touch */}
           <div className="property-hero-form" style={{ background: '#fff', borderRadius: 16, padding: 20, color: '#111', boxShadow: '0 20px 60px rgba(0,0,0,.3)', border: '1px solid #eef0f3' }}>
             <h3 style={{ fontWeight: 800, fontSize: 18, color: '#111' }}>Get in Touch with us.</h3>
-            <p style={{ fontSize: 11, letterSpacing: .5, color: '#6b7280', fontWeight: 600, marginTop: 4 }}>ENTER YOUR DETAILS BELOW TO PROCEED</p>
+            <p style={{ fontSize: 14, letterSpacing: .5, color: '#6b7280', fontWeight: 600, marginTop: 4 }}>ENTER YOUR DETAILS BELOW TO PROCEED</p>
             {heroSent && <div style={{ marginTop: 10, background: '#ecfdf5', color: '#065f46', padding: '8px 10px', borderRadius: 8, fontSize: 12, fontWeight: 700, border: '1px solid #a7f3d0' }}>✓ Submitted! We'll call you shortly.</div>}
             <form onSubmit={handleHeroSubmit} style={{ display: 'grid', gap: 12, marginTop: 14 }}>
               <div>
@@ -251,7 +251,7 @@ export default function PropertyDetail() {
 
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 800,
             letterSpacing: 2,
             color: "#a17b39",
@@ -300,7 +300,7 @@ export default function PropertyDetail() {
       <p
         style={{
           margin: 0,
-          fontSize: 12.5,
+          fontSize: 14,
           lineHeight: 1.75,
           color: "#596878",
         }}
@@ -745,7 +745,7 @@ export default function PropertyDetail() {
     <h2
       style={{
         margin: 0,
-        fontSize: 27,
+        fontSize: 29,
         lineHeight: 1.15,
         fontWeight: 800,
         color: "#173b63",
@@ -816,7 +816,7 @@ export default function PropertyDetail() {
           display: "flex",
           alignItems: "center",
           gap: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: .3,
         }}
@@ -848,7 +848,7 @@ export default function PropertyDetail() {
           display: "flex",
           alignItems: "center",
           gap: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: .3,
         }}
@@ -882,7 +882,7 @@ export default function PropertyDetail() {
           display: "flex",
           alignItems: "center",
           gap: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: .3,
         }}
@@ -945,7 +945,7 @@ export default function PropertyDetail() {
             display: "flex",
             alignItems: "center",
             gap: 8,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             color: "#173b63",
           }}
@@ -983,7 +983,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 9.5,
+            fontSize: 12,
             color: "#315573",
             fontWeight: 600,
           }}
@@ -996,7 +996,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#173b63",
             fontWeight: 800,
           }}
@@ -1068,7 +1068,7 @@ export default function PropertyDetail() {
         color: "#fff",
         padding: "12px 24px",
         minWidth: 125,
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 800,
         letterSpacing: .5,
         cursor: "pointer",
@@ -1099,7 +1099,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9aa5af",
           fontWeight: 600,
         }}
@@ -1171,7 +1171,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 8,
+            fontSize: 12,
             color: "#8a96a1",
             fontWeight: 700,
             letterSpacing: .5,
@@ -1182,7 +1182,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#173b63",
             fontWeight: 800,
             marginTop: 2,
@@ -1291,19 +1291,19 @@ export default function PropertyDetail() {
         }
 
         .price-table-header > div {
-          font-size: 6px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(1) {
-          font-size: 9px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(2) {
-          font-size: 8px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(3) {
-          font-size: 9px !important;
+          font-size: 12px !important;
         }
 
         .price-bottom-cta {
@@ -1349,16 +1349,16 @@ export default function PropertyDetail() {
         }
 
         .price-table-row > div:nth-child(1) {
-          font-size: 8px !important;
+          font-size: 12px !important;
           gap: 4px !important;
         }
 
         .price-table-row > div:nth-child(2) {
-          font-size: 7.5px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(3) {
-          font-size: 8px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row button {
@@ -1449,7 +1449,7 @@ export default function PropertyDetail() {
 
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 800,
             letterSpacing: 2,
             color: "#a17b39",
@@ -1832,7 +1832,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39'
@@ -1845,7 +1845,7 @@ export default function PropertyDetail() {
   <h2
     style={{
       margin: 0,
-      fontSize: 28,
+      fontSize: 29,
       lineHeight: 1.15,
       fontWeight: 800,
       color: '#173b63',
@@ -1871,7 +1871,7 @@ export default function PropertyDetail() {
 
   <p
     style={{
-      fontSize: 13,
+      fontSize: 14,
       color: '#6b7280',
       marginTop: 10
     }}
@@ -1979,7 +1979,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39'
@@ -1995,7 +1995,7 @@ export default function PropertyDetail() {
   <h2
     style={{
       margin: 0,
-      fontSize: 28,
+      fontSize: 29,
       lineHeight: 1.15,
       fontWeight: 800,
       color: '#173b63',
@@ -2220,7 +2220,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 9,
+          fontSize: 10,
           fontWeight: 800,
           letterSpacing: 2,
           color: "#9b7b3e",
@@ -2236,7 +2236,7 @@ export default function PropertyDetail() {
     <h2
       style={{
         margin: 0,
-        fontSize: 27,
+        fontSize: 29,
         lineHeight: 1.15,
         fontWeight: 800,
         color: "#17365d",
@@ -2258,7 +2258,7 @@ export default function PropertyDetail() {
     <p
       style={{
         margin: "6px 0 0",
-        fontSize: 14.5,
+        fontSize: 14,
         lineHeight: 1.55,
         color: "#68778a",
         maxWidth: 650,
@@ -3305,7 +3305,7 @@ export default function PropertyDetail() {
       >
         <span
           style={{
-            fontSize: 10,
+            fontSize: 12,
             fontWeight: 800,
             letterSpacing: 2,
             color: "#a17b35",
@@ -3329,7 +3329,7 @@ export default function PropertyDetail() {
       <h2
         style={{
           margin: 0,
-          fontSize: 27,
+          fontSize: 29,
           lineHeight: 1.1,
           fontWeight: 800,
           color: "#172f55",
@@ -3352,7 +3352,7 @@ export default function PropertyDetail() {
       <div
         style={{
           marginTop: 5,
-          fontSize: 10.5,
+          fontSize: 12,
           color: "#9ca3af",
         }}
       >
@@ -3414,7 +3414,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 8,
+          fontSize: 12,
           fontWeight: 700,
           letterSpacing: 0.5,
           marginTop: 3,
@@ -3427,7 +3427,7 @@ export default function PropertyDetail() {
       <div
         style={{
           color: "#f2c14e",
-          fontSize: 9,
+          fontSize: 12,
           letterSpacing: 1.5,
           marginTop: 2,
         }}
@@ -3437,7 +3437,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 9,
+          fontSize: 12,
           marginTop: 1,
           opacity: 0.7,
         }}
@@ -3501,7 +3501,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3511,7 +3511,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3544,7 +3544,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#98a4b8",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3593,7 +3593,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3603,7 +3603,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3635,7 +3635,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3684,7 +3684,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3694,7 +3694,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3726,7 +3726,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3775,7 +3775,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3785,7 +3785,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3817,7 +3817,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3866,7 +3866,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3876,7 +3876,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3908,7 +3908,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3957,7 +3957,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3967,7 +3967,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3999,7 +3999,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -4065,7 +4065,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           fontWeight: 800,
           color: "#234a70",
           whiteSpace: "nowrap",
@@ -4084,7 +4084,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 9,
+          fontSize: 12,
           color: "#8794a3",
           whiteSpace: "nowrap",
         }}
@@ -4102,7 +4102,7 @@ export default function PropertyDetail() {
       <div
         className="highlight-location"
         style={{
-          fontSize: 9,
+          fontSize: 12,
           color: "#8794a3",
           whiteSpace: "nowrap",
         }}
@@ -4277,7 +4277,7 @@ export default function PropertyDetail() {
         }
 
         .score-header > div:first-child > div:first-child span:first-child {
-          font-size: 7px !important;
+          font-size: 12px !important;
         }
 
         .overall-score {
@@ -4307,11 +4307,11 @@ export default function PropertyDetail() {
         }
 
         .score-card > div:first-child > div:last-child > div:first-child {
-          font-size: 7px !important;
+          font-size: 12px !important;
         }
 
         .score-card > div:first-child > div:last-child > div:last-child {
-          font-size: 10px !important;
+          font-size: 12px !important;
         }
 
         .score-card > div:last-child {
@@ -4404,7 +4404,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 8,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: 2.5,
           color: "#a17c3d",
@@ -4428,7 +4428,7 @@ export default function PropertyDetail() {
     <h2
       style={{
         margin: 0,
-        fontSize: 27,
+        fontSize: 29,
         lineHeight: 1.15,
         fontWeight: 800,
         color: "#17365d",
@@ -4451,7 +4451,7 @@ export default function PropertyDetail() {
     <p
       style={{
         margin: "6px auto 0",
-        fontSize: 10,
+        fontSize: 14,
         lineHeight: 1.5,
         color: "#7c8795",
         maxWidth: 430,
@@ -4462,7 +4462,7 @@ export default function PropertyDetail() {
         {p.title}
       </strong>
       .
-      <br />
+      
       Our team is here to help you at every step of your journey.
     </p>
 
@@ -4477,7 +4477,7 @@ export default function PropertyDetail() {
         position: "absolute",
         right: 0,
         top: 0,
-        minWidth: 170,
+        minWidth: 200,
         background: "#fff",
         border: "1px solid #d8b76e",
         borderRadius: 30,
@@ -4507,7 +4507,7 @@ export default function PropertyDetail() {
       <div style={{ textAlign: "left" }}>
         <div
           style={{
-            fontSize: 8,
+            fontSize: 12,
             color: "#7d8997",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -4530,7 +4530,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 8,
+            fontSize: 12,
             color: "#8b96a3",
             marginTop: 1,
           }}
@@ -4595,14 +4595,14 @@ export default function PropertyDetail() {
           <span
             className="faq-number"
             style={{
-              width: 23,
-              height: 23,
+              width: 30,
+              height: 30,
               borderRadius: "50%",
               background: "#f8f4e9",
               border: "1px solid #e4cf9f",
               display: "grid",
               placeItems: "center",
-              fontSize: 10,
+              fontSize: 14,
               fontWeight: 800,
               color: "#8e6c31",
             }}
@@ -4612,7 +4612,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 15,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4623,14 +4623,14 @@ export default function PropertyDetail() {
           <span
             className="faq-plus"
             style={{
-              width: 21,
-              height: 21,
+              width: 25,
+              height: 25,
               borderRadius: "50%",
               background: "#f0f3f6",
               color: "#6d7b8b",
               display: "grid",
               placeItems: "center",
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: 500,
             }}
           >
@@ -4641,7 +4641,7 @@ export default function PropertyDetail() {
         <div
           style={{
             padding: "0 42px 10px",
-            fontSize: 11,
+            fontSize: 14,
             lineHeight: 1.6,
             color: "#8a95a2",
           }}
@@ -4682,7 +4682,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4731,7 +4731,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4781,7 +4781,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4829,7 +4829,7 @@ export default function PropertyDetail() {
 
           <span
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               color: "#24466b",
             }}
@@ -4887,7 +4887,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -4896,7 +4896,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -4905,7 +4905,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Dedicated
@@ -4935,7 +4935,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -4944,7 +4944,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -4953,7 +4953,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Latest Project
@@ -4983,7 +4983,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -4992,7 +4992,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -5001,7 +5001,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Site Visit
@@ -5030,7 +5030,7 @@ export default function PropertyDetail() {
               color: "#a47b32",
               display: "grid",
               placeItems: "center",
-              fontSize: 13,
+              fontSize: 14,
               flexShrink: 0,
             }}
           >
@@ -5039,7 +5039,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 10,
+              fontSize: 13,
               lineHeight: 1.35,
               color: "#65748a",
             }}
@@ -5048,7 +5048,7 @@ export default function PropertyDetail() {
               style={{
                 display: "block",
                 color: "#24466b",
-                fontSize: 11,
+                fontSize: 13,
               }}
             >
               Exclusive Offers
@@ -5082,7 +5082,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: 1.8,
           color: "#d2ad5b",
           fontWeight: 800,
@@ -5099,7 +5099,7 @@ export default function PropertyDetail() {
       <h3
         style={{
           margin: 0,
-          fontSize: 19,
+          fontSize: 18,
           lineHeight: 1.15,
           fontWeight: 800,
           color: "#fff",
@@ -5119,7 +5119,7 @@ export default function PropertyDetail() {
       <p
         style={{
           margin: "4px 0 9px",
-          fontSize: 9,
+          fontSize: 14,
           lineHeight: 1.4,
           color: "rgba(255,255,255,.7)",
         }}
@@ -5180,7 +5180,7 @@ export default function PropertyDetail() {
             "linear-gradient(90deg, #d69e2e 0%, #c28a20 100%)",
           color: "#fff",
           padding: "12px 10px",
-          fontSize: 10,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: 0.7,
           cursor: "pointer",
@@ -5196,7 +5196,7 @@ export default function PropertyDetail() {
       <div
         style={{
           textAlign: "center",
-          fontSize: 9,
+          fontSize: 12,
           color: "rgba(255,255,255,.55)",
           marginTop: 5,
         }}
@@ -5249,7 +5249,7 @@ export default function PropertyDetail() {
         border: 1px solid #e4cf9f;
         display: grid;
         place-items: center;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 800;
         color: #8e6c31;
       }
@@ -5268,7 +5268,7 @@ export default function PropertyDetail() {
 
       .faq-answer {
         padding: 0 42px 10px;
-        font-size: 11px;
+        font-size: 12px;
         line-height: 1.6;
         color: #8a95a2;
       }
@@ -5282,7 +5282,7 @@ export default function PropertyDetail() {
         color: #243b53;
         border-radius: 4px;
         outline: none;
-        font-size: 11px;
+        font-size: 12px;
         margin-bottom: 10px;
         padding: 4px 7px;
         font-family: inherit;
@@ -5386,7 +5386,7 @@ export default function PropertyDetail() {
         }
 
         .faq-top-header p {
-          font-size: 8.5px !important;
+          font-size: 12px !important;
         }
 
         .faq-top-header {
@@ -5405,13 +5405,13 @@ export default function PropertyDetail() {
         }
 
         .faq-item summary > span:nth-child(2) {
-          font-size: 8px !important;
+          font-size: 12px !important;
           line-height: 1.35 !important;
         }
 
         .faq-answer {
           padding: 0 38px 9px !important;
-          font-size: 6.5px !important;
+          font-size: 12px !important;
         }
 
         .faq-features {
@@ -5501,7 +5501,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39'
@@ -5517,7 +5517,7 @@ export default function PropertyDetail() {
   <h2
     style={{
       margin: 0,
-      fontSize: 28,
+      fontSize: 29,
       lineHeight: 1.15,
       fontWeight: 800,
       color: '#173b63',
@@ -5545,7 +5545,7 @@ export default function PropertyDetail() {
 
   <p
     style={{
-      fontSize: 13,
+      fontSize: 14,
       color: '#6b7280',
       marginTop: 10,
       marginBottom: 0
@@ -5805,7 +5805,7 @@ export default function PropertyDetail() {
 
         {/* Developer */}
         {/* <div id="developer" style={{ background: '#fff', border: '1px solid #eef0f3', borderRadius: 16, padding: 20, marginTop: 16 }}>
-          <h2 style={{ fontWeight: 800, fontSize: 18, color: '#111' }}>About Developer</h2>
+          <h2 style={{ fontWeight: 800, fontSize: 29, color: '#111' }}>About Developer</h2>
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginTop: 12, background: '#f9fafb', padding: 14, borderRadius: 12, border: '1px solid #eee' }}>
             <img src={logo} alt={p.developer} style={{ height: 40, background: '#fff', padding: '6px 10px', borderRadius: 6, border: '1px solid #eee' }} />
             <div>
@@ -5866,7 +5866,7 @@ export default function PropertyDetail() {
 
     <span
       style={{
-        fontSize: 9,
+        fontSize: 10,
         fontWeight: 800,
         letterSpacing: 2,
         color: '#a17b39',
@@ -5883,7 +5883,7 @@ export default function PropertyDetail() {
     style={{
       margin: 0,
       fontWeight: 800,
-      fontSize: 27,
+      fontSize: 29,
       lineHeight: 1.15,
       color: '#173b63',
       letterSpacing: '-0.6px',
@@ -6326,7 +6326,7 @@ export default function PropertyDetail() {
         <p
           style={{
             margin: 0,
-            fontSize: 11,
+            fontSize: 14,
             lineHeight: 1.65,
             color: "#657386",
           }}
@@ -6344,7 +6344,7 @@ export default function PropertyDetail() {
         <p
           style={{
             margin: "4px 0 0",
-            fontSize: 11,
+            fontSize: 14,
             lineHeight: 1.65,
             color: "#657386",
           }}
@@ -6461,7 +6461,7 @@ export default function PropertyDetail() {
         {/* Facebook */}
 
         <a
-          href="#"
+          href="https://www.facebook.com/p/Homwisor-Consultant-Pvt-Ltd-100063724465215/"
           aria-label="Facebook"
           className="social-icon"
         >
@@ -6472,7 +6472,7 @@ export default function PropertyDetail() {
         {/* Instagram */}
 
         <a
-          href="#"
+          href="https://www.instagram.com/homwisor/"
           aria-label="Instagram"
           className="social-icon"
         >
@@ -6512,7 +6512,7 @@ export default function PropertyDetail() {
         {/* LinkedIn */}
 
         <a
-          href="#"
+          href="https://www.linkedin.com/checkpoint/challenge/AgGnqOFm7uEMXwAAAaDiLdR1eKRji-_VqyEWvji7ntzt5HEv1pp-rFc6fD1Adq5RajztgTQHf0Edw_f4yhIZExU-nwz7tg?ut=1ckL1ZscIkmss1"
           aria-label="LinkedIn"
           className="social-icon"
         >
@@ -6523,7 +6523,7 @@ export default function PropertyDetail() {
         {/* YouTube */}
 
         <a
-          href="#"
+          href="https://www.youtube.com/@HomwisorConsultants"
           aria-label="YouTube"
           className="social-icon"
         >
@@ -7141,8 +7141,8 @@ export default function PropertyDetail() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'grid', placeItems: 'center', zIndex: 60, padding: 16 }}>
           <div style={{ background: '#fff', borderRadius: 16, padding: 20, width: '100%', maxWidth: 420, position: 'relative' }}>
             <button onClick={() => setShowEnquiry(false)} style={{ position: 'absolute', top: 12, right: 12, width: 30, height: 30, borderRadius: '50%', background: '#f3f4f6', border: 'none', cursor: 'pointer' }}>✕</button>
-            <h3 style={{ fontWeight: 800, fontSize: 16 }}>Enquire About {p.title}</h3>
-            <p style={{ fontSize: 12, color: '#6b7280', marginTop: 4 }}>Get best deals & site visit – expert callback in 30 mins</p>
+            <h3 style={{ fontWeight: 800, fontSize: 18}}>Enquire About {p.title}</h3>
+            <p style={{ fontSize: 14, color: '#6b7280', marginTop: 4 }}>Get best deals & site visit – expert callback in 30 mins</p>
             {sent && <div style={{ marginTop: 12, background: '#ecfdf5', color: '#065f46', padding: '10px 12px', borderRadius: 8, fontWeight: 600, fontSize: 13, border: '1px solid #a7f3d0' }}>✓ Enquiry sent! Our team will contact you shortly.</div>}
             <form onSubmit={handleEnquiry} style={{ display: 'grid', gap: 10, marginTop: 14 }}>
               <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your Name *" style={{ height: 42, borderRadius: 10, border: '1px solid #e5e7eb', padding: '0 12px', fontSize: 13, outline: 'none' }} />

@@ -1558,7 +1558,7 @@ button:hover {
   }
 
   .hw-why-feature-card {
-    height: 185px !important;
+    height: auto !important;
     border-radius: 13px !important;
   }
 
@@ -2483,7 +2483,7 @@ button:hover {
 
 .hw-testimonial-card {
   min-width: 0 !important;
-  height: 190px !important;
+  height: auto !important;
   padding: 12px !important;
 
   border: 1px solid #e5e7eb !important;
@@ -2593,12 +2593,12 @@ button:hover {
 
   flex: 1;
 
-  font-size: 9.5px;
+  font-size: 13px;
   line-height: 1.45;
 
   color: #475569;
 
-  font-style: italic;
+  /* font-style: italic; */
 
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -2932,7 +2932,7 @@ button:hover {
 .hw-bhk-premium-card > div:first-child > div:nth-child(3),
 .hw-why-feature-card > div:first-child > div:nth-child(4) {
   font-family: "Manrope", Arial, sans-serif !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   line-height: 1.45 !important;
   font-weight: 500 !important;
 }

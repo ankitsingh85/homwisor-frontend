@@ -113,8 +113,8 @@ export default function Contact() {
                 <div>
                   <span>Call Us</span>
 
-                  <a href="tel:8500900100">
-                    +91 8500 900 100
+                  <a href="tel:9090101401">
+                    +91 9090 101 401
                   </a>
                 </div>
               </div>
@@ -144,8 +144,11 @@ export default function Contact() {
                 <div>
                   <span>Email Us</span>
 
-                  <a href="mailto:info@homwisor.com">
-                    info@homwisor.com
+                  <a href="mailto:brejendra@homwisor.com">
+                    brejendra@homwisor.com
+                  </a>
+                  <a href="mailto:birendra.homwisor@gmail.com">
+                    birendra.homwisor@gmail.com
                   </a>
                 </div>
               </div>
@@ -174,14 +177,14 @@ export default function Contact() {
                   <span>Our Office</span>
 
                   <p>
-                    Gurugram, Haryana, India
+                    Unit no : 704 , Sohna Road , ILD Trade Centre, Gurugram , Haryana , 122018
                   </p>
                 </div>
               </div>
 
               {/* WORKING HOURS */}
 
-              <div className="info-item">
+              {/* <div className="info-item">
                 <div className="info-icon">
                   <svg
                     viewBox="0 0 24 24"
@@ -206,14 +209,14 @@ export default function Contact() {
                     Mon - Sat : 9:00 AM - 7:00 PM
                   </p>
                 </div>
-              </div>
+              </div> */}
 
             </div>
 
             {/* WHATSAPP */}
 
             <a
-              href="https://wa.me/918500900100"
+              href="https://wa.me/919090101401"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-whatsapp"
@@ -359,9 +362,9 @@ export default function Contact() {
                   name="message"
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Tell us how we can help..."
+                  placeholder="Tell us how we can help you..."
                   rows="5"
-                />
+                ></textarea>
               </div>
 
               {/* SUBMIT */}
@@ -370,9 +373,7 @@ export default function Contact() {
                 type="submit"
                 className="submit-btn"
               >
-                <span>
-                  Send Message
-                </span>
+                Send Message
 
                 <svg
                   viewBox="0 0 24 24"
@@ -386,9 +387,8 @@ export default function Contact() {
               </button>
 
               <p className="form-note">
-                Your information is safe with us.
-                We never share your details with third
-                parties.
+                Your information is completely confidential
+                and will never be shared.
               </p>
 
             </form>
@@ -399,11 +399,10 @@ export default function Contact() {
       </section>
 
       {/* =====================================================
-          MAP / CTA
+          BOTTOM CTA
       ===================================================== */}
 
       {/* <section className="contact-bottom">
-
         <div className="contact-bottom-inner">
 
           <div>
@@ -412,13 +411,14 @@ export default function Contact() {
             </span>
 
             <h2>
-              Looking For Your
-              <span> Dream Home?</span>
+              Your Dream Home
+              <span> Starts Here.</span>
             </h2>
 
             <p>
               Talk to our property experts today and
-              discover premium properties across Gurugram.
+              take the first step towards finding the
+              perfect property.
             </p>
           </div>
 
@@ -426,29 +426,31 @@ export default function Contact() {
             href="tel:8500900100"
             className="bottom-call-btn"
           >
-            Call Our Experts
+            Call Us Today
           </a>
 
         </div>
-
       </section> */}
 
       <Footer />
 
-      {/* =====================================================
-          CSS
-      ===================================================== */}
-
       <style>{`
+
+        /* =====================================================
+           CONTACT PAGE
+        ===================================================== */
 
         .contact-page {
           background: #fff;
           color: #111;
-          font-family:
-            "Manrope",
-            "Inter",
-            Arial,
-            sans-serif;
+          font-family: "Manrope", Arial, sans-serif;
+          overflow-x: hidden;
+        }
+
+        .contact-page *,
+        .contact-page *::before,
+        .contact-page *::after {
+          box-sizing: border-box;
         }
 
         /* =====================================================
@@ -456,84 +458,69 @@ export default function Contact() {
         ===================================================== */
 
         .contact-hero {
-          min-height: 430px;
           position: relative;
+          min-height: 500px;
+
           display: flex;
           align-items: center;
           justify-content: center;
-          text-align: center;
-          overflow: hidden;
 
           background:
-            radial-gradient(
-              circle at 82% 28%,
-              rgba(212,175,55,.16),
-              transparent 30%
-            ),
             linear-gradient(
-              135deg,
-              #050505 0%,
-              #0d0d0d 55%,
-              #1a160d 100%
-            );
-        }
-
-        .contact-hero::before {
-          content: "";
-          position: absolute;
-          width: 500px;
-          height: 500px;
-          border-radius: 50%;
-          right: -150px;
-          top: -200px;
-          background: rgba(212,175,55,.10);
-          filter: blur(10px);
-        }
-
-        .contact-hero::after {
-          content: "";
-          position: absolute;
-          width: 400px;
-          height: 400px;
-          border-radius: 50%;
-          left: -180px;
-          bottom: -220px;
-          background: rgba(212,175,55,.06);
+              90deg,
+              rgba(9,23,43,.94),
+              rgba(9,23,43,.65),
+              rgba(9,23,43,.38)
+            ),
+            url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85")
+            center/cover no-repeat;
         }
 
         .contact-hero-overlay {
           position: absolute;
           inset: 0;
-          background:
-            radial-gradient(
-              circle at center,
-              rgba(255,255,255,.03),
-              transparent 55%
-            );
+          background: linear-gradient(
+            180deg,
+            rgba(0,0,0,.12),
+            rgba(0,0,0,.28)
+          );
         }
 
         .contact-hero-content {
           position: relative;
           z-index: 2;
-          max-width: 760px;
-          padding: 120px 20px 70px;
+
+          width: min(1100px, 100%);
+          padding: 130px 20px 80px;
+
+          text-align: center;
         }
 
         .contact-eyebrow,
         .section-eyebrow {
           display: inline-block;
+
           color: ${GOLD};
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 2px;
+
+          font-size: 11px;
+          line-height: 1.2;
+          font-weight: 800;
+          letter-spacing: 2.5px;
+
+          text-transform: uppercase;
         }
 
         .contact-hero h1 {
-          margin: 15px 0 0;
+          max-width: 850px;
+
+          margin: 16px auto 0;
+
           color: #fff;
-          font-size: clamp(38px, 5vw, 64px);
+
+          font-size: 64px;
           line-height: 1.08;
           font-weight: 850;
+
           letter-spacing: -2px;
         }
 
@@ -542,11 +529,15 @@ export default function Contact() {
         }
 
         .contact-hero p {
-          max-width: 600px;
+          max-width: 620px;
+
           margin: 20px auto 0;
-          color: rgba(255,255,255,.72);
+
+          color: rgba(255,255,255,.78);
+
           font-size: 14px;
-          line-height: 1.8;
+          line-height: 1.6;
+          font-weight: 500;
         }
 
         /* =====================================================
@@ -554,46 +545,51 @@ export default function Contact() {
         ===================================================== */
 
         .contact-section {
-          padding: 50px 20px 0px 20px;
+          padding:45px 20px 0px;
           background: #fff;
         }
 
         .contact-container {
-          width: min(1180px, 100%);
+          width: min(1100px, 100%);
           margin: 0 auto;
 
           display: grid;
-          grid-template-columns:
-            minmax(0, .9fr)
-            minmax(0, 1.1fr);
+          grid-template-columns: 1fr 1fr;
 
-          gap: 75px;
+          gap: 80px;
           align-items: start;
         }
 
         /* =====================================================
-           LEFT CONTENT
+           LEFT INFO
         ===================================================== */
 
         .contact-info h2 {
-          margin: 13px 0 0;
-          color: #09172b;
-          font-size: clamp(34px, 4vw, 48px);
-          line-height: 1.08;
+          margin: 13px 0 18px;
+
+          color: #111827;
+
+          font-size: 48px;
+          line-height: 1.15;
           font-weight: 850;
-          letter-spacing: -1.5px;
+
+          letter-spacing: -1.4px;
         }
 
         .contact-info h2 span {
-          color: ${GOLD_DARK};
+          color: ${GOLD};
         }
 
         .contact-intro {
-          max-width: 500px;
-          margin: 20px 0 0;
-          color: #6d7076;
-          font-size: 13px;
-          line-height: 1.85;
+          max-width: 510px;
+
+          margin: 0;
+
+          color: #737b8c;
+
+          font-size: 14px;
+          line-height: 1.6;
+          font-weight: 500;
         }
 
         /* =====================================================
@@ -603,26 +599,29 @@ export default function Contact() {
         .info-list {
           display: grid;
           gap: 20px;
-          margin-top: 35px;
+
+          margin-top: 34px;
         }
 
         .info-item {
           display: flex;
           align-items: center;
-          gap: 15px;
+          gap: 14px;
         }
 
         .info-icon {
+          flex-shrink: 0;
+
           width: 48px;
           height: 48px;
-          flex-shrink: 0;
 
           display: flex;
           align-items: center;
           justify-content: center;
 
-          border-radius: 13px;
-          background: #f7f3e7;
+          border-radius: 12px;
+
+          background: #f7f7f7;
           color: ${GOLD_DARK};
         }
 
@@ -632,25 +631,31 @@ export default function Contact() {
         }
 
         .info-item > div:last-child {
-          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
         }
 
         .info-item span {
-          display: block;
-          color: #969696;
+          color: #999;
+
           font-size: 10px;
           font-weight: 800;
-          text-transform: uppercase;
+
           letter-spacing: .8px;
+          text-transform: uppercase;
         }
 
         .info-item a,
         .info-item p {
-          display: block;
-          margin: 4px 0 0;
-          color: #172235;
+          margin: 0;
+
+          color: #222;
+
           font-size: 13px;
-          font-weight: 750;
+          line-height: 1.5;
+          font-weight: 600;
+
           text-decoration: none;
         }
 
@@ -664,21 +669,24 @@ export default function Contact() {
 
         .contact-whatsapp {
           width: fit-content;
+
           margin-top: 32px;
 
           display: inline-flex;
           align-items: center;
           gap: 9px;
 
-          padding: 12px 18px;
+          padding: 13px 18px;
+
           border-radius: 9px;
 
-          background: #138a42;
+          background: #25d366;
           color: #fff;
 
-          text-decoration: none;
           font-size: 11px;
           font-weight: 800;
+
+          text-decoration: none;
 
           transition: .25s ease;
         }
@@ -689,8 +697,8 @@ export default function Contact() {
         }
 
         .contact-whatsapp:hover {
-          background: #0e7035;
           transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(37,211,102,.2);
         }
 
         /* =====================================================
@@ -698,107 +706,128 @@ export default function Contact() {
         ===================================================== */
 
         .contact-form-card {
-          padding: 35px;
-          border: 1px solid #e8e6df;
-          border-radius: 22px;
+          padding: 34px;
+
           background: #fff;
 
-          box-shadow:
-            0 20px 60px rgba(10,20,40,.07);
+          border: 1px solid #eef0f3;
+          border-radius: 18px;
+
+          box-shadow: 0 18px 45px rgba(9,23,43,.07);
         }
 
         .form-heading > span {
           color: ${GOLD_DARK};
-          font-size: 9px;
-          font-weight: 900;
-          letter-spacing: 1.7px;
+
+          font-size: 11px;
+          line-height: 1.2;
+          font-weight: 800;
+
+          letter-spacing: 2px;
         }
 
         .form-heading h2 {
-          margin: 8px 0 0;
-          color: #09172b;
-          font-size: 27px;
-          line-height: 1.25;
+          margin: 10px 0 8px;
+
+          color: #111827;
+
+          font-size: 28px;
+          line-height: 1.2;
           font-weight: 800;
+
+          letter-spacing: -.5px;
         }
 
         .form-heading h2 strong {
           color: ${GOLD_DARK};
+          font-weight: 800;
         }
 
         .form-heading p {
-          margin: 8px 0 25px;
-          color: #777;
-          font-size: 11px;
+          margin: 0;
+
+          color: #737b8c;
+
+          font-size: 12px;
           line-height: 1.6;
+          font-weight: 500;
         }
 
         /* =====================================================
            FORM
         ===================================================== */
 
-        .contact-form-card form {
-          display: grid;
-          gap: 17px;
+        form {
+          margin-top: 25px;
         }
 
         .form-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 15px;
+          gap: 14px;
         }
 
         .form-group {
-          display: flex;
-          flex-direction: column;
-          gap: 7px;
+          margin-bottom: 17px;
         }
 
         .form-group label {
+          display: block;
+
+          margin-bottom: 7px;
+
           color: #333;
+
           font-size: 10px;
           font-weight: 800;
+
+          letter-spacing: .3px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
           width: 100%;
-          border: 1px solid #e4e4e4;
-          border-radius: 9px;
-          outline: none;
+
+          border: 1px solid #e7e9ed;
+          border-radius: 8px;
+
           background: #fff;
+          color: #222;
 
           padding: 12px 13px;
 
-          color: #222;
-          font-family: inherit;
-          font-size: 11px;
+          outline: none;
+
+          font-family: "Manrope", Arial, sans-serif;
+          font-size: 12px;
+          line-height: 1.5;
+          font-weight: 500;
 
           transition: .2s ease;
         }
 
         .form-group input,
         .form-group select {
-          height: 43px;
+          height: 44px;
         }
 
         .form-group textarea {
-          min-height: 115px;
+        height:80px;
+          min-height: 80px;
           resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+          color: #aaa;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
           border-color: ${GOLD};
-          box-shadow:
-            0 0 0 3px rgba(212,175,55,.10);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-          color: #aaa;
+          box-shadow: 0 0 0 3px rgba(212,175,55,.08);
         }
 
         /* =====================================================
@@ -812,6 +841,7 @@ export default function Contact() {
           display: flex;
           align-items: center;
           justify-content: center;
+
           gap: 9px;
 
           border: none;
@@ -820,11 +850,12 @@ export default function Contact() {
           background: #09172b;
           color: #fff;
 
-          font-family: inherit;
+          font-family: "Manrope", Arial, sans-serif;
           font-size: 11px;
           font-weight: 800;
 
           cursor: pointer;
+
           transition: .25s ease;
         }
 
@@ -839,10 +870,14 @@ export default function Contact() {
         }
 
         .form-note {
-          margin: -4px 0 0;
+          margin: 4px 0 0;
+
           text-align: center;
+
           color: #999;
+
           font-size: 9px;
+          line-height: 1.5;
         }
 
         /* =====================================================
@@ -851,6 +886,7 @@ export default function Contact() {
 
         .contact-bottom {
           padding: 70px 20px;
+
           background: #09172b;
         }
 
@@ -861,12 +897,15 @@ export default function Contact() {
           display: flex;
           align-items: center;
           justify-content: space-between;
+
           gap: 30px;
         }
 
         .contact-bottom h2 {
           margin: 10px 0 0;
+
           color: #fff;
+
           font-size: 32px;
           line-height: 1.2;
           font-weight: 850;
@@ -878,8 +917,11 @@ export default function Contact() {
 
         .contact-bottom p {
           max-width: 570px;
+
           margin: 10px 0 0;
+
           color: rgba(255,255,255,.62);
+
           font-size: 12px;
           line-height: 1.7;
         }
@@ -888,12 +930,14 @@ export default function Contact() {
           flex-shrink: 0;
 
           padding: 13px 22px;
+
           border-radius: 9px;
 
           background: ${GOLD};
           color: #111;
 
           text-decoration: none;
+
           font-size: 11px;
           font-weight: 850;
 
@@ -913,7 +957,9 @@ export default function Contact() {
 
           .contact-container {
             grid-template-columns: 1fr;
+
             gap: 50px;
+
             max-width: 700px;
           }
 
@@ -928,8 +974,10 @@ export default function Contact() {
 
           .info-list {
             max-width: 450px;
+
             margin-left: auto;
             margin-right: auto;
+
             text-align: left;
           }
 
@@ -943,6 +991,21 @@ export default function Contact() {
             text-align: center;
           }
 
+          .contact-hero h1 {
+            font-size: 32px;
+          }
+
+          .contact-hero p {
+            font-size: 13px;
+          }
+
+          .contact-info h2 {
+            font-size: 32px;
+          }
+
+          .contact-intro {
+            font-size: 13px;
+          }
         }
 
         /* =====================================================
@@ -960,25 +1023,40 @@ export default function Contact() {
           }
 
           .contact-hero h1 {
-            font-size: 38px;
-            letter-spacing: -1px;
+            font-size: 29px;
+            line-height: 1.15;
+            letter-spacing: -.7px;
+            font-weight: 800;
           }
 
           .contact-hero p {
             font-size: 12px;
-            line-height: 1.7;
+            line-height: 1.6;
+            font-weight: 500;
+          }
+
+          .contact-eyebrow,
+          .section-eyebrow {
+            font-size: 9px;
+            line-height: 1.2;
+            letter-spacing: 1.8px;
+            font-weight: 800;
           }
 
           .contact-section {
-            padding: 50px 20px 0px 20px;
+            padding: 50px 20px 0;
           }
 
           .contact-info h2 {
-            font-size: 34px;
+            font-size: 29px;
+            line-height: 1.15;
+            letter-spacing: -.7px;
+            font-weight: 800;
           }
 
           .contact-intro {
             font-size: 12px;
+            line-height: 1.6;
           }
 
           .info-list {
@@ -991,9 +1069,22 @@ export default function Contact() {
             height: 44px;
           }
 
+          .info-item span {
+            font-size: 9px;
+          }
+
+          .info-item a,
+          .info-item p {
+            font-size: 11px;
+            line-height: 1.5;
+          }
+
           .contact-whatsapp {
             width: 100%;
             justify-content: center;
+
+            font-size: 10px;
+            font-weight: 800;
           }
 
           .contact-form-card {
@@ -1005,8 +1096,40 @@ export default function Contact() {
             grid-template-columns: 1fr;
           }
 
+          .form-heading > span {
+            font-size: 9px;
+            letter-spacing: 1.7px;
+          }
+
           .form-heading h2 {
             font-size: 24px;
+            line-height: 1.2;
+            letter-spacing: -.5px;
+            font-weight: 800;
+          }
+
+          .form-heading p {
+            font-size: 10px;
+            line-height: 1.6;
+          }
+
+          .form-group label {
+            font-size: 9px;
+          }
+
+          .form-group input,
+          .form-group select,
+          .form-group textarea {
+            font-size: 11px;
+          }
+
+          .submit-btn {
+            font-size: 10px;
+          }
+
+          .form-note {
+            font-size: 8px;
+            line-height: 1.5;
           }
 
           .contact-bottom {
@@ -1021,7 +1144,220 @@ export default function Contact() {
             width: 100%;
             text-align: center;
           }
+        }
 
+        /* =====================================================
+           HOMWISOR HOME PAGE TYPOGRAPHY MATCH
+           Font Family + Font Size
+           ===================================================== */
+
+        .contact-page,
+        .contact-page * {
+          font-family: "Manrope", Arial, sans-serif !important;
+        }
+
+        /* =====================================================
+           DESKTOP TYPOGRAPHY
+        ===================================================== */
+
+        .contact-hero h1 {
+          // font-size: 36px !important;
+          line-height: 1.05 !important;
+          font-weight: 800 !important;
+          letter-spacing: -1px !important;
+        }
+
+        .contact-hero p {
+          font-size: 14px !important;
+          line-height: 1.6 !important;
+          font-weight: 500 !important;
+        }
+
+        .contact-eyebrow,
+        .section-eyebrow,
+        .form-heading > span {
+          font-size: 11px !important;
+          line-height: 1.2 !important;
+          font-weight: 800 !important;
+          letter-spacing: 2px !important;
+        }
+
+        .contact-info h2 {
+          font-size: 36px !important;
+          line-height: 1.15 !important;
+          font-weight: 800 !important;
+          letter-spacing: -1px !important;
+        }
+
+        .contact-intro {
+          font-size: 14px !important;
+          line-height: 1.6 !important;
+          font-weight: 500 !important;
+        }
+
+        .info-item span {
+          font-size: 10px !important;
+          font-weight: 800 !important;
+          letter-spacing: .8px !important;
+        }
+
+        .info-item a,
+        .info-item p {
+          font-size: 13px !important;
+          line-height: 1.5 !important;
+          font-weight: 600 !important;
+        }
+
+        .contact-whatsapp {
+          font-size: 11px !important;
+          font-weight: 800 !important;
+        }
+
+        .form-heading h2 {
+          font-size: 28px !important;
+          line-height: 1.2 !important;
+          font-weight: 800 !important;
+          letter-spacing: -.5px !important;
+        }
+
+        .form-heading p {
+          font-size: 12px !important;
+          line-height: 1.6 !important;
+          font-weight: 500 !important;
+        }
+
+        .form-group label {
+          font-size: 10px !important;
+          font-weight: 800 !important;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+          font-family: "Manrope", Arial, sans-serif !important;
+          font-size: 12px !important;
+          line-height: 1.5 !important;
+          font-weight: 500 !important;
+        }
+
+        .submit-btn {
+          font-family: "Manrope", Arial, sans-serif !important;
+          font-size: 11px !important;
+          font-weight: 800 !important;
+        }
+
+        .form-note {
+          font-size: 11px !important;
+          line-height: 1.5 !important;
+        }
+
+        /* =====================================================
+           TABLET TYPOGRAPHY
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+          .contact-hero h1 {
+            font-size: 32px !important;
+          }
+
+          .contact-hero p {
+            font-size: 13px !important;
+          }
+
+          .contact-info h2 {
+            font-size: 32px !important;
+          }
+
+          .contact-intro {
+            font-size: 13px !important;
+          }
+        }
+
+        /* =====================================================
+           MOBILE TYPOGRAPHY
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+          .contact-hero h1 {
+            font-size: 29px !important;
+            line-height: 1.15 !important;
+            letter-spacing: -.7px !important;
+            font-weight: 800 !important;
+          }
+
+          .contact-hero p {
+            font-size: 12px !important;
+            line-height: 1.6 !important;
+            font-weight: 500 !important;
+          }
+
+          .contact-eyebrow,
+          .section-eyebrow {
+            font-size: 9px !important;
+            letter-spacing: 1.8px !important;
+          }
+
+          .contact-info h2 {
+            font-size: 29px !important;
+            line-height: 1.15 !important;
+            letter-spacing: -.7px !important;
+            font-weight: 800 !important;
+          }
+
+          .contact-intro {
+            font-size: 12px !important;
+            line-height: 1.6 !important;
+          }
+
+          .info-item span {
+            font-size: 9px !important;
+          }
+
+          .info-item a,
+          .info-item p {
+            font-size: 11px !important;
+            line-height: 1.5 !important;
+          }
+
+          .contact-whatsapp {
+            font-size: 10px !important;
+          }
+
+          .form-heading > span {
+            font-size: 9px !important;
+            letter-spacing: 1.7px !important;
+          }
+
+          .form-heading h2 {
+            font-size: 24px !important;
+            line-height: 1.2 !important;
+            letter-spacing: -.5px !important;
+          }
+
+          .form-heading p {
+            font-size: 10px !important;
+            line-height: 1.6 !important;
+          }
+
+          .form-group label {
+            font-size: 9px !important;
+          }
+
+          .form-group input,
+          .form-group select,
+          .form-group textarea {
+            font-size: 11px !important;
+          }
+
+          .submit-btn {
+            font-size: 10px !important;
+          }
+
+          .form-note {
+            font-size: 8px !important;
+          }
         }
 
       `}</style>

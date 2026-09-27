@@ -143,7 +143,7 @@ export default function DeveloperSection() {
           </button>
         </div>
 
-        <div className="hw-developer-action">
+        {/* <div className="hw-developer-action">
           <button type="button">
             View All Developers
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -151,12 +151,12 @@ export default function DeveloperSection() {
               <path d="m13 6 6 6-6 6" />
             </svg>
           </button>
-        </div>
+        </div> */}
 
-        <div className="hw-developer-dots" aria-hidden="true">
+        {/* <div className="hw-developer-dots" aria-hidden="true">
           <span className="active" />
           <span />
-        </div>
+        </div> */}
       </div>
 
       
@@ -167,7 +167,7 @@ export default function DeveloperSection() {
           width: 100%;
           min-height: 0;
           overflow: hidden;
-          padding: 42px 0 10px;
+          padding: 42px 0 25px;
           background: #ffffff;
           font-family: "Manrope", Arial, sans-serif;
           color: #111827;

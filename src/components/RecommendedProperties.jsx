@@ -365,7 +365,7 @@ export default function RecommendedProperties() {
         >
 
           <span>
-            View All Recommended Properties
+            View All Properties
           </span>
 
           <svg
@@ -779,7 +779,7 @@ export default function RecommendedProperties() {
 
           gap: 15px;
 
-          margin-top: 12px;
+          margin-top: 1px;
 
           padding-top: 11px;
 

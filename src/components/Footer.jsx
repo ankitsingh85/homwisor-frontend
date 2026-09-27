@@ -17,11 +17,11 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            <a href="tel:918500900100" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#fff', color: '#111', padding: '10px 18px', borderRadius: 10, fontWeight: 800, fontSize: 13, boxShadow: '0 4px 14px rgba(0,0,0,.2)' }}>
+            <a href="tel:919090101401" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#fff', color: '#111', padding: '10px 18px', borderRadius: 10, fontWeight: 800, fontSize: 13, boxShadow: '0 4px 14px rgba(0,0,0,.2)' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
               Call Now
             </a>
-            <a href="https://wa.me/918500900100" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.12)', color: '#fff', border: '1px solid rgba(255,255,255,.35)', padding: '10px 16px', borderRadius: 10, fontWeight: 700, fontSize: 13, backdropFilter: 'blur(6px)' }}>
+            <a href="https://wa.me/919090101401" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.12)', color: '#fff', border: '1px solid rgba(255,255,255,.35)', padding: '10px 16px', borderRadius: 10, fontWeight: 700, fontSize: 13, backdropFilter: 'blur(6px)' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2C6.58 2 2.15 6.45 2.15 11.93c0 1.75.46 3.46 1.33 4.97L2 22l5.26-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.02-5.14-2.87-7.01zm-7.01 15.23h-.01c-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.32a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.68-8.24 8.21-8.24 2.19 0 4.25.85 5.79 2.4a8.215 8.215 0 0 1 2.41 5.83c0 4.55-3.68 8.24-8.21 8.24zm6.91-6.17c-.38-.19-2.24-1.11-2.59-1.23-.35-.13-.61-.19-.87.19s-1 1.23-1.22 1.49-.44.29-.82.1c-.38-.19-1.61-.59-3.06-1.89-1.13-1.01-1.89-2.26-2.11-2.64-.22-.38-.02-.59.17-.78.17-.17.38-.44.57-.66.19-.22.25-.38.38-.64.13-.25.06-.47-.03-.66-.09-.19-.87-2.1-1.19-2.88-.31-.74-.63-.64-.87-.66l-.74-.01c-.25 0-.66.1-1 .47-.35.38-1.32 1.29-1.32 3.14s1.35 3.64 1.54 3.89c.19.25 2.65 4.06 6.62 5.69.93.4 1.65.64 2.21.82.93.29 1.78.25 2.45.15.75-.11 2.24-.92 2.56-1.81.32-.89.32-1.65.22-1.81-.09-.16-.35-.25-.73-.44z" /></svg>
               WhatsApp
             </a>
@@ -56,11 +56,11 @@ export default function Footer() {
                 India's leading luxury real estate platform. Buy, sell & invest in premium properties across India.
               </p>
               <div style={{ display: 'grid', gap: 10, marginTop: 16 }}>
-                <a href="tel:+918500900100" style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.85)' }}>
+                <a href="tel:+919090101401" style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.85)' }}>
                   <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(212,175,55,.15)', border: '1px solid rgba(212,175,55,.3)', display: 'grid', placeItems: 'center', color: GOLD, flexShrink: 0 }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
                   </span>
-                  +91 8500 900 100
+                  +91 9090101401
                 </a>
                 <a href="mailto:support@homwisor.com" style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.85)' }}>
                   <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(212,175,55,.15)', border: '1px solid rgba(212,175,55,.3)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
@@ -82,9 +82,9 @@ export default function Footer() {
               <h4 style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: 1, marginBottom: 14, borderBottom: `2px solid ${GOLD}`, display: 'inline-block', paddingBottom: 6 }}>QUICK LINKS</h4>
               <div style={{ display: 'grid', gap: 9, fontSize: 13 }}>
                 <Link to="/" style={{ color: 'rgba(255,255,255,.7)' }}>Home</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>About Us</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Blog</Link>
-                <Link to="/search" style={{ color: 'rgba(255,255,255,.7)' }}>Contact</Link>
+                <Link to="/about" style={{ color: 'rgba(255,255,255,.7)' }}>About Us</Link>
+                <Link to="/blog" style={{ color: 'rgba(255,255,255,.7)' }}>Blog</Link>
+                <Link to="/contact" style={{ color: 'rgba(255,255,255,.7)' }}>Contact</Link>
               </div>
             </div>
 
@@ -109,7 +109,7 @@ export default function Footer() {
                       <circle cx="12" cy="10" r="3" />
                     </svg>
                   </span>
-                  <span>Gurugram, Haryana</span>
+                  <span>Unit no : 704 , Sohna Road , ILD Trade Centre, Gurugram , Haryana , 122018</span>
                 </div>
               </div>
             </div>
@@ -119,10 +119,92 @@ export default function Footer() {
           <div style={{ borderTop: '1px solid #1a1a1a', marginTop: 28, paddingTop: 14, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, fontSize: 12, color: 'rgba(255,255,255,.45)' }}>
             <span>© 2026 HomWisor.com — Rishto Ki Shuruwat. All rights reserved. | RERA Registered</span>
             <span style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <span style={{ width: 28, height: 28, borderRadius: '50%', background: '#1a1a1a', display: 'grid', placeItems: 'center', color: GOLD, fontWeight: 700, fontSize: 10, border: '1px solid rgba(212,175,55,.25)' }}>f</span>
-              <span style={{ width: 28, height: 28, borderRadius: '50%', background: '#1a1a1a', display: 'grid', placeItems: 'center', color: GOLD, fontWeight: 700, fontSize: 10, border: '1px solid rgba(212,175,55,.25)' }}>in</span>
-              <span style={{ width: 28, height: 28, borderRadius: '50%', background: '#1a1a1a', display: 'grid', placeItems: 'center', color: GOLD, fontWeight: 700, fontSize: 10, border: '1px solid rgba(212,175,55,.25)' }}>X</span>
-            </span>
+
+  {/* Facebook */}
+  <a
+    href="https://www.facebook.com/p/Homwisor-Consultant-Pvt-Ltd-100063724465215/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Facebook"
+    style={{
+      width: 28,
+      height: 28,
+      borderRadius: '50%',
+      background: '#1a1a1a',
+      display: 'grid',
+      placeItems: 'center',
+      color: GOLD,
+      border: '1px solid rgba(212,175,55,.25)',
+      textDecoration: 'none',
+    }}
+  >
+    <i className="fa-brands fa-facebook-f"></i>
+  </a>
+
+  {/* Instagram */}
+  <a
+    href="https://www.instagram.com/homwisor/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Instagram"
+    style={{
+      width: 28,
+      height: 28,
+      borderRadius: '50%',
+      background: '#1a1a1a',
+      display: 'grid',
+      placeItems: 'center',
+      color: GOLD,
+      border: '1px solid rgba(212,175,55,.25)',
+      textDecoration: 'none',
+    }}
+  >
+    <i className="fa-brands fa-instagram"></i>
+  </a>
+
+  {/* YouTube */}
+  <a
+    href="https://www.youtube.com/@HomwisorConsultants"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="YouTube"
+    style={{
+      width: 28,
+      height: 28,
+      borderRadius: '50%',
+      background: '#1a1a1a',
+      display: 'grid',
+      placeItems: 'center',
+      color: GOLD,
+      border: '1px solid rgba(212,175,55,.25)',
+      textDecoration: 'none',
+    }}
+  >
+    <i className="fa-brands fa-youtube"></i>
+  </a>
+
+  {/* LinkedIn */}
+  <a
+    href="https://www.linkedin.com/checkpoint/challenge/AgGnqOFm7uEMXwAAAaDiLdR1eKRji-_VqyEWvji7ntzt5HEv1pp-rFc6fD1Adq5RajztgTQHf0Edw_f4yhIZExU-nwz7tg?ut=1ckL1ZscIkmss1"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    style={{
+      width: 28,
+      height: 28,
+      borderRadius: '50%',
+      background: '#1a1a1a',
+      display: 'grid',
+      placeItems: 'center',
+      color: GOLD,
+      border: '1px solid rgba(212,175,55,.25)',
+      textDecoration: 'none',
+    }}
+  >
+    <i className="fa-brands fa-linkedin-in"></i>
+  </a>
+
+</span>
           </div>
         </div>
       </div>
