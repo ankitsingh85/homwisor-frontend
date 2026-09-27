@@ -816,7 +816,7 @@ export default function PropertyDetail() {
           display: "flex",
           alignItems: "center",
           gap: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: .3,
         }}
@@ -848,7 +848,7 @@ export default function PropertyDetail() {
           display: "flex",
           alignItems: "center",
           gap: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: .3,
         }}
@@ -882,7 +882,7 @@ export default function PropertyDetail() {
           display: "flex",
           alignItems: "center",
           gap: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: .3,
         }}
@@ -945,7 +945,7 @@ export default function PropertyDetail() {
             display: "flex",
             alignItems: "center",
             gap: 8,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 800,
             color: "#173b63",
           }}
@@ -983,7 +983,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 9.5,
+            fontSize: 12,
             color: "#315573",
             fontWeight: 600,
           }}
@@ -996,7 +996,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#173b63",
             fontWeight: 800,
           }}
@@ -1068,7 +1068,7 @@ export default function PropertyDetail() {
         color: "#fff",
         padding: "12px 24px",
         minWidth: 125,
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 800,
         letterSpacing: .5,
         cursor: "pointer",
@@ -1099,7 +1099,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9aa5af",
           fontWeight: 600,
         }}
@@ -1171,7 +1171,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 8,
+            fontSize: 12,
             color: "#8a96a1",
             fontWeight: 700,
             letterSpacing: .5,
@@ -1182,7 +1182,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#173b63",
             fontWeight: 800,
             marginTop: 2,
@@ -1291,19 +1291,19 @@ export default function PropertyDetail() {
         }
 
         .price-table-header > div {
-          font-size: 6px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(1) {
-          font-size: 9px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(2) {
-          font-size: 8px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(3) {
-          font-size: 9px !important;
+          font-size: 12px !important;
         }
 
         .price-bottom-cta {
@@ -1349,16 +1349,16 @@ export default function PropertyDetail() {
         }
 
         .price-table-row > div:nth-child(1) {
-          font-size: 8px !important;
+          font-size: 12px !important;
           gap: 4px !important;
         }
 
         .price-table-row > div:nth-child(2) {
-          font-size: 7.5px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row > div:nth-child(3) {
-          font-size: 8px !important;
+          font-size: 12px !important;
         }
 
         .price-table-row button {
@@ -3305,7 +3305,7 @@ export default function PropertyDetail() {
       >
         <span
           style={{
-            fontSize: 10,
+            fontSize: 12,
             fontWeight: 800,
             letterSpacing: 2,
             color: "#a17b35",
@@ -3352,7 +3352,7 @@ export default function PropertyDetail() {
       <div
         style={{
           marginTop: 5,
-          fontSize: 10.5,
+          fontSize: 12,
           color: "#9ca3af",
         }}
       >
@@ -3414,7 +3414,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 8,
+          fontSize: 12,
           fontWeight: 700,
           letterSpacing: 0.5,
           marginTop: 3,
@@ -3427,7 +3427,7 @@ export default function PropertyDetail() {
       <div
         style={{
           color: "#f2c14e",
-          fontSize: 9,
+          fontSize: 12,
           letterSpacing: 1.5,
           marginTop: 2,
         }}
@@ -3437,7 +3437,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 9,
+          fontSize: 12,
           marginTop: 1,
           opacity: 0.7,
         }}
@@ -3501,7 +3501,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3511,7 +3511,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3544,7 +3544,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#98a4b8",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3593,7 +3593,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3603,7 +3603,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3635,7 +3635,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3684,7 +3684,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3694,7 +3694,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3726,7 +3726,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3775,7 +3775,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3785,7 +3785,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3817,7 +3817,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3866,7 +3866,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3876,7 +3876,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3908,7 +3908,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -3957,7 +3957,7 @@ export default function PropertyDetail() {
         <div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 700,
               color: "#65748a",
             }}
@@ -3967,7 +3967,7 @@ export default function PropertyDetail() {
 
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               color: "#17365d",
               marginTop: 2,
@@ -3999,7 +3999,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#9ca3af",
           marginTop: 6,
           whiteSpace: "nowrap",
@@ -4065,7 +4065,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           fontWeight: 800,
           color: "#234a70",
           whiteSpace: "nowrap",
@@ -4084,7 +4084,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 9,
+          fontSize: 12,
           color: "#8794a3",
           whiteSpace: "nowrap",
         }}
@@ -4102,7 +4102,7 @@ export default function PropertyDetail() {
       <div
         className="highlight-location"
         style={{
-          fontSize: 9,
+          fontSize: 12,
           color: "#8794a3",
           whiteSpace: "nowrap",
         }}
@@ -4277,7 +4277,7 @@ export default function PropertyDetail() {
         }
 
         .score-header > div:first-child > div:first-child span:first-child {
-          font-size: 7px !important;
+          font-size: 12px !important;
         }
 
         .overall-score {
@@ -4307,11 +4307,11 @@ export default function PropertyDetail() {
         }
 
         .score-card > div:first-child > div:last-child > div:first-child {
-          font-size: 7px !important;
+          font-size: 12px !important;
         }
 
         .score-card > div:first-child > div:last-child > div:last-child {
-          font-size: 10px !important;
+          font-size: 12px !important;
         }
 
         .score-card > div:last-child {
@@ -4404,7 +4404,7 @@ export default function PropertyDetail() {
 
       <span
         style={{
-          fontSize: 10,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: 2.5,
           color: "#a17c3d",
@@ -4507,7 +4507,7 @@ export default function PropertyDetail() {
       <div style={{ textAlign: "left" }}>
         <div
           style={{
-            fontSize: 9,
+            fontSize: 12,
             color: "#7d8997",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -4530,7 +4530,7 @@ export default function PropertyDetail() {
 
         <div
           style={{
-            fontSize: 9,
+            fontSize: 12,
             color: "#8b96a3",
             marginTop: 1,
           }}
@@ -5082,7 +5082,7 @@ export default function PropertyDetail() {
 
       <div
         style={{
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: 1.8,
           color: "#d2ad5b",
           fontWeight: 800,
@@ -5180,7 +5180,7 @@ export default function PropertyDetail() {
             "linear-gradient(90deg, #d69e2e 0%, #c28a20 100%)",
           color: "#fff",
           padding: "12px 10px",
-          fontSize: 10,
+          fontSize: 12,
           fontWeight: 800,
           letterSpacing: 0.7,
           cursor: "pointer",
@@ -5196,7 +5196,7 @@ export default function PropertyDetail() {
       <div
         style={{
           textAlign: "center",
-          fontSize: 9,
+          fontSize: 12,
           color: "rgba(255,255,255,.55)",
           marginTop: 5,
         }}
@@ -5249,7 +5249,7 @@ export default function PropertyDetail() {
         border: 1px solid #e4cf9f;
         display: grid;
         place-items: center;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 800;
         color: #8e6c31;
       }
@@ -5268,7 +5268,7 @@ export default function PropertyDetail() {
 
       .faq-answer {
         padding: 0 42px 10px;
-        font-size: 11px;
+        font-size: 12px;
         line-height: 1.6;
         color: #8a95a2;
       }
@@ -5282,7 +5282,7 @@ export default function PropertyDetail() {
         color: #243b53;
         border-radius: 4px;
         outline: none;
-        font-size: 11px;
+        font-size: 12px;
         margin-bottom: 10px;
         padding: 4px 7px;
         font-family: inherit;
@@ -5386,7 +5386,7 @@ export default function PropertyDetail() {
         }
 
         .faq-top-header p {
-          font-size: 8.5px !important;
+          font-size: 12px !important;
         }
 
         .faq-top-header {
@@ -5405,13 +5405,13 @@ export default function PropertyDetail() {
         }
 
         .faq-item summary > span:nth-child(2) {
-          font-size: 8px !important;
+          font-size: 12px !important;
           line-height: 1.35 !important;
         }
 
         .faq-answer {
           padding: 0 38px 9px !important;
-          font-size: 6.5px !important;
+          font-size: 12px !important;
         }
 
         .faq-features {
@@ -6461,7 +6461,7 @@ export default function PropertyDetail() {
         {/* Facebook */}
 
         <a
-          href="#"
+          href="https://www.facebook.com/p/Homwisor-Consultant-Pvt-Ltd-100063724465215/"
           aria-label="Facebook"
           className="social-icon"
         >
@@ -6472,7 +6472,7 @@ export default function PropertyDetail() {
         {/* Instagram */}
 
         <a
-          href="#"
+          href="https://www.instagram.com/homwisor/"
           aria-label="Instagram"
           className="social-icon"
         >
@@ -6512,7 +6512,7 @@ export default function PropertyDetail() {
         {/* LinkedIn */}
 
         <a
-          href="#"
+          href="https://www.linkedin.com/checkpoint/challenge/AgGnqOFm7uEMXwAAAaDiLdR1eKRji-_VqyEWvji7ntzt5HEv1pp-rFc6fD1Adq5RajztgTQHf0Edw_f4yhIZExU-nwz7tg?ut=1ckL1ZscIkmss1"
           aria-label="LinkedIn"
           className="social-icon"
         >
@@ -6523,7 +6523,7 @@ export default function PropertyDetail() {
         {/* YouTube */}
 
         <a
-          href="#"
+          href="https://www.youtube.com/@HomwisorConsultants"
           aria-label="YouTube"
           className="social-icon"
         >

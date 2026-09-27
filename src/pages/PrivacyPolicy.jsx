@@ -13,8 +13,7 @@ export default function PrivacyPolicy() {
 
       {/* HERO */}
       <section className="privacy-hero">
-        <div className="privacy-hero-glow" />
-        <div className="privacy-hero-circle" />
+        <div className="privacy-hero-overlay" />
 
         <div className="privacy-hero-content">
           <span className="privacy-eyebrow">HOMWISOR CONSULTANTS PVT. LTD.</span>
@@ -262,7 +261,7 @@ export default function PrivacyPolicy() {
 
         /* HERO */
         .privacy-hero {
-          min-height: 430px;
+          min-height: 500px;
           position: relative;
           display: flex;
           align-items: center;
@@ -270,62 +269,22 @@ export default function PrivacyPolicy() {
           overflow: hidden;
           text-align: center;
           color: #fff;
-          background:
-            radial-gradient(
-              circle at 82% 28%,
-              rgba(212,175,55,.16),
-              transparent 30%
-            ),
-            linear-gradient(
-              135deg,
-              #050505 0%,
-              #0d0d0d 55%,
-              #1a160d 100%
-            );
+          background-image: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=90");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
 
-        .privacy-hero::before {
-          content: "";
+        .privacy-hero-overlay {
           position: absolute;
-          width: 500px;
-          height: 500px;
-          border-radius: 50%;
-          right: -150px;
-          top: -200px;
-          background: rgba(212,175,55,.10);
-          filter: blur(10px);
-        }
-
-        .privacy-hero::after {
-          content: "";
-          position: absolute;
-          width: 400px;
-          height: 400px;
-          border-radius: 50%;
-          left: -180px;
-          bottom: -220px;
-          background: rgba(212,175,55,.06);
-        }
-
-        .privacy-hero-glow {
-          position: absolute;
-          width: 420px;
-          height: 420px;
-          right: 7%;
-          top: -80px;
-          border-radius: 50%;
-          background: rgba(212,175,55,.08);
-          filter: blur(80px);
-        }
-
-        .privacy-hero-circle {
-          position: absolute;
-          width: 520px;
-          height: 520px;
-          right: -180px;
-          bottom: -300px;
-          border: 1px solid rgba(212,175,55,.28);
-          border-radius: 50%;
+          inset: 0;
+          z-index: 1;
+          background: linear-gradient(
+            90deg,
+            rgba(5,20,38,.92) 0%,
+            rgba(8,23,42,.72) 45%,
+            rgba(5,18,34,.78) 100%
+          );
         }
 
         .privacy-hero-content {
@@ -588,7 +547,7 @@ export default function PrivacyPolicy() {
           }
 
           .privacy-hero-content {
-            padding: 110px 18px 55px;
+            padding: 100px 18px 55px;
           }
 
           .privacy-hero h1 {

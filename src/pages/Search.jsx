@@ -643,10 +643,10 @@ export default function Search() {
               </div>
 
               <a
-                href="tel:8500900100"
+                href="tel:9090101401"
                 className="expert-call"
               >
-                Call 8500 900 100
+                Call +91 9090 101 401
               </a>
 
             </div>
@@ -768,20 +768,14 @@ export default function Search() {
       ===================================================== */}
 
       <style>{`
-
-        * {
-          box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         .search-page {
           min-height: 100vh;
           background: #f7f7f5;
-          color: #111;
-          font-family:
-            "Manrope",
-            "Inter",
-            Arial,
-            sans-serif;
+          color: #111111;
+          font-family: "Manrope", "Inter", Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
         }
 
         .search-page,
@@ -799,37 +793,28 @@ export default function Search() {
           padding: 92px 0 60px;
         }
 
-        /* =====================================================
-           BREADCRUMB
-        ===================================================== */
-
         .search-breadcrumb {
           display: flex;
           align-items: center;
           gap: 7px;
           margin-bottom: 18px;
           font-size: 12px;
-          color: #777;
+          line-height: 1.4;
+          color: #777777;
         }
 
         .search-breadcrumb a {
-          color: #777;
+          color: #777777;
           text-decoration: none;
           transition: .2s ease;
         }
 
-        .search-breadcrumb a:hover {
-          color: ${GOLD_DARK};
-        }
+        .search-breadcrumb a:hover { color: ${GOLD_DARK}; }
 
         .search-breadcrumb span:last-child {
-          color: #222;
+          color: #222222;
           font-weight: 700;
         }
-
-        /* =====================================================
-           MAIN LAYOUT
-        ===================================================== */
 
         .search-layout {
           display: grid;
@@ -838,19 +823,14 @@ export default function Search() {
           align-items: start;
         }
 
-        /* =====================================================
-           FILTER SIDEBAR
-        ===================================================== */
-
         .filter-sidebar {
-          background: #fff;
+          background: #ffffff;
           border: 1px solid #e7e4dc;
           border-radius: 18px;
           padding: 20px;
           position: sticky;
           top: 100px;
-          box-shadow:
-            0 8px 30px rgba(0,0,0,.04);
+          box-shadow: 0 8px 30px rgba(0,0,0,.04);
         }
 
         .filter-header {
@@ -858,14 +838,15 @@ export default function Search() {
           align-items: center;
           justify-content: space-between;
           padding-bottom: 15px;
-          border-bottom: 1px solid #eee;
+          border-bottom: 1px solid #eeeeee;
         }
 
         .filter-header h3 {
           margin: 0;
           font-size: 16px;
+          line-height: 1.3;
           font-weight: 800;
-          color: #111;
+          color: #111111;
         }
 
         .filter-header button {
@@ -873,6 +854,7 @@ export default function Search() {
           background: transparent;
           color: ${GOLD_DARK};
           font-size: 11px;
+          line-height: 1.3;
           font-weight: 800;
           cursor: pointer;
         }
@@ -890,9 +872,10 @@ export default function Search() {
 
         .filter-field > label {
           font-size: 10px;
+          line-height: 1.3;
           font-weight: 800;
           letter-spacing: 1px;
-          color: #555;
+          color: #555555;
           margin-bottom: 7px;
         }
 
@@ -902,11 +885,12 @@ export default function Search() {
           height: 42px;
           border: 1px solid #e4e4e4;
           border-radius: 10px;
-          background: #fff;
+          background: #ffffff;
           padding: 0 12px;
           font-family: inherit;
           font-size: 12px;
-          color: #222;
+          line-height: 1.2;
+          color: #222222;
           outline: none;
           transition: .2s ease;
         }
@@ -914,8 +898,7 @@ export default function Search() {
         .filter-field input:focus,
         .filter-field select:focus {
           border-color: ${GOLD};
-          box-shadow:
-            0 0 0 3px rgba(212,175,55,.10);
+          box-shadow: 0 0 0 3px rgba(212,175,55,.10);
         }
 
         .category-options {
@@ -928,7 +911,8 @@ export default function Search() {
           align-items: center;
           gap: 8px;
           font-size: 12px;
-          color: #555;
+          line-height: 1.4;
+          color: #555555;
           cursor: pointer;
         }
 
@@ -944,9 +928,10 @@ export default function Search() {
           border: none;
           border-radius: 10px;
           background: ${BLACK};
-          color: #fff;
+          color: #ffffff;
           font-family: inherit;
           font-size: 12px;
+          line-height: 1;
           font-weight: 800;
           cursor: pointer;
           transition: .25s ease;
@@ -960,28 +945,21 @@ export default function Search() {
         .property-count {
           text-align: center;
           font-size: 11px;
-          color: #777;
+          line-height: 1.4;
+          color: #777777;
         }
-
-        /* =====================================================
-           EXPERT CARD
-        ===================================================== */
 
         .expert-card {
           margin-top: 20px;
           padding: 18px;
           border-radius: 15px;
-          background:
-            linear-gradient(
-              145deg,
-              #111,
-              #242424
-            );
-          color: #fff;
+          background: linear-gradient(145deg, #111111, #242424);
+          color: #ffffff;
         }
 
         .expert-title {
           font-size: 14px;
+          line-height: 1.35;
           font-weight: 800;
         }
 
@@ -998,28 +976,23 @@ export default function Search() {
           padding: 10px;
           border-radius: 9px;
           background: ${GOLD};
-          color: #111;
+          color: #111111;
           text-align: center;
           text-decoration: none;
           font-size: 11px;
+          line-height: 1.2;
           font-weight: 800;
           transition: .2s ease;
         }
 
-        .expert-call:hover {
-          background: #fff;
-        }
-
-        /* =====================================================
-           RESULTS HEADER
-        ===================================================== */
+        .expert-call:hover { background: #ffffff; }
 
         .results-header {
           min-height: 78px;
           padding: 16px 18px;
           border: 1px solid #e7e4dc;
           border-radius: 17px;
-          background: #fff;
+          background: #ffffff;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -1030,16 +1003,17 @@ export default function Search() {
         .results-header h1 {
           margin: 0;
           font-size: 20px;
-          line-height: 1.2;
+          line-height: 1.25;
           font-weight: 850;
-          color: #111;
+          color: #111111;
           letter-spacing: -.4px;
         }
 
         .results-header p {
           margin: 5px 0 0;
-          color: #777;
+          color: #777777;
           font-size: 11px;
+          line-height: 1.5;
         }
 
         .sort-select {
@@ -1048,61 +1022,44 @@ export default function Search() {
           border: 1px solid #e2e2e2;
           border-radius: 9px;
           padding: 0 11px;
-          background: #fff;
+          background: #ffffff;
           font-family: inherit;
           font-size: 11px;
-          color: #333;
+          line-height: 1.2;
+          color: #333333;
           outline: none;
         }
 
-        /* =====================================================
-           RESULTS GRID
-        ===================================================== */
-
         .results-grid {
           display: grid;
-          grid-template-columns:
-            repeat(3, minmax(0, 1fr));
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 18px;
           margin-top: 18px;
         }
 
-        /* =====================================================
-           PROPERTY CARD
-        ===================================================== */
-
         .search-property-card {
           display: block;
           overflow: hidden;
-          background: #fff;
+          background: #ffffff;
           border: 1px solid #e7e4dc;
           border-radius: 17px;
           color: inherit;
           text-decoration: none;
-          box-shadow:
-            0 8px 28px rgba(0,0,0,.045);
-          transition:
-            transform .3s ease,
-            box-shadow .3s ease,
-            border-color .3s ease;
+          box-shadow: 0 8px 28px rgba(0,0,0,.045);
+          transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
         }
 
         .search-property-card:hover {
           transform: translateY(-6px);
           border-color: rgba(212,175,55,.45);
-          box-shadow:
-            0 18px 42px rgba(0,0,0,.10);
+          box-shadow: 0 18px 42px rgba(0,0,0,.10);
         }
-
-        /* =====================================================
-           CARD IMAGE
-        ===================================================== */
 
         .search-property-image {
           position: relative;
           height: 200px;
           overflow: hidden;
-          background: #eee;
+          background: #eeeeee;
         }
 
         .search-property-image img {
@@ -1110,31 +1067,24 @@ export default function Search() {
           height: 100%;
           display: block;
           object-fit: cover;
-          transition:
-            transform .55s ease;
+          transition: transform .55s ease;
         }
 
-        .search-property-card:hover
-        .search-property-image img {
+        .search-property-card:hover .search-property-image img {
           transform: scale(1.045);
         }
 
         .search-image-overlay {
           position: absolute;
           inset: 0;
-          background:
-            linear-gradient(
-              180deg,
-              rgba(0,0,0,.10) 0%,
-              transparent 42%,
-              rgba(0,0,0,.48) 100%
-            );
+          background: linear-gradient(
+            180deg,
+            rgba(0,0,0,.10) 0%,
+            transparent 42%,
+            rgba(0,0,0,.48) 100%
+          );
           pointer-events: none;
         }
-
-        /* =====================================================
-           RERA
-        ===================================================== */
 
         .search-rera-group {
           position: absolute;
@@ -1150,21 +1100,15 @@ export default function Search() {
           padding: 6px 9px;
           border-radius: 6px;
           background: #138a42;
-          color: #fff;
+          color: #ffffff;
           font-size: 9px;
+          line-height: 1;
           font-weight: 800;
           letter-spacing: .4px;
-          box-shadow:
-            0 4px 12px rgba(0,0,0,.16);
+          box-shadow: 0 4px 12px rgba(0,0,0,.16);
         }
 
-        .search-rera b {
-          font-size: 10px;
-        }
-
-        /* =====================================================
-           BHK BADGE
-        ===================================================== */
+        .search-rera b { font-size: 10px; }
 
         .search-bhk-badge {
           position: absolute;
@@ -1177,26 +1121,21 @@ export default function Search() {
           border-radius: 7px;
           background: rgba(0,0,0,.68);
           backdrop-filter: blur(7px);
-          color: #fff;
+          color: #ffffff;
           font-size: 9px;
+          line-height: 1.2;
           font-weight: 800;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
-        /* =====================================================
-           CARD CONTENT
-        ===================================================== */
-
-        .search-property-content {
-          padding: 16px 16px 15px;
-        }
+        .search-property-content { padding: 16px 16px 15px; }
 
         .search-property-content h3 {
           margin: 0;
           min-height: 20px;
-          color: #111;
+          color: #111111;
           font-size: 15px;
           line-height: 1.35;
           font-weight: 850;
@@ -1210,19 +1149,16 @@ export default function Search() {
           margin-top: 7px;
           color: ${GOLD_DARK};
           font-size: 14px;
+          line-height: 1.3;
           font-weight: 900;
         }
-
-        /* =====================================================
-           LOCATION
-        ===================================================== */
 
         .search-card-location {
           display: flex;
           align-items: center;
           gap: 6px;
           margin-top: 9px;
-          color: #777;
+          color: #777777;
           font-size: 10px;
           line-height: 1.4;
         }
@@ -1240,10 +1176,6 @@ export default function Search() {
           text-overflow: ellipsis;
         }
 
-        /* =====================================================
-           META
-        ===================================================== */
-
         .search-card-meta {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -1258,8 +1190,9 @@ export default function Search() {
           display: flex;
           align-items: center;
           gap: 6px;
-          color: #555;
+          color: #555555;
           font-size: 9px;
+          line-height: 1.4;
           font-weight: 650;
         }
 
@@ -1267,7 +1200,7 @@ export default function Search() {
           width: 15px;
           height: 15px;
           flex-shrink: 0;
-          color: #888;
+          color: #888888;
         }
 
         .search-card-meta span {
@@ -1275,10 +1208,6 @@ export default function Search() {
           white-space: nowrap;
           text-overflow: ellipsis;
         }
-
-        /* =====================================================
-           WHATSAPP
-        ===================================================== */
 
         .search-card-whatsapp {
           width: 100%;
@@ -1290,9 +1219,10 @@ export default function Search() {
           gap: 7px;
           border-radius: 8px;
           background: #138a42;
-          color: #fff;
+          color: #ffffff;
           text-decoration: none;
           font-size: 10px;
+          line-height: 1;
           font-weight: 800;
           transition: .25s ease;
         }
@@ -1307,34 +1237,33 @@ export default function Search() {
           transform: translateY(-1px);
         }
 
-        /* =====================================================
-           EMPTY STATE
-        ===================================================== */
-
         .empty-state {
           margin-top: 18px;
           padding: 70px 30px;
           border: 1px solid #e7e4dc;
           border-radius: 17px;
-          background: #fff;
+          background: #ffffff;
           text-align: center;
         }
 
         .empty-icon {
           font-size: 45px;
+          line-height: 1;
           opacity: .35;
         }
 
         .empty-title {
           margin-top: 10px;
           font-size: 16px;
+          line-height: 1.3;
           font-weight: 800;
         }
 
         .empty-text {
           margin-top: 5px;
           font-size: 12px;
-          color: #777;
+          line-height: 1.5;
+          color: #777777;
         }
 
         .empty-btn {
@@ -1343,19 +1272,15 @@ export default function Search() {
           border: none;
           border-radius: 9px;
           background: ${BLACK};
-          color: #fff;
+          color: #ffffff;
           font-family: inherit;
           font-size: 11px;
+          line-height: 1.2;
           font-weight: 800;
           cursor: pointer;
         }
 
-        /* =====================================================
-           LARGE TABLET
-        ===================================================== */
-
         @media (max-width: 1200px) {
-
           .search-container {
             width: min(100% - 30px, 1100px);
           }
@@ -1366,30 +1291,19 @@ export default function Search() {
           }
 
           .results-grid {
-            grid-template-columns:
-              repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
-          .search-property-image {
-            height: 230px;
-          }
-
+          .search-property-image { height: 230px; }
         }
 
-        /* =====================================================
-           TABLET
-        ===================================================== */
-
         @media (max-width: 960px) {
-
           .search-container {
             width: calc(100% - 28px);
             padding-top: 88px;
           }
 
-          .search-layout {
-            grid-template-columns: 1fr;
-          }
+          .search-layout { grid-template-columns: 1fr; }
 
           .filter-sidebar {
             position: relative;
@@ -1397,17 +1311,13 @@ export default function Search() {
           }
 
           .filter-fields {
-            grid-template-columns:
-              repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
-          .filter-field:first-child {
-            grid-column: 1 / -1;
-          }
+          .filter-field:first-child { grid-column: 1 / -1; }
 
           .category-options {
-            grid-template-columns:
-              repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
           }
 
           .apply-filter-btn,
@@ -1415,23 +1325,14 @@ export default function Search() {
             grid-column: 1 / -1;
           }
 
-          .expert-card {
-            display: none;
-          }
+          .expert-card { display: none; }
 
           .results-grid {
-            grid-template-columns:
-              repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
           }
-
         }
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
         @media (max-width: 640px) {
-
           .search-container {
             width: calc(100% - 20px);
             padding-top: 80px;
@@ -1453,43 +1354,29 @@ export default function Search() {
             gap: 14px;
           }
 
-          .filter-field:first-child {
-            grid-column: auto;
-          }
+          .filter-field:first-child { grid-column: auto; }
 
-          .category-options {
-            grid-template-columns: 1fr;
-          }
+          .category-options { grid-template-columns: 1fr; }
 
           .results-header {
             padding: 14px;
             border-radius: 14px;
           }
 
-          .results-header h1 {
-            font-size: 17px;
-          }
+          .results-header h1 { font-size: 17px; }
 
-          .results-header p {
-            font-size: 10px;
-          }
+          .results-header p { font-size: 10px; }
 
-          .sort-select {
-            width: 100%;
-          }
+          .sort-select { width: 100%; }
 
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
           }
 
-          .search-property-image {
-            height: 150px;
-          }
+          .search-property-image { height: 150px; }
 
-          .search-property-content {
-            padding: 11px;
-          }
+          .search-property-content { padding: 11px; }
 
           .search-property-content h3 {
             font-size: 12px;
@@ -1552,51 +1439,31 @@ export default function Search() {
             padding: 5px 7px;
             font-size: 7px;
           }
-
         }
 
-        /* =====================================================
-           SMALL MOBILE
-        ===================================================== */
-
         @media (max-width: 400px) {
-
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
           }
 
-          .search-property-image {
-            height: 125px;
-          }
+          .search-property-image { height: 125px; }
 
-          .search-property-content {
-            padding: 9px;
-          }
+          .search-property-content { padding: 9px; }
 
-          .search-property-content h3 {
-            font-size: 11px;
-          }
+          .search-property-content h3 { font-size: 11px; }
 
-          .search-card-price {
-            font-size: 11px;
-          }
+          .search-card-price { font-size: 11px; }
 
-          .search-card-location {
-            font-size: 8px;
-          }
+          .search-card-location { font-size: 8px; }
 
           .search-card-meta {
             grid-template-columns: 1fr;
             gap: 5px;
           }
 
-          .search-card-whatsapp {
-            font-size: 8px;
-          }
-
+          .search-card-whatsapp { font-size: 8px; }
         }
-
       `}</style>
     </div>
   );

@@ -8,6 +8,7 @@ import Contact from './pages/Contact'
 import AdminLogin from './admin/AdminLogin'
 import Dashboard from './admin/Dashboard'
 import Blog from './pages/Blog'
+import BlogDetail from "./pages/BlogDetail";
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from "./pages/TermsAndConditions";
 
@@ -26,6 +27,7 @@ export default function App(){
         <Route path="/search" element={<Search/>}/>
         <Route path="/property/:id" element={<PropertyDetail/>}/>
         <Route path="/blog" element={<Blog/>}/>
+        <Route path="/blog/:slug" element={<BlogDetail />} />
          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
          <Route
   path="/terms-and-conditions"

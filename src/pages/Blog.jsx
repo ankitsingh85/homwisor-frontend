@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -7,7 +8,20 @@ const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
 const CREAM = "#F7F5EF";
 
-const categories = ["All", "Real Estate News", "Gurgaon", "Delhi NCR", "Investment", "Property Guide"];
+const categories = [
+  "All",
+  "Real Estate News",
+  "Gurgaon",
+  "Delhi NCR",
+  "Investment",
+  "Property Guide",
+];
+
+const createSlug = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 const posts = [
   {
@@ -70,19 +84,25 @@ export default function Blog() {
   const [active, setActive] = useState("All");
 
   const filteredPosts =
-    active === "All" ? posts : posts.filter((post) => post.category === active);
+    active === "All"
+      ? posts
+      : posts.filter((post) => post.category === active);
 
   return (
     <div className="blog-page">
       <Header />
 
+      {/* HERO */}
       <section className="blog-hero">
-        <div className="blog-hero-glow" />
+        <div className="blog-hero-overlay" />
+
         <div className="blog-container blog-hero-inner">
           <div className="blog-eyebrow">HOMWISOR INSIGHTS</div>
+
           <h1>
             Real Estate <span>Insights.</span>
           </h1>
+
           <p>
             Stay informed with property news, market insights, investment ideas
             and practical guides for Gurgaon and Delhi NCR.
@@ -91,13 +111,20 @@ export default function Blog() {
       </section>
 
       <main>
+        {/* FEATURED */}
         <section className="blog-section blog-featured">
           <div className="blog-container">
             <div className="blog-section-head">
               <div>
-                <div className="blog-eyebrow dark">FEATURED INSIGHT</div>
-                <h2>What’s happening in <span>NCR real estate.</span></h2>
+                <div className="blog-eyebrow dark">
+                  FEATURED INSIGHT
+                </div>
+
+                <h2>
+                  What’s happening in <span>NCR real estate.</span>
+                </h2>
               </div>
+
               <a href="#all-articles" className="blog-view-link">
                 View All Articles <span>↗</span>
               </a>
@@ -105,30 +132,48 @@ export default function Blog() {
 
             <article className="featured-card">
               <div className="featured-image">
-                <img src={posts[0].image} alt={posts[0].title} />
+                <img
+                  src={posts[0].image}
+                  alt={posts[0].title}
+                />
+
                 <span>{posts[0].category}</span>
               </div>
+
               <div className="featured-content">
                 <small>{posts[0].date}</small>
+
                 <h3>{posts[0].title}</h3>
+
                 <p>{posts[0].excerpt}</p>
-                <a href={`/blog/${posts[0].title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+
+                <Link to={`/blog/${createSlug(posts[0].title)}`}>
                   Read Article <span>→</span>
-                </a>
+                </Link>
               </div>
             </article>
           </div>
         </section>
 
-        <section className="blog-section blog-all" id="all-articles">
+        {/* ALL ARTICLES */}
+        <section
+          className="blog-section blog-all"
+          id="all-articles"
+        >
           <div className="blog-container">
             <div className="blog-section-head compact">
               <div>
-                <div className="blog-eyebrow dark">LATEST ARTICLES</div>
-                <h2>Explore our <span>latest stories.</span></h2>
+                <div className="blog-eyebrow dark">
+                  LATEST ARTICLES
+                </div>
+
+                <h2>
+                  Explore our <span>latest stories.</span>
+                </h2>
               </div>
             </div>
 
+            {/* CATEGORIES */}
             <div className="category-row">
               {categories.map((category) => (
                 <button
@@ -141,47 +186,70 @@ export default function Blog() {
               ))}
             </div>
 
+            {/* BLOG GRID */}
             <div className="blog-grid">
-              {filteredPosts.map((post) => (
-                <article className="blog-card" key={post.title}>
-                  <a
-                    href={`/blog/${post.title
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")}`}
-                    className="blog-card-image"
+              {filteredPosts.map((post) => {
+                const slug = createSlug(post.title);
+
+                return (
+                  <article
+                    className="blog-card"
+                    key={post.title}
                   >
-                    <img src={post.image} alt={post.title} />
-                    <span>{post.category}</span>
-                  </a>
-                  <div className="blog-card-content">
-                    <small>{post.date}</small>
-                    <h3>{post.title}</h3>
-                    <p>{post.excerpt}</p>
-                    <a
-                      href={`/blog/${post.title
-                        .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, "-")}`}
+                    {/* IMAGE LINK */}
+                    <Link
+                      to={`/blog/${slug}`}
+                      className="blog-card-image"
                     >
-                      Read Article <span>→</span>
-                    </a>
-                  </div>
-                </article>
-              ))}
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                      />
+
+                      <span>{post.category}</span>
+                    </Link>
+
+                    <div className="blog-card-content">
+                      <small>{post.date}</small>
+
+                      <h3>{post.title}</h3>
+
+                      <p>{post.excerpt}</p>
+
+                      {/* READ ARTICLE LINK */}
+                      <Link to={`/blog/${slug}`}>
+                        Read Article <span>→</span>
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
 
+        {/* NEWSLETTER */}
         <section className="blog-newsletter">
           <div className="blog-container newsletter-inner">
             <div>
-              <div className="blog-eyebrow">STAY UPDATED</div>
+              <div className="blog-eyebrow">
+                STAY UPDATED
+              </div>
+
               <h2>Get smarter property insights.</h2>
+
               <p>
                 Follow Homwisor for useful real estate news, property guides
                 and market updates.
               </p>
             </div>
-            <a href="/contact/" className="blog-btn">Talk to an Expert</a>
+
+            <Link
+              to="/contact/"
+              className="blog-btn"
+            >
+              Talk to an Expert
+            </Link>
           </div>
         </section>
       </main>
@@ -189,7 +257,9 @@ export default function Blog() {
       <Footer />
 
       <style>{`
-        * { box-sizing: border-box; }
+        * {
+          box-sizing: border-box;
+        }
 
         .blog-page {
           min-height: 100vh;
@@ -199,7 +269,8 @@ export default function Blog() {
           overflow: hidden;
         }
 
-        .blog-page, .blog-page * {
+        .blog-page,
+        .blog-page * {
           font-family: "Manrope", "Inter", Arial, sans-serif;
         }
 
@@ -209,49 +280,38 @@ export default function Blog() {
         }
 
         .blog-hero {
-          min-height: 430px;
+          min-height: 500px;
           position: relative;
           display: flex;
           align-items: center;
+          justify-content: center;
           overflow: hidden;
+          text-align: center;
           color: #fff;
-          background:
-            radial-gradient(
-              circle at 82% 28%,
-              rgba(212,175,55,.16),
-              transparent 30%
-            ),
-            linear-gradient(
-              135deg,
-              #050505 0%,
-              #0d0d0d 55%,
-              #1a160d 100%
-            );
+
+          background-image: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=90");
+
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
 
-        .blog-hero:after {
-          content: "";
+        .blog-hero-overlay {
           position: absolute;
-          width: 570px;
-          height: 570px;
-          right: -190px;
-          bottom: -310px;
-          border: 1px solid rgba(212,175,55,.28);
-          border-radius: 50%;
-          box-shadow:
-            0 0 0 65px rgba(212,175,55,.035),
-            0 0 0 130px rgba(212,175,55,.02);
+          inset: 0;
+          z-index: 1;
+
+          background: linear-gradient(
+            90deg,
+            rgba(5,20,38,.92) 0%,
+            rgba(8,23,42,.72) 45%,
+            rgba(5,18,34,.78) 100%
+          );
         }
 
+        .blog-hero:after,
         .blog-hero-glow {
-          position: absolute;
-          width: 480px;
-          height: 480px;
-          right: 8%;
-          top: -90px;
-          border-radius: 50%;
-          background: rgba(212,175,55,.07);
-          filter: blur(90px);
+          display: none;
         }
 
         .blog-hero-inner {
@@ -274,7 +334,8 @@ export default function Blog() {
         }
 
         .blog-hero h1 {
-          margin: 15px 0 0;
+          margin: 15px auto 0;
+          max-width: 760px;
           color: #fff;
           font-size: clamp(38px, 5vw, 64px);
           line-height: 1.08;
@@ -282,8 +343,7 @@ export default function Blog() {
           font-weight: 850;
         }
 
-        .blog-hero h1 span,
-        .blog-section-head h2 span {
+        .blog-hero h1 span {
           color: ${GOLD};
           display: block;
         }
@@ -291,7 +351,7 @@ export default function Blog() {
         .blog-hero p {
           max-width: 600px;
           margin: 20px auto 0;
-          color: rgba(255,255,255,.72);
+          color: rgba(255,255,255,.78);
           font-size: 14px;
           line-height: 1.8;
         }
@@ -461,7 +521,7 @@ export default function Blog() {
 
         .blog-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 17px;
         }
 
@@ -583,7 +643,7 @@ export default function Blog() {
           }
 
           .blog-hero-inner {
-            padding: 110px 18px 55px;
+            padding: 100px 18px 55px;
           }
 
           .blog-hero h1 {
@@ -665,7 +725,7 @@ export default function Blog() {
           }
 
           .blog-hero-inner {
-            padding: 110px 18px 55px;
+            padding: 100px 18px 55px;
           }
 
           .blog-hero h1,

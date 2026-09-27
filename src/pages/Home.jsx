@@ -1037,7 +1037,7 @@ export default function Home(){
               className="hw-why-feature-card"
               style={{
                 position: 'relative',
-                height: 205,
+                
                 minWidth: 0,
                 overflow: 'hidden',
                 borderRadius: 6,
@@ -1396,7 +1396,7 @@ export default function Home(){
         className="container" 
         style={{
           padding:
-            '22px 16px'
+            '2px 16px'
         }}
       >
 

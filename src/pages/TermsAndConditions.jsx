@@ -13,8 +13,7 @@ export default function TermsAndConditions() {
 
       {/* HERO */}
       <section className="terms-hero">
-        <div className="terms-hero-glow" />
-        <div className="terms-hero-circle" />
+        <div className="terms-hero-overlay" />
 
         <div className="terms-hero-content">
           <span className="terms-eyebrow">HOMWISOR CONSULTANTS PVT. LTD.</span>
@@ -354,7 +353,7 @@ export default function TermsAndConditions() {
 
         /* HERO */
         .terms-hero {
-          min-height: 430px;
+          min-height: 500px;
           position: relative;
           display: flex;
           align-items: center;
@@ -362,67 +361,28 @@ export default function TermsAndConditions() {
           overflow: hidden;
           text-align: center;
           color: #fff;
-          background:
-            radial-gradient(
-              circle at 82% 28%,
-              rgba(212,175,55,.16),
-              transparent 30%
-            ),
-            linear-gradient(
-              135deg,
-              #050505 0%,
-              #0d0d0d 55%,
-              #1a160d 100%
-            );
+          background-image: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=90");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
 
-        .terms-hero::before {
-          content: "";
+        .terms-hero-overlay {
           position: absolute;
-          width: 500px;
-          height: 500px;
-          border-radius: 50%;
-          right: -150px;
-          top: -200px;
-          background: rgba(212,175,55,.10);
-          filter: blur(10px);
-        }
-
-        .terms-hero::after {
-          content: "";
-          position: absolute;
-          width: 400px;
-          height: 400px;
-          border-radius: 50%;
-          left: -180px;
-          bottom: -220px;
-          background: rgba(212,175,55,.06);
-        }
-
-        .terms-hero-glow {
-          position: absolute;
-          width: 420px;
-          height: 420px;
-          right: 7%;
-          top: -80px;
-          border-radius: 50%;
-          background: rgba(212,175,55,.08);
-          filter: blur(80px);
-        }
-
-        .terms-hero-circle {
-          position: absolute;
-          width: 520px;
-          height: 520px;
-          right: -180px;
-          bottom: -300px;
-          border: 1px solid rgba(212,175,55,.28);
-          border-radius: 50%;
+          inset: 0;
+          z-index: 1;
+          background: linear-gradient(
+            90deg,
+            rgba(5,20,38,.92) 0%,
+            rgba(8,23,42,.72) 45%,
+            rgba(5,18,34,.78) 100%
+          );
         }
 
         .terms-hero-content {
           position: relative;
           z-index: 2;
+          width: 100%;
           max-width: 760px;
           padding: 120px 20px 70px;
         }
@@ -698,7 +658,7 @@ export default function TermsAndConditions() {
           }
 
           .terms-hero-content {
-            padding: 110px 18px 55px;
+            padding: 100px 18px 55px;
           }
 
           .terms-hero h1 {
