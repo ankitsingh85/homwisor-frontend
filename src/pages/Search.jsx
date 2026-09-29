@@ -81,6 +81,8 @@ export default function Search(){
                   <option>Builder Floor</option>
                   <option>Plots</option>
                   <option>Commercial</option>
+                  <option>Retail</option>
+                  <option>SCO</option>
                   <option>Farmhouse</option>
                 </select>
               </div>
@@ -106,7 +108,9 @@ export default function Search(){
                     {id:'recommended', label:'Recommended'},
                     {id:'trending', label:'Trending'},
                     {id:'upcoming', label:'Upcoming'},
-                    {id:'newlaunch', label:'New Launch'}
+                    {id:'newlaunch', label:'New Launch'},
+                    {id:'commercial', label:'Commercial'},
+                    {id:'sco', label:'SCO'}
                   ].map(o=>(
                     <label key={o.id} style={{display:'flex', alignItems:'center', gap:8, fontSize:13, cursor:'pointer'}}>
                       <input type="radio" name="cat" checked={cat===o.id} onChange={()=>setCat(o.id)} />

@@ -1,0 +1,197 @@
+/* =========================================================
+   HomWisor Admin — Properties (list + step form)
+   Builds on admin.css (.hwa, .hwa-light, .hwa-card, .hwa-input …)
+========================================================= */
+
+.hwp .hwa-section-head { align-items: center; }
+.hwp-req { color: #b8860b; font-weight: 800; }
+
+.hwp-back {
+  background: none; border: none; padding: 0; margin-bottom: 6px;
+  color: #9A7418; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit;
+}
+.hwp-back:hover { text-decoration: underline; }
+
+.hwp-add-main { width: auto; padding: 0 22px; }
+
+/* ---------- list: tabs ---------- */
+.hwp-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 16px; padding: 6px;
+  background: #fff; border: 1px solid #ece7d8; border-radius: 14px;
+}
+.hwp-tabs button {
+  border: none; background: transparent; cursor: pointer; font-family: inherit;
+  font-size: 13px; font-weight: 700; color: #4b4637;
+  padding: 9px 14px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.hwp-tabs button em {
+  font-style: normal; font-size: 11px; font-weight: 800;
+  background: #f1eee4; color: #6b6450; padding: 1px 7px; border-radius: 20px;
+}
+.hwp-tabs button:hover { background: #faf6ea; }
+.hwp-tabs button.active { background: #0b0b0b; color: #D4AF37; }
+.hwp-tabs button.active em { background: #D4AF37; color: #111; }
+
+.hwp-section-info {
+  margin-top: 12px; padding: 12px 14px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  background: #fffaeb; border: 1px solid #f3e3b0; border-radius: 12px;
+  font-size: 13px; color: #5c4a12;
+}
+
+.hwp-search { margin-top: 12px; max-width: 420px; }
+
+.hwp-empty { margin-top: 14px; text-align: center; padding: 34px; display: grid; gap: 14px; justify-items: center; color: #6b7280; }
+
+/* ---------- list: cards ---------- */
+.hwp-cards {
+  margin-top: 14px;
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+.hwp-item {
+  background: #fff; border: 1px solid #ece7d8; border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: box-shadow .2s, transform .2s;
+}
+.hwp-item:hover { box-shadow: 0 10px 26px rgba(0,0,0,.07); transform: translateY(-2px); }
+.hwp-item-img { position: relative; aspect-ratio: 3 / 2; background: #f3f1ea; }
+.hwp-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.hwp-item-cat {
+  position: absolute; left: 10px; top: 10px;
+  background: rgba(9,9,9,.82); color: #D4AF37;
+  font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 20px;
+}
+.hwp-item-body { padding: 12px; display: grid; gap: 4px; }
+.hwp-item-body strong { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hwp-item-price { font-weight: 800; font-size: 13px; color: #9A7418; }
+.hwp-item-sub { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hwp-item-actions { display: flex; gap: 6px; margin-top: 8px; }
+.hwp-item-actions .hwa-mini { text-decoration: none; }
+
+/* ---------- form layout ---------- */
+.hwp-form-layout {
+  margin-top: 16px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: start;
+}
+.hwp-form-main { display: grid; gap: 16px; min-width: 0; }
+
+.hwp-step-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+.hwp-step-no {
+  width: 30px; height: 30px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #0b0b0b; color: #D4AF37;
+  font-weight: 800; font-size: 13px;
+}
+.hwp-step-head h3 { font-size: 16px; font-weight: 800; color: #111; }
+.hwp-step-head p { font-size: 12.5px; color: #6b7280; margin-top: 3px; line-height: 1.5; }
+
+.hwp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.hwp-full { grid-column: 1 / -1; }
+
+/* category picker */
+.hwp-cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hwp-cat {
+  text-align: left; cursor: pointer; font-family: inherit;
+  padding: 12px; border-radius: 14px;
+  border: 1.5px solid #e9e4d4; background: #fcfbf7;
+  display: grid; gap: 6px;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.hwp-cat:hover { border-color: #d9c78a; }
+.hwp-cat.active { border-color: #D4AF37; background: #fffaeb; box-shadow: 0 0 0 3px rgba(212,175,55,.18); }
+.hwp-cat-top { display: flex; align-items: center; gap: 8px; }
+.hwp-cat-icon { font-size: 18px; }
+.hwp-cat-top strong { font-size: 14px; color: #111; }
+.hwp-cat-top em { margin-left: auto; font-style: normal; font-size: 11px; color: #9ca3af; }
+.hwp-cat-where { font-size: 11.5px; color: #6b7280; line-height: 1.45; }
+
+/* yes/no toggle */
+.hwp-toggle { display: inline-flex; background: #f1eee4; border-radius: 10px; padding: 3px; }
+.hwp-toggle button {
+  border: none; background: transparent; cursor: pointer; font-family: inherit;
+  padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; color: #6b6450;
+}
+.hwp-toggle button.on { background: #0b0b0b; color: #D4AF37; }
+
+/* images */
+.hwp-img, .hwp-img-empty {
+  border-radius: 12px; overflow: hidden; background: #f3f1ea; border: 1px dashed #d9d3bf;
+  margin: -4px 0 14px;
+}
+.hwp-img-main { aspect-ratio: 3 / 1.4; }
+.hwp-img img { width: 100%; height: 100%; object-fit: cover; }
+.hwp-img-empty { display: grid; place-items: center; color: #a8a293; font-size: 13px; }
+.hwp-img-bad { padding: 16px; font-size: 13px; color: #991b1b; background: #fef2f2; height: 100%; display: grid; place-items: center; text-align: center; }
+
+.hwp-color { display: flex; align-items: center; gap: 10px; height: 44px; }
+.hwp-color input[type=color] { width: 44px; height: 40px; border: 1px solid #e5e1d3; border-radius: 10px; padding: 3px; background: #fff; cursor: pointer; }
+.hwp-color code { font-size: 12px; color: #6b7280; }
+.hwp-logo-prev { margin-left: auto; height: 40px; padding: 6px 10px; border-radius: 8px; display: grid; place-items: center; }
+.hwp-logo-prev img { max-height: 28px; max-width: 110px; object-fit: contain; }
+
+/* editable lists */
+.hwp-list { display: grid; gap: 8px; }
+.hwp-list-row { display: flex; align-items: center; gap: 8px; }
+.hwp-list-no {
+  width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%;
+  display: grid; place-items: center; font-size: 11px; font-weight: 800;
+  background: #f1eee4; color: #6b6450;
+}
+.hwp-list-row .hwa-input { flex: 1; }
+.hwp-thumb { width: 56px; height: 40px; border-radius: 8px; object-fit: cover; background: #f3f1ea; flex-shrink: 0; display: block; }
+.hwp-x {
+  width: 32px; height: 32px; flex-shrink: 0; border-radius: 8px; cursor: pointer;
+  border: 1px solid #efe9d8; background: #fff; color: #9ca3af; font-size: 12px;
+}
+.hwp-x:hover { color: #b91c1c; border-color: #fecaca; background: #fef2f2; }
+.hwp-add {
+  justify-self: start; margin-left: 32px; cursor: pointer; font-family: inherit;
+  background: none; border: 1px dashed #d9c78a; color: #9A7418;
+  font-weight: 700; font-size: 12px; padding: 8px 12px; border-radius: 10px;
+}
+.hwp-add:hover { background: #fffaeb; }
+
+/* ---------- side: preview + actions ---------- */
+.hwp-side { position: sticky; top: 16px; }
+.hwp-preview { display: grid; gap: 14px; }
+.hwp-side-title { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #9A7418; }
+
+.hwp-pcard { border: 1px solid #ece7d8; border-radius: 14px; overflow: hidden; background: #fff; }
+.hwp-pcard-img { position: relative; aspect-ratio: 3 / 2; background: #f3f1ea; display: grid; place-items: center; color: #b3ad9c; font-size: 12px; }
+.hwp-pcard-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hwp-pcard-tag, .hwp-pcard-rera {
+  position: absolute; top: 8px; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 20px;
+}
+.hwp-pcard-tag { left: 8px; background: #0b0b0b; color: #D4AF37; }
+.hwp-pcard-rera { right: 8px; background: #16a34a; color: #fff; }
+.hwp-pcard-body { padding: 12px; display: grid; gap: 4px; }
+.hwp-pcard-body strong { font-size: 14px; }
+.hwp-pcard-price { font-weight: 800; color: #9A7418; font-size: 13px; }
+.hwp-pcard-loc, .hwp-pcard-meta { font-size: 12px; color: #6b7280; }
+
+.hwp-where { display: grid; gap: 3px; padding: 10px 12px; border-radius: 12px; background: #fffaeb; border: 1px solid #f3e3b0; }
+.hwp-where span { font-size: 11px; color: #8a6d0b; font-weight: 700; }
+.hwp-where strong { font-size: 12.5px; color: #3d3210; line-height: 1.45; }
+
+.hwp-check { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; font-size: 12px; color: #9ca3af; }
+.hwp-check li.ok { color: #16a34a; font-weight: 600; }
+
+.hwp-cancel { background: none; border: none; color: #6b7280; font-size: 13px; cursor: pointer; font-family: inherit; }
+.hwp-cancel:hover { color: #111; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .hwp-form-layout { grid-template-columns: 1fr; }
+  .hwp-side { position: static; }
+}
+@media (max-width: 760px) {
+  .hwp-cats { grid-template-columns: 1fr 1fr; }
+  .hwp-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .hwp-cats { grid-template-columns: 1fr; }
+}

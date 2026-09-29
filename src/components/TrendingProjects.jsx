@@ -245,6 +245,37 @@ export default function TrendingProjects({
         .slice(0, 4)
     : [];
 
+  const commercialDisplay = Array.isArray(properties)
+    ? properties
+        .filter(
+          (p) =>
+            String(p?.category || "").toLowerCase() === "commercial"
+        )
+        .slice(0, 4)
+    : [];
+
+  /* SCO + Commercial share the same section design */
+  const businessSections = [
+    {
+      key: "sco",
+      eyebrow: "SCO PROJECTS",
+      title: "SCO Projects in",
+      text: "Explore premium SCO plots and commercial projects in Gurugram",
+      items: scoDisplay,
+      fallbackType: "SCO",
+      fallbackArea: "SCO Plot",
+    },
+    {
+      key: "commercial",
+      eyebrow: "COMMERCIAL PROJECTS",
+      title: "Commercial Projects in",
+      text: "Retail, office and high-street commercial spaces in Gurugram",
+      items: commercialDisplay,
+      fallbackType: "Commercial",
+      fallbackArea: "Commercial Space",
+    },
+  ];
+
 
   /* =====================================================
      LOCATION FALLBACK
@@ -1934,27 +1965,27 @@ export default function TrendingProjects({
                 SAME DESIGN AS NEW LAUNCH PROJECTS
             ================================================= */}
 
-            {scoDisplay.length > 0 && (
-              <section className="hw-upcoming-projects hw-sco-projects">
+            {businessSections.map((sec) => sec.items.length > 0 && (
+              <section key={sec.key} className="hw-upcoming-projects hw-sco-projects">
 
                 <div className="hw-upcoming-header">
 
                   <div>
                     <div className="hw-subsection-eyebrow">
-                      SCO PROJECTS
+                      {sec.eyebrow}
                     </div>
 
                     <h2>
-                      SCO Projects in <span>Gurugram</span>
+                      {sec.title} <span>Gurugram</span>
                     </h2>
 
                     <p>
-                      Explore premium SCO plots and commercial projects in Gurugram
+                      {sec.text}
                     </p>
                   </div>
 
                   <Link
-                    to="/search?category=sco"
+                    to={`/search?category=${sec.key}`}
                     className="hw-upcoming-view-all"
                   >
                     View All Projects
@@ -1974,9 +2005,9 @@ export default function TrendingProjects({
 
                 <div className="hw-upcoming-grid hw-trending-properties">
 
-                  {scoDisplay.map((property, index) => (
+                  {sec.items.map((property, index) => (
                     <Link
-                      key={property.id || property._id || `sco-${index}`}
+                      key={property.id || property._id || `${sec.key}-${index}`}
                       to={`/property/${property.id || property._id || index}`}
                       className="hw-trending-card"
                     >
@@ -1984,7 +2015,7 @@ export default function TrendingProjects({
                       <div className="hw-trending-image">
                         <img
                           src={property.image || property.thumbnail}
-                          alt={property.title || "SCO Project"}
+                          alt={property.title || sec.eyebrow}
                           loading="lazy"
                         />
 
@@ -1999,13 +2030,13 @@ export default function TrendingProjects({
                         )}
 
                         <div className="hw-bhk-badge">
-                          {property.propertyType || property.type || "SCO"}
+                          {property.propertyType || property.type || sec.fallbackType}
                         </div>
                       </div>
 
                       <div className="hw-trending-card-content">
                         <h3>
-                          {property.title || property.name || "SCO Project"}
+                          {property.title || property.name || sec.eyebrow}
                         </h3>
 
                         <div className="hw-card-price">
@@ -2033,7 +2064,7 @@ export default function TrendingProjects({
                               <path d="M4 20h6" /><path d="M4 20v-6" />
                               <path d="M20 4h-6" /><path d="M20 4v6" />
                             </svg>
-                            <span>{property.area || "SCO Plot"}</span>
+                            <span>{property.area || property.landArea || property.bhk || sec.fallbackArea}</span>
                           </div>
 
                           <div>
@@ -2043,7 +2074,7 @@ export default function TrendingProjects({
                               <path d="M4 19v-8" /><path d="M20 19v-8" />
                               <path d="M4 15h16" />
                             </svg>
-                            <span>{property.propertyType || "Commercial"}</span>
+                            <span>{property.propertyType || property.type || "Commercial"}</span>
                           </div>
                         </div>
 
@@ -2067,7 +2098,7 @@ export default function TrendingProjects({
                 </div>
 
               </section>
-            )}
+            ))}
           </div>
 
 

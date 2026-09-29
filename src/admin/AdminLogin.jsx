@@ -1,57 +1,113 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Navigate, useNavigate, useSearchParams, Link } from 'react-router-dom'
 import API from '../utils/api'
+import { setSession, isLoggedIn, clearSession, EMAIL_RE } from '../utils/auth'
+import { Icon, PasswordInput, Spinner, Alert } from './ui'
+import logo from '../images/logo-homwiser.png'
+import './admin.css'
+
+const SESSION_MESSAGES = {
+  expired: 'Your session expired after 24 hours. Please sign in again.',
+  signedout: 'You have been signed out. Please sign in again.',
+  loggedout: 'You have signed out successfully.',
+}
 
 export default function AdminLogin(){
-  const [form,setForm]=useState({username:'admin', password:'admin123'})
+  const [form,setForm]=useState({email:'', password:''})
   const [err,setErr]=useState('')
   const [loading,setLoading]=useState(false)
+  const [params]=useSearchParams()
   const nav=useNavigate()
+
+  // Drop any expired/invalid token left behind
+  useEffect(()=>{ if(!isLoggedIn()) clearSession() },[])
+
+  if(isLoggedIn()) return <Navigate to="/admin/dashboard" replace/>
+
+  const notice = SESSION_MESSAGES[params.get('session')]
 
   const submit=async(e)=>{
     e.preventDefault()
+    const email=form.email.trim().toLowerCase()
+    if(!email || !form.password){ setErr('Enter your email and password'); return }
+    if(!EMAIL_RE.test(email)){ setErr('Enter a valid email address'); return }
     setLoading(true); setErr('')
     try{
-      const r=await API.post('/admin/login', form)
-      localStorage.setItem('admin_token', r.data.token)
-      nav('/admin/dashboard')
+      const r=await API.post('/admin/login', { email, password: form.password })
+      setSession(r.data.token, r.data.admin)
+      nav('/admin/dashboard', { replace: true })
     }catch(e){
-      setErr(e.response?.data?.error || 'Login failed')
-    }finally{setLoading(false)}
+      setErr(
+        e.response?.data?.error ||
+        (e.code === 'ECONNABORTED' ? 'The server took too long to respond. Please try again.' : 'Could not reach the server. Check your connection and try again.')
+      )
+      setForm(f=>({...f, password:''}))
+    }finally{ setLoading(false) }
   }
 
   return (
-    <div style={{minHeight:'100vh', display:'grid', placeItems:'center', background:'#0a0a0a', padding:16}}>
-      <div style={{width:'100%', maxWidth:420, background:'#fff', borderRadius:16, padding:24, boxShadow:'0 20px 60px rgba(0,0,0,.4)'}}>
-        <div style={{textAlign:'center', marginBottom:18}}>
-          <div style={{width:48,height:48, background:'#d8232a', borderRadius:10, display:'grid', placeItems:'center', margin:'0 auto', fontWeight:800, color:'#fff', fontSize:18}}>HW</div>
-          <h1 style={{fontWeight:800, fontSize:18, marginTop:10}}>Admin Panel</h1>
-          <p style={{fontSize:13, color:'#6b7280', marginTop:4}}>HomWisor.com - Dynamic CMS</p>
-          <div style={{marginTop:10, background:'#fef2f2', border:'1px solid #fecaca', color:'#991b1b', padding:'8px 10px', borderRadius:8, fontSize:12}}>
-            Demo: <strong>admin</strong> / <strong>admin123</strong>
+    <div className="hwa hwa-login">
+      <aside className="hwa-login-visual">
+        <img src={logo} alt="HomWisor" className="hwa-login-logo"/>
+
+        <div className="hwa-login-copy">
+          <span className="hwa-eyebrow">Admin Console</span>
+          <h1>Manage every listing, lead &amp; <span>launch</span> in one place.</h1>
+          <p>Update properties, banners, offers and snaps — changes go live on HomWisor.com instantly.</p>
+          <div className="hwa-login-points">
+            <div><Icon.shield/> Secure JWT sessions</div>
+            <div><Icon.clock/> Auto sign-out after 24h</div>
+            <div><Icon.users/> Role-based access</div>
           </div>
         </div>
+      </aside>
 
-        {err && <div style={{background:'#fef2f2', color:'#991b1b', padding:'10px 12px', borderRadius:8, fontSize:13, marginBottom:12, border:'1px solid #fecaca'}}>{err}</div>}
+      <main className="hwa-login-panel">
+        <div className="hwa-login-card">
+          <img src={logo} alt="HomWisor" className="hwa-login-mobile-logo"/>
+          <h2>Welcome back</h2>
+          <p className="hwa-sub">Sign in to the HomWisor admin panel</p>
 
-        <form onSubmit={submit} style={{display:'grid', gap:12}}>
-          <div>
-            <label style={{fontSize:12, fontWeight:700, color:'#374151'}}>Username</label>
-            <input value={form.username} onChange={e=>setForm({...form, username:e.target.value})} style={{width:'100%', marginTop:6, height:42, border:'1px solid #e5e7eb', borderRadius:10, padding:'0 12px', fontSize:14, outline:'none'}} placeholder="admin"/>
+          {notice && !err && <Alert type={params.get('session')==='loggedout' ? 'success' : 'info'}>{notice}</Alert>}
+          {err && <Alert>{err}</Alert>}
+
+          <form onSubmit={submit} noValidate>
+            <div className="hwa-field">
+              <label htmlFor="hwa-email">Email address</label>
+              <div className="hwa-input-wrap">
+                <Icon.mail/>
+                <input
+                  id="hwa-email"
+                  type="email"
+                  inputMode="email"
+                  className="hwa-input"
+                  value={form.email}
+                  onChange={e=>setForm({...form, email:e.target.value})}
+                  placeholder="you@homwisor.com"
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            <div className="hwa-field">
+              <label htmlFor="hwa-password">Password</label>
+              <PasswordInput id="hwa-password" value={form.password} onChange={v=>setForm({...form, password:v})} placeholder="Enter your password"/>
+            </div>
+
+            <button type="submit" className="hwa-btn hwa-btn-gold" disabled={loading} style={{marginTop:8}}>
+              {loading ? <><Spinner/> Signing in…</> : 'Sign In'}
+            </button>
+          </form>
+
+          <div className="hwa-login-foot">
+            <Link to="/">← Back to website</Link>
+            <span className="hwa-secure"><Icon.shield/> Authorised staff only</span>
           </div>
-          <div>
-            <label style={{fontSize:12, fontWeight:700, color:'#374151'}}>Password</label>
-            <input type="password" value={form.password} onChange={e=>setForm({...form, password:e.target.value})} style={{width:'100%', marginTop:6, height:42, border:'1px solid #e5e7eb', borderRadius:10, padding:'0 12px', fontSize:14, outline:'none'}} placeholder="••••••••"/>
-          </div>
-          <button disabled={loading} style={{height:44, background:'#111', color:'#fff', border:'none', borderRadius:10, fontWeight:800, cursor:'pointer', opacity: loading?.5:1}}>
-            {loading?'Signing in...':'Sign In →'}
-          </button>
-        </form>
-
-        <div style={{textAlign:'center', marginTop:14}}>
-          <a href="/" style={{fontSize:13, color:'#6b7280'}}>← Back to Website</a>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

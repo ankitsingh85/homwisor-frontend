@@ -5,10 +5,11 @@ import PropertyDetail from './pages/PropertyDetail'
 import Snaps from './pages/Snaps'
 import AdminLogin from './admin/AdminLogin'
 import Dashboard from './admin/Dashboard'
+import { isLoggedIn, getToken } from './utils/auth'
 
 function Protected({children}){
-  const token = localStorage.getItem('admin_token')
-  if(!token) return <Navigate to="/admin" replace/>
+  // Stale tokens are cleared by the login page (no side effects during render)
+  if(!isLoggedIn()) return <Navigate to={getToken() ? '/admin?session=expired' : '/admin'} replace/>
   return children
 }
 
