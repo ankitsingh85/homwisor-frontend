@@ -207,6 +207,25 @@ export default function RecommendedProperties() {
               </div>
 
 
+              {/* PRICE */}
+
+              <div className="hw-property-bottom">
+
+                <div className="hw-price-box">
+
+                  <div className="hw-property-price">
+                    {property.price}
+                  </div>
+
+                  <div className="hw-property-emi">
+                    Onwards
+                  </div>
+
+                </div>
+
+              </div>
+
+
               {/* LOCATION */}
 
               <div className="hw-property-location">
@@ -239,6 +258,7 @@ export default function RecommendedProperties() {
                 </span>
 
               </div>
+
 
 
               {/* DETAILS */}
@@ -301,48 +321,20 @@ export default function RecommendedProperties() {
               </div>
 
 
-              {/* PRICE */}
-
-              <div className="hw-property-bottom">
-
-                <div className="hw-price-box">
-
-                  <div className="hw-property-price">
-                    {property.price}
-                  </div>
-
-                  <div className="hw-property-emi">
-                    Onwards
-                  </div>
-
-                </div>
-
-
-                <button
-                  className="hw-view-button"
-                  type="button"
+              <button
+                className="hw-recommended-whatsapp"
+                type="button"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
+                  <path d="M20.52 3.48A11.78 11.78 0 0 0 12.14 0C5.64 0 .35 5.29.35 11.79c0 2.08.54 4.11 1.57 5.9L.25 24l6.46-1.69a11.8 11.8 0 0 0 5.43 1.31h.01c6.5 0 11.79-5.29 11.79-11.79 0-3.15-1.23-6.11-3.42-8.35ZM12.15 21.6h-.01a9.78 9.78 0 0 1-4.98-1.36l-.36-.21-3.83 1 1.02-3.73-.23-.38a9.78 9.78 0 1 1 8.39 4.68Zm5.36-7.34c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.76.95-.93 1.15-.17.2-.34.22-.63.07-.29-.15-1.21-.45-2.31-1.43-.85-.76-1.43-1.69-1.6-1.98-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.2.05-.37-.02-.52-.07-.15-.66-1.59-.9-2.18-.24-.58-.48-.5-.66-.51h-.56c-.19 0-.49.07-.75.37-.26.29-.98.96-.98 2.34s1 2.71 1.14 2.9c.14.19 1.97 3.01 4.77 4.22.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.72-.7 1.96-1.37.24-.67.24-1.25.17-1.37-.07-.12-.26-.19-.55-.34Z" />
+                </svg>
 
-                  <span>
-                    View Details
-                  </span>
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-
-                    <path d="M5 12h14" />
-
-                    <path d="m13 6 6 6-6 6" />
-
-                  </svg>
-
-                </button>
-
-              </div>
+                <span>WhatsApp</span>
+              </button>
 
             </div>
 
@@ -357,7 +349,7 @@ export default function RecommendedProperties() {
           VIEW ALL
       ===================================================== */}
 
-      <div className="hw-recommended-footer">
+      {/* <div className="hw-recommended-footer">
 
         <button
           className="hw-view-all"
@@ -365,7 +357,7 @@ export default function RecommendedProperties() {
         >
 
           <span>
-            View All Properties
+            View All Recommended Properties
           </span>
 
           <svg
@@ -383,7 +375,7 @@ export default function RecommendedProperties() {
 
         </button>
 
-      </div>
+      </div> */}
 
 
       {/* =====================================================
@@ -402,7 +394,7 @@ export default function RecommendedProperties() {
 
           margin: 0 auto;
 
-          padding: 70px 28px 60px;
+          padding: 40px 28px 0px;
 
           background: #ffffff;
 
@@ -734,9 +726,9 @@ export default function RecommendedProperties() {
 
           gap: 7px;
 
-          margin-top: 12px;
+          margin-top: 8px;
 
-          min-height: 38px;
+          min-height: 0;
 
           color: #737b8c;
 
@@ -779,12 +771,11 @@ export default function RecommendedProperties() {
 
           gap: 15px;
 
-          margin-top: 1px;
+          margin-top: 6px;
 
-          padding-top: 11px;
+          padding-top: 0;
 
-          border-top:
-            1px solid #eee8d8;
+          border-top: none;
         }
 
 
@@ -829,7 +820,7 @@ export default function RecommendedProperties() {
 
           gap: 8px;
 
-          margin-top: 15px;
+          margin-top: 8px;
         }
 
 
@@ -866,30 +857,28 @@ export default function RecommendedProperties() {
            VIEW DETAILS BUTTON
         ===================================================== */
 
-        .hw-view-button {
-          margin-left: auto;
+        .hw-recommended-whatsapp {
+          width: 100%;
 
-          display: inline-flex;
+          height: 30px;
+
+          margin-top: 9px;
+
+          display: flex;
 
           align-items: center;
 
           justify-content: center;
 
-          gap: 6px;
+          gap: 5px;
 
-          min-width: 100px;
+          border: 1px solid #d7f1e2;
 
-          padding:
-            10px 12px;
+          border-radius: 5px;
 
-          border:
-            1px solid #b9943a;
+          background: #eaf8f0;
 
-          border-radius: 7px;
-
-          background: #ffffff;
-
-          color: #9a741e;
+          color: #25d366;
 
           font-family:
             "Manrope",
@@ -905,34 +894,27 @@ export default function RecommendedProperties() {
           white-space: nowrap;
 
           transition:
-            background .25s ease,
-            color .25s ease,
-            transform .25s ease;
+            background .2s ease,
+            color .2s ease,
+            border-color .2s ease;
         }
 
 
-        .hw-view-button svg {
-          width: 14px;
+        .hw-recommended-whatsapp svg {
+          width: 13px;
 
-          height: 14px;
+          height: 13px;
 
-          transition:
-            transform .25s ease;
+          flex-shrink: 0;
         }
 
 
-        .hw-view-button:hover {
-          background: #b9943a;
+        .hw-recommended-whatsapp:hover {
+          background: #dff5e8;
 
-          color: #ffffff;
+          color: #1fb957;
 
-          transform: translateY(-1px);
-        }
-
-
-        .hw-view-button:hover svg {
-          transform:
-            translateX(3px);
+          border-color: #c9ebd7;
         }
 
 
@@ -1054,7 +1036,7 @@ export default function RecommendedProperties() {
             width: 100%;
 
             padding:
-              42px 10px 38px;
+              32px 10px 0px;
 
             background: #ffffff;
           }
@@ -1072,9 +1054,7 @@ export default function RecommendedProperties() {
 
 
           .hw-recommended-brand {
-            gap: 7px;
-
-            margin-bottom: 10px;
+            display: none;
           }
 
 
@@ -1099,6 +1079,8 @@ export default function RecommendedProperties() {
             font-weight: 800;
 
             letter-spacing: -.7px;
+
+            text-align: left;
           }
 
 
@@ -1108,20 +1090,7 @@ export default function RecommendedProperties() {
 
 
           .hw-recommended-header p {
-
-            max-width: 370px;
-
-            margin:
-              9px auto 0;
-
-            padding:
-              0 8px;
-
-            color: #737b8c;
-
-            font-size: 13px;
-
-            line-height: 1.6;
+            display: none;
           }
 
 
@@ -1209,7 +1178,7 @@ export default function RecommendedProperties() {
           .hw-recommended-content {
 
             padding:
-              13px 11px 14px;
+              9px 9px 9px;
           }
 
 
@@ -1217,9 +1186,9 @@ export default function RecommendedProperties() {
 
           .hw-recommended-content h3 {
 
-            font-size: 15px;
+            font-size: 12px;
 
-            line-height: 1.3;
+            line-height: 1.2;
 
             font-weight: 800;
 
@@ -1234,20 +1203,7 @@ export default function RecommendedProperties() {
           /* SUBTITLE */
 
           .hw-property-subtitle {
-
-            margin-top: 5px;
-
-            font-size: 11px;
-
-            line-height: 1.35;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
+            display: none;
           }
 
 
@@ -1255,15 +1211,15 @@ export default function RecommendedProperties() {
 
           .hw-property-location {
 
-            gap: 5px;
+            gap: 4px;
 
-            margin-top: 9px;
+            margin-top: 4px;
 
-            min-height: 34px;
+            min-height: 0;
 
-            font-size: 12px;
+            font-size: 8px;
 
-            line-height: 1.45;
+            line-height: 1.2;
           }
 
 
@@ -1279,11 +1235,13 @@ export default function RecommendedProperties() {
 
           .hw-property-details {
 
-            gap: 8px;
+            gap: 7px;
 
-            margin-top: 9px;
+            margin-top: 3px;
 
-            padding-top: 9px;
+            padding-top: 0;
+
+            border-top: none;
           }
 
 
@@ -1317,17 +1275,17 @@ export default function RecommendedProperties() {
 
             gap: 5px;
 
-            margin-top: 11px;
+            margin-top: 1px;
 
-            align-items: flex-end;
+            align-items: flex-start;
           }
 
 
           .hw-property-price {
 
-            font-size: 16px;
+            font-size: 11px;
 
-            line-height: 1.15;
+            line-height: 1.05;
 
             font-weight: 900;
           }
@@ -1335,36 +1293,37 @@ export default function RecommendedProperties() {
 
           .hw-property-emi {
 
-            margin-top: 2px;
+            margin-top: 0;
 
-            font-size: 10px;
+            font-size: 7px;
           }
 
+          .hw-recommended-whatsapp {
 
-          /* BUTTON */
+            height: 27px;
 
-          .hw-view-button {
+            margin-top: 5px;
 
-            min-width: auto;
+            border-radius: 5px;
 
-            padding:
-              8px 9px;
+            font-size: 9px;
 
             gap: 4px;
-
-            border-radius: 6px;
-
-            font-size: 10px;
-
-            white-space: nowrap;
           }
 
 
-          .hw-view-button svg {
+          .hw-recommended-whatsapp svg {
 
-            width: 11px;
+            width: 12px;
 
-            height: 11px;
+            height: 12px;
+          }
+
+
+          /* WHATSAPP BUTTON */
+
+          .hw-recommended-whatsapp {
+            width: 100%;
           }
 
 
@@ -1429,6 +1388,8 @@ export default function RecommendedProperties() {
           .hw-recommended-header h2 {
 
             font-size: 27px;
+
+            text-align: left;
           }
 
 
@@ -1481,35 +1442,49 @@ export default function RecommendedProperties() {
 
 
           .hw-property-subtitle {
-
-            font-size: 9px;
+            display: none;
           }
 
 
           .hw-property-location {
 
-            font-size: 8px;
+            margin-top: 3px;
+
+            font-size: 7.5px;
+
+            line-height: 1.15;
+          }
+
+
+          .hw-property-details {
+
+            margin-top: 2px;
+
+            padding-top: 0;
+
+            border-top: none;
           }
 
 
           .hw-property-details span {
 
-            font-size: 8px;
+            font-size: 7.5px;
           }
 
 
           .hw-property-price {
 
-            font-size: 15px;
+            font-size: 11px;
+
+            line-height: 1.15;
           }
 
 
-          .hw-view-button {
+          .hw-recommended-whatsapp {
 
-            padding:
-              7px 7px;
+            height: 26px;
 
-            font-size: 10px;
+            font-size: 8.5px;
           }
 
         }

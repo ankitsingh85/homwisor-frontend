@@ -707,6 +707,22 @@ export default function Header() {
 
           <div className="hw-header-actions">
 
+            {/* MOBILE SEARCH ICON */}
+            <button
+              type="button"
+              className="hw-mobile-search-button"
+              aria-label="Search"
+              onClick={() => {
+                const el = document.querySelector('.hw-scroll-search input');
+                if (el) { el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+              }}
+            >
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <circle cx="10.8" cy="10.8" r="6.4" />
+                <path d="m16 16 4.2 4.2" />
+              </svg>
+            </button>
+
             <Link
               to="/admin"
               className="hw-user-button"
@@ -1391,6 +1407,10 @@ export default function Header() {
           justify-content: flex-end;
 
           gap: 12px;
+        }
+
+        .hw-mobile-search-button {
+          display: none;
         }
 
         .hw-user-button {
@@ -2128,6 +2148,8 @@ export default function Header() {
 
             min-width:
               0;
+
+            margin-left: 42px;
           }
 
           .hw-logo-image {
@@ -2233,6 +2255,27 @@ export default function Header() {
               10px;
           }
 
+          /* Mobile: hamburger + logo + search + profile */
+          .hw-mobile-search-button {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.60);
+            border-radius: 50%;
+            background: rgba(0,0,0,.20);
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: .2s ease;
+          }
+
+          .hw-mobile-search-button:hover {
+            color: #d8aa42;
+          }
+
           .hw-user-button {
             width: 34px;
             height: 34px;
@@ -2256,6 +2299,11 @@ export default function Header() {
             display: flex !important;
             align-items: center;
             justify-content: center;
+
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
           }
 
           .hw-mobile-menu {
@@ -2291,6 +2339,10 @@ export default function Header() {
 
             max-height:
               48px;
+          }
+
+          .hw-logo {
+            margin-left: 40px;
           }
 
           .hw-header-actions {

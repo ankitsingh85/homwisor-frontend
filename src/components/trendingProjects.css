@@ -1536,9 +1536,9 @@
 
         .hw-festival-offers {
           width: 100%;
-          margin-top: 38px;
-          padding-top: 28px;
-          border-top: 1px solid #e7e0d1;
+          margin-top: 0;
+          padding-top: 0;
+          border-top: none;
           box-sizing: border-box;
         }
 
@@ -2883,7 +2883,7 @@
 
 .hw-budget-section {
   width: 100% !important;
-  padding: 55px 0 20px !important;
+  padding: 40px 0 20px !important;
   background: #fff !important;
 }
 
@@ -3011,7 +3011,7 @@
 
 .hw-trending-section {
   width: 100% !important;
-  padding: 70px 0 60px !important;
+  padding: 40px 0 30px !important;
   background: #fff !important;
   color: var(--hw-text) !important;
   overflow: visible !important;
@@ -3275,7 +3275,7 @@
 
 .hw-prime-locations {
   width: 100% !important;
-  margin-top: 45px !important;
+  margin-top: 35px !important;
   padding-top: 5px !important;
 }
 
@@ -3345,7 +3345,7 @@
 
 .hw-upcoming-projects {
   width: 100% !important;
-  margin-top: 45px !important;
+  margin-top: 35px !important;
   padding-top: 5px !important;
 }
 
@@ -3370,9 +3370,9 @@
 
 .hw-festival-offers {
   width: 100% !important;
-  margin-top: 45px !important;
-  padding-top: 32px !important;
-  border-top: 1px solid var(--hw-border) !important;
+  margin-top: 0 !important;
+  padding-top: 40px !important;
+  border-top: none !important;
 }
 
 .hw-festival-header {
@@ -3737,7 +3737,9 @@
   }
 
   .hw-festival-offers {
-    border-top: 1px solid var(--hw-border) !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
   }
 
   .hw-festival-layout {
@@ -4623,4 +4625,95 @@
   .hw-festival-card-location {
     font-size: 10px !important;
   }
+}
+
+
+/* =========================================================
+   TRENDING PROJECTS — WHATSAPP BUTTON
+   Match Recommended Properties styling on desktop + mobile
+   ========================================================= */
+.hw-trending-card .hw-card-whatsapp {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  width: 100% !important;
+  height: 34px !important;
+  box-sizing: border-box !important;
+  margin-top: 8px !important;
+  padding: 0 10px !important;
+  background: #eaf8f0 !important;
+  color: #25d366 !important;
+  border: 1px solid #d7f1e2 !important;
+  border-radius: 5px !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.hw-trending-card .hw-card-whatsapp svg {
+  width: 13px !important;
+  height: 13px !important;
+  color: #25d366 !important;
+  flex: 0 0 auto !important;
+}
+
+.hw-trending-card .hw-card-whatsapp:hover {
+  background: #eaf8f0 !important;
+  color: #25d366 !important;
+  border-color: #d7f1e2 !important;
+}
+
+@media (max-width: 768px) {
+  .hw-trending-card .hw-card-whatsapp {
+    height: 27px !important;
+    margin-top: 8px !important;
+    padding: 0 8px !important;
+    font-size: 9px !important;
+    border-radius: 5px !important;
+    gap: 5px !important;
+  }
+
+  .hw-trending-card .hw-card-whatsapp svg {
+    width: 11px !important;
+    height: 11px !important;
+  }
+}
+/* =========================================================
+   MOBILE - HIDE ALL SECTION EYEBROW + DESCRIPTION + VIEW ALL
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  /* EYEBROW */
+  .hw-budget-eyebrow,
+  .hw-trending-eyebrow,
+  .hw-subsection-eyebrow,
+  .hw-festival-brand-line,
+  .hw-branded-label {
+    display: none !important;
+  }
+
+  /* SECTION DESCRIPTIONS */
+  .hw-budget-heading p,
+  .hw-trending-heading p,
+  .hw-luxury-projects p,
+  .hw-prime-locations p,
+  .hw-upcoming-projects p,
+  .hw-festival-title-wrap p,
+  .hw-branded-copy p {
+    display: none !important;
+  }
+
+  /* VIEW ALL BUTTONS */
+  .hw-budget-view-all,
+  .hw-trending-view-all,
+  .hw-upcoming-view-all,
+  .hw-festival-view-all {
+    display: none !important;
+  }
+
 }

@@ -768,7 +768,10 @@ export default function Search() {
       ===================================================== */}
 
       <style>{`
-        * { box-sizing: border-box; }
+
+        * {
+          box-sizing: border-box;
+        }
 
         .search-page {
           min-height: 100vh;
@@ -790,7 +793,7 @@ export default function Search() {
         .search-container {
           width: min(1440px, calc(100% - 40px));
           margin: 0 auto;
-          padding: 92px 0 60px;
+          padding: 92px 0 0px;
         }
 
         .search-breadcrumb {
@@ -809,7 +812,9 @@ export default function Search() {
           transition: .2s ease;
         }
 
-        .search-breadcrumb a:hover { color: ${GOLD_DARK}; }
+        .search-breadcrumb a:hover {
+          color: ${GOLD_DARK};
+        }
 
         .search-breadcrumb span:last-child {
           color: #222222;
@@ -985,7 +990,9 @@ export default function Search() {
           transition: .2s ease;
         }
 
-        .expert-call:hover { background: #ffffff; }
+        .expert-call:hover {
+          background: #ffffff;
+        }
 
         .results-header {
           min-height: 78px;
@@ -1046,7 +1053,10 @@ export default function Search() {
           color: inherit;
           text-decoration: none;
           box-shadow: 0 8px 28px rgba(0,0,0,.045);
-          transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+          transition:
+            transform .3s ease,
+            box-shadow .3s ease,
+            border-color .3s ease;
         }
 
         .search-property-card:hover {
@@ -1108,7 +1118,9 @@ export default function Search() {
           box-shadow: 0 4px 12px rgba(0,0,0,.16);
         }
 
-        .search-rera b { font-size: 10px; }
+        .search-rera b {
+          font-size: 10px;
+        }
 
         .search-bhk-badge {
           position: absolute;
@@ -1130,7 +1142,9 @@ export default function Search() {
           text-overflow: ellipsis;
         }
 
-        .search-property-content { padding: 16px 16px 15px; }
+        .search-property-content {
+          padding: 16px 16px 15px;
+        }
 
         .search-property-content h3 {
           margin: 0;
@@ -1209,6 +1223,14 @@ export default function Search() {
           text-overflow: ellipsis;
         }
 
+        /* =================================================
+           WHATSAPP BUTTON - UPDATED
+           Screenshot style:
+           light green background,
+           thin green border,
+           green icon/text
+        ================================================= */
+
         .search-card-whatsapp {
           width: 100%;
           height: 36px;
@@ -1217,14 +1239,16 @@ export default function Search() {
           align-items: center;
           justify-content: center;
           gap: 7px;
-          border-radius: 8px;
-          background: #138a42;
-          color: #ffffff;
+          border-radius: 6px;
+          border: 1px solid #bfe8cf;
+          background: #eefaf3;
+          color: #18b965;
           text-decoration: none;
           font-size: 10px;
           line-height: 1;
-          font-weight: 800;
+          font-weight: 700;
           transition: .25s ease;
+          box-sizing: border-box;
         }
 
         .search-card-whatsapp svg {
@@ -1233,7 +1257,9 @@ export default function Search() {
         }
 
         .search-card-whatsapp:hover {
-          background: #0d7034;
+          background: #e2f7ea;
+          border-color: #a8dfbf;
+          color: #129c55;
           transform: translateY(-1px);
         }
 
@@ -1280,7 +1306,12 @@ export default function Search() {
           cursor: pointer;
         }
 
+        /* =================================================
+           TABLET
+        ================================================= */
+
         @media (max-width: 1200px) {
+
           .search-container {
             width: min(100% - 30px, 1100px);
           }
@@ -1294,16 +1325,26 @@ export default function Search() {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
-          .search-property-image { height: 230px; }
+          .search-property-image {
+            height: 230px;
+          }
+
         }
 
+        /* =================================================
+           TABLET / SMALL LAPTOP
+        ================================================= */
+
         @media (max-width: 960px) {
+
           .search-container {
             width: calc(100% - 28px);
             padding-top: 88px;
           }
 
-          .search-layout { grid-template-columns: 1fr; }
+          .search-layout {
+            grid-template-columns: 1fr;
+          }
 
           .filter-sidebar {
             position: relative;
@@ -1314,7 +1355,9 @@ export default function Search() {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
-          .filter-field:first-child { grid-column: 1 / -1; }
+          .filter-field:first-child {
+            grid-column: 1 / -1;
+          }
 
           .category-options {
             grid-template-columns: repeat(2, 1fr);
@@ -1325,14 +1368,22 @@ export default function Search() {
             grid-column: 1 / -1;
           }
 
-          .expert-card { display: none; }
+          .expert-card {
+            display: none;
+          }
 
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
+
         }
 
+        /* =================================================
+           MOBILE
+        ================================================= */
+
         @media (max-width: 640px) {
+
           .search-container {
             width: calc(100% - 20px);
             padding-top: 80px;
@@ -1354,29 +1405,43 @@ export default function Search() {
             gap: 14px;
           }
 
-          .filter-field:first-child { grid-column: auto; }
+          .filter-field:first-child {
+            grid-column: auto;
+          }
 
-          .category-options { grid-template-columns: 1fr; }
+          .category-options {
+            grid-template-columns: 1fr;
+          }
 
           .results-header {
             padding: 14px;
             border-radius: 14px;
           }
 
-          .results-header h1 { font-size: 17px; }
+          .results-header h1 {
+            font-size: 17px;
+          }
 
-          .results-header p { font-size: 10px; }
+          .results-header p {
+            font-size: 10px;
+          }
 
-          .sort-select { width: 100%; }
+          .sort-select {
+            width: 100%;
+          }
 
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
           }
 
-          .search-property-image { height: 150px; }
+          .search-property-image {
+            height: 150px;
+          }
 
-          .search-property-content { padding: 11px; }
+          .search-property-content {
+            padding: 11px;
+          }
 
           .search-property-content h3 {
             font-size: 12px;
@@ -1410,11 +1475,14 @@ export default function Search() {
             height: 13px;
           }
 
+          /* MOBILE WHATSAPP */
+
           .search-card-whatsapp {
             height: 32px;
             margin-top: 9px;
             gap: 5px;
             font-size: 8.5px;
+            border-radius: 5px;
           }
 
           .search-card-whatsapp svg {
@@ -1439,32 +1507,53 @@ export default function Search() {
             padding: 5px 7px;
             font-size: 7px;
           }
+
         }
 
+        /* =================================================
+           SMALL MOBILE
+        ================================================= */
+
         @media (max-width: 400px) {
+
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
           }
 
-          .search-property-image { height: 125px; }
+          .search-property-image {
+            height: 125px;
+          }
 
-          .search-property-content { padding: 9px; }
+          .search-property-content {
+            padding: 9px;
+          }
 
-          .search-property-content h3 { font-size: 11px; }
+          .search-property-content h3 {
+            font-size: 11px;
+          }
 
-          .search-card-price { font-size: 11px; }
+          .search-card-price {
+            font-size: 11px;
+          }
 
-          .search-card-location { font-size: 8px; }
+          .search-card-location {
+            font-size: 8px;
+          }
 
           .search-card-meta {
             grid-template-columns: 1fr;
             gap: 5px;
           }
 
-          .search-card-whatsapp { font-size: 8px; }
+          .search-card-whatsapp {
+            font-size: 8px;
+          }
+
         }
+
       `}</style>
+
     </div>
   );
 }
