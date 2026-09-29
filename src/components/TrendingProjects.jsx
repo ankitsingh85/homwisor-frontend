@@ -364,7 +364,7 @@ export default function TrendingProjects({
      WHATSAPP
   ===================================================== */
 
-  const whatsappNumber = "919999999999";
+  const whatsappNumber = "919090101401";
 
 
   const getWhatsAppUrl = (property) => {
@@ -433,12 +433,10 @@ export default function TrendingProjects({
 
           <div className="hw-trending-heading">
 
-            <div className="hw-trending-eyebrow">
-
-              <span />
-
+            <div className="hw-trending-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
               HOMWISOR
-
+              <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
             </div>
 
 
@@ -733,8 +731,10 @@ export default function TrendingProjects({
 
                 <div>
 
-                  <div className="hw-subsection-eyebrow">
-                    PRIME LOCATIONS
+                  <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
+                    HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
 
@@ -809,8 +809,10 @@ export default function TrendingProjects({
 
                 <div>
 
-                  <div className="hw-subsection-eyebrow">
-                    UPCOMING PROJECTS
+                  <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
+                    HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -990,8 +992,10 @@ export default function TrendingProjects({
 
                 <div>
 
-                  <div className="hw-subsection-eyebrow">
-                    NEW LAUNCH PROJECTS
+                  <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
+                    HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -1200,10 +1204,10 @@ export default function TrendingProjects({
 
                 <div className="hw-festival-title-wrap">
 
-                  <div className="hw-festival-brand-line">
-                    <span></span>
+                  <div className="hw-festival-brand-line" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                     HOMWISOR
-                    <span></span>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -1418,8 +1422,10 @@ export default function TrendingProjects({
 
                 <div>
 
-                  <div className="hw-subsection-eyebrow">
-                    Branded Residences
+                  <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
+                    HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -1613,10 +1619,10 @@ export default function TrendingProjects({
                 <div className="hw-branded-glow" />
 
                 <div className="hw-branded-copy">
-                  <div className="hw-branded-label">
-                    <span className="hw-branded-label-line" />
-                    HOMWISOR PRIVATE COLLECTION
-                    <span className="hw-branded-label-line" />
+                  <div className="hw-branded-label" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
+                    HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -1715,8 +1721,10 @@ export default function TrendingProjects({
 
                 <div>
 
-                  <div className="hw-subsection-eyebrow">
-                    Top Luxury Projects
+                  <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
+                    HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -1906,9 +1914,10 @@ export default function TrendingProjects({
             <section className="hw-budget-section">
               <div className="hw-budget-header">
                 <div className="hw-budget-heading">
-                  <div className="hw-budget-eyebrow">
-                    <span className="hw-budget-eyebrow-line" />
+                  <div className="hw-budget-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                     HOMWISOR
+                    <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
@@ -1921,13 +1930,21 @@ export default function TrendingProjects({
                 </div>
 
                 <Link
-                  to="/search"
-                  className="hw-budget-view-all"
-                >
-                  <span>View All Projects</span>
-                  <span className="hw-budget-round-arrow">↗</span>
-                  <span className="hw-budget-round-arrow">→</span>
-                </Link>
+  to="/search"
+  className="hw-upcoming-view-all"
+>
+  View All Projects
+
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path d="M5 12h14" />
+    <path d="m13 6 6 6-6 6" />
+  </svg>
+</Link>
               </div>
 
               <div className="hw-budget-grid">
