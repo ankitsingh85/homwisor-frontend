@@ -9,6 +9,7 @@ import PremiumAutoSlider from '../components/image-slider'
 import RecommendedProperties from '../components/RecommendedProperties'
 import TrendingProjects from '../components/TrendingProjects'
 import DeveloperSection from '../components/DeveloperSection'
+import TestimonialCards, { FALLBACK_TESTIMONIALS } from '../components/TestimonialCards'
 import './Home.css'
 import Footer from '../components/Footer'
 
@@ -20,6 +21,7 @@ export default function Home(){
 
   const [banners, setBanners] = useState({
     hero: [],
+    slider: [],
     small: []
   })
 
@@ -27,7 +29,8 @@ export default function Home(){
   const [locations, setLocations] = useState([])
   const [offers, setOffers] = useState([])
   const [builders, setBuilders] = useState([])
-  const [testimonials, setTestimonials] = useState([])
+  const [testimonials, setTestimonials] = useState(undefined) // undefined = loading, null = failed
+  const [recommendedCards, setRecommendedCards] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -42,7 +45,8 @@ export default function Home(){
           l,
           o,
           bd,
-          tm
+          tm,
+          rc
         ] = await Promise.all([
 
           API.get('/banners'),
@@ -57,6 +61,9 @@ export default function Home(){
             .catch(() => ({ data: [] })),
 
           API.get('/testimonials')
+            .catch(() => ({ data: null })),
+
+          API.get('/recommended')
             .catch(() => ({ data: [] }))
 
         ])
@@ -71,11 +78,15 @@ export default function Home(){
 
         setBuilders(bd.data || [])
 
-        setTestimonials(tm.data || [])
+        setTestimonials(tm.data ?? null)
+
+        setRecommendedCards(rc.data || [])
 
       }catch(e){
 
         console.error(e)
+
+        setTestimonials((t) => (t === undefined ? null : t))
 
       }finally{
 
@@ -508,62 +519,7 @@ export default function Home(){
      TESTIMONIALS
   ============================== */
 
-  const testimonialsFallback =
-    testimonials.length
-      ? testimonials
-      : [
-
-          {
-            id: 't1',
-            name: 'Aayush Gupta',
-            initials: 'AG',
-            color: '#F59E0B',
-            platform: 'Google',
-            verified: true,
-            rating: 5,
-            text:
-              'Rajesh ji is awesome. One place stop for all your real estate deals. Good natured, an honest and god fearing person.'
-          },
-
-          {
-            id: 't2',
-            name: 'Soumya',
-            initials: 'SO',
-            color: '#E9D5FF',
-            textColor: '#6B21A8',
-            platform: 'Google',
-            verified: true,
-            rating: 5,
-            text:
-              "Honestly, had a really smooth experience with HomWisor. The team was friendly and actually listened to what I needed. They didn't waste my time with random options and only showed m..."
-          },
-
-          {
-            id: 't3',
-            name: 'Amit Kumar',
-            initials: 'AK',
-            color: '#D6D3D1',
-            textColor: '#44403C',
-            platform: 'Google',
-            verified: true,
-            rating: 5,
-            text:
-              'HomWisor made my home buying journey smooth and hassle-free. Their attention to detail and customer service is exceptional.'
-          },
-
-          {
-            id: 't4',
-            name: 'Neha Gupta',
-            initials: 'NG',
-            color: '#10B981',
-            platform: 'Google',
-            verified: true,
-            rating: 5,
-            text:
-              'Very professional team with deep knowledge of the market. They helped me find the perfect investment property with great returns.'
-          }
-
-        ]
+  const testimonialsFallback = testimonials === null ? FALLBACK_TESTIMONIALS : testimonials
 
 
   return (
@@ -608,13 +564,13 @@ export default function Home(){
 {/* NEW SLIDER */}
 <section className="hw-new-premium-slider">
   <PremiumAutoSlider
-    banners={banners.hero}
+    banners={banners.slider || []}
   />
 </section>
 
 {/* recommended properties */}
 
-<RecommendedProperties properties={properties} />
+<RecommendedProperties items={recommendedCards} />
 
  {/* =========================================
           TRENDING
@@ -625,6 +581,9 @@ export default function Home(){
   upcoming={upcoming}
   newlaunch={newlaunch}
   offers={offers}
+  promos={banners.small}
+  branded={properties.filter(p => p.category === 'branded').slice(0, 4)}
+  luxury={properties.filter(p => p.category === 'luxury').slice(0, 4)}
 />
       {/* <section
         className="container"
@@ -1247,6 +1206,7 @@ export default function Home(){
           CUSTOMER TESTIMONIALS - PREMIUM
       ========================================= */}
 
+      {testimonialsFallback?.length > 0 && (
       <section
         className="container hw-testimonials-premium"
         style={{
@@ -1283,81 +1243,8 @@ export default function Home(){
   </div>
 
 
-  {/* Testimonial Cards */}
-  <div className="hw-testimonial-grid">
-
-    {testimonialsFallback.slice(0, 4).map((t, index) => (
-
-      <div
-        key={t.id}
-        className="hw-testimonial-card"
-      >
-
-        {/* Top */}
-        <div className="hw-testimonial-top">
-
-          <div
-            className="hw-review-icon"
-            style={{
-              background: t.color || '#E5E7EB',
-              color: t.textColor || '#64748B'
-            }}
-          >
-            “
-          </div>
-
-          <div className="hw-google">
-            <span className="google-g">G</span>
-            <span>Google</span>
-          </div>
-
-        </div>
-
-
-        {/* Rating */}
-        <div className="hw-testimonial-stars">
-          ★★★★★
-        </div>
-
-
-        {/* Review */}
-        <div className="hw-testimonial-review">
-          "{t.text}"
-        </div>
-
-
-        {/* User */}
-        <div className="hw-testimonial-user">
-
-          <div
-            className="hw-testimonial-avatar"
-            style={{
-              background: t.color || '#E5E7EB',
-              color: t.textColor || '#475569'
-            }}
-          >
-            {t.initials}
-          </div>
-
-          <div className="hw-testimonial-user-info">
-
-            <div className="hw-testimonial-name">
-              {t.name}
-            </div>
-
-            <div className="hw-testimonial-verified">
-              VERIFIED BUYER
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    ))}
-
-  </div>
+  {/* Testimonial Cards (managed in Admin → Testimonials) */}
+  <TestimonialCards items={testimonialsFallback} limit={4} />
 
 </section>
 
@@ -1386,79 +1273,8 @@ export default function Home(){
         </div>
 
       </section>
+      )}
 <DeveloperSection builders={builders} properties={properties} />  
-
-      {/* =========================================
-          STATS
-      ========================================= */}
-
-      <div
-        className="container" 
-        style={{
-          padding:
-            '2px 16px'
-        }}
-      >
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns:
-              'repeat(4,1fr)',
-            gap: 12,
-            background: '#fff',
-            border:
-              `1px solid ${GOLD}`,
-            borderRadius: 14,
-            padding: 16
-          }}
-          className="stats-grid"
-        >
-
-          {[
-            ['500+','Premium Projects'],
-            ['50K+','Happy Families'],
-            ['15+','Years Experience'],
-            ['4.8★','Customer Rating']
-          ].map(
-            x => (
-
-              <div
-                key={x[1]}
-                style={{
-                  textAlign: 'center',
-                  padding: '8px 0'
-                }}
-              >
-
-                <div
-                  style={{
-                    fontWeight: 800,
-                    fontSize: 22,
-                    color: '#111'
-                  }}
-                >
-                  {x[0]}
-                </div>
-
-                <div
-                  style={{
-                    fontSize: 12,
-                    color: '#6b7280',
-                    fontWeight: 600
-                  }}
-                >
-                  {x[1]}
-                </div>
-
-              </div>
-
-            )
-          )}
-
-        </div>
-
-      </div>
 
 
       <Footer />

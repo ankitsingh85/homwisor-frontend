@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import API from "../utils/api";
+import TestimonialCards, { FALLBACK_TESTIMONIALS } from "../components/TestimonialCards";
 import leader1 from "../images/test1.png";
 import leader2 from "../images/test2.png";
 import leader3 from "../images/test3.png";
@@ -66,63 +68,15 @@ const blogs = [
   },
 ];
 
-/* =========================================================
-   HOME PAGE TESTIMONIALS
-========================================================= */
-
-const testimonialsFallback = [
-  {
-    id: "t1",
-    name: "Aayush Gupta",
-    initials: "AG",
-    color: "#F59E0B",
-    platform: "Google",
-    verified: true,
-    rating: 5,
-    text:
-      "Rajesh ji is awesome. One place stop for all your real estate deals. Good natured, an honest and god fearing person.",
-  },
-
-  {
-    id: "t2",
-    name: "Soumya",
-    initials: "SO",
-    color: "#E9D5FF",
-    textColor: "#6B21A8",
-    platform: "Google",
-    verified: true,
-    rating: 5,
-    text:
-      "Honestly, had a really smooth experience with HomWisor. The team was friendly and actually listened to what I needed. They didn't waste my time with random options and only showed m...",
-  },
-
-  {
-    id: "t3",
-    name: "Amit Kumar",
-    initials: "AK",
-    color: "#D6D3D1",
-    textColor: "#44403C",
-    platform: "Google",
-    verified: true,
-    rating: 5,
-    text:
-      "HomWisor made my home buying journey smooth and hassle-free. Their attention to detail and customer service is exceptional.",
-  },
-
-  {
-    id: "t4",
-    name: "Neha Gupta",
-    initials: "NG",
-    color: "#10B981",
-    platform: "Google",
-    verified: true,
-    rating: 5,
-    text:
-      "Very professional team with deep knowledge of the market. They helped me find the perfect investment property with great returns.",
-  },
-];
 
 export default function About() {
+  const [testimonials, setTestimonials] = useState(undefined);
+  useEffect(() => {
+    let alive = true;
+    API.get("/testimonials").then((r) => alive && setTestimonials(r.data || [])).catch(() => alive && setTestimonials(null));
+    return () => { alive = false; };
+  }, []);
+  const testimonialList = testimonials === null ? FALLBACK_TESTIMONIALS : testimonials || [];
   return (
     <div className="about-page">
 
@@ -552,6 +506,7 @@ export default function About() {
           HOME PAGE STYLE
       ========================================================= */}
 
+      {testimonialList.length > 0 && (
       <section className="about-section about-testimonials hw-testimonials-premium">
 
         <div className="about-container">
@@ -582,89 +537,12 @@ export default function About() {
           </div>
 
 
-          <div className="hw-testimonial-grid">
-
-            {testimonialsFallback.slice(0, 4).map((t) => (
-
-              <article
-                key={t.id}
-                className="hw-testimonial-card"
-              >
-
-                <div className="hw-testimonial-top">
-
-                  <div
-                    className="hw-review-icon"
-                    style={{
-                      background: t.color || "#E5E7EB",
-                      color: t.textColor || "#64748B"
-                    }}
-                  >
-                    “
-                  </div>
-
-
-                  <div className="hw-google">
-
-                    <span className="google-g">
-                      G
-                    </span>
-
-                    <span>
-                      Google
-                    </span>
-
-                  </div>
-
-                </div>
-
-
-                <div className="hw-testimonial-stars">
-                  ★★★★★
-                </div>
-
-
-                <div className="hw-testimonial-review">
-                  "{t.text}"
-                </div>
-
-
-                <div className="hw-testimonial-user">
-
-                  <div
-                    className="hw-testimonial-avatar"
-                    style={{
-                      background: t.color || "#E5E7EB",
-                      color: t.textColor || "#475569"
-                    }}
-                  >
-                    {t.initials}
-                  </div>
-
-
-                  <div className="hw-testimonial-user-info">
-
-                    <div className="hw-testimonial-name">
-                      {t.name}
-                    </div>
-
-                    <div className="hw-testimonial-verified">
-                      VERIFIED BUYER
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </article>
-
-            ))}
-
-          </div>
+          <TestimonialCards items={testimonialList} limit={4} />
 
         </div>
 
       </section>
+      )}
 
 
       {/* =========================================================

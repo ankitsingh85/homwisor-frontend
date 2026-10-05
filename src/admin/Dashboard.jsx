@@ -6,12 +6,15 @@ import AdminUsers, { ChangePasswordForm } from './AdminUsers'
 import PropertyManager from './PropertyManager'
 import { CATEGORIES } from './propertyConfig'
 import { Icon, Spinner } from './ui'
+import { SnapsPage, BannersPage, LocationsPage, OffersPage, RecommendedPage } from './ContentPages'
+import { BlogPage } from './BlogPage'
+import { TestimonialsPage } from './TestimonialsPage'
 import logo from '../images/logo-homwiser.png'
 import './admin.css'
 import './dashboard.css'
 
 const today = () => new Date().toISOString().slice(0, 10)
-const errorOf = (e, fallback) => e.response?.data?.error || fallback
+const errorOf = (e, fallback) => e.response?.data?.error || (e.response ? fallback : e.message) || fallback
 
 // ---------------------------------------------------------------
 // Shared bits
@@ -56,20 +59,25 @@ const NAV = [
     { id: 'snaps', label: 'Property Snaps', icon: Icon.film, count: 'snaps' },
   ] },
   { group: 'Homepage', items: [
+    { id: 'recommended', label: 'Recommended', icon: Icon.star, count: 'recs' },
     { id: 'banners', label: 'Banners', icon: Icon.image },
     { id: 'locations', label: 'Prime Locations', icon: Icon.pin },
     { id: 'offers', label: 'Festival Offers', icon: Icon.gift },
+    { id: 'testimonials', label: 'Testimonials', icon: Icon.users, count: 'testis' },
+  ] },
+  { group: 'Content', items: [
+    { id: 'blog', label: 'Blog', icon: Icon.edit, count: 'blogs' },
   ] },
   { group: 'Account', items: [
     { id: 'admins', label: 'Admins & Security', altLabel: 'My Account', icon: Icon.shield },
   ] },
 ]
-const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', properties: 'Properties', snaps: 'Property Snaps', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', admins: 'Admins & Security' }
+const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', properties: 'Properties', snaps: 'Property Snaps', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', blog: 'Blog', testimonials: 'Testimonials', admins: 'Admins & Security' }
 
 // ---------------------------------------------------------------
 // Overview
 // ---------------------------------------------------------------
-function Overview({ me, props, enqs, snaps, offers, locations, banners, stats, isSuper, go, openProperties, reset }) {
+function Overview({ me, props, enqs, snaps, offers, locations, banners, recs, stats, isSuper, go, openProperties, reset }) {
   const hour = new Date().getHours()
   const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
   const newToday = enqs.filter(e => e.date === today()).length
@@ -193,237 +201,13 @@ function Overview({ me, props, enqs, snaps, offers, locations, banners, stats, i
       <div className="hwd-card" style={{ marginTop: 16 }}>
         <div className="hwd-card-head"><h3><span className="ic"><Icon.image /></span> Homepage content</h3></div>
         <div className="hwd-tiles">
-          <button className="hwd-tile" onClick={() => go('banners')}><b>{banners.hero.length + banners.small.length}</b><span>Banners</span></button>
+          <button className="hwd-tile" onClick={() => go('banners')}><b>{banners.hero.length + (banners.slider?.length || 0) + banners.small.length}</b><span>Banners</span></button>
           <button className="hwd-tile" onClick={() => go('locations')}><b>{locations.length}</b><span>Prime locations</span></button>
           <button className="hwd-tile" onClick={() => go('offers')}><b>{offers.length}</b><span>Festival offers</span></button>
           <div className="hwd-tile"><b>{stats?.totalBuilders ?? '—'}</b><span>Developers</span></div>
-          <div className="hwd-tile"><b>{stats?.totalTestimonials ?? '—'}</b><span>Testimonials</span></div>
+          <button className="hwd-tile" onClick={() => go('recommended')}><b>{recs.length}</b><span>Recommended</span></button>
           <button className="hwd-tile" onClick={() => go('snaps')}><b>{snaps.length}</b><span>Snaps</span></button>
         </div>
-      </div>
-    </>
-  )
-}
-
-// ---------------------------------------------------------------
-// Property Snaps
-// ---------------------------------------------------------------
-const emptySnap = { title: '', developer: '', location: '', microMarket: '', price: 'Contact for price', description: '', videoUrl: '', thumbnail: '', image: '', phone: '9811 750 740', demandText: 'High Demand: 10 buyers enquired in last 24 hours', activeBuyers: 24, monthlyRental: '₹85,000/mo', roi: '5.5%', badge: 'LUXURY EDITION' }
-
-function SnapsPage({ snaps, run }) {
-  const [f, setF] = useState(emptySnap)
-  const [editing, setEditing] = useState(null)
-  const set = (k) => (v) => setF(prev => ({ ...prev, [k]: v }))
-
-  const save = (e) => {
-    e.preventDefault()
-    run(async () => {
-      if (editing) await API.put(`/snaps/${editing}`, f)
-      else await API.post('/snaps', f)
-      setEditing(null); setF(emptySnap)
-    }, editing ? 'Snap updated' : 'Snap published')
-  }
-  const edit = (s) => { setEditing(s.id); setF({ ...emptySnap, ...s }); window.scrollTo({ top: 0, behavior: 'smooth' }) }
-  const del = (s) => { if (confirm(`Delete snap “${s.title}”?`)) run(() => API.delete(`/snaps/${s.id}`), 'Snap deleted') }
-
-  return (
-    <>
-      <PageHead title="Property Snaps" count={snaps.length} sub="Vertical video reels shown at /property-snaps. Paste an .mp4 video link and a thumbnail." >
-        <a className="hwd-btn" href="/property-snaps" target="_blank" rel="noreferrer"><Icon.external /> View Snaps page</a>
-      </PageHead>
-      <div className="hwd-split">
-        <form className="hwd-card hwd-form hwa hwa-light" onSubmit={save}>
-          <div className="hwd-card-head"><h3><span className="ic">{editing ? <Icon.edit /> : <Icon.plus />}</span> {editing ? 'Edit snap' : 'Add a snap'}</h3></div>
-          <div className="hwd-form-grid">
-            <Field label="Title *" full><Input required value={f.title} onChange={set('title')} placeholder="e.g. Oberoi Realty 360 North" /></Field>
-            <Field label="Developer"><Input value={f.developer} onChange={set('developer')} placeholder="e.g. Oberoi Realty" /></Field>
-            <Field label="Location"><Input value={f.location} onChange={set('location')} placeholder="e.g. Sector 66, Gurugram" /></Field>
-            <Field label="Video link (.mp4) *" full hint="Plays muted on a loop"><Input required value={f.videoUrl} onChange={set('videoUrl')} placeholder="https://…/video.mp4" /></Field>
-            <Field label="Thumbnail image *" full><Input required value={f.thumbnail} onChange={set('thumbnail')} placeholder="https://… image link" /></Field>
-            <div className="full" style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-              <div className="hwd-preview tall" style={{ width: 120, flexShrink: 0 }}>{f.thumbnail ? <img src={f.thumbnail} alt="" onError={e => (e.target.style.display = 'none')} /> : 'Thumbnail'}</div>
-              {f.videoUrl && <a href={f.videoUrl} target="_blank" rel="noreferrer" className="hwd-link" style={{ marginTop: 6 }}>Test video link <Icon.external /></a>}
-            </div>
-            <Field label="Price"><Input value={f.price} onChange={set('price')} placeholder="₹5.20 Cr" /></Field>
-            <Field label="Badge"><Input value={f.badge} onChange={set('badge')} placeholder="LUXURY EDITION" /></Field>
-            <Field label="Phone"><Input value={f.phone} onChange={set('phone')} /></Field>
-            <Field label="Micro-market"><Input value={f.microMarket} onChange={set('microMarket')} placeholder="Golf Course Ext." /></Field>
-            <Field label="Monthly rental"><Input value={f.monthlyRental} onChange={set('monthlyRental')} /></Field>
-            <Field label="ROI"><Input value={f.roi} onChange={set('roi')} /></Field>
-            <Field label="Active buyers"><input className="hwa-input no-icon" type="number" min="0" value={f.activeBuyers} onChange={e => set('activeBuyers')(parseInt(e.target.value) || 0)} /></Field>
-            <Field label="Poster image (fallback)"><Input value={f.image} onChange={set('image')} placeholder="Optional" /></Field>
-            <Field label="Demand text" full><Input value={f.demandText} onChange={set('demandText')} /></Field>
-            <Field label="Description" full><textarea className="hwa-input no-icon" rows={3} value={f.description} onChange={e => set('description')(e.target.value)} placeholder="Project overview…" /></Field>
-          </div>
-          <div className="hwd-form-actions">
-            <button className="hwd-btn gold" type="submit">{editing ? 'Save changes' : 'Publish snap'}</button>
-            {editing && <button className="hwd-btn" type="button" onClick={() => { setEditing(null); setF(emptySnap) }}>Cancel</button>}
-          </div>
-        </form>
-
-        <div>
-          {snaps.length === 0 ? <div className="hwd-card"><Empty icon={Icon.film}>No snaps yet — add the first one.</Empty></div> : (
-            <div className="hwd-media">
-              {snaps.map(s => (
-                <div key={s.id} className="hwd-m">
-                  <div className="hwd-m-img tall">
-                    <img src={s.thumbnail || s.image} alt={s.title} loading="lazy" />
-                    <div className="hwd-m-play"><span><Icon.film /></span></div>
-                    {s.badge && <span className="hwd-m-badge">{s.badge}</span>}
-                  </div>
-                  <div className="hwd-m-body">
-                    <strong title={s.title}>{s.title}</strong>
-                    <span className="gold">{s.price}</span>
-                    <span className="sub">{s.location} · {s.activeBuyers} viewing</span>
-                    <div className="hwd-m-actions">
-                      <button className="hwa-mini" onClick={() => edit(s)}><Icon.edit /> Edit</button>
-                      <button className="hwa-mini danger" onClick={() => del(s)}><Icon.trash /> Delete</button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </>
-  )
-}
-
-// ---------------------------------------------------------------
-// Banners
-// ---------------------------------------------------------------
-function BannersPage({ banners, run }) {
-  const empty = { image: '', title: '', link: '#', developer: '' }
-  const [type, setType] = useState('hero')
-  const [f, setF] = useState(empty)
-  const set = (k) => (v) => setF(prev => ({ ...prev, [k]: v }))
-  const save = (e) => { e.preventDefault(); run(async () => { await API.post(`/banners/${type}`, f); setF(empty) }, 'Banner added') }
-  const del = (t, b) => { if (confirm(`Delete banner “${b.title}”?`)) run(() => API.delete(`/banners/${t}/${b.id}`), 'Banner deleted') }
-
-  const List = ({ t, items }) => items.length === 0 ? <div className="hwd-card"><Empty icon={Icon.image}>No {t} banners.</Empty></div> : (
-    <div className={`hwd-media${t === 'hero' ? ' wide' : ''}`}>
-      {items.map(b => (
-        <div key={b.id} className="hwd-m">
-          <div className="hwd-m-img"><img src={b.image} alt={b.title} loading="lazy" />{b.developer && <span className="hwd-m-badge">{b.developer}</span>}</div>
-          <div className="hwd-m-body">
-            <strong title={b.title}>{b.title}</strong>
-            <span className="sub">Link: {b.link || '—'}</span>
-            <div className="hwd-m-actions"><button className="hwa-mini danger" onClick={() => del(t, b)}><Icon.trash /> Delete</button></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-
-  return (
-    <>
-      <PageHead title="Banners" count={banners.hero.length + banners.small.length} sub="Hero banners rotate at the top of the homepage. Small banners are the cards below the search box." />
-      <div className="hwd-split">
-        <form className="hwd-card hwd-form hwa hwa-light hwd-sticky" onSubmit={save}>
-          <div className="hwd-card-head"><h3><span className="ic"><Icon.plus /></span> Add a banner</h3></div>
-          <div className="hwd-seg">
-            <button type="button" className={type === 'hero' ? 'on' : ''} onClick={() => setType('hero')}>Hero (large)</button>
-            <button type="button" className={type === 'small' ? 'on' : ''} onClick={() => setType('small')}>Small card</button>
-          </div>
-          <div className="hwd-preview">{f.image ? <img src={f.image} alt="" onError={e => (e.target.style.display = 'none')} /> : 'Image preview'}</div>
-          <Field label="Image link *"><Input required value={f.image} onChange={set('image')} placeholder="https://… wide image" /></Field>
-          <Field label="Title *"><Input required value={f.title} onChange={set('title')} placeholder="e.g. Godrej Verano — Sector 63A" /></Field>
-          {type === 'hero' && <Field label="Developer"><Input value={f.developer} onChange={set('developer')} placeholder="e.g. GODREJ PROPERTIES" /></Field>}
-          <Field label="Link" hint="Where the banner goes when clicked, e.g. /search or /property/p1"><Input value={f.link} onChange={set('link')} /></Field>
-          <div className="hwd-form-actions"><button className="hwd-btn gold" type="submit">Add {type === 'hero' ? 'hero' : 'small'} banner</button></div>
-        </form>
-        <div>
-          <div className="hwd-subhead" style={{ marginTop: 0 }}>Hero banners <em>{banners.hero.length}</em></div>
-          <List t="hero" items={banners.hero} />
-          <div className="hwd-subhead">Small banners <em>{banners.small.length}</em></div>
-          <List t="small" items={banners.small} />
-        </div>
-      </div>
-    </>
-  )
-}
-
-// ---------------------------------------------------------------
-// Prime Locations
-// ---------------------------------------------------------------
-function LocationsPage({ locations, run }) {
-  const empty = { name: '', image: '', count: '' }
-  const [f, setF] = useState(empty)
-  const set = (k) => (v) => setF(prev => ({ ...prev, [k]: v }))
-  const save = (e) => { e.preventDefault(); run(async () => { await API.post('/locations', f); setF(empty) }, 'Location added') }
-  const del = (l) => { if (confirm(`Delete “${l.name}”?`)) run(() => API.delete(`/locations/${l.id}`), 'Location deleted') }
-  return (
-    <>
-      <PageHead title="Prime Locations" count={locations.length} sub="The “Gurugram’s Prime Locations” cards on the homepage." />
-      <div className="hwd-split">
-        <form className="hwd-card hwd-form hwa hwa-light hwd-sticky" onSubmit={save}>
-          <div className="hwd-card-head"><h3><span className="ic"><Icon.plus /></span> Add a location</h3></div>
-          <div className="hwd-preview">{f.image ? <img src={f.image} alt="" onError={e => (e.target.style.display = 'none')} /> : 'Image preview'}</div>
-          <Field label="Location name *"><Input required value={f.name} onChange={set('name')} placeholder="e.g. Golf Course Road" /></Field>
-          <Field label="Image link *"><Input required value={f.image} onChange={set('image')} placeholder="https://…" /></Field>
-          <Field label="Count text *" hint="Shown under the name"><Input required value={f.count} onChange={set('count')} placeholder="e.g. 142 Projects" /></Field>
-          <div className="hwd-form-actions"><button className="hwd-btn gold" type="submit">Add location</button></div>
-        </form>
-        {locations.length === 0 ? <div className="hwd-card"><Empty icon={Icon.pin}>No locations yet.</Empty></div> : (
-          <div className="hwd-media">
-            {locations.map(l => (
-              <div key={l.id} className="hwd-m">
-                <div className="hwd-m-img"><img src={l.image} alt={l.name} loading="lazy" /></div>
-                <div className="hwd-m-body">
-                  <strong>{l.name}</strong>
-                  <span className="sub">{l.count}</span>
-                  <div className="hwd-m-actions"><button className="hwa-mini danger" onClick={() => del(l)}><Icon.trash /> Delete</button></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
-  )
-}
-
-// ---------------------------------------------------------------
-// Festival Offers
-// ---------------------------------------------------------------
-function OffersPage({ offers, run }) {
-  const empty = { title: '', price: '', location: '', image: '', badge: '' }
-  const [f, setF] = useState(empty)
-  const set = (k) => (v) => setF(prev => ({ ...prev, [k]: v }))
-  const save = (e) => { e.preventDefault(); run(async () => { await API.post('/offers', f); setF(empty) }, 'Offer added') }
-  const del = (o) => { if (confirm(`Delete offer “${o.title}”?`)) run(() => API.delete(`/offers/${o.id}`), 'Offer deleted') }
-  return (
-    <>
-      <PageHead title="Festival Offers" count={offers.length} sub="Deals shown in the “Best Festival Offer” section on the homepage." />
-      <div className="hwd-split">
-        <form className="hwd-card hwd-form hwa hwa-light hwd-sticky" onSubmit={save}>
-          <div className="hwd-card-head"><h3><span className="ic"><Icon.plus /></span> Add an offer</h3></div>
-          <div className="hwd-preview">{f.image ? <img src={f.image} alt="" onError={e => (e.target.style.display = 'none')} /> : 'Image preview'}</div>
-          <div className="hwd-form-grid">
-            <Field label="Project *" full><Input required value={f.title} onChange={set('title')} placeholder="e.g. BPTP DownTown 66" /></Field>
-            <Field label="Price *"><Input required value={f.price} onChange={set('price')} placeholder="₹5.20 Cr" /></Field>
-            <Field label="Badge *"><Input required value={f.badge} onChange={set('badge')} placeholder="NAVRATRI SPECIAL" /></Field>
-            <Field label="Location *" full><Input required value={f.location} onChange={set('location')} placeholder="Sector 66, Gurugram" /></Field>
-            <Field label="Image link *" full><Input required value={f.image} onChange={set('image')} placeholder="https://…" /></Field>
-          </div>
-          <div className="hwd-form-actions"><button className="hwd-btn gold" type="submit">Add offer</button></div>
-        </form>
-        {offers.length === 0 ? <div className="hwd-card"><Empty icon={Icon.gift}>No offers yet.</Empty></div> : (
-          <div className="hwd-media">
-            {offers.map(o => (
-              <div key={o.id} className="hwd-m">
-                <div className="hwd-m-img"><img src={o.image} alt={o.title} loading="lazy" />{o.badge && <span className="hwd-m-badge">{o.badge}</span>}</div>
-                <div className="hwd-m-body">
-                  <strong title={o.title}>{o.title}</strong>
-                  <span className="gold">{o.price}</span>
-                  <span className="sub">{o.location}</span>
-                  <div className="hwd-m-actions"><button className="hwa-mini danger" onClick={() => del(o)}><Icon.trash /> Delete</button></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </>
   )
@@ -493,10 +277,13 @@ export default function Dashboard() {
   const [stats, setStats] = useState(null)
   const [props, setProps] = useState([])
   const [enqs, setEnqs] = useState([])
-  const [banners, setBanners] = useState({ hero: [], small: [] })
+  const [banners, setBanners] = useState({ hero: [], slider: [], small: [] })
   const [locations, setLocations] = useState([])
   const [offers, setOffers] = useState([])
+  const [blogs, setBlogs] = useState([])
+  const [testis, setTestis] = useState([])
   const [snaps, setSnaps] = useState([])
+  const [recs, setRecs] = useState([])
   const [loaded, setLoaded] = useState(false)
   const [active, setActive] = useState('overview')
   const [propView, setPropView] = useState({ key: 0, filter: 'all', adding: false })
@@ -523,16 +310,19 @@ export default function Dashboard() {
 
   const load = async () => {
     try {
-      const [s, p, e, b, l, o, sn] = await Promise.all([
+      const [s, p, e, b, l, o, sn, rc, bl, ts] = await Promise.all([
         API.get('/admin/stats').catch(() => ({ data: {} })),
         API.get('/properties'),
         API.get('/enquiries').catch(() => ({ data: [] })),
         API.get('/banners'),
         API.get('/locations'),
         API.get('/offers'),
-        API.get('/snaps')
+        API.get('/snaps'),
+        API.get('/recommended').catch(() => ({ data: [] })),
+        API.get('/blogs/admin/all').catch(() => ({ data: [] })),
+        API.get('/testimonials/admin/all').catch(() => ({ data: [] }))
       ])
-      setStats(s.data); setProps(p.data); setEnqs(e.data || []); setBanners(b.data); setLocations(l.data); setOffers(o.data); setSnaps(sn.data || [])
+      setStats(s.data); setProps(p.data); setEnqs(e.data || []); setBanners(b.data); setLocations(l.data); setOffers(o.data); setSnaps(sn.data || []); setRecs(rc.data || []); setBlogs(bl.data || []); setTestis(ts.data || [])
     } catch (e) {
       console.error(e)
     } finally { setLoaded(true) }
@@ -550,7 +340,7 @@ export default function Dashboard() {
   const logout = () => { clearSession(); nav('/admin?session=loggedout', { replace: true }) }
   const reset = () => { if (confirm('Reset ALL website data to the demo content? Your properties, offers, banners and enquiries will be replaced.')) run(() => API.post('/admin/reset'), 'Demo data restored') }
 
-  const counts = { enqs: enqs.length, props: props.length, snaps: snaps.length }
+  const counts = { enqs: enqs.length, props: props.length, snaps: snaps.length, recs: recs.length, blogs: blogs.length, testis: testis.length }
   const hoursLeft = Math.max(0, Math.round(timeLeft / 3600000))
   const newToday = useMemo(() => enqs.filter(e => e.date === today()).length, [enqs])
 
@@ -614,12 +404,15 @@ export default function Dashboard() {
             </div>
           ) : (
             <>
-              {active === 'overview' && <Overview me={me} props={props} enqs={enqs} snaps={snaps} offers={offers} locations={locations} banners={banners} stats={stats} isSuper={isSuper} go={go} openProperties={openProperties} reset={reset} />}
+              {active === 'overview' && <Overview me={me} recs={recs} props={props} enqs={enqs} snaps={snaps} offers={offers} locations={locations} banners={banners} stats={stats} isSuper={isSuper} go={go} openProperties={openProperties} reset={reset} />}
               {active === 'properties' && <PropertyManager key={propView.key} properties={props} loaded={loaded} onChange={load} initialFilter={propView.filter} startAdding={propView.adding} />}
               {active === 'snaps' && <SnapsPage snaps={snaps} run={run} />}
-              {active === 'banners' && <BannersPage banners={banners} run={run} />}
+              {active === 'banners' && <BannersPage banners={banners} run={run} properties={props} />}
               {active === 'locations' && <LocationsPage locations={locations} run={run} />}
               {active === 'offers' && <OffersPage offers={offers} run={run} />}
+              {active === 'recommended' && <RecommendedPage items={recs} run={run} properties={props} />}
+              {active === 'blog' && <BlogPage blogs={blogs} run={run} />}
+              {active === 'testimonials' && <TestimonialsPage items={testis} run={run} />}
               {active === 'enquiries' && <EnquiriesPage enqs={enqs} run={run} />}
               {active === 'admins' && <AdminUsers me={me} onMeChange={updateMe} />}
             </>

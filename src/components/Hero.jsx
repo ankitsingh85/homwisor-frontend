@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import BannerLink from "./BannerLink";
+import bn1 from "../images/bn1.png";
+import bn2 from "../images/bn2.png";
 
 export default function Hero({ banners = [] }) {
   const [idx, setIdx] = useState(0);
@@ -6,15 +9,8 @@ export default function Hero({ banners = [] }) {
   const hero = banners.length
     ? banners
     : [
-        {
-          image: "../images/bn2.png",
-        },
-        {
-          image: "../images/bn2.png",
-        },
-        {
-          image: "../images/bn1.png",
-        },
+        { image: bn2 },
+        { image: bn1 },
       ];
 
   useEffect(() => {
@@ -53,10 +49,12 @@ export default function Hero({ banners = [] }) {
                 : ""
             }`}
           >
-            <img
-              src={banner.image}
-              alt="Premium Property"
-            />
+            <BannerLink link={banner.link} label={banner.title} className="hw-slide-link">
+              <img
+                src={banner.image}
+                alt={banner.title || "Premium Property"}
+              />
+            </BannerLink>
           </div>
         ))}
 
@@ -175,6 +173,12 @@ export default function Hero({ banners = [] }) {
           transform: scale(1);
         }
 
+
+        .hw-slide-link {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
 
         .hw-slide img {
           width: 100%;
@@ -901,6 +905,10 @@ export default function Hero({ banners = [] }) {
 
         }
 
+      
+        /* only the visible slide receives clicks (faded ones sit on top) */
+        .hw-hero .hw-slide { pointer-events: none; }
+        .hw-hero .hw-slide.hw-slide-active { pointer-events: auto; z-index: 1; }
       `}</style>
     </section>
   );

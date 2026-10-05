@@ -1,188 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import API from "../utils/api";
+import { blogDate, paragraphs, readTime } from "../data/blog";
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const CREAM = "#F7F5EF";
 
-const posts = [
-  {
-    category: "Real Estate News",
-    date: "JUL 30, 2026",
-    title: "Moti Nagar Metro Station on Delhi Metro Blue Line",
-    excerpt:
-      "Explore connectivity, location advantages and the role of the Blue Line in West Delhi real estate.",
-    image:
-      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=90",
-    content: [
-      {
-        heading: "Moti Nagar Metro Station and Connectivity",
-        text: "Moti Nagar Metro Station is an important connectivity point on Delhi Metro’s Blue Line. Its location provides convenient access to several residential and commercial areas across West Delhi.",
-      },
-      {
-        heading: "Why Connectivity Matters for Real Estate",
-        text: "Metro connectivity is one of the major factors considered by homebuyers and property investors. Areas with convenient access to public transportation can provide easier daily commuting and better accessibility to important parts of the city.",
-      },
-      {
-        heading: "Real Estate Around Moti Nagar",
-        text: "The Moti Nagar area has a mix of residential and commercial developments. Its proximity to established markets, offices, educational institutions and transportation infrastructure makes the locality an important part of West Delhi’s real estate landscape.",
-      },
-      {
-        heading: "Blue Line Advantage",
-        text: "The Delhi Metro Blue Line connects several important parts of Delhi NCR. For residents, this connectivity can reduce dependence on private transportation and make regular travel more convenient.",
-      },
-    ],
-  },
-
-  {
-    category: "Gurgaon",
-    date: "JUL 29, 2026",
-    title: "BPTP Downtown 66 Phase 2 Is Here",
-    excerpt:
-      "A closer look at the new phase and what buyers should know about the Gurgaon development.",
-    image:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=90",
-    content: [
-      {
-        heading: "BPTP Downtown 66 Phase 2",
-        text: "BPTP Downtown 66 Phase 2 introduces another residential development opportunity in Gurgaon. The project is positioned for buyers looking at residential options in the growing Gurgaon market.",
-      },
-      {
-        heading: "Location and Connectivity",
-        text: "Location and connectivity remain important considerations for anyone evaluating a property in Gurgaon. Access to major roads, commercial districts and everyday amenities can influence the convenience of a residential development.",
-      },
-      {
-        heading: "What Buyers Should Consider",
-        text: "Before making a property decision, buyers should evaluate the project location, available amenities, developer information, pricing, approvals and future infrastructure around the development.",
-      },
-    ],
-  },
-
-  {
-    category: "Delhi NCR",
-    date: "JUL 28, 2026",
-    title: "Sector 49 Gurgaon: Real Estate Prices & Metro Expansion",
-    excerpt:
-      "Understand locality, connectivity and the changing real estate landscape of Sector 49 Gurgaon.",
-    image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=90",
-    content: [
-      {
-        heading: "Sector 49 Gurgaon",
-        text: "Sector 49 is an established residential locality in Gurgaon with access to residential communities, commercial spaces and daily conveniences.",
-      },
-      {
-        heading: "Connectivity and Infrastructure",
-        text: "Connectivity is an important factor when evaluating Sector 49. Road infrastructure and access to major parts of Gurgaon can influence both end-user convenience and property demand.",
-      },
-      {
-        heading: "Property Buying Considerations",
-        text: "Homebuyers should compare property types, location, amenities, developer background, pricing and connectivity before selecting a property in the area.",
-      },
-    ],
-  },
-
-  {
-    category: "Investment",
-    date: "JUL 26, 2026",
-    title: "How to Choose the Right Property Investment in NCR",
-    excerpt:
-      "Key factors to consider before investing in residential or commercial property across NCR.",
-    image:
-      "https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?auto=format&fit=crop&w=1600&q=90",
-    content: [
-      {
-        heading: "Start With Your Investment Objective",
-        text: "The first step in selecting a property investment is understanding your objective. Different buyers may prioritize rental income, long-term appreciation, personal use or portfolio diversification.",
-      },
-      {
-        heading: "Location Is Important",
-        text: "Location can influence accessibility, demand and the surrounding development environment. Buyers should consider connectivity, employment hubs, social infrastructure and upcoming infrastructure.",
-      },
-      {
-        heading: "Evaluate the Property Carefully",
-        text: "Before investing, review the property configuration, developer information, approvals, pricing, maintenance costs and surrounding infrastructure.",
-      },
-      {
-        heading: "Compare Multiple Options",
-        text: "Comparing multiple properties on location, price, specifications and future development can help buyers understand the differences between available investment opportunities.",
-      },
-    ],
-  },
-
-  {
-    category: "Property Guide",
-    date: "JUL 24, 2026",
-    title: "5 Things to Check Before Buying a Property",
-    excerpt:
-      "A practical checklist covering location, approvals, developer background, pricing and future connectivity.",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=90",
-    content: [
-      {
-        heading: "1. Location",
-        text: "Check the property's location and its accessibility to roads, public transportation, schools, hospitals, offices and everyday amenities.",
-      },
-      {
-        heading: "2. Approvals and Documentation",
-        text: "Review the relevant property documentation and approvals before making a purchase decision.",
-      },
-      {
-        heading: "3. Developer Background",
-        text: "Research the developer, previous projects and available project information to understand the development history.",
-      },
-      {
-        heading: "4. Pricing",
-        text: "Compare the property's price with similar properties in the surrounding area. Also consider additional costs associated with purchasing and maintaining the property.",
-      },
-      {
-        heading: "5. Future Connectivity",
-        text: "Consider planned infrastructure and connectivity improvements around the property and understand how they may affect accessibility.",
-      },
-    ],
-  },
-
-  {
-    category: "Gurgaon",
-    date: "JUL 22, 2026",
-    title: "Why New Gurgaon Continues to Attract Homebuyers",
-    excerpt:
-      "Explore infrastructure, connectivity and residential development shaping New Gurgaon.",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=90",
-    content: [
-      {
-        heading: "Growth of New Gurgaon",
-        text: "New Gurgaon has developed into an important residential growth area with expanding residential communities and supporting infrastructure.",
-      },
-      {
-        heading: "Infrastructure and Connectivity",
-        text: "Connectivity to major roads, employment areas and other parts of Gurgaon is an important factor for homebuyers evaluating properties in New Gurgaon.",
-      },
-      {
-        heading: "Residential Development",
-        text: "The area offers different residential options and continues to see development of housing communities and supporting facilities.",
-      },
-      {
-        heading: "Things Homebuyers Should Check",
-        text: "Homebuyers should evaluate the exact location, connectivity, developer details, project specifications, amenities, pricing and surrounding infrastructure before selecting a property.",
-      },
-    ],
-  },
-];
-
-const createSlug = (title) =>
-  title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
+// set <title> and the meta description for this article
+const setMeta = (title, description) => {
+  document.title = title;
+  let tag = document.querySelector('meta[name="description"]');
+  if (!tag) { tag = document.createElement("meta"); tag.name = "description"; document.head.appendChild(tag); }
+  tag.content = description || "";
+};
 
 export default function BlogDetail() {
   const { slug } = useParams();
+  const [post, setPost] = useState(null);
+  const [all, setAll] = useState([]);
+  const [status, setStatus] = useState("loading"); // loading | ok | missing
 
-  const post = posts.find((item) => createSlug(item.title) === slug);
+  useEffect(() => {
+    let alive = true;
+    setStatus("loading");
+    window.scrollTo(0, 0);
+    API.get(`/blogs/${encodeURIComponent(slug)}`)
+      .then((r) => { if (alive) { setPost(r.data); setStatus("ok"); } })
+      .catch(() => alive && setStatus("missing"));
+    API.get("/blogs").then((r) => alive && setAll(r.data || [])).catch(() => {});
+    return () => { alive = false; };
+  }, [slug]);
+
+  useEffect(() => {
+    if (post) setMeta(`${post.seoTitle || post.title} | HomWisor`, post.seoDescription || post.excerpt);
+  }, [post]);
+
+  if (status === "loading") {
+    return (
+      <div className="blog-detail-page">
+        <Header />
+        <main style={{ minHeight: "70vh", display: "grid", placeItems: "center", padding: "140px 20px 80px", color: "#6b6450", fontWeight: 600 }}>
+          Loading article…
+        </main>
+        <style>{`.blog-detail-page { min-height: 100vh; background: ${CREAM}; }`}</style>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -272,9 +138,13 @@ export default function BlogDetail() {
     );
   }
 
-  const relatedPosts = posts
-    .filter((item) => item.title !== post.title)
-    .slice(0, 4);
+  // same category first, then the newest of the rest
+  const others = all.filter((item) => item.slug !== post.slug);
+  const relatedPosts = [
+    ...others.filter((item) => item.category === post.category),
+    ...others.filter((item) => item.category !== post.category),
+  ].slice(0, 4);
+  const date = blogDate(post.publishedAt);
 
   return (
     <div className="blog-detail-page">
@@ -306,9 +176,11 @@ export default function BlogDetail() {
             <h1>{post.title}</h1>
 
             <div className="blog-detail-meta">
-              <span>{post.date}</span>
+              <span>{date}</span>
               <span className="meta-dot">•</span>
-              <span>HOMWISOR INSIGHTS</span>
+              <span>{readTime(post)} MIN READ</span>
+              <span className="meta-dot">•</span>
+              <span>{(post.author || "HomWisor Insights").toUpperCase()}</span>
             </div>
 
           </div>
@@ -324,12 +196,23 @@ export default function BlogDetail() {
             <article className="article-content">
               <p className="article-intro">{post.excerpt}</p>
 
-              {post.content.map((section, index) => (
+              {(post.content || []).map((section, index) => (
                 <div className="article-section" key={index}>
-                  <h2>{section.heading}</h2>
-                  <p>{section.text}</p>
+                  {section.heading && <h2>{section.heading}</h2>}
+                  {paragraphs(section.text).map((text, i) => <p key={i}>{text}</p>)}
+                  {section.image && (
+                    <figure className="article-figure">
+                      <img src={section.image} alt={section.heading || post.title} loading="lazy" />
+                    </figure>
+                  )}
                 </div>
               ))}
+
+              {post.tags?.length > 0 && (
+                <div className="article-tags">
+                  {post.tags.map((t) => <span key={t}>#{t}</span>)}
+                </div>
+              )}
 
               <div className="article-cta">
                 <div>
@@ -368,12 +251,17 @@ export default function BlogDetail() {
 
                 <div className="sidebar-row">
                   <span>Published</span>
-                  <strong>{post.date}</strong>
+                  <strong>{date}</strong>
                 </div>
 
                 <div className="sidebar-row">
-                  <span>Publisher</span>
-                  <strong>Homwisor</strong>
+                  <span>Author</span>
+                  <strong>{post.author || "HomWisor Insights"}</strong>
+                </div>
+
+                <div className="sidebar-row">
+                  <span>Reading time</span>
+                  <strong>{readTime(post)} min</strong>
                 </div>
               </div>
 
@@ -401,6 +289,7 @@ export default function BlogDetail() {
         </section>
 
         {/* RELATED ARTICLES */}
+        {relatedPosts.length > 0 && (
         <section className="related-section">
           <div className="blog-detail-container">
 
@@ -423,9 +312,9 @@ export default function BlogDetail() {
             <div className="related-grid">
               {relatedPosts.map((item) => (
                 <Link
-                  to={`/blog/${createSlug(item.title)}`}
+                  to={`/blog/${item.slug}`}
                   className="related-card"
-                  key={item.title}
+                  key={item.id || item.slug}
                 >
                   <div className="related-image">
                     <img src={item.image} alt={item.title} />
@@ -433,7 +322,7 @@ export default function BlogDetail() {
                   </div>
 
                   <div className="related-content">
-                    <small>{item.date}</small>
+                    <small>{blogDate(item.publishedAt)}</small>
 
                     <h3>{item.title}</h3>
 
@@ -449,11 +338,17 @@ export default function BlogDetail() {
 
           </div>
         </section>
+        )}
       </main>
 
       <Footer />
 
       <style>{`
+        .article-section p + p { margin-top: 14px; }
+        .article-figure { margin: 22px 0 6px; border-radius: 16px; overflow: hidden; background: #eee; }
+        .article-figure img { width: 100%; display: block; max-height: 520px; object-fit: cover; }
+        .article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+        .article-tags span { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid #ebe4cf; color: ${GOLD_DARK}; font-size: 12px; font-weight: 700; }
         * {
           box-sizing: border-box;
         }

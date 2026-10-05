@@ -12,12 +12,18 @@ const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
 
+// Makes a linked side ad clickable over its whole area
+const AD_LINK = { position: "absolute", inset: 0, zIndex: 2, display: "block" };
+
 export default function TrendingProjects({
   properties = [],
   locations = [],
   upcoming = [],
   newlaunch = [],
   offers = [],
+  promos = [],
+  branded = null,
+  luxury = null,
 }) {
 
   /* =====================================================
@@ -188,8 +194,12 @@ export default function TrendingProjects({
      Uses the same existing API property data.
   ===================================================== */
 
+  // one row of 4 cards per section
+  const brandedList = (Array.isArray(branded) ? branded : displayLuxuryProjects).slice(0, 4);
+  const luxuryList = (Array.isArray(luxury) ? luxury : displayLuxuryProjects).slice(0, 4);
+
   const brandedBannerProject =
-    displayLuxuryProjects[0] ||
+    brandedList[0] ||
     fallbackProperties.find((p) =>
       String(p?.title || "").toLowerCase().includes("brabus")
     ) ||
@@ -336,7 +346,11 @@ export default function TrendingProjects({
      RIGHT AD SLIDER
   ===================================================== */
 
-  const ads = [s1, s2, s3];
+  // Side ad slider = "Small banners" from the admin panel (built-in images if none)
+  const ads = (Array.isArray(promos) ? promos : [])
+    .filter((b) => b?.image)
+    .map((b) => ({ image: b.image, title: b.title, link: b.link && b.link !== "#" ? b.link : "" }));
+  if (!ads.length) ads.push(...[s1, s2, s3].map((image) => ({ image, title: "", link: "" })));
 
   const [activeAd, setActiveAd] = useState(0);
 
@@ -1416,6 +1430,7 @@ export default function TrendingProjects({
                 SAME CARD DESIGN AS TRENDING PROJECTS
             ================================================= */}
 
+            {brandedList.length > 0 && (
             <section className="hw-luxury-projects">
 
               <div className="hw-upcoming-header hw-luxury-header">
@@ -1460,7 +1475,7 @@ export default function TrendingProjects({
 
               <div className="hw-luxury-grid hw-trending-properties">
 
-                {displayLuxuryProjects.map((property, index) => (
+                {brandedList.map((property, index) => (
 
                   <Link
                     key={property.id || property._id || `luxury-${index}`}
@@ -1607,6 +1622,7 @@ export default function TrendingProjects({
               </div>
 
             </section>
+            )}
 
  {/* =================================================
                 BRANDED RESIDENCES FEATURE BANNER
@@ -1715,6 +1731,7 @@ export default function TrendingProjects({
                 SAME CARD DESIGN AS TRENDING PROJECTS
             ================================================= */}
 
+            {luxuryList.length > 0 && (
             <section className="hw-luxury-projects">
 
               <div className="hw-upcoming-header hw-luxury-header">
@@ -1738,7 +1755,7 @@ export default function TrendingProjects({
                 </div>
 
                 <Link
-                  to="/search?category=branded"
+                  to="/search?category=luxury"
                   className="hw-upcoming-view-all"
                 >
                   View All Projects
@@ -1759,7 +1776,7 @@ export default function TrendingProjects({
 
               <div className="hw-luxury-grid hw-trending-properties">
 
-                {displayLuxuryProjects.map((property, index) => (
+                {luxuryList.map((property, index) => (
 
                   <Link
                     key={property.id || property._id || `luxury-${index}`}
@@ -1906,6 +1923,7 @@ export default function TrendingProjects({
               </div>
 
             </section>
+            )}
 
              {/* =================================================
                 TOP BUDGET PROJECTS
@@ -2128,20 +2146,23 @@ export default function TrendingProjects({
             <div className="hw-ad-slider">
 
 
-              {ads.map((ad, index) => (
-
-                <img
-                  key={index}
-                  src={ad}
-                  alt="Homwisor Advertisement"
-                  className={
-                    index === activeAd
-                      ? "active"
-                      : ""
-                  }
-                />
-
-              ))}
+              {ads.map((ad, index) => {
+                const img = (
+                  <img
+                    src={ad.image}
+                    alt={ad.title || "Homwisor Advertisement"}
+                  />
+                );
+                return (
+                  <div key={index} className={`hw-ad-frame${index === activeAd ? " active" : ""}`}>
+                    {ad.link && index === activeAd
+                      ? (/^https?:/i.test(ad.link)
+                          ? <a href={ad.link} target="_blank" rel="noopener noreferrer" style={AD_LINK}>{img}</a>
+                          : <Link to={ad.link} style={AD_LINK}>{img}</Link>)
+                      : img}
+                  </div>
+                );
+              })}
 
 
              

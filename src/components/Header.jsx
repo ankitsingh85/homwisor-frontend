@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../images/logo-homwiser.png";
+import { BLOG_CATEGORIES } from "../data/blog";
 
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchCity, setSearchCity] = useState("Gurugram");
+  const [searchText, setSearchText] = useState("");
+
+  // Navbar search → Search page (city + text)
+  const runSearch = (e) => {
+    e?.preventDefault();
+    const qs = new URLSearchParams();
+    if (searchCity) qs.set("city", searchCity);
+    if (searchText.trim()) qs.set("q", searchText.trim());
+    navigate(`/search?${qs.toString()}`);
+  };
   const isHomePage = location.pathname === "/";
 
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -23,6 +36,24 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Mobile menu: close on page change / Esc, and stop the page scrolling behind it
+  useEffect(() => {
+    setMobileMenu(false);
+    setOpenDropdown(null);
+  }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    if (!mobileMenu) return;
+    const onKey = (e) => { if (e.key === "Escape") { setMobileMenu(false); setOpenDropdown(null); } };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileMenu]);
 
   const toggleDropdown = (name) => {
     setOpenDropdown(
@@ -379,10 +410,8 @@ export default function Header() {
       label: "Blog",
       type: "simple",
       data: [
-        {
-          label: "Real Estate News",
-          link: "/blog",
-        },
+        { label: "All Articles", link: "/blog" },
+        ...BLOG_CATEGORIES.map((c) => ({ label: c, link: `/blog?category=${encodeURIComponent(c)}` })),
       ],
     },
     {
@@ -451,7 +480,8 @@ export default function Header() {
               </svg>
 
               <select
-                defaultValue="Gurugram"
+                value={searchCity}
+                onChange={(e) => setSearchCity(e.target.value)}
                 aria-label="Select city"
               >
                 <option>Gurugram</option>
@@ -485,6 +515,9 @@ export default function Header() {
 
               <input
                 type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && runSearch(e)}
                 placeholder="Search projects, localities..."
                 aria-label="Search projects and localities"
               />
@@ -492,6 +525,7 @@ export default function Header() {
               <button
                 type="button"
                 aria-label="Search"
+                onClick={runSearch}
               >
                 <svg
                   width="16"
@@ -707,6 +741,22 @@ export default function Header() {
 
           <div className="hw-header-actions">
 
+            {/* MOBILE SEARCH ICON */}
+            <button
+              type="button"
+              className="hw-mobile-search-button"
+              aria-label="Search"
+              onClick={() => {
+                const el = document.querySelector('.hw-scroll-search input');
+                if (el) { el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+              }}
+            >
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <circle cx="10.8" cy="10.8" r="6.4" />
+                <path d="m16 16 4.2 4.2" />
+              </svg>
+            </button>
+
 
             {/* MOBILE MENU TOGGLE */}
             <button
@@ -738,6 +788,10 @@ export default function Header() {
         {/* =====================================================
             MOBILE MENU
         ===================================================== */}
+
+        {mobileMenu && (
+          <div className="hw-mobile-backdrop" onClick={closeMenu} aria-hidden="true" />
+        )}
 
         {mobileMenu && (
 
@@ -1362,6 +1416,10 @@ export default function Header() {
           justify-content: flex-end;
 
           gap: 12px;
+        }
+
+        .hw-mobile-search-button {
+          display: none;
         }
 
         .hw-user-button {
@@ -2099,6 +2157,8 @@ export default function Header() {
 
             min-width:
               0;
+
+            margin-left: 42px;
           }
 
           .hw-logo-image {
@@ -2204,6 +2264,27 @@ export default function Header() {
               10px;
           }
 
+          /* Mobile: hamburger + logo + search + profile */
+          .hw-mobile-search-button {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.60);
+            border-radius: 50%;
+            background: rgba(0,0,0,.20);
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: .2s ease;
+          }
+
+          .hw-mobile-search-button:hover {
+            color: #d8aa42;
+          }
+
           .hw-user-button {
             width: 34px;
             height: 34px;
@@ -2227,6 +2308,11 @@ export default function Header() {
             display: flex !important;
             align-items: center;
             justify-content: center;
+
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
           }
 
           .hw-mobile-menu {
@@ -2262,6 +2348,10 @@ export default function Header() {
 
             max-height:
               48px;
+          }
+
+          .hw-logo {
+            margin-left: 40px;
           }
 
           .hw-header-actions {
@@ -2443,6 +2533,27 @@ export default function Header() {
           }
         }
 
+      
+        /* ---- mobile menu: keep the ✕ button in the top bar, above the open menu ---- */
+        @media (max-width: 768px) {
+          .hw-header-inner { position: relative; z-index: 3; }
+          .hw-menu-button {
+            top: 50% !important;
+            z-index: 6;
+          }
+          .hw-menu-button[aria-expanded="true"] {
+            color: #E8C766 !important;
+            border-color: rgba(212,175,55,.6) !important;
+            background: rgba(212,175,55,.12) !important;
+          }
+          .hw-mobile-menu { position: relative; z-index: 5; }
+          .hw-mobile-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            background: rgba(0,0,0,.45);
+          }
+        }
       `}</style>
     </>
   );

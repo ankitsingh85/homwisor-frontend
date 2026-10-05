@@ -1,0 +1,26 @@
+/* ---------- Blog editor (admin) ---------- */
+.hwb-sections { display: grid; gap: 12px; }
+.hwb-section { display: grid; gap: 8px; padding: 12px; border: 1px solid #ece7d8; border-radius: 14px; background: #fcfaf3; }
+.hwb-section-head { display: flex; align-items: center; gap: 6px; }
+.hwb-section-head .hwa-input { flex: 1; min-width: 0; font-weight: 700; }
+.hwb-no { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #111; color: #E8C766; font-size: 12px; font-weight: 800; }
+.hwb-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px; border: 1px solid #e5e1d3; background: #fff; cursor: pointer; font-size: 13px; color: #3a3627; }
+.hwb-icon:hover:not(:disabled) { border-color: #D4AF37; }
+.hwb-icon:disabled { opacity: .35; cursor: default; }
+.hwb-icon.danger { color: #b91c1c; }
+.hwb-text { height: auto !important; min-height: 64px; padding: 10px 12px !important; line-height: 1.6; resize: vertical; font-family: inherit; }
+.hwb-addimg { justify-self: start; border: none; background: none; padding: 2px 0; color: #9A7418; font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.hwb-addimg:hover { text-decoration: underline; }
+.hwb-secimg { display: grid; gap: 4px; max-width: 420px; }
+.hwb-add { justify-self: start; height: 38px; padding: 0 16px; border-radius: 10px; border: 1.5px dashed #d9cfae; background: #fff; color: #6b6450; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.hwb-add:hover { border-color: #D4AF37; color: #111; }
+.hwb-inline { display: flex; gap: 8px; }
+.hwb-inline .hwa-input { flex: 1; min-width: 0; }
+.hwb-seg { display: inline-flex; padding: 3px; border-radius: 10px; background: #f3f0e6; gap: 3px; }
+.hwb-seg button { height: 36px; padding: 0 16px; border: none; border-radius: 8px; background: none; font-family: inherit; font-size: 13px; font-weight: 700; color: #6b6450; cursor: pointer; }
+.hwb-seg button.on { background: #111; color: #E8C766; }
+.hwb-check { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #3a3627; line-height: 1.5; cursor: pointer; text-transform: none; letter-spacing: 0; font-weight: 500; }
+.hwb-check input { margin-top: 3px; accent-color: #D4AF37; width: 16px; height: 16px; }
+.hwb-more { margin-top: 6px; border: 1px solid #ece7d8; border-radius: 12px; padding: 0 14px; }
+.hwb-more summary { padding: 12px 0; font-size: 13px; font-weight: 700; color: #2b2718; cursor: pointer; }
+.hwb-more[open] { padding-bottom: 6px; }

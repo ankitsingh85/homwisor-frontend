@@ -191,7 +191,7 @@ export default function PropertyDetail() {
         </div>
       </div>
 
-      <div className="container" style={{ padding: '28px 16px 20px' }}>
+      <div className="container" style={{ padding: '28px 16px 10px' }}>
       {/* =========================================================
     OVERVIEW SECTION
 ========================================================= */}
@@ -6126,7 +6126,7 @@ export default function PropertyDetail() {
       @media (max-width: 450px) {
 
         .related-section {
-          padding-bottom: 70px !important;
+          padding-bottom: 0px !important;
         }
 
         .related-grid {
@@ -6172,8 +6172,9 @@ export default function PropertyDetail() {
 <div
   className="property-footer-wrapper"
   style={{
-    width: "calc(100% - 40px)",
-    margin: "16px 20px 70px",
+    width: "100%",
+    maxWidth: "100%",
+    margin: "16px 0 70px",
     boxSizing: "border-box",
   }}
 >
@@ -6370,8 +6371,8 @@ export default function PropertyDetail() {
     className="property-footer"
     style={{
       width: "100%",
-      background: "#fff",
-      borderTop: "1px solid #e8edf2",
+      // background: "#fff",
+      // borderTop: "1px solid #e8edf2",
       padding: "13px 4px 12px",
       boxSizing: "border-box",
     }}
@@ -6554,10 +6555,9 @@ export default function PropertyDetail() {
         ========================================== */
 
         .property-footer-wrapper {
-          width: calc(100% - 40px) !important;
-          margin-left: 20px !important;
-          margin-right: 20px !important;
-          margin-top: 16px !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 16px 0 70px !important;
           box-sizing: border-box !important;
         }
 
@@ -6568,8 +6568,9 @@ export default function PropertyDetail() {
 
         .property-footer-wrapper .disclaimer-section {
           width: 100% !important;
-          max-width:96%;
-          margin-left:20px;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
           box-sizing: border-box !important;
         }
 
@@ -6580,8 +6581,9 @@ export default function PropertyDetail() {
 
         .property-footer-wrapper .property-footer {
           width: 100% !important;
-           max-width:96%;
-          margin-left:20px;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
           box-sizing: border-box !important;
         }
 
@@ -6640,9 +6642,10 @@ export default function PropertyDetail() {
         @media (max-width: 900px) {
 
           .property-footer-wrapper {
-            width: calc(100% - 32px) !important;
-            margin-left: 16px !important;
-            margin-right: 16px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
           }
 
           .footer-inner {
@@ -6673,9 +6676,10 @@ export default function PropertyDetail() {
         @media (max-width: 600px) {
 
           .property-footer-wrapper {
-            width: calc(100% - 24px) !important;
-            margin-left: 12px !important;
-            margin-right: 12px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
             margin-top: 16px !important;
           }
 
@@ -6730,9 +6734,10 @@ export default function PropertyDetail() {
         @media (max-width: 430px) {
 
           .property-footer-wrapper {
-            width: calc(100% - 20px) !important;
-            margin-left: 10px !important;
-            margin-right: 10px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
           }
 
           .disclaimer-section {
@@ -6785,9 +6790,10 @@ export default function PropertyDetail() {
         @media (max-width: 350px) {
 
           .property-footer-wrapper {
-            width: calc(100% - 16px) !important;
-            margin-left: 8px !important;
-            margin-right: 8px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
           }
 
           .disclaimer-inner {
@@ -7210,6 +7216,436 @@ export default function PropertyDetail() {
 
           .property-detail-page .related-image {
             height: 105px !important;
+          }
+        }
+      `}</style>
+
+      {/* FINAL MOBILE FIX — GALLERY TO FOOTER */}
+      <style>{`
+        @media (max-width: 768px) {
+          .property-detail-page {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+          }
+
+          .property-detail-page > .container {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            box-sizing: border-box !important;
+          }
+
+          /* GALLERY */
+          .property-detail-page .gallery-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-top: 12px !important;
+            padding: 16px 12px !important;
+            border-radius: 13px !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .gallery-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+            width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          .property-detail-page .gallery-item {
+            width: 100% !important;
+            min-width: 0 !important;
+            aspect-ratio: 1.35 !important;
+            border-radius: 9px !important;
+          }
+
+          .property-detail-page .gallery-item img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+          }
+
+          /* LOCATION */
+          .property-detail-page .location-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-top: 12px !important;
+            padding: 17px 12px 14px !important;
+            border-radius: 13px !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+          }
+
+          .property-detail-page .location-heading {
+            width: 100% !important;
+            margin-bottom: 13px !important;
+          }
+
+          .property-detail-page .location-heading h2 {
+            font-size: 21px !important;
+            line-height: 1.22 !important;
+            overflow-wrap: anywhere !important;
+          }
+
+          .property-detail-page .location-heading p {
+            font-size: 10.5px !important;
+            line-height: 1.55 !important;
+          }
+
+          .property-detail-page .location-main-layout {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+            width: 100% !important;
+          }
+
+          .property-detail-page .location-map-column,
+          .property-detail-page .location-map-card {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+          }
+
+          .property-detail-page .location-map-card {
+            height: 220px !important;
+            border-radius: 11px !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .location-map-card img,
+          .property-detail-page .location-map-card iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+            object-fit: cover !important;
+          }
+
+          .property-detail-page .location-main-layout > * {
+            min-width: 0 !important;
+          }
+
+          .property-detail-page .loc-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+            width: 100% !important;
+          }
+
+          /* MASTER PLAN */
+          .property-detail-page .masterplan-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-top: 12px !important;
+            padding: 17px 12px !important;
+            border-radius: 13px !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .masterplan-section h2 {
+            font-size: 21px !important;
+            line-height: 1.2 !important;
+          }
+
+          .property-detail-page .masterplan-section > p {
+            font-size: 10.5px !important;
+            line-height: 1.55 !important;
+          }
+
+          .property-detail-page .masterplan-image-box {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 235px !important;
+            margin-top: 12px !important;
+            border-radius: 11px !important;
+            box-sizing: border-box !important;
+          }
+
+          .property-detail-page .masterplan-content {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 12px !important;
+            box-sizing: border-box !important;
+          }
+
+          .property-detail-page .masterplan-content > div:nth-child(2) {
+            font-size: 16px !important;
+            line-height: 1.25 !important;
+          }
+
+          .property-detail-page .masterplan-content > div:nth-child(3) {
+            font-size: 9.5px !important;
+            line-height: 1.4 !important;
+            overflow-wrap: anywhere !important;
+          }
+
+          .property-detail-page .masterplan-content button {
+            max-width: 100% !important;
+            white-space: normal !important;
+            line-height: 1.2 !important;
+          }
+
+          /* DEVELOPER SECTION — whatever its internal layout, keep it inside viewport */
+          .property-detail-page .developer-section,
+          .property-detail-page [class*="developer-section"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            margin-top: 12px !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .developer-section *,
+          .property-detail-page [class*="developer-section"] * {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+
+          /* RELATED PROJECTS */
+          .property-detail-page .related-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-top: 14px !important;
+            padding: 0 0 16px !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .related-section h3 {
+            font-size: 21px !important;
+            line-height: 1.2 !important;
+          }
+
+          .property-detail-page .related-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+            width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          .property-detail-page .related-card,
+          .property-detail-page .hw-similar-card {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+            border-radius: 10px !important;
+          }
+
+          .property-detail-page .related-image,
+          .property-detail-page .hw-similar-image {
+            width: 100% !important;
+            height: 115px !important;
+            min-height: 115px !important;
+            aspect-ratio: auto !important;
+          }
+
+          .property-detail-page .related-card > div:last-child,
+          .property-detail-page .hw-similar-card > div:last-child {
+            min-width: 0 !important;
+            padding: 8px !important;
+          }
+
+          .property-detail-page .related-card > div:last-child > div,
+          .property-detail-page .hw-similar-card > div:last-child > div {
+            max-width: 100% !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+          }
+
+          /* DISCLAIMER / FOOTER */
+          .property-detail-page .property-footer-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 12px 0 90px !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .disclaimer-section,
+          .property-detail-page .footer-section,
+          .property-detail-page footer {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+
+          .property-detail-page .disclaimer-inner {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+            width: 100% !important;
+          }
+
+          .property-detail-page .disclaimer-left {
+            flex: 0 0 72px !important;
+            width: 72px !important;
+            min-width: 72px !important;
+          }
+
+          .property-detail-page .disclaimer-content {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+          }
+
+          .property-detail-page .disclaimer-content p {
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+          }
+
+          .property-detail-page .footer-nav {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 8px 12px !important;
+            width: 100% !important;
+          }
+
+          .property-detail-page .social-icon {
+            flex-shrink: 0 !important;
+          }
+
+          /* STICKY BOTTOM BAR */
+          .property-detail-page > div[style*="position: fixed"] {
+            width: 100% !important;
+            max-width: 100vw !important;
+            left: 0 !important;
+            right: 0 !important;
+            padding: 7px 8px !important;
+            box-sizing: border-box !important;
+          }
+
+          .property-detail-page > div[style*="position: fixed"] .container {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 0 !important;
+            gap: 7px !important;
+          }
+
+          .property-detail-page > div[style*="position: fixed"] .container > div:first-child {
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+          }
+
+          .property-detail-page > div[style*="position: fixed"] .container > div:last-child {
+            gap: 6px !important;
+          }
+
+          /* ENQUIRY MODAL */
+          .property-detail-page > div[style*="position: fixed"] + div[style*="position: fixed"] {
+            padding: 10px !important;
+          }
+        }
+
+        /* ==========================================
+           DISCLAIMER OUTER ALIGNMENT
+           Match the same left/right spacing as the
+           sections inside the main .container.
+        ========================================== */
+
+        .property-detail-page .property-footer-wrapper {
+          width: 100% !important;
+          max-width: 1280px !important;
+          margin: 16px auto 70px !important;
+          padding: 0 16px !important;
+          box-sizing: border-box !important;
+        }
+
+        .property-detail-page .property-footer-wrapper .disclaimer-section,
+        .property-detail-page .property-footer-wrapper .property-footer {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          box-sizing: border-box !important;
+        }
+
+        @media (max-width: 600px) {
+          .property-detail-page .property-footer-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 16px auto 90px !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .property-detail-page .property-footer-wrapper {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .property-detail-page .gallery-grid {
+            gap: 7px !important;
+          }
+
+          .property-detail-page .gallery-item {
+            aspect-ratio: 1.3 !important;
+          }
+
+          .property-detail-page .location-map-card {
+            height: 200px !important;
+          }
+
+          .property-detail-page .loc-grid {
+            gap: 7px !important;
+          }
+
+          .property-detail-page .masterplan-image-box {
+            height: 215px !important;
+          }
+
+          .property-detail-page .related-grid {
+            gap: 7px !important;
+          }
+
+          .property-detail-page .related-image,
+          .property-detail-page .hw-similar-image {
+            height: 105px !important;
+            min-height: 105px !important;
+          }
+
+          .property-detail-page .property-footer-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .property-detail-page .gallery-section,
+          .property-detail-page .location-section,
+          .property-detail-page .masterplan-section {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+
+          .property-detail-page .gallery-grid {
+            gap: 6px !important;
+          }
+
+          .property-detail-page .location-map-card {
+            height: 185px !important;
+          }
+
+          .property-detail-page .masterplan-image-box {
+            height: 195px !important;
+          }
+
+          .property-detail-page .related-image,
+          .property-detail-page .hw-similar-image {
+            height: 95px !important;
+            min-height: 95px !important;
           }
         }
       `}</style>

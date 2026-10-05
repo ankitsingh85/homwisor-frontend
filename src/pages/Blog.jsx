@@ -1,92 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import API from "../utils/api";
+import { BLOG_CATEGORIES, blogDate } from "../data/blog";
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
 const CREAM = "#F7F5EF";
 
-const categories = [
-  "All",
-  "Real Estate News",
-  "Gurgaon",
-  "Delhi NCR",
-  "Investment",
-  "Property Guide",
-];
-
-const createSlug = (title) =>
-  title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
-const posts = [
-  {
-    category: "Real Estate News",
-    date: "JUL 30, 2026",
-    title: "Moti Nagar Metro Station on Delhi Metro Blue Line",
-    excerpt:
-      "Explore connectivity, location advantages and the role of the Blue Line in West Delhi real estate.",
-    image:
-      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    category: "Gurgaon",
-    date: "JUL 29, 2026",
-    title: "BPTP Downtown 66 Phase 2 Is Here",
-    excerpt:
-      "A closer look at the new phase and what buyers should know about the Gurgaon development.",
-    image:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    category: "Delhi NCR",
-    date: "JUL 28, 2026",
-    title: "Sector 49 Gurgaon: Real Estate Prices & Metro Expansion",
-    excerpt:
-      "Understand locality, connectivity and the changing real estate landscape of Sector 49 Gurgaon.",
-    image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    category: "Investment",
-    date: "JUL 26, 2026",
-    title: "How to Choose the Right Property Investment in NCR",
-    excerpt:
-      "Key factors to consider before investing in residential or commercial property across NCR.",
-    image:
-      "https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    category: "Property Guide",
-    date: "JUL 24, 2026",
-    title: "5 Things to Check Before Buying a Property",
-    excerpt:
-      "A practical checklist covering location, approvals, developer background, pricing and future connectivity.",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    category: "Gurgaon",
-    date: "JUL 22, 2026",
-    title: "Why New Gurgaon Continues to Attract Homebuyers",
-    excerpt:
-      "Explore infrastructure, connectivity and residential development shaping New Gurgaon.",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85",
-  },
-];
-
 export default function Blog() {
-  const [active, setActive] = useState("All");
+  const [params, setParams] = useSearchParams();
+  const active = params.get("category") || "All";
+  const setActive = (c) => setParams(c === "All" ? {} : { category: c }, { replace: true });
 
-  const filteredPosts =
-    active === "All"
-      ? posts
-      : posts.filter((post) => post.category === active);
+  const [posts, setPosts] = useState([]);
+  const [status, setStatus] = useState("loading"); // loading | ok | error
+
+  useEffect(() => {
+    let alive = true;
+    API.get("/blogs")
+      .then((r) => { if (alive) { setPosts(r.data || []); setStatus("ok"); } })
+      .catch(() => alive && setStatus("error"));
+    return () => { alive = false; };
+  }, []);
+
+  useEffect(() => { document.title = "Real Estate Insights | HomWisor Blog"; }, []);
+
+  // the usual categories first, then any new ones the admin created
+  const categories = useMemo(() => {
+    const used = [...new Set(posts.map((p) => p.category).filter(Boolean))];
+    return ["All", ...BLOG_CATEGORIES.filter((c) => used.includes(c)), ...used.filter((c) => !BLOG_CATEGORIES.includes(c))];
+  }, [posts]);
+
+  const featured = posts.find((p) => p.featured) || posts[0];
+  const filteredPosts = active === "All" ? posts : posts.filter((post) => post.category === active);
 
   return (
     <div className="blog-page">
@@ -130,28 +79,34 @@ export default function Blog() {
               </a>
             </div>
 
+            {status === "loading" && <div className="blog-state"><span className="blog-spin" /> Loading articles…</div>}
+            {status === "error" && <div className="blog-state">Articles could not be loaded right now. Please refresh the page.</div>}
+            {status === "ok" && !featured && <div className="blog-state">New articles are coming soon.</div>}
+
+            {featured && (
             <article className="featured-card">
-              <div className="featured-image">
+              <Link to={`/blog/${featured.slug}`} className="featured-image">
                 <img
-                  src={posts[0].image}
-                  alt={posts[0].title}
+                  src={featured.image}
+                  alt={featured.title}
                 />
 
-                <span>{posts[0].category}</span>
-              </div>
+                <span>{featured.category}</span>
+              </Link>
 
               <div className="featured-content">
-                <small>{posts[0].date}</small>
+                <small>{blogDate(featured.publishedAt)}</small>
 
-                <h3>{posts[0].title}</h3>
+                <h3>{featured.title}</h3>
 
-                <p>{posts[0].excerpt}</p>
+                <p>{featured.excerpt}</p>
 
-                <Link to={`/blog/${createSlug(posts[0].title)}`}>
+                <Link to={`/blog/${featured.slug}`}>
                   Read Article <span>→</span>
                 </Link>
               </div>
             </article>
+            )}
           </div>
         </section>
 
@@ -174,6 +129,7 @@ export default function Blog() {
             </div>
 
             {/* CATEGORIES */}
+            {posts.length > 0 && (
             <div className="category-row">
               {categories.map((category) => (
                 <button
@@ -185,16 +141,21 @@ export default function Blog() {
                 </button>
               ))}
             </div>
+            )}
+
+            {status === "ok" && posts.length > 0 && filteredPosts.length === 0 && (
+              <div className="blog-state">No articles in “{active}” yet. <button type="button" onClick={() => setActive("All")}>Show all articles</button></div>
+            )}
 
             {/* BLOG GRID */}
             <div className="blog-grid">
               {filteredPosts.map((post) => {
-                const slug = createSlug(post.title);
+                const slug = post.slug;
 
                 return (
                   <article
                     className="blog-card"
-                    key={post.title}
+                    key={post.id || post.slug}
                   >
                     {/* IMAGE LINK */}
                     <Link
@@ -210,7 +171,7 @@ export default function Blog() {
                     </Link>
 
                     <div className="blog-card-content">
-                      <small>{post.date}</small>
+                      <small>{blogDate(post.publishedAt)}</small>
 
                       <h3>{post.title}</h3>
 
@@ -257,6 +218,11 @@ export default function Blog() {
       <Footer />
 
       <style>{`
+        .blog-state { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 160px; padding: 30px 16px; border: 1px dashed #e2dccb; border-radius: 18px; background: #fff; color: #6b6450; font-size: 14px; font-weight: 600; text-align: center; flex-wrap: wrap; }
+        .blog-state button { border: none; background: none; color: ${GOLD_DARK}; font: inherit; font-weight: 800; cursor: pointer; text-decoration: underline; }
+        .blog-spin { width: 20px; height: 20px; border: 2.5px solid #eee4c4; border-top-color: ${GOLD}; border-radius: 50%; animation: blog-spin .7s linear infinite; }
+        @keyframes blog-spin { to { transform: rotate(360deg); } }
+        a.featured-image { display: block; }
         * {
           box-sizing: border-box;
         }

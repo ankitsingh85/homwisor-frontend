@@ -1,8 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import API from "../utils/api";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { CITIES, localitiesOf } from "../data/locations";
+import {
+  readFilters,
+  applyFilters,
+  resultsTitle,
+  parseBudget,
+  budgetLabel,
+  BUDGETS,
+  STATUSES,
+} from "../utils/propertySearch";
+
+// Filter keys written to the URL (the URL is the single source of truth)
+const KEYS = ["q", "city", "locality", "type", "budget", "bhk", "status", "category", "sort"];
+
+const TYPE_OPTIONS = [
+  { group: "Residential", items: [["Apartment", "Apartment"], ["Villa", "Villa"], ["Builder Floor", "Builder Floor"], ["Penthouse", "Penthouse"], ["Plots", "Plots"], ["Farmhouse", "Farmhouse"]] },
+  { group: "Commercial", items: [["Commercial", "All Commercial"], ["Retail", "Retail / Shops"], ["SCO", "SCO Plots"]] },
+  { group: "Collections", items: [["Luxury", "Luxury Homes"], ["Branded", "Branded Residences"]] },
+];
+const CATEGORY_OPTIONS = [
+  ["", "All Projects"], ["trending", "Trending"], ["upcoming", "Upcoming"],
+  ["newlaunch", "New Launch"], ["branded", "Branded"], ["luxury", "Luxury"], ["commercial", "Commercial"], ["sco", "SCO"],
+];
+const BHK_OPTIONS = ["Studio", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "5 BHK"];
+const label = (pairs, v) => pairs.find(([k]) => k === v)?.[1] || v;
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
@@ -10,137 +35,88 @@ const BLACK = "#090909";
 
 export default function Search() {
   const [params, setParams] = useSearchParams();
-
   const [properties, setProperties] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+  const [offerTitles, setOfferTitles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [q, setQ] = useState(params.get("q") || "");
-  const [type, setType] = useState(params.get("type") || "");
-  const [loc, setLoc] = useState(params.get("location") || "");
-  const [cat, setCat] = useState(params.get("category") || "");
-  const [budget, setBudget] = useState("");
+  const filters = readFilters(params);
+  const [q, setQ] = useState(filters.q);
 
   /* =====================================================
-     FETCH PROPERTIES
+     FETCH PROPERTIES (+ offers for "festival" links)
   ===================================================== */
 
   useEffect(() => {
-    API.get("/properties")
-      .then((r) => {
-        setProperties(Array.isArray(r.data) ? r.data : []);
+    Promise.all([
+      API.get("/properties"),
+      API.get("/offers").catch(() => ({ data: [] })),
+    ])
+      .then(([p, o]) => {
+        setProperties(Array.isArray(p.data) ? p.data : []);
+        setOfferTitles((o.data || []).map((x) => x.title).filter(Boolean));
       })
-      .catch(() => {
-        setProperties([]);
-      });
+      .catch(() => setProperties([]))
+      .finally(() => setLoading(false));
   }, []);
 
   /* =====================================================
-     FILTER PROPERTIES
+     FILTER + SORT (recomputed whenever the URL changes)
   ===================================================== */
 
-  useEffect(() => {
-    let res = [...properties];
+  const filtered = useMemo(
+    () => applyFilters(properties, filters, { offerTitles }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [properties, offerTitles, params.toString()]
+  );
 
-    const searchQ = params.get("q") || q;
-    const t = params.get("type") || type;
-    const l = params.get("location") || loc;
-    const c = params.get("category") || cat;
-
-    if (searchQ) {
-      const search = searchQ.toLowerCase();
-
-      res = res.filter((p) => {
-        const title = String(p?.title || "").toLowerCase();
-        const location = String(
-          p?.location || p?.locality || ""
-        ).toLowerCase();
-
-        return (
-          title.includes(search) ||
-          location.includes(search)
-        );
-      });
-    }
-
-    if (t && t !== "All") {
-      const typeSearch = t.toLowerCase();
-
-      res = res.filter((p) => {
-        const propertyType = String(
-          p?.type || p?.propertyType || ""
-        ).toLowerCase();
-
-        const bhk = String(p?.bhk || "").toLowerCase();
-
-        return (
-          propertyType.includes(typeSearch) ||
-          bhk.includes(typeSearch)
-        );
-      });
-    }
-
-    if (l) {
-      const locationSearch = l.toLowerCase();
-
-      res = res.filter((p) => {
-        const location = String(
-          p?.location || p?.locality || ""
-        ).toLowerCase();
-
-        return location.includes(locationSearch);
-      });
-    }
-
-    if (c) {
-      res = res.filter(
-        (p) =>
-          String(p?.category || "").toLowerCase() ===
-          c.toLowerCase()
-      );
-    }
-
-    if (budget) {
-      // Budget filter can be added later.
-    }
-
-    setFiltered(res);
-  }, [
-    properties,
-    params,
-    q,
-    type,
-    loc,
-    cat,
-    budget,
-  ]);
-
-  /* =====================================================
-     APPLY FILTERS
-  ===================================================== */
-
-  const apply = () => {
-    const p = new URLSearchParams();
-
-    if (q) p.set("q", q);
-    if (type) p.set("type", type);
-    if (loc) p.set("location", loc);
-    if (cat) p.set("category", cat);
-
-    setParams(p);
+  // Change one filter → rewrite the URL with clean keys
+  const setFilter = (key, value) => {
+    const next = { ...filters, [key]: value };
+    if (key === "city") next.locality = "";
+    const out = new URLSearchParams();
+    KEYS.forEach((k) => next[k] && out.set(k, next[k]));
+    setParams(out, { replace: true });
   };
 
-  /* =====================================================
-     CLEAR FILTERS
-  ===================================================== */
+  // Typing in the search box filters after a short pause
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (q.trim() !== filters.q) setFilter("q", q.trim());
+    }, 350);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q]);
+
+  // Keep the box in sync when the URL changes from elsewhere (navbar, links)
+  useEffect(() => {
+    setQ(filters.q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.get("q"), params.get("location")]);
 
   const clear = () => {
     setQ("");
-    setType("");
-    setLoc("");
-    setCat("");
-    setBudget("");
-    setParams({});
+    setParams({}, { replace: true });
   };
+
+  // Chips for every active filter
+  const chips = [
+    filters.q && ["q", `“${filters.q}”`],
+    filters.city && ["city", filters.city],
+    filters.locality && ["locality", filters.locality],
+    filters.type && ["type", filters.type.replace(/-/g, " ")],
+    filters.budget && ["budget", budgetLabel(parseBudget(filters.budget)) || filters.budget],
+    filters.bhk && ["bhk", filters.bhk],
+    filters.status && ["status", filters.status.replace(/-/g, " ")],
+    filters.category && ["category", label(CATEGORY_OPTIONS, filters.category)],
+  ].filter(Boolean);
+
+  const place = filters.locality || filters.city || "Gurugram";
+  const typeKnown = TYPE_OPTIONS.some((g) => g.items.some(([v]) => v === filters.type));
+  const budgetKnown = BUDGETS.some((b) => b.value === filters.budget);
+  const statusKnown = STATUSES.includes(filters.status);
+  const localityChoices = filters.city
+    ? [{ city: filters.city, localities: localitiesOf(filters.city) }]
+    : CITIES;
 
   /* =====================================================
      WHATSAPP
@@ -159,45 +135,6 @@ export default function Search() {
     );
 
     return `https://wa.me/${whatsappNumber}?text=${message}`;
-  };
-
-  /* =====================================================
-     PRICE SORT
-  ===================================================== */
-
-  const getPriceNumber = (property) => {
-    const value =
-      property?.priceRange ||
-      property?.price ||
-      "0";
-
-    const cleaned = String(value)
-      .replace(/,/g, "")
-      .replace(/[^0-9.]/g, "");
-
-    return parseFloat(cleaned) || 0;
-  };
-
-  const sortProperties = (value) => {
-    const sorted = [...filtered];
-
-    if (value === "price-low") {
-      sorted.sort(
-        (a, b) =>
-          getPriceNumber(a) -
-          getPriceNumber(b)
-      );
-    }
-
-    if (value === "price-high") {
-      sorted.sort(
-        (a, b) =>
-          getPriceNumber(b) -
-          getPriceNumber(a)
-      );
-    }
-
-    setFiltered(sorted);
   };
 
   /* =====================================================
@@ -426,7 +363,7 @@ export default function Search() {
           <span>›</span>
 
           <span>
-            Projects in Gurugram
+            Projects in {place}
           </span>
         </div>
 
@@ -455,190 +392,115 @@ export default function Search() {
             <div className="filter-fields">
 
               {/* SEARCH */}
-
               <div className="filter-field">
                 <label>SEARCH</label>
-
                 <input
                   value={q}
-                  onChange={(e) =>
-                    setQ(e.target.value)
-                  }
-                  placeholder="Project, Builder..."
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder="Project, builder, sector…"
                 />
               </div>
 
-              {/* PROPERTY TYPE */}
-
+              {/* CITY */}
               <div className="filter-field">
-                <label>
-                  PROPERTY TYPE
-                </label>
-
-                <select
-                  value={type}
-                  onChange={(e) =>
-                    setType(e.target.value)
-                  }
-                >
-                  <option value="">
-                    All Types
-                  </option>
-
-                  <option>
-                    Apartment
-                  </option>
-
-                  <option>
-                    Villa
-                  </option>
-
-                  <option>
-                    Builder Floor
-                  </option>
-
-                  <option>
-                    Plots
-                  </option>
-
-                  <option>
-                    Commercial
-                  </option>
-
-                  <option>
-                    Retail
-                  </option>
-
-                  <option>
-                    SCO
-                  </option>
-
-                  <option>
-                    Farmhouse
-                  </option>
+                <label>CITY</label>
+                <select value={filters.city} onChange={(e) => setFilter("city", e.target.value)}>
+                  <option value="">All Cities</option>
+                  {CITIES.map((c) => <option key={c.city} value={c.city}>{c.city}</option>)}
                 </select>
               </div>
 
-              {/* LOCATION */}
-
+              {/* LOCALITY */}
               <div className="filter-field">
-                <label>
-                  LOCATION
-                </label>
+                <label>LOCALITY</label>
+                <select value={filters.locality} onChange={(e) => setFilter("locality", e.target.value)}>
+                  <option value="">{filters.city ? `All of ${filters.city}` : "All Localities"}</option>
+                  {localityChoices.map((c) => (
+                    <optgroup key={c.city} label={c.city}>
+                      {c.localities.map((l) => <option key={l.slug} value={l.name}>{l.name}</option>)}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
 
-                <select
-                  value={loc}
-                  onChange={(e) =>
-                    setLoc(e.target.value)
-                  }
-                >
-                  <option value="">
-                    All Gurugram
-                  </option>
+              {/* PROPERTY TYPE */}
+              <div className="filter-field">
+                <label>PROPERTY TYPE</label>
+                <select value={filters.type} onChange={(e) => setFilter("type", e.target.value)}>
+                  <option value="">All Types</option>
+                  {!typeKnown && filters.type && <option value={filters.type}>{filters.type.replace(/-/g, " ")}</option>}
+                  {TYPE_OPTIONS.map((g) => (
+                    <optgroup key={g.group} label={g.group}>
+                      {g.items.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
 
-                  <option>
-                    Golf Course Road
-                  </option>
+              {/* BUDGET */}
+              <div className="filter-field">
+                <label>BUDGET</label>
+                <select value={filters.budget} onChange={(e) => setFilter("budget", e.target.value)}>
+                  <option value="">Any Budget</option>
+                  {!budgetKnown && filters.budget && <option value={filters.budget}>{budgetLabel(parseBudget(filters.budget)) || filters.budget}</option>}
+                  {BUDGETS.map((b) => <option key={b.value} value={b.value}>{b.label}</option>)}
+                </select>
+              </div>
 
-                  <option>
-                    Golf Course Extension Road
-                  </option>
+              {/* BHK */}
+              <div className="filter-field">
+                <label>BEDROOMS</label>
+                <div className="bhk-pills">
+                  {BHK_OPTIONS.map((b) => (
+                    <button
+                      key={b}
+                      type="button"
+                      className={filters.bhk.toLowerCase() === b.toLowerCase() ? "active" : ""}
+                      onClick={() => setFilter("bhk", filters.bhk.toLowerCase() === b.toLowerCase() ? "" : b)}
+                    >
+                      {b.replace(" BHK", "")}{b === "Studio" ? "" : " BHK"}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-                  <option>
-                    Sohna Road
-                  </option>
-
-                  <option>
-                    Dwarka Expressway
-                  </option>
-
-                  <option>
-                    New Gurgaon
-                  </option>
-
-                  <option>
-                    Southern Peripheral Road
-                  </option>
+              {/* STATUS */}
+              <div className="filter-field">
+                <label>PROJECT STATUS</label>
+                <select value={filters.status} onChange={(e) => setFilter("status", e.target.value)}>
+                  <option value="">Any Status</option>
+                  {!statusKnown && filters.status && <option value={filters.status}>{filters.status.replace(/-/g, " ")}</option>}
+                  {STATUSES.map((st) => <option key={st} value={st}>{st}</option>)}
                 </select>
               </div>
 
               {/* CATEGORY */}
-
               <div className="filter-field">
-                <label>
-                  CATEGORY
-                </label>
-
+                <label>CATEGORY</label>
                 <div className="category-options">
-
-                  {[
-                    {
-                      id: "",
-                      label: "All Projects",
-                    },
-                    {
-                      id: "recommended",
-                      label: "Recommended",
-                    },
-                    {
-                      id: "trending",
-                      label: "Trending",
-                    },
-                    {
-                      id: "upcoming",
-                      label: "Upcoming",
-                    },
-                    {
-                      id: "newlaunch",
-                      label: "New Launch",
-                    },
-                    {
-                      id: "commercial",
-                      label: "Commercial",
-                    },
-                    {
-                      id: "sco",
-                      label: "SCO",
-                    },
-                  ].map((o) => (
-                    <label
-                      key={o.id}
-                      className="category-option"
-                    >
+                  {!CATEGORY_OPTIONS.some(([v]) => v === filters.category) && (
+                    <label className="category-option">
+                      <input type="radio" name="cat" checked readOnly />
+                      <span>{filters.category}</span>
+                    </label>
+                  )}
+                  {CATEGORY_OPTIONS.map(([id, text]) => (
+                    <label key={id || "all"} className="category-option">
                       <input
                         type="radio"
                         name="cat"
-                        checked={
-                          cat === o.id
-                        }
-                        onChange={() =>
-                          setCat(o.id)
-                        }
+                        checked={filters.category === id}
+                        onChange={() => setFilter("category", id)}
                       />
-
-                      <span>
-                        {o.label}
-                      </span>
+                      <span>{text}</span>
                     </label>
                   ))}
-
                 </div>
               </div>
 
-              {/* APPLY */}
-
-              <button
-                className="apply-filter-btn"
-                onClick={apply}
-              >
-                Apply Filters
-              </button>
-
-              {filtered.length > 0 && (
-                <div className="property-count">
-                  {filtered.length} properties found
-                </div>
-              )}
+              <div className="property-count">
+                {loading ? "Loading…" : `${filtered.length} properties found`}
+              </div>
 
             </div>
 
@@ -680,46 +542,50 @@ export default function Search() {
             <div className="results-header">
 
               <div>
-                <h1>
-                  Properties in Gurugram
-                </h1>
-
+                <h1>{resultsTitle(filters)}</h1>
                 <p>
-                  Showing {filtered.length} results
+                  {loading ? "Loading properties…" : `Showing ${filtered.length} result${filtered.length === 1 ? "" : "s"}`}
                   {" "}•{" "}
-                  Luxury Residences &
-                  Investment Opportunities
+                  Luxury Residences &amp; Investment Opportunities
                 </p>
               </div>
 
               <select
-                onChange={(e) =>
-                  sortProperties(
-                    e.target.value
-                  )
-                }
+                value={filters.sort}
+                onChange={(e) => setFilter("sort", e.target.value)}
                 className="sort-select"
               >
-                <option value="">
-                  Sort by: Recommended
-                </option>
-
-                <option value="price-low">
-                  Price: Low to High
-                </option>
-
-                <option value="price-high">
-                  Price: High to Low
-                </option>
+                <option value="">Sort by: Recommended</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="newest">Newest First</option>
               </select>
 
             </div>
+
+            {chips.length > 0 && (
+              <div className="active-filters">
+                {chips.map(([key, text]) => (
+                  <button key={key} type="button" className="active-chip" onClick={() => { if (key === "q") setQ(""); setFilter(key, ""); }}>
+                    {text} <span aria-hidden="true">✕</span>
+                  </button>
+                ))}
+                <button type="button" className="active-clear" onClick={clear}>Clear all</button>
+              </div>
+            )}
 
             {/* =================================================
                 EMPTY STATE
             ================================================= */}
 
-            {filtered.length === 0 ? (
+            {loading ? (
+
+              <div className="empty-state">
+                <div className="empty-title">Loading properties…</div>
+                <div className="empty-text">The server may take a few seconds to wake up.</div>
+              </div>
+
+            ) : filtered.length === 0 ? (
 
               <div className="empty-state">
 
@@ -784,7 +650,10 @@ export default function Search() {
       ===================================================== */}
 
       <style>{`
-        * { box-sizing: border-box; }
+
+        * {
+          box-sizing: border-box;
+        }
 
         .search-page {
           min-height: 100vh;
@@ -806,7 +675,7 @@ export default function Search() {
         .search-container {
           width: min(1440px, calc(100% - 40px));
           margin: 0 auto;
-          padding: 92px 0 60px;
+          padding: 92px 0 0px;
         }
 
         .search-breadcrumb {
@@ -825,7 +694,9 @@ export default function Search() {
           transition: .2s ease;
         }
 
-        .search-breadcrumb a:hover { color: ${GOLD_DARK}; }
+        .search-breadcrumb a:hover {
+          color: ${GOLD_DARK};
+        }
 
         .search-breadcrumb span:last-child {
           color: #222222;
@@ -1001,7 +872,9 @@ export default function Search() {
           transition: .2s ease;
         }
 
-        .expert-call:hover { background: #ffffff; }
+        .expert-call:hover {
+          background: #ffffff;
+        }
 
         .results-header {
           min-height: 78px;
@@ -1062,7 +935,10 @@ export default function Search() {
           color: inherit;
           text-decoration: none;
           box-shadow: 0 8px 28px rgba(0,0,0,.045);
-          transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+          transition:
+            transform .3s ease,
+            box-shadow .3s ease,
+            border-color .3s ease;
         }
 
         .search-property-card:hover {
@@ -1124,7 +1000,9 @@ export default function Search() {
           box-shadow: 0 4px 12px rgba(0,0,0,.16);
         }
 
-        .search-rera b { font-size: 10px; }
+        .search-rera b {
+          font-size: 10px;
+        }
 
         .search-bhk-badge {
           position: absolute;
@@ -1146,7 +1024,9 @@ export default function Search() {
           text-overflow: ellipsis;
         }
 
-        .search-property-content { padding: 16px 16px 15px; }
+        .search-property-content {
+          padding: 16px 16px 15px;
+        }
 
         .search-property-content h3 {
           margin: 0;
@@ -1225,6 +1105,14 @@ export default function Search() {
           text-overflow: ellipsis;
         }
 
+        /* =================================================
+           WHATSAPP BUTTON - UPDATED
+           Screenshot style:
+           light green background,
+           thin green border,
+           green icon/text
+        ================================================= */
+
         .search-card-whatsapp {
           width: 100%;
           height: 36px;
@@ -1233,14 +1121,16 @@ export default function Search() {
           align-items: center;
           justify-content: center;
           gap: 7px;
-          border-radius: 8px;
-          background: #138a42;
-          color: #ffffff;
+          border-radius: 6px;
+          border: 1px solid #bfe8cf;
+          background: #eefaf3;
+          color: #18b965;
           text-decoration: none;
           font-size: 10px;
           line-height: 1;
-          font-weight: 800;
+          font-weight: 700;
           transition: .25s ease;
+          box-sizing: border-box;
         }
 
         .search-card-whatsapp svg {
@@ -1249,7 +1139,9 @@ export default function Search() {
         }
 
         .search-card-whatsapp:hover {
-          background: #0d7034;
+          background: #e2f7ea;
+          border-color: #a8dfbf;
+          color: #129c55;
           transform: translateY(-1px);
         }
 
@@ -1296,7 +1188,12 @@ export default function Search() {
           cursor: pointer;
         }
 
+        /* =================================================
+           TABLET
+        ================================================= */
+
         @media (max-width: 1200px) {
+
           .search-container {
             width: min(100% - 30px, 1100px);
           }
@@ -1310,16 +1207,26 @@ export default function Search() {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
-          .search-property-image { height: 230px; }
+          .search-property-image {
+            height: 230px;
+          }
+
         }
 
+        /* =================================================
+           TABLET / SMALL LAPTOP
+        ================================================= */
+
         @media (max-width: 960px) {
+
           .search-container {
             width: calc(100% - 28px);
             padding-top: 88px;
           }
 
-          .search-layout { grid-template-columns: 1fr; }
+          .search-layout {
+            grid-template-columns: 1fr;
+          }
 
           .filter-sidebar {
             position: relative;
@@ -1330,7 +1237,9 @@ export default function Search() {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
-          .filter-field:first-child { grid-column: 1 / -1; }
+          .filter-field:first-child {
+            grid-column: 1 / -1;
+          }
 
           .category-options {
             grid-template-columns: repeat(2, 1fr);
@@ -1341,14 +1250,22 @@ export default function Search() {
             grid-column: 1 / -1;
           }
 
-          .expert-card { display: none; }
+          .expert-card {
+            display: none;
+          }
 
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
+
         }
 
+        /* =================================================
+           MOBILE
+        ================================================= */
+
         @media (max-width: 640px) {
+
           .search-container {
             width: calc(100% - 20px);
             padding-top: 80px;
@@ -1370,29 +1287,43 @@ export default function Search() {
             gap: 14px;
           }
 
-          .filter-field:first-child { grid-column: auto; }
+          .filter-field:first-child {
+            grid-column: auto;
+          }
 
-          .category-options { grid-template-columns: 1fr; }
+          .category-options {
+            grid-template-columns: 1fr;
+          }
 
           .results-header {
             padding: 14px;
             border-radius: 14px;
           }
 
-          .results-header h1 { font-size: 17px; }
+          .results-header h1 {
+            font-size: 17px;
+          }
 
-          .results-header p { font-size: 10px; }
+          .results-header p {
+            font-size: 10px;
+          }
 
-          .sort-select { width: 100%; }
+          .sort-select {
+            width: 100%;
+          }
 
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
           }
 
-          .search-property-image { height: 150px; }
+          .search-property-image {
+            height: 150px;
+          }
 
-          .search-property-content { padding: 11px; }
+          .search-property-content {
+            padding: 11px;
+          }
 
           .search-property-content h3 {
             font-size: 12px;
@@ -1426,11 +1357,14 @@ export default function Search() {
             height: 13px;
           }
 
+          /* MOBILE WHATSAPP */
+
           .search-card-whatsapp {
             height: 32px;
             margin-top: 9px;
             gap: 5px;
             font-size: 8.5px;
+            border-radius: 5px;
           }
 
           .search-card-whatsapp svg {
@@ -1455,32 +1389,76 @@ export default function Search() {
             padding: 5px 7px;
             font-size: 7px;
           }
+
         }
 
+        /* =================================================
+           SMALL MOBILE
+        ================================================= */
+
         @media (max-width: 400px) {
+
           .results-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
           }
 
-          .search-property-image { height: 125px; }
+          .search-property-image {
+            height: 125px;
+          }
 
-          .search-property-content { padding: 9px; }
+          .search-property-content {
+            padding: 9px;
+          }
 
-          .search-property-content h3 { font-size: 11px; }
+          .search-property-content h3 {
+            font-size: 11px;
+          }
 
-          .search-card-price { font-size: 11px; }
+          .search-card-price {
+            font-size: 11px;
+          }
 
-          .search-card-location { font-size: 8px; }
+          .search-card-location {
+            font-size: 8px;
+          }
 
           .search-card-meta {
             grid-template-columns: 1fr;
             gap: 5px;
           }
 
-          .search-card-whatsapp { font-size: 8px; }
+          .search-card-whatsapp {
+            font-size: 8px;
+          }
+
         }
+
+
+        /* ---- filter additions ---- */
+        .filter-field optgroup { font-weight: 800; color: #777; }
+
+        .bhk-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .bhk-pills button {
+          height: 32px; padding: 0 11px; border-radius: 20px;
+          border: 1px solid #e4e4e4; background: #fff; color: #333;
+          font-size: 11px; font-weight: 700; cursor: pointer; transition: .2s ease;
+        }
+        .bhk-pills button:hover { border-color: ${GOLD}; }
+        .bhk-pills button.active { background: ${BLACK}; border-color: ${BLACK}; color: ${GOLD}; }
+
+        .active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+        .active-chip {
+          display: inline-flex; align-items: center; gap: 7px;
+          height: 32px; padding: 0 12px; border-radius: 20px;
+          border: 1px solid #ecdfb0; background: #fffaeb; color: #5c4a12;
+          font-size: 11.5px; font-weight: 700; cursor: pointer; text-transform: capitalize;
+        }
+        .active-chip span { font-size: 10px; color: ${GOLD_DARK}; }
+        .active-chip:hover { border-color: ${GOLD}; }
+        .active-clear { border: none; background: none; color: ${GOLD_DARK}; font-size: 11.5px; font-weight: 800; cursor: pointer; }
       `}</style>
+
     </div>
   );
 }

@@ -1,0 +1,228 @@
+/* =====================================================================
+   HomWisor brand colours for the public website
+   White backgrounds stay as they are — this only unifies headings,
+   accents and buttons to the admin palette: near-black + gold gradients.
+   Loaded after the component styles (see main.jsx).
+===================================================================== */
+
+:root {
+  --hb-ink: #0b0b0b;          /* headings */
+  --hb-text: #3a3627;         /* strong body text */
+  --hb-muted: #6b6450;        /* sub text */
+  --hb-gold: #D4AF37;
+  --hb-gold-l: #E8C766;
+  --hb-gold-d: #9A7418;       /* labels, prices */
+  --hb-grad: linear-gradient(135deg, #E8C766 0%, #D4AF37 45%, #9A7418 100%);
+  --hb-grad-btn: linear-gradient(135deg, #E8C766, #D4AF37 50%, #9A7418);
+}
+
+/* ---------- section headings: near-black, highlighted word in gold gradient ---------- */
+.hw-trending-heading h2,
+.hw-prime-locations h2,
+.hw-upcoming-projects h2,
+.hw-luxury-projects h2,
+.hw-festival-title-wrap h2,
+.hw-budget-heading h2,
+.hw-branded-copy h2,
+.hw-developer-heading h2,
+.hw-bhk-premium-section h2,
+.hw-why-premium-section h2,
+.hw-testimonials-premium h2,
+.hw-testimonial-heading h2,
+.hwr-head h2 {
+  color: var(--hb-ink) !important;
+  letter-spacing: -.5px;
+}
+
+.hw-trending-heading h2 span,
+.hw-prime-locations h2 span,
+.hw-upcoming-projects h2 span,
+.hw-luxury-projects h2 span,
+.hw-festival-title-wrap h2 span,
+.hw-budget-heading h2 span,
+.hw-branded-copy h2 span,
+.hw-developer-heading h2 span,
+.hw-bhk-premium-section h2 span,
+.hw-why-premium-section h2 span,
+.hw-testimonials-premium h2 span,
+.hw-testimonial-heading h2 span {
+  background: var(--hb-grad) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+/* sub-headings under titles */
+.hw-trending-heading p,
+.hw-upcoming-header p,
+.hw-budget-heading p,
+.hw-developer-heading p,
+.hw-festival-title-wrap p,
+.hw-branded-copy p {
+  color: var(--hb-muted) !important;
+}
+
+/* small eyebrow labels (HOMWISOR — SCO PROJECTS …) */
+.hw-trending-eyebrow,
+.hw-subsection-eyebrow,
+.hw-budget-eyebrow,
+.hw-branded-label,
+.hw-testimonial-eyebrow,
+.hw-testimonial-eyebrow strong,
+.hw-luxury-projects .hw-subsection-eyebrow {
+  color: var(--hb-gold-d) !important;
+}
+.hw-budget-eyebrow-line,
+.hw-section-line,
+.hw-trending-eyebrow span:not(:only-child) {
+  background: var(--hb-grad) !important;
+}
+
+/* ---------- prices ---------- */
+.hw-card-price,
+.hw-festival-card-price,
+.search-card-price {
+  color: var(--hb-gold-d) !important;
+  font-weight: 800 !important;
+}
+
+/* ---------- card titles ---------- */
+.hw-trending-card-content h3,
+.hw-festival-card-content h3,
+.hw-developer-info h3,
+.search-property-content h3,
+.hw-budget-card-content h3 {
+  color: var(--hb-ink) !important;
+}
+.hw-budget-card-content p { color: var(--hb-muted) !important; }
+
+/* ---------- "View All" buttons: black + gold (admin dark button) ---------- */
+.hw-trending-view-all,
+.hw-upcoming-view-all,
+.hw-festival-view-all,
+.hw-budget-view-all {
+  background: var(--hb-ink) !important;
+  color: var(--hb-gold-l) !important;
+  border: 1px solid var(--hb-ink) !important;
+  box-shadow: 0 6px 16px rgba(11, 11, 11, .14) !important;
+  transition: background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease !important;
+}
+.hw-trending-view-all svg,
+.hw-upcoming-view-all svg,
+.hw-festival-view-all svg { color: currentColor !important; stroke: currentColor !important; }
+.hw-trending-view-all:hover,
+.hw-upcoming-view-all:hover,
+.hw-festival-view-all:hover,
+.hw-budget-view-all:hover {
+  background: var(--hb-grad-btn) !important;
+  color: #111 !important;
+  border-color: transparent !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, .3) !important;
+}
+
+/* ---------- primary buttons: admin gold gradient ---------- */
+.hw-branded-primary,
+.hw-festival-explore,
+.hw-search-button,
+.hw-home-hero .hw-search-button,
+.hw-search-overlay .search-grid button,
+.expert-call,
+.empty-btn {
+  background: var(--hb-grad-btn) !important;
+  color: #111 !important;
+  border: none !important;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, .28) !important;
+}
+.hw-branded-primary:hover,
+.hw-festival-explore:hover,
+.hw-search-button:hover,
+.expert-call:hover,
+.empty-btn:hover { filter: brightness(1.06); }
+
+/* secondary outline buttons */
+.hw-branded-secondary {
+  background: #fff !important;
+  color: var(--hb-ink) !important;
+  border: 1px solid var(--hb-ink) !important;
+}
+.hw-branded-secondary:hover { background: var(--hb-ink) !important; color: var(--hb-gold-l) !important; }
+
+/* ---------- badges on cards: black pill + gold text ---------- */
+.hw-bhk-badge,
+.search-bhk-badge {
+  background: rgba(11, 11, 11, .86) !important;
+  color: var(--hb-gold-l) !important;
+  border: 1px solid rgba(212, 175, 55, .35) !important;
+}
+.hw-festival-card-badge,
+.hw-festival-mini-badge {
+  background: var(--hb-grad-btn) !important;
+  color: #111 !important;
+}
+
+/* ---------- branded feature banner text ---------- */
+.hw-branded-points { color: var(--hb-text) !important; }
+.hw-branded-point-icon { color: var(--hb-gold-d) !important; }
+.hw-branded-image-card strong { color: var(--hb-ink) !important; }
+.hw-branded-image-card a { color: var(--hb-gold-d) !important; }
+
+/* ---------- homepage BHK / Why / stats / testimonials ---------- */
+.hw-bhk-premium-card > div:first-child > div:nth-child(2),
+.hw-why-feature-card > div:first-child > div:nth-child(3),
+.hw-why-stats > div > div:last-child > div:first-child,
+.stats-grid > div > div:first-child,
+.hw-testimonial-name {
+  color: var(--hb-ink) !important;
+}
+.hw-testimonial-review { color: var(--hb-text) !important; }
+
+/* ---------- search page ---------- */
+.results-header h1,
+.filter-header h3 { color: var(--hb-ink) !important; }
+.filter-header button,
+.search-breadcrumb a:hover { color: var(--hb-gold-d) !important; }
+.sort-select:focus,
+.filter-field input:focus,
+.filter-field select:focus { border-color: var(--hb-gold) !important; }
+
+/* =====================================================================
+   Homepage hero — proportions of the reference (100acress) design:
+   hero ≈ 30% of the screen width, search box ≤ 960px, overlapping ~75px,
+   dark navbar background over the hero.
+===================================================================== */
+@media (min-width: 769px) {
+  /* navbar background while it sits on the hero (solid black once scrolled) */
+  .hw-header:not(.hw-header-inner-page):not(.hw-header-scrolled) {
+    background: linear-gradient(180deg, rgba(8, 8, 8, .88) 0%, rgba(8, 8, 8, .72) 100%) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, .28) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+  }
+
+  .hw-home-hero .hw-hero { height: clamp(360px, 30vw, 470px) !important; }
+  /* banner image starts below the 72px navbar so its artwork isn't covered */
+  .hw-home-hero .hw-hero .hw-slides {
+    inset: auto !important;
+    top: 72px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100% - 72px) !important;
+  }
+  .hw-home-hero .hw-hero { background: #080808 !important; }
+  .hw-home-hero .hw-hero .hw-arrow { top: calc(50% + 36px) !important; }
+
+  .hw-home-hero .hw-search-overlay {
+    top: calc(100% - 75px) !important;
+    bottom: auto !important;
+    width: min(960px, calc(100% - 48px)) !important;
+  }
+  .hw-home-hero .hw-search-container {
+    width: 100% !important;
+    max-width: 960px !important;
+  }
+}

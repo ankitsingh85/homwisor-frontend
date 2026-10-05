@@ -1,0 +1,87 @@
+/* ---------- Image upload (admin) ---------- */
+.hwu { display: grid; gap: 8px; }
+.hwu.logo { max-width: 320px; }
+
+.hwu-drop {
+  width: 100%;
+  display: grid; place-content: center; justify-items: center; gap: 6px;
+  border: 1.5px dashed #d9cfae; border-radius: 14px; background: #fcfaf3;
+  color: #6b6450; cursor: pointer; font-family: inherit; padding: 16px; text-align: center;
+  transition: border-color .15s, background .15s;
+}
+.hwu-drop svg { width: 34px; height: 34px; color: #b8963a; }
+.hwu-drop strong { font-size: 13.5px; color: #2b2718; }
+.hwu-drop span { font-size: 11.5px; color: #8f8873; }
+.hwu-drop:hover, .hwu-drop.drag { border-color: #D4AF37; background: #fff7dc; }
+
+.hwu-frame {
+  position: relative; overflow: hidden; border-radius: 14px;
+  background: #f1ede1 repeating-conic-gradient(#f6f3ea 0% 25%, #ece7d8 0% 50%) 0 0 / 18px 18px;
+  border: 1px solid #ece7d8;
+}
+.hwu.logo .hwu-frame img { object-fit: contain !important; padding: 10px; }
+.hwu-frame img { width: 100%; height: 100%; display: block; }
+.hwu-frame.broken img { display: none; }
+.hwu-broken { position: absolute; inset: 0; display: grid; place-items: center; padding: 14px; text-align: center; font-size: 12.5px; color: #991b1b; background: #fef2f2; }
+
+.hwu-actions {
+  position: absolute; right: 10px; bottom: 10px; display: flex; gap: 6px;
+  opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s;
+}
+.hwu-frame:hover .hwu-actions, .hwu-frame:focus-within .hwu-actions { opacity: 1; transform: none; }
+@media (hover: none) { .hwu-actions { opacity: 1; transform: none; } }
+.hwu-actions button {
+  border: none; border-radius: 8px; padding: 7px 12px; cursor: pointer;
+  font-family: inherit; font-size: 12px; font-weight: 700;
+  background: rgba(9,9,9,.82); color: #f3e3b0; backdrop-filter: blur(4px);
+}
+.hwu-actions button:last-child { color: #fecaca; }
+
+.hwu-busy {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px;
+  background: rgba(9,9,9,.55); color: #fff; font-size: 12.5px; font-weight: 700;
+}
+.hwu-busy i { position: absolute; left: 0; bottom: 0; height: 4px; background: linear-gradient(90deg, #9A7418, #E8C766); transition: width .2s; }
+.hwu-spin { width: 22px; height: 22px; border: 2.5px solid rgba(255,255,255,.3); border-top-color: #E8C766; border-radius: 50%; animation: hwu-spin .7s linear infinite; }
+@keyframes hwu-spin { to { transform: rotate(360deg); } }
+
+.hwu-err { font-size: 12px; color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 7px 10px; }
+
+.hwu-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: #8f8873; }
+.hwu-linkbtn { border: none; background: none; padding: 0; color: #9A7418; font-family: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+.hwu-linkbtn:hover { text-decoration: underline; }
+.hwu-link { display: inline-flex; gap: 6px; align-items: center; flex: 1; min-width: 220px; max-width: 420px; margin-left: auto; }
+.hwu-link input { flex: 1; height: 32px; border: 1px solid #e5e1d3; border-radius: 8px; padding: 0 10px; font-family: inherit; font-size: 12px; background: #fff; outline: none; }
+.hwu-link input:focus { border-color: #D4AF37; }
+.hwu-link button { height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid #e5e1d3; background: #fff; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.hwu-link button:hover { border-color: #D4AF37; }
+
+/* gallery */
+.hwu-gallery { display: grid; gap: 8px; }
+.hwu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.hwu-tile { position: relative; aspect-ratio: 3 / 2; border-radius: 12px; overflow: hidden; background: #f1ede1; border: 1px solid #ece7d8; }
+.hwu-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hwu-no { position: absolute; left: 6px; top: 6px; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: rgba(9,9,9,.75); color: #E8C766; font-size: 10.5px; font-weight: 800; display: grid; place-items: center; }
+.hwu-tile-actions { position: absolute; right: 6px; bottom: 6px; display: flex; gap: 4px; opacity: 0; transition: opacity .15s; }
+.hwu-tile:hover .hwu-tile-actions, .hwu-tile:focus-within .hwu-tile-actions { opacity: 1; }
+@media (hover: none) { .hwu-tile-actions { opacity: 1; } }
+.hwu-tile-actions button { width: 26px; height: 26px; border: none; border-radius: 7px; background: rgba(9,9,9,.8); color: #f3e3b0; font-size: 13px; cursor: pointer; display: grid; place-items: center; }
+.hwu-tile-actions button:last-child { color: #fecaca; }
+.hwu-add { display: grid; place-content: center; justify-items: center; gap: 4px; border: 1.5px dashed #d9cfae; background: #fcfaf3; cursor: pointer; font-family: inherit; color: #6b6450; }
+.hwu-add svg { width: 26px; height: 26px; color: #b8963a; }
+.hwu-add strong { font-size: 12.5px; color: #2b2718; }
+.hwu-add span { font-size: 10.5px; color: #8f8873; }
+.hwu-add:hover, .hwu-add.drag { border-color: #D4AF37; background: #fff7dc; }
+
+/* gallery captions */
+.hwu-tile-wrap { display: grid; gap: 6px; align-content: start; }
+.hwu-caption { height: 30px; border: 1px solid #e5e1d3; border-radius: 8px; padding: 0 8px; font-family: inherit; font-size: 11.5px; background: #fff; outline: none; min-width: 0; }
+.hwu-caption:focus { border-color: #D4AF37; }
+
+/* PDF file */
+.hwu-file { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid #ece7d8; border-radius: 12px; background: #fcfaf3; flex-wrap: wrap; }
+.hwu-file-ic { width: 44px; height: 52px; border-radius: 8px; display: grid; place-items: center; background: #b91c1c; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .5px; flex-shrink: 0; }
+.hwu-file-name { flex: 1; min-width: 140px; display: grid; gap: 3px; }
+.hwu-file-name strong { font-size: 13px; color: #2b2718; word-break: break-all; }
+.hwu-file-name a { font-size: 12px; color: #9A7418; font-weight: 700; text-decoration: none; }
+.hwu-linkbtn.danger { color: #b91c1c; }

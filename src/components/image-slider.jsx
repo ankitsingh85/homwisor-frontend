@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import s1 from "../images/s1.webp";
 import s2 from "../images/s2.webp";
 import s3 from "../images/s3.webp";
+import BannerLink from "./BannerLink";
 
 export default function PremiumAutoSlider({ banners = [] }) {
 
@@ -44,10 +45,12 @@ export default function PremiumAutoSlider({ banners = [] }) {
               index === active ? "is-active" : ""
             }`}
           >
-            <img
-              src={slide.image}
-              alt="Property Banner"
-            />
+            <BannerLink link={slide.link} label={slide.title} className="hw-image-slide-link">
+              <img
+                src={slide.image}
+                alt={slide.title || "Property Banner"}
+              />
+            </BannerLink>
           </div>
         ))}
 
@@ -96,6 +99,13 @@ export default function PremiumAutoSlider({ banners = [] }) {
           opacity: 1;
           visibility: visible;
           transform: scale(1);
+        }
+
+        .hw-image-slide-link {
+          display: block;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
         }
 
         .hw-image-slide img {

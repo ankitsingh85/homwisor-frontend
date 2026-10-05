@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import dlfLogo from "../images/dlf.avif";
 import godrejLogo from "../images/godrej.avif";
 import experionLogo from "../images/experion.avif";
 import m3mLogo from "../images/m3m.avif";
 import maxLogo from "../images/max.avif";
+import trumpLogo from "../images/trump.avif";
 
 // Local logos for builders whose name starts with one of these keys
 const localLogos = {
@@ -12,695 +14,207 @@ const localLogos = {
   experion: experionLogo,
   m3m: m3mLogo,
   max: maxLogo,
+  trump: trumpLogo,
 };
 
-const fallbackImages = [
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=85",
-];
+const SHOW = 12; // tiles before "View all"
 
-const firstWord = (str = "") => str.trim().split(/s+/)[0].toLowerCase();
+const firstWord = (str = "") => String(str).trim().split(/\s+/)[0].toLowerCase();
+const initials = (name = "") => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+const cityOf = (p) => p.city || String(p.location || "").split(",").pop().trim();
 
-const toDeveloper = (builder, index, properties) => {
+const toDeveloper = (builder, properties) => {
   const key = firstWord(builder.name);
-  const project = properties.find((p) => firstWord(p.developer) === key);
-  const hasUsableLogo = builder.logo && !builder.logo.includes("via.placeholder.com");
-  const city = project?.location?.split(",").pop().trim();
-
+  const listed = properties.filter((p) => firstWord(p.developer) === key);
+  const hasUsableLogo = builder.logo && !/via\.placeholder\.com|dummyimage\.com/.test(builder.logo);
   return {
     id: builder.id || builder.name,
     name: builder.name,
-    logo:
-      localLogos[key] ||
-      (hasUsableLogo
-        ? builder.logo
-        : `https://dummyimage.com/220x90/ffffff/111111&text=${encodeURIComponent(builder.name)}`),
-    image: project?.image || fallbackImages[index % fallbackImages.length],
-    projects: builder.projects || (builder.count ? `${builder.count} Projects` : ""),
-    location: city || builder.subtext || "",
+    logo: localLogos[key] || (hasUsableLogo ? builder.logo : ""),
+    count: builder.count || parseInt(builder.projects, 10) || 0,
+    listed,
+    link: `/search?q=${encodeURIComponent(key)}`,
   };
 };
 
+function Logo({ developer }) {
+  const [broken, setBroken] = useState(false);
+  if (!developer.logo || broken) return <span className="hwdk-mono">{initials(developer.name)}</span>;
+  return <img src={developer.logo} alt={`${developer.name} logo`} loading="lazy" onError={() => setBroken(true)} />;
+}
+
 export default function DeveloperSection({ builders = [], properties = [] }) {
-  const developers = builders.map((b, i) => toDeveloper(b, i, properties));
-  const sliderRef = useRef(null);
-
-  const scrollSlider = (direction) => {
-    if (!sliderRef.current) return;
-
-    sliderRef.current.scrollBy({
-      left: direction === "next" ? 390 : -390,
-      behavior: "smooth",
-    });
-  };
-
+  const [showAll, setShowAll] = useState(false);
+  const developers = builders.map((b) => toDeveloper(b, properties));
   if (!developers.length) return null;
 
+  const tiles = showAll ? developers : developers.slice(0, SHOW);
+  const totalProjects = developers.reduce((s, d) => s + d.count, 0);
+  const live = developers.reduce((s, d) => s + d.listed.length, 0);
+  const cities = new Set(developers.flatMap((d) => d.listed.map(cityOf)).filter(Boolean)).size;
+
+  const stats = [
+    [`${developers.length}+`, "Developers"],
+    totalProjects > 0 && [`${totalProjects}+`, "Projects"],
+    live > 0 && [live, "Live Listings"],
+    cities > 0 && [cities, cities === 1 ? "City" : "Cities"],
+  ].filter(Boolean);
+
   return (
-    <section className="hw-developer-section">
-      <div className="hw-developer-wrap">
-        <div className="hw-developer-heading">
-          <div className="hw-developer-label">
-            <span className="line" />
-            TRUSTED NAMES
-            <span className="line" />
-          </div>
+    <section className="hwdk">
+      <div className="hwdk-glow" aria-hidden="true" />
+      <div className="hwdk-wrap">
+        <header className="hwdk-head">
+          <div className="hwdk-eyebrow"><span />TRUSTED NAMES<span /></div>
+          <h2>Top Property <em>Developers</em></h2>
+          <p>Partnering with India&apos;s most trusted builders to bring you the best properties.</p>
+        </header>
 
-          <h2>
-            Top Property <span>Developers</span>
-          </h2>
-
-          <p>
-            Partnering with India&apos;s most trusted builders to bring you the
-            best properties.
-          </p>
+        <div className="hwdk-grid">
+          {tiles.map((d) => (
+            <Link key={d.id} to={d.link} className="hwdk-tile" aria-label={`View ${d.name} projects`}>
+              <span className={`hwdk-plate${d.logo ? "" : " mono"}`}><Logo developer={d} /></span>
+              <strong>{d.name}</strong>
+              <span className="hwdk-count">
+                {d.count > 0 ? `${d.count} ${d.count === 1 ? "Project" : "Projects"}` : "View projects"}
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </Link>
+          ))}
         </div>
 
-        <div className="hw-developer-slider-wrap">
-          <button
-            type="button"
-            className="hw-developer-arrow hw-developer-prev"
-            onClick={() => scrollSlider("prev")}
-            aria-label="Previous developers"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14.5 5 7.5 12l7 7" />
-            </svg>
-          </button>
-
-          <div className="hw-developer-slider" ref={sliderRef}>
-            {developers.map((developer) => (
-              <article
-                className="hw-developer-card"
-                key={developer.id}
-              >
-                <div className="hw-developer-logo">
-                  <img
-                    src={developer.logo}
-                    alt={`${developer.name} logo`}
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="hw-developer-image">
-                  <img
-                    src={developer.image}
-                    alt={`${developer.name} property`}
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="hw-developer-info">
-                  <h3>{developer.projects}</h3>
-
-                  {developer.location && <div className="hw-developer-location">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" />
-                      <circle cx="12" cy="9" r="2.2" />
-                    </svg>
-                    <span>{developer.location}</span>
-                  </div>}
-                </div>
-              </article>
-            ))}
+        {developers.length > SHOW && (
+          <div className="hwdk-more">
+            <button type="button" onClick={() => setShowAll((v) => !v)}>
+              {showAll ? "Show fewer" : `View all ${developers.length} developers`}
+            </button>
           </div>
+        )}
 
-          <button
-            type="button"
-            className="hw-developer-arrow hw-developer-next"
-            onClick={() => scrollSlider("next")}
-            aria-label="Next developers"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m9.5 5 7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        {/* <div className="hw-developer-action">
-          <button type="button">
-            View All Developers
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12h13" />
-              <path d="m13 6 6 6-6 6" />
-            </svg>
-          </button>
-        </div> */}
-
-        {/* <div className="hw-developer-dots" aria-hidden="true">
-          <span className="active" />
-          <span />
-        </div> */}
       </div>
 
-      
+      <div className="hwdk-statsband">
+        <div className="hwdk-wrap hwdk-stats">
+          {stats.map(([value, label]) => (
+            <div key={label}>
+              <b>{value}</b>
+              <small>{label}</small>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <style>{`
-        .hw-developer-section {
-          position: relative;
-          width: 100%;
-          min-height: 0;
-          overflow: hidden;
-          padding: 42px 0 25px;
-          background: #ffffff;
-          font-family: "Manrope", Arial, sans-serif;
-          color: #111827;
-          box-sizing: border-box;
-        }
-
-        .hw-developer-section *,
-        .hw-developer-section *::before,
-        .hw-developer-section *::after {
-          box-sizing: border-box;
-        }
-
-        .hw-developer-wrap {
-          position: relative;
-          z-index: 3;
-          width: 100%;
-          max-width: 1280px;
-          margin: 0 auto;
-        }
-
-        .hw-developer-heading {
-          margin: 0 auto 22px;
-          padding: 0 20px;
-          text-align: center;
-        }
-
-        .hw-developer-label {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          margin-bottom: 13px;
-          color: #9a7418;
-          font-size: 11px;
-          line-height: 1;
-          font-weight: 800;
-          letter-spacing: 2.5px;
-        }
-
-        .hw-developer-label .line {
-          width: 34px;
-          height: 1px;
-          background: #d4af37;
-        }
-
-        .hw-developer-heading h2 {
-          margin: 0;
-          color: #111827;
-          font-size: 36px;
-          line-height: 1.15;
-          font-weight: 800;
-          letter-spacing: -1.4px;
-        }
-
-        .hw-developer-heading h2 span {
-          color: #b9943a;
-        }
-
-        .hw-developer-heading p {
-          max-width: 650px;
-          margin: 12px auto 0;
-          color: #212122;
-          font-size: 12px;
-          line-height: 1.65;
-          font-weight: 500;
-        }
-
-        .hw-developer-slider-wrap {
-          position: relative;
-          width: 100%;
-        }
-
-        .hw-developer-slider {
-          display: flex;
-          gap: 16px;
-          width: 100%;
-          padding: 0 42px 10px;
-          overflow-x: auto;
-          overflow-y: visible;
-          scroll-behavior: smooth;
-          scrollbar-width: none;
-          scroll-snap-type: x proximity;
-        }
-
-        .hw-developer-slider::-webkit-scrollbar {
-          display: none;
-        }
-
-        .hw-developer-card {
-          flex: 0 0 calc((100% - 80px) / 6);
-          min-width: 190px;
-          height: 320px;
-          overflow: hidden;
-          scroll-snap-align: start;
-          border: 1px solid #eee8d8;
-          border-radius: 16px;
-          background: #ffffff;
-          box-shadow: 0 7px 24px rgba(17, 24, 39, .055);
-          transition:
-            transform .28s ease,
-            box-shadow .28s ease,
-            border-color .28s ease;
-        }
-
-        .hw-developer-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(185, 148, 58, .55);
-          box-shadow: 0 17px 38px rgba(17, 24, 39, .10);
-        }
-
-        .hw-developer-logo {
-          width: 100%;
-          height: 80px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 14px 18px 9px;
-          background: #ffffff;
-        }
-
-        .hw-developer-logo img {
-          display: block;
-          width: 82%;
-          height: 62px;
-          object-fit: contain;
-        }
-
-        .hw-developer-image {
-          width: calc(100% - 18px);
-          height: 150px;
-          margin: 0 9px;
-          overflow: hidden;
-          border-radius: 9px;
-          background: #f5f5f2;
-        }
-
-        .hw-developer-image img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-          transition: transform .45s ease;
-        }
-
-        .hw-developer-card:hover .hw-developer-image img {
-          transform: scale(1.045);
-        }
-
-        .hw-developer-info {
-          padding: 14px 15px 13px;
-        }
-
-        .hw-developer-info h3 {
-          margin: 0 0 6px;
-          color: #111827;
-          font-size: 15px;
-          line-height: 1.25;
-          font-weight: 800;
-        }
-
-        .hw-developer-location {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          color: #737b8c;
-          font-size: 12px;
-          line-height: 1.35;
-          font-weight: 500;
-          white-space: nowrap;
-        }
-
-        .hw-developer-location svg {
-          flex: 0 0 16px;
-          width: 16px;
-          height: 16px;
-          fill: none;
-          stroke: #b9943a;
-          stroke-width: 1.8;
-        }
-
-        .hw-developer-arrow {
-          display: none;
-          position: absolute;
-          top: 166px;
-          z-index: 5;
-          width: 38px;
-          height: 38px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid #eee8d8;
-          border-radius: 50%;
-          background: #ffffff;
-          color: #8d6b1d;
-          box-shadow: 0 8px 25px rgba(17, 24, 39, .12);
-          cursor: pointer;
-          transition: transform .2s ease, box-shadow .2s ease, color .2s ease, background .2s ease;
-        }
-
-        .hw-developer-arrow:hover {
-          color: #ffffff;
-          background: #b9943a;
-          border-color: #b9943a;
-          transform: scale(1.05);
-          box-shadow: 0 10px 28px rgba(185, 148, 58, .24);
-        }
-
-        .hw-developer-arrow svg {
-          width: 22px;
-          height: 22px;
-          fill: none;
-          stroke: currentColor;
-          stroke-width: 1.9;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-        }
-
-        .hw-developer-prev {
-          left: 10px;
-          display: none;
-        }
-
-        .hw-developer-next {
-          right: 10px;
-          display:none;
-        }
-
-        .hw-developer-action {
-          position: relative;
-          z-index: 4;
-          display: flex;
-          justify-content: center;
-          margin-top: 8px;
-        }
-
-        .hw-developer-action button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 11px;
-          min-width: 205px;
-          height: 45px;
-          padding: 0 22px;
-          border: 1px solid #b9943a;
-          border-radius: 20px;
-          background:white ;
-          color: #b9943a;
-          font-family: inherit;
-          font-size: 14px;
-          font-weight: 800;
-          box-shadow: 0 9px 22px rgba(185, 148, 58, .20);
-          cursor: pointer;
-          transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
-        }
-
-        .hw-developer-action button:hover {
-          background: #9a7418;
-          color:white;
-          transform: translateY(-2px);
-          box-shadow: 0 13px 28px rgba(154, 116, 24, .24);
-        }
-
-        .hw-developer-action svg {
-          width: 18px;
-          height: 18px;
-          fill: none;
-          stroke: currentColor;
-          stroke-width: 2;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-        }
-
-        .hw-developer-dots {
-          position: relative;
-          z-index: 4;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 7px;
-          margin-top: 10px;
-        }
-
-        .hw-developer-dots span {
-          width: 27px;
-          height: 3px;
-          border-radius: 10px;
-          background: #e8dfc8;
-        }
-
-        .hw-developer-dots span.active {
-          background: #b9943a;
-        }
-
-        .hw-city-silhouette {
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          z-index: 1;
-          height: 145px;
-          overflow: hidden;
-          opacity: .48;
+        .hwdk {
+          position: relative; overflow: hidden; isolation: isolate;
+          padding: 88px 0 0;
           background:
-            radial-gradient(ellipse at 12% 100%, rgba(241, 235, 218, .80) 0 8%, transparent 8.3%),
-            radial-gradient(ellipse at 28% 100%, rgba(241, 235, 218, .80) 0 9%, transparent 9.3%),
-            radial-gradient(ellipse at 51% 100%, rgba(241, 235, 218, .80) 0 8%, transparent 8.3%),
-            radial-gradient(ellipse at 76% 100%, rgba(241, 235, 218, .80) 0 9%, transparent 9.3%);
-          pointer-events: none;
+            radial-gradient(700px 320px at 50% -60px, rgba(212,175,55,.22), transparent 70%),
+            linear-gradient(180deg, #0b0b0b 0%, #111 100%);
+          color: #fff;
         }
-
-        .hw-city-silhouette::after {
-          content: "";
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          height: 2px;
-          background: #eee8d8;
+        /* fine gold grid texture */
+        .hwdk::before {
+          content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+          background-image:
+            linear-gradient(rgba(212,175,55,.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212,175,55,.06) 1px, transparent 1px);
+          background-size: 56px 56px;
+          -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+          mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
         }
+        .hwdk-glow { position: absolute; z-index: -1; right: -160px; bottom: -160px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,.14), transparent 65%); }
+        .hwdk-wrap { width: min(1240px, calc(100% - 48px)); margin: 0 auto; }
 
-        .hw-city-silhouette .building {
-          position: absolute;
-          bottom: 0;
-          display: block;
-          width: 42px;
-          border-radius: 2px 2px 0 0;
-          background: linear-gradient(180deg, #eee8d8, #f7f4ec);
+        /* heading */
+        .hwdk-head { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+        .hwdk-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 16px; color: #E8C766; font-size: 12px; font-weight: 800; letter-spacing: 3.5px; }
+        .hwdk-eyebrow span { width: 34px; height: 1.5px; background: linear-gradient(90deg, transparent, #D4AF37); }
+        .hwdk-eyebrow span:last-child { transform: scaleX(-1); }
+        .hwdk-head h2 { margin: 0 0 14px; font-size: clamp(32px, 4vw, 54px); line-height: 1.05; font-weight: 800; letter-spacing: -1.2px; color: #fff; }
+        .hwdk-head h2 em {
+          font-style: normal;
+          background: linear-gradient(135deg, #F3DC8E 0%, #D4AF37 45%, #9A7418 100%);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
         }
+        .hwdk-head p { margin: 0; color: rgba(255,255,255,.62); font-size: 16px; line-height: 1.65; }
 
-       
-
-        @media (max-width: 1250px) {
-          .hw-developer-wrap {
-            max-width: 1120px;
-          }
-
-          .hw-developer-card {
-            flex-basis: calc((100% - 80px) / 6);
-          }
-
-          .hw-developer-slider {
-            padding-left: 36px;
-            padding-right: 36px;
-          }
-
-          .hw-developer-prev {
-            left: 6px;
-          }
-
-          .hw-developer-next {
-            right: 6px;
-          }
+        /* tiles */
+        .hwdk-grid { --cols: 6; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+        .hwdk-grid > .hwdk-tile { width: calc((100% - (var(--cols) - 1) * 16px) / var(--cols)); }
+        .hwdk-tile {
+          position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px;
+          padding: 22px 14px 18px; border-radius: 18px; text-decoration: none; text-align: center;
+          background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+          border: 1px solid rgba(212,175,55,.22);
+          transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease;
         }
-
-        @media (max-width: 900px) {
-          .hw-developer-section {
-            min-height: 0;
-            padding-top: 60px;
-          }
-
-          .hw-developer-wrap {
-            max-width: 100%;
-          }
-
-          .hw-developer-heading h2 {
-            font-size: 38px;
-          }
-
-          .hw-developer-heading p {
-            font-size: 14px;
-          }
-
-          .hw-developer-card {
-            flex-basis: calc((100% - 80px) / 6);
-            height: 320px;
-          }
-
-          .hw-developer-logo {
-            height: 100px;
-          }
-
-          .hw-developer-logo img {
-            height: 58px;
-          }
-
-          .hw-developer-image {
-            height: 205px;
-          }
-
-          .hw-developer-arrow {
-            top: 155px;
-            width: 44px;
-            height: 44px;
-          }
+        .hwdk-tile:hover {
+          transform: translateY(-5px);
+          border-color: #D4AF37;
+          background: linear-gradient(180deg, rgba(212,175,55,.12), rgba(212,175,55,.02));
+          box-shadow: 0 18px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(212,175,55,.35), 0 0 30px rgba(212,175,55,.15);
         }
-
-        @media (max-width: 650px) {
-          .hw-developer-section {
-            min-height: 0;
-            padding: 28px 0 8px;
-          }
-
-          .hw-developer-heading {
-            margin-bottom: 16px;
-          }
-
-          .hw-developer-label {
-            gap: 7px;
-            font-size: 9px;
-            letter-spacing: 2px;
-          }
-
-          .hw-developer-label .line {
-            width: 24px;
-          }
-
-          .hw-developer-heading h2 {
-            font-size: 29px;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            font-weight: 800;
-            font-family: "Manrope", Arial, sans-serif;
-          }
-
-          .hw-developer-heading p {
-            max-width: 380px;
-            margin-top: 11px;
-            padding: 0 10px;
-            font-size: 13px;
-            line-height: 1.6;
-            font-family: "Manrope", Arial, sans-serif;
-          }
-
-          .hw-developer-slider {
-            gap: 8px;
-            padding: 0 10px 10px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-          }
-
-          .hw-developer-card {
-            flex: 0 0 calc((100% - 8px) / 2);
-            min-width: calc((100% - 8px) / 2);
-            height: 330px;
-          }
-
-          .hw-developer-logo {
-            height: 95px;
-          }
-
-          .hw-developer-logo img {
-            height: 58px;
-          }
-
-          .hw-developer-image {
-            height: 195px;
-          }
-
-          .hw-developer-info {
-            padding: 13px 14px;
-          }
-
-          .hw-developer-info h3 {
-            font-size: 15px;
-            line-height: 1.25;
-            font-weight: 800;
-            font-family: "Manrope", Arial, sans-serif;
-          }
-
-          .hw-developer-location {
-            font-size: 11px;
-            line-height: 1.35;
-            font-weight: 500;
-            font-family: "Manrope", Arial, sans-serif;
-          }
-
-          .hw-developer-location svg {
-            width: 15px;
-            height: 15px;
-          }
-
-          .hw-developer-arrow {
-            display: flex;
-            top: 150px;
-            width: 40px;
-            height: 40px;
-          }
-
-          .hw-developer-arrow svg {
-            width: 19px;
-            height: 19px;
-          }
-
-          .hw-developer-prev {
-            left: 4px;
-          }
-
-          .hw-developer-next {
-            right: 4px;
-          }
-
-          .hw-developer-action {
-            margin-top: 10px;
-          }
-
-          .hw-developer-action button {
-            min-width: 190px;
-            height: 44px;
-            padding: 0 18px;
-            font-size: 13px;
-            border-radius: 8px;
-          }
-
-          .hw-developer-action svg {
-            width: 17px;
-            height: 17px;
-          }
-
-          .hw-developer-dots {
-            margin-top: 14px;
-          }
-
-          .hw-developer-dots span {
-            width: 23px;
-            height: 3px;
-          }
-
-          .hw-city-silhouette {
-            height: 105px;
-          }
+        .hwdk-plate {
+          width: 100%; height: 76px; padding: 12px 16px; border-radius: 12px;
+          display: grid; place-items: center; background: #fff;
+          box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
         }
+        .hwdk-plate { overflow: hidden; }
+        .hwdk-plate img { width: auto; height: auto; max-width: 100%; max-height: 52px; object-fit: contain; display: block; }
+        .hwdk-plate.mono { background: transparent; box-shadow: none; padding: 0; overflow: visible; }
+        .hwdk-mono {
+          width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+          background: #0b0b0b; color: #E8C766; font-size: 17px; font-weight: 800; letter-spacing: 1.5px;
+          box-shadow: 0 0 0 2px #D4AF37;
+        }
+        .hwdk-tile strong { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; min-height: 2.6em; display: grid; place-items: center; }
+        .hwdk-count { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #E8C766; letter-spacing: .3px; }
+        .hwdk-count svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s; }
+        .hwdk-tile:hover .hwdk-count svg { transform: translateX(4px); }
 
+        .hwdk-more { display: flex; justify-content: center; margin-top: 28px; }
+        .hwdk-more button {
+          height: 48px; padding: 0 28px; border-radius: 999px; cursor: pointer; font-family: inherit;
+          border: 1px solid #D4AF37; background: transparent; color: #E8C766;
+          font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+          transition: background .25s, color .25s;
+        }
+        .hwdk-more button:hover { background: linear-gradient(135deg, #E8C766, #D4AF37 50%, #9A7418); color: #111; }
+
+        /* stats strip */
+        .hwdk-statsband { position: relative; margin-top: 72px; background: #fff; border-bottom: 1px solid #efe9d8; }
+        .hwdk-statsband::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, #9A7418, #E8C766 50%, #9A7418); }
+        .hwdk-stats { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+        .hwdk-stats div { padding: 40px 12px 42px; text-align: center; }
+        .hwdk-stats div + div { border-left: 1px solid #efe9d8; }
+        .hwdk-stats b {
+          display: block; font-size: clamp(32px, 3.4vw, 46px); font-weight: 800; line-height: 1; letter-spacing: -1px;
+          background: linear-gradient(135deg, #D4AF37, #9A7418 60%, #7a5a10);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+        }
+        .hwdk-stats small { display: block; margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: #0b0b0b; }
+
+        @media (max-width: 1100px) {
+          .hwdk-grid { --cols: 4; }
+        }
+        @media (max-width: 760px) {
+          .hwdk { padding-top: 60px; }
+          .hwdk-wrap { width: calc(100% - 32px); }
+          .hwdk-head { margin-bottom: 34px; }
+          .hwdk-head p { font-size: 14.5px; }
+          .hwdk-grid { --cols: 2; gap: 12px; }
+          .hwdk-grid > .hwdk-tile { width: calc((100% - 12px) / 2); }
+          .hwdk-tile { padding: 16px 10px 14px; gap: 10px; border-radius: 16px; }
+          .hwdk-plate { height: 62px; padding: 10px 12px; }
+          .hwdk-plate img { max-height: 42px; }
+          .hwdk-tile strong { font-size: 14px; }
+          .hwdk-statsband { margin-top: 48px; }
+          .hwdk-stats { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+          .hwdk-stats div { padding: 24px 8px 26px; }
+          .hwdk-stats div:nth-child(odd) { border-left: none; }
+          .hwdk-stats div:nth-child(n+3) { border-top: 1px solid #efe9d8; }
+        }
       `}</style>
     </section>
   );
