@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { propertyUrl } from '../utils/slug'
 
 export default function PropertyCard({ p, featured=false }){
   return (
@@ -6,7 +7,7 @@ export default function PropertyCard({ p, featured=false }){
       background:'#fff', borderRadius:14, overflow:'hidden', border:'1px solid #eee',
       display:'flex', flexDirection:'column', position:'relative'
     }}>
-      <Link to={`/property/${p.id}`} style={{position:'relative', display:'block', overflow:'hidden', aspectRatio:'1.45'}}>
+      <Link to={propertyUrl(p)} style={{position:'relative', display:'block', overflow:'hidden', aspectRatio:'1.45'}}>
         <img src={p.image} alt={p.title} style={{width:'100%', height:'100%', objectFit:'cover', transition:'transform .5s'}} className="card-img"/>
         {/* top badges */}
         <div style={{position:'absolute', top:10, left:10, display:'flex', gap:6}}>
@@ -26,7 +27,7 @@ export default function PropertyCard({ p, featured=false }){
       </Link>
 
       <div style={{padding:'14px 14px 12px', flex:1, display:'flex', flexDirection:'column'}}>
-        <Link to={`/property/${p.id}`} style={{fontWeight:700, fontSize:15, lineHeight:1.25, color:'#111', display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', overflow:'hidden', minHeight:38}}>
+        <Link to={propertyUrl(p)} style={{fontWeight:700, fontSize:15, lineHeight:1.25, color:'#111', display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', overflow:'hidden', minHeight:38}}>
           {p.title}
         </Link>
         <div style={{fontWeight:800, fontSize:15, color:'#B9943A', marginTop:6}}>{p.priceRange || p.price}</div>
@@ -42,7 +43,7 @@ export default function PropertyCard({ p, featured=false }){
               WhatsApp
             </span>
           </a>
-          <Link to={`/property/${p.id}`} style={{flex:1, height:34, display:'grid', placeItems:'center', background:'#0A0A0A', color:'#D4AF37', border:'1px solid #D4AF37', borderRadius:8, fontWeight:700, fontSize:12}}>
+          <Link to={propertyUrl(p)} style={{flex:1, height:34, display:'grid', placeItems:'center', background:'#0A0A0A', color:'#D4AF37', border:'1px solid #D4AF37', borderRadius:8, fontWeight:700, fontSize:12}}>
             View Details
           </Link>
         </div>

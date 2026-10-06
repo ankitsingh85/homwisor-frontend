@@ -5,6 +5,7 @@ import { ImageUpload } from './ImageUpload'
 import DataList, { Drawer } from './DataList'
 import { localitiesOf } from '../data/locations'
 import { BUDGETS } from '../utils/propertySearch'
+import { propertyUrl } from '../utils/slug'
 
 export const need = (value, what) => { if (!value) throw new Error(`Please ${what}`) }
 const byText = (k) => (a, b) => String(a[k] || '').localeCompare(String(b[k] || ''))
@@ -189,7 +190,7 @@ const BANNER_TYPES = {
 // Ready-made destinations so admins don't have to type links
 function linkOptions(properties = []) {
   return [
-    { group: 'Properties', items: [...properties].sort((a, b) => a.title.localeCompare(b.title)).map(p => [`/property/${p.id}`, p.title]) },
+    { group: 'Properties', items: [...properties].sort((a, b) => a.title.localeCompare(b.title)).map(p => [propertyUrl(p), p.title]) },
     { group: 'Listings', items: [
       ['/search', 'All properties'],
       ['/search?category=trending', 'Trending'],
@@ -448,7 +449,7 @@ export function RecommendedPage({ items, run, properties = [] }) {
   const fillFrom = (id) => {
     const p = properties.find(x => x.id === id)
     if (!p) return
-    setF(prev => ({ ...prev, title: p.title, image: p.image || prev.image, price: p.price || p.priceRange || '', location: p.location || '', link: `/property/${p.id}` }))
+    setF(prev => ({ ...prev, title: p.title, image: p.image || prev.image, price: p.price || p.priceRange || '', location: p.location || '', link: propertyUrl(p) }))
     setPickerKey(k => k + 1)
   }
 

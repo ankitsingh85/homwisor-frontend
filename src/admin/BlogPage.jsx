@@ -5,12 +5,13 @@ import { ImageUpload } from './ImageUpload'
 import DataList, { Drawer } from './DataList'
 import { Field, Input, PageHead, useEditor, DrawerFooter, need } from './ContentPages'
 import { BLOG_CATEGORIES, blogDate, readTime } from '../data/blog'
+import { slugify, slugTyping, blogUrl } from '../utils/slug'
 import './blog-admin.css'
+import './property-admin.css' // .hwp-slug
 
 // ---------------------------------------------------------------
 // Blog articles (website /blog)
 // ---------------------------------------------------------------
-const slugify = (s = '') => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 90)
 const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10)
 const emptySection = { heading: '', text: '', image: '' }
 
@@ -120,7 +121,7 @@ export function BlogPage({ blogs, run }) {
         ]}
         actions={b => [
           { label: loadingId === b.id ? 'Opening…' : 'Edit', icon: Icon.edit, onClick: openEdit, primary: true },
-          isLive(b) && { label: 'View', icon: Icon.external, href: `/blog/${b.slug}` },
+          isLive(b) && { label: 'View', icon: Icon.external, href: blogUrl(b) },
           { label: b.featured ? 'Unfeature' : 'Feature', icon: Icon.star, onClick: toggleFeatured },
           { label: b.status === 'draft' ? 'Publish' : 'Unpublish', icon: Icon.eye, onClick: togglePublish },
           { label: 'Delete', icon: Icon.trash, onClick: ed.del, danger: true },
@@ -148,8 +149,12 @@ export function BlogPage({ blogs, run }) {
         <form id="hwl-form" onSubmit={ed.save}>
           <div className="hwd-form-grid">
             <Field label="Title *" full><Input value={f.title} onChange={setTitle} placeholder="e.g. Sector 49 Gurgaon: Prices & Metro Expansion" /></Field>
-            <Field label="Web address" full hint={`homwisor.com/blog/${f.slug || slugify(f.title) || '…'}`}>
-              <Input value={f.slug} onChange={v => { setSlugTouched(true); set('slug')(slugify(v)) }} placeholder="made from the title" />
+            <Field label="Web address (slug)" full hint={ed.editing?.slug && slugify(f.slug) !== ed.editing.slug ? `Old link /${ed.editing.slug} will redirect to the new one` : 'Lowercase words joined by hyphens — made from the title, or type your own'}>
+              <div className="hwp-slug">
+                <span>homwisor.com/</span>
+                <Input value={f.slug} onChange={v => { setSlugTouched(true); set('slug')(slugTyping(v)) }} onBlur={() => set('slug')(slugify(f.slug || f.title))} placeholder={slugify(f.title) || 'made-from-the-title'} />
+                {f.title && slugify(f.title) !== f.slug && <button type="button" className="hwd-btn" style={{ marginLeft: 8, height: 38, padding: '0 12px' }} onClick={() => { setSlugTouched(false); set('slug')(slugify(f.title)) }}>Use title</button>}
+              </div>
             </Field>
           </div>
 
@@ -211,7 +216,7 @@ function toPayload(f) {
     ...f,
     title: f.title.trim(),
     category: (f.category || '').trim() || BLOG_CATEGORIES[0],
-    slug: f.slug || slugify(f.title),
+    slug: slugify(f.slug || f.title),
     tags: String(f.tags || '').split(',').map(t => t.trim()).filter(Boolean),
     content: f.content.map(s => ({ heading: s.heading.trim(), text: s.text.trim(), image: (s.image || '').trim() })).filter(s => s.heading || s.text || s.image),
     publishedAt: f.publishedAt ? new Date(`${f.publishedAt}T${f.publishedAt === today() ? new Date().toTimeString().slice(0, 8) : '06:00:00'}`).toISOString() : new Date().toISOString(),

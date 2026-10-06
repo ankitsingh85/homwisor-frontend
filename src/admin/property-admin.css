@@ -265,3 +265,10 @@
 .hwp-amenity.on { border-color: #D4AF37; background: #fffaeb; color: #111; font-weight: 700; box-shadow: 0 0 0 2px rgba(212,175,55,.15); }
 .hwp-amenity.on svg { color: #9A7418; }
 @media (max-width: 640px) { .hwp-rows-fields { grid-template-columns: 1fr !important; } }
+
+/* web address (slug) */
+.hwp-slug { display: flex; align-items: center; gap: 0; }
+.hwp-slug > span { flex-shrink: 0; height: 44px; display: grid; place-items: center; padding: 0 10px; border: 1px solid #e5e1d3; border-right: none; border-radius: 10px 0 0 10px; background: #f6f3ea; color: #8f8873; font-size: 12.5px; font-weight: 600; }
+.hwp-slug .hwa-input { flex: 1; min-width: 0; border-radius: 0 10px 10px 0 !important; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px !important; }
+.hwp-slug .hwa-mini { margin-left: 8px; flex-shrink: 0; }
+@media (max-width: 640px) { .hwp-slug > span { display: none; } .hwp-slug .hwa-input { border-radius: 10px !important; } }

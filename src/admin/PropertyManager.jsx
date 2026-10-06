@@ -13,6 +13,7 @@ import { CITIES, localitiesOf, placeOf } from '../data/locations'
 import { AMENITIES, AmenityIcon } from '../data/amenities'
 import './admin.css'
 import './property-admin.css'
+import { propertyUrl, slugTyping, slugify } from '../utils/slug'
 
 const errorOf = (e, fallback) => e.response?.data?.error || fallback
 const OTHER = '__other__'
@@ -97,6 +98,9 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel }) {
   const [err, setErr] = useState('')
 
   const set = (k, v) => setF(prev => ({ ...prev, [k]: v }))
+  // the web address follows the name until the admin edits it (existing properties keep theirs)
+  const [slugTouched, setSlugTouched] = useState(!!initial.slug)
+  const setTitle = (v) => setF(prev => ({ ...prev, title: v, slug: slugTouched ? prev.slug : slugify(v) }))
   const setAbout = (k, v) => setF(prev => ({ ...prev, about: { ...prev.about, [k]: v } }))
   const [customAmenity, setCustomAmenity] = useState('')
   const toggleAmenity = (name) => setF(prev => ({ ...prev, amenities: prev.amenities.includes(name) ? prev.amenities.filter(a => a !== name) : [...prev.amenities, name] }))
@@ -208,7 +212,14 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel }) {
         <Step n="3" title="Basic details" sub="Shown on the property card and the top of the detail page.">
           <div className="hwp-grid">
             <Field label="Project name" required error={errorFor('title')} full>
-              <input className="hwa-input no-icon" value={f.title} onChange={e => set('title', e.target.value)} placeholder="e.g. M3M Brabus Residences" />
+              <input className="hwa-input no-icon" value={f.title} onChange={e => setTitle(e.target.value)} placeholder="e.g. M3M Brabus Residences" />
+            </Field>
+            <Field label="Web address (slug)" full hint={editingId && initial.slug && slugify(f.slug) !== initial.slug ? `Old link /property/${initial.slug} will redirect to the new one` : 'Lowercase words joined by hyphens — made from the name, or type your own'}>
+              <div className="hwp-slug">
+                <span>homwisor.com/property/</span>
+                <input className="hwa-input no-icon" value={f.slug} onChange={e => { setSlugTouched(true); set('slug', slugTyping(e.target.value)) }} onBlur={() => set('slug', slugify(f.slug || f.title))} placeholder={slugify(f.title) || 'm3m-brabus-residences'} />
+                {f.title && slugify(f.title) !== f.slug && <button type="button" className="hwa-mini" onClick={() => { setSlugTouched(false); set('slug', slugify(f.title)) }}>Use name</button>}
+              </div>
             </Field>
             <Field label="Developer / Builder" required error={errorFor('developer')}>
               <input className="hwa-input no-icon" value={f.developer} onChange={e => set('developer', e.target.value)} placeholder="e.g. M3M Group" />
@@ -646,7 +657,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
         ]}
         actions={p => [
           { label: 'Edit', icon: Icon.edit, onClick: openEdit, primary: true },
-          { label: 'View', icon: Icon.external, href: `/property/${p.id}` },
+          { label: 'View', icon: Icon.external, href: propertyUrl(p) },
           { label: 'Delete', icon: Icon.trash, onClick: remove, danger: true },
         ]}
         searchText={p => `${p.title} ${p.location} ${p.developer} ${p.bhk} ${p.type} ${p.locality || ''}`}

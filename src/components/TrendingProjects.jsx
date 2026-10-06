@@ -7,6 +7,7 @@ import s1 from "../images/s4.webp";
 import s2 from "../images/s5.webp";
 import s3 from "../images/s6.webp";
 import './trendingProjects.css'
+import { propertyUrl } from "../utils/slug";
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
@@ -522,9 +523,7 @@ export default function TrendingProjects({
                     key={
                       property.id || index
                     }
-                    to={`/property/${
-                      property.id || index
-                    }`}
+                    to={propertyUrl(property)}
                     className="hw-trending-card"
                   >
 
@@ -866,7 +865,7 @@ export default function TrendingProjects({
 
                     <Link
                       key={property.id || property._id || `upcoming-${index}`}
-                      to={`/property/${property.id || property._id || index}`}
+                      to={propertyUrl(property)}
                       className="hw-trending-card"
                     >
 
@@ -1052,7 +1051,7 @@ export default function TrendingProjects({
 
                     <Link
                       key={property.id || property._id || `newlaunch-${index}`}
-                      to={`/property/${property.id || property._id || index}`}
+                      to={propertyUrl(property)}
                       className="hw-trending-card"
                     >
 
@@ -1479,7 +1478,7 @@ export default function TrendingProjects({
 
                   <Link
                     key={property.id || property._id || `luxury-${index}`}
-                    to={`/property/${property.id || property._id || index}`}
+                    to={propertyUrl(property)}
                     className="hw-trending-card"
                   >
 
@@ -1694,11 +1693,7 @@ export default function TrendingProjects({
                         </strong>
                       </div>
                       <Link
-                        to={`/property/${
-                          brandedBannerProject?.id ||
-                          brandedBannerProject?._id ||
-                          "branded"
-                        }`}
+                        to={brandedBannerProject ? propertyUrl(brandedBannerProject) : "/search?category=branded"}
                       >
                         EXPLORE <span>→</span>
                       </Link>
@@ -1780,7 +1775,7 @@ export default function TrendingProjects({
 
                   <Link
                     key={property.id || property._id || `luxury-${index}`}
-                    to={`/property/${property.id || property._id || index}`}
+                    to={propertyUrl(property)}
                     className="hw-trending-card"
                   >
 
@@ -2043,7 +2038,7 @@ export default function TrendingProjects({
                   {sec.items.map((property, index) => (
                     <Link
                       key={property.id || property._id || `${sec.key}-${index}`}
-                      to={`/property/${property.id || property._id || index}`}
+                      to={propertyUrl(property)}
                       className="hw-trending-card"
                     >
 

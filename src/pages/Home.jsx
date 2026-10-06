@@ -10,6 +10,7 @@ import RecommendedProperties from '../components/RecommendedProperties'
 import TrendingProjects from '../components/TrendingProjects'
 import DeveloperSection from '../components/DeveloperSection'
 import TestimonialCards, { FALLBACK_TESTIMONIALS } from '../components/TestimonialCards'
+import { currentPropertyLink } from '../utils/slug'
 import './Home.css'
 import Footer from '../components/Footer'
 
@@ -519,6 +520,9 @@ export default function Home(){
      TESTIMONIALS
   ============================== */
 
+  // saved links like /property/p8 → the property's current web address
+  const withLinks = (list) => (list || []).map((x) => (x?.link ? { ...x, link: currentPropertyLink(x.link, properties) } : x))
+
   const testimonialsFallback = testimonials === null ? FALLBACK_TESTIMONIALS : testimonials
 
 
@@ -546,7 +550,7 @@ export default function Home(){
       >
 
         <Hero
-          banners={banners.hero}
+          banners={withLinks(banners.hero)}
         />
 
 
@@ -564,13 +568,13 @@ export default function Home(){
 {/* NEW SLIDER */}
 <section className="hw-new-premium-slider">
   <PremiumAutoSlider
-    banners={banners.slider || []}
+    banners={withLinks(banners.slider)}
   />
 </section>
 
 {/* recommended properties */}
 
-<RecommendedProperties items={recommendedCards} />
+<RecommendedProperties items={withLinks(recommendedCards)} />
 
  {/* =========================================
           TRENDING
@@ -581,7 +585,7 @@ export default function Home(){
   upcoming={upcoming}
   newlaunch={newlaunch}
   offers={offers}
-  promos={banners.small}
+  promos={withLinks(banners.small)}
   branded={properties.filter(p => p.category === 'branded').slice(0, 4)}
   luxury={properties.filter(p => p.category === 'luxury').slice(0, 4)}
 />

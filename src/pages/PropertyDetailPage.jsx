@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import API from "../utils/api";
 import { AmenityIcon, DEFAULT_AMENITIES } from "../data/amenities";
 import { placeOf, findLocality, findCity } from "../data/locations";
 import "./propertyDetail.css";
+import { propertyUrl } from "../utils/slug";
 
 // Contact numbers used across the site
 const PHONE = "9090101401";
@@ -277,6 +278,7 @@ const NAV = [
 
 export default function PropertyDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [p, setP] = useState(null);
   const [all, setAll] = useState([]);
   const [status, setStatus] = useState("loading");
@@ -287,11 +289,18 @@ export default function PropertyDetailPage() {
   const [logoBroken, setLogoBroken] = useState(false);
 
   useEffect(() => {
+    // already showing this property (we just switched the address bar to its slug)
+    if (p && (p.slug === id || p.id === id)) return;
     let alive = true;
     setStatus("loading"); setReadMore(false); setOpenFaq(0); setLogoBroken(false);
     window.scrollTo(0, 0);
-    Promise.all([API.get(`/properties/${id}`), API.get("/properties").catch(() => ({ data: [] }))])
-      .then(([one, list]) => { if (!alive) return; setP(one.data); setAll(list.data || []); setStatus("ok"); })
+    Promise.all([API.get(`/properties/${encodeURIComponent(id)}`), API.get("/properties").catch(() => ({ data: [] }))])
+      .then(([one, list]) => {
+        if (!alive) return;
+        setP(one.data); setAll(list.data || []); setStatus("ok");
+        // opened by id or an old slug → show the current slug in the address bar
+        if (one.data?.slug && one.data.slug !== id) navigate(`/property/${one.data.slug}${window.location.search}${window.location.hash}`, { replace: true });
+      })
       .catch(() => alive && setStatus("missing"));
     return () => { alive = false; };
   }, [id]);
@@ -409,7 +418,7 @@ export default function PropertyDetailPage() {
       {/* sticky brand bar: developer logo + sections */}
       <div className="pd-bar">
         <div className="pd-wrap pd-bar-inner">
-          {p.logo && !logoBroken && (
+          {p.logo && !/via\.placeholder\.com|dummyimage\.com/.test(p.logo) && !logoBroken && (
             <span className="pd-bar-logo"><img src={p.logo} alt={p.developer || p.title} onError={() => setLogoBroken(true)} /></span>
           )}
           <div className="pd-bar-title">
@@ -706,7 +715,7 @@ export default function PropertyDetailPage() {
             </div>
             <div className="pd-similar">
               {d.similar.map((s) => (
-                <Link key={s.id} to={`/property/${s.id}`} className="pd-sim">
+                <Link key={s.id} to={propertyUrl(s)} className="pd-sim">
                   <img src={s.image} alt={s.title} loading="lazy" />
                   <div><strong>{s.title}</strong><span className="gold">{s.priceRange || s.price}</span><small><Icon n="pin" size={13} /> {s.location}</small></div>
                 </Link>
@@ -766,7 +775,7 @@ function IconicRow({ items }) {
       <button type="button" className="pd-round left" onClick={() => scroll(-1)} aria-label="Previous"><Icon n="arrowL" size={18} /></button>
       <div className="pd-iconic-row" ref={setEl}>
         {items.map((x) => (
-          <Link key={x.id} to={`/property/${x.id}`} className="pd-iconic-card">
+          <Link key={x.id} to={propertyUrl(x)} className="pd-iconic-card">
             <img src={x.image} alt={x.title} loading="lazy" />
             <div>
               <span><strong>{x.title}</strong><small><Icon n="pin" size={13} /> {sectorOf(x) || placeOf(x).locality}, {placeOf(x).city}</small></span>

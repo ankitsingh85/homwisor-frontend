@@ -1,4 +1,5 @@
 import { placeOf, findLocality, findCity } from '../data/locations'
+import { slugify } from '../utils/slug'
 
 // One place that explains every property category ("section") and field.
 // Category decides WHERE the property appears on the website.
@@ -76,6 +77,7 @@ export const configHint = (type) =>
 export const emptyProperty = {
   category: 'trending',
   title: '',
+  slug: '',
   developer: '',
   location: '',
   city: 'Gurugram',
@@ -114,6 +116,7 @@ export const emptyProperty = {
 export const toPayload = (f) => ({
   category: f.category,
   title: f.title.trim(),
+  slug: slugify(f.slug || f.title),
   developer: f.developer.trim(),
   location: composeLocation(f),
   city: f.city.trim(),

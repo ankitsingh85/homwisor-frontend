@@ -12,6 +12,7 @@ import BlogDetail from "./pages/BlogDetail";
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from "./pages/TermsAndConditions";
 import { isLoggedIn, getToken } from './utils/auth'
+import { blogUrl } from './utils/slug'
 
 // Navbar menu links (/location/…, /budget/…, /status/…) open the Search page with that filter
 function ToSearch({ param, preset }){
@@ -19,6 +20,12 @@ function ToSearch({ param, preset }){
   const qs = new URLSearchParams(preset || {})
   if(param && slug) qs.set(param, slug)
   return <Navigate to={`/search?${qs.toString()}`} replace/>
+}
+
+// Old article links (/blog/<slug>) → the article's address at the top level
+function OldBlogLink(){
+  const { slug } = useParams()
+  return <Navigate to={blogUrl(slug)} replace/>
 }
 
 function Protected({children}){
@@ -43,7 +50,7 @@ export default function App(){
         <Route path="/commercial-projects" element={<ToSearch preset={{ type: 'commercial' }}/>}/>
         <Route path="/property/:id" element={<PropertyDetail/>}/>
         <Route path="/blog" element={<Blog/>}/>
-        <Route path="/blog/:slug" element={<BlogDetail />} />
+        <Route path="/blog/:slug" element={<OldBlogLink />} />
          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
          <Route
   path="/terms-and-conditions"
@@ -54,6 +61,8 @@ export default function App(){
         <Route path="/admin" element={<AdminLogin/>}/>
         <Route path="/admin/dashboard" element={<Protected><Dashboard/></Protected>}/>
         <Route path="/contact" element={<Contact />} />
+        {/* Blog articles: homwisor.com/<slug> — fixed pages above always win */}
+        <Route path="/:slug" element={<BlogDetail />} />
         <Route path="*" element={<Navigate to="/" replace/>}/>
       </Routes>
     </BrowserRouter>

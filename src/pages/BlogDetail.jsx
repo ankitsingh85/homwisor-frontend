@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import API from "../utils/api";
 import { blogDate, paragraphs, readTime } from "../data/blog";
 
+import { blogUrl } from "../utils/slug";
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const CREAM = "#F7F5EF";
@@ -19,16 +20,23 @@ const setMeta = (title, description) => {
 
 export default function BlogDetail() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [all, setAll] = useState([]);
   const [status, setStatus] = useState("loading"); // loading | ok | missing
 
   useEffect(() => {
+    if (post && post.slug === slug) return; // just switched an old address to the current one
     let alive = true;
     setStatus("loading");
     window.scrollTo(0, 0);
     API.get(`/blogs/${encodeURIComponent(slug)}`)
-      .then((r) => { if (alive) { setPost(r.data); setStatus("ok"); } })
+      .then((r) => {
+        if (!alive) return;
+        setPost(r.data); setStatus("ok");
+        // opened by an old address → show the current one
+        if (r.data?.slug && r.data.slug !== slug) navigate(blogUrl(r.data), { replace: true });
+      })
       .catch(() => alive && setStatus("missing"));
     API.get("/blogs").then((r) => alive && setAll(r.data || [])).catch(() => {});
     return () => { alive = false; };
@@ -59,10 +67,10 @@ export default function BlogDetail() {
           <div className="blog-detail-container">
             <div className="blog-detail-eyebrow">HOMWISOR INSIGHTS</div>
 
-            <h1>Article Not Found</h1>
+            <h1>Page Not Found</h1>
 
             <p>
-              The article you are looking for does not exist or may have been
+              The page you are looking for does not exist or may have been
               moved.
             </p>
 
@@ -312,7 +320,7 @@ export default function BlogDetail() {
             <div className="related-grid">
               {relatedPosts.map((item) => (
                 <Link
-                  to={`/blog/${item.slug}`}
+                  to={blogUrl(item)}
                   className="related-card"
                   key={item.id || item.slug}
                 >

@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import API from "../utils/api";
 import { BLOG_CATEGORIES, blogDate } from "../data/blog";
 
+import { blogUrl } from "../utils/slug";
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
@@ -85,7 +86,7 @@ export default function Blog() {
 
             {featured && (
             <article className="featured-card">
-              <Link to={`/blog/${featured.slug}`} className="featured-image">
+              <Link to={blogUrl(featured)} className="featured-image">
                 <img
                   src={featured.image}
                   alt={featured.title}
@@ -101,7 +102,7 @@ export default function Blog() {
 
                 <p>{featured.excerpt}</p>
 
-                <Link to={`/blog/${featured.slug}`}>
+                <Link to={blogUrl(featured)}>
                   Read Article <span>→</span>
                 </Link>
               </div>
@@ -159,7 +160,7 @@ export default function Blog() {
                   >
                     {/* IMAGE LINK */}
                     <Link
-                      to={`/blog/${slug}`}
+                      to={blogUrl(slug)}
                       className="blog-card-image"
                     >
                       <img
@@ -178,7 +179,7 @@ export default function Blog() {
                       <p>{post.excerpt}</p>
 
                       {/* READ ARTICLE LINK */}
-                      <Link to={`/blog/${slug}`}>
+                      <Link to={blogUrl(slug)}>
                         Read Article <span>→</span>
                       </Link>
                     </div>

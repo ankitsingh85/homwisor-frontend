@@ -4,6 +4,7 @@ import API from "../utils/api";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { CITIES, localitiesOf } from "../data/locations";
+import { propertyUrl } from "../utils/slug";
 import {
   readFilters,
   applyFilters,
@@ -184,7 +185,7 @@ export default function Search() {
 
     return (
       <Link
-        to={`/property/${propertyId}`}
+        to={property?.slug ? propertyUrl(property) : `/property/${propertyId}`}
         className="search-property-card"
       >
         {/* =================================================

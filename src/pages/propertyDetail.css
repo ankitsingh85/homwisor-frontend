@@ -540,3 +540,127 @@
 @media (max-width: 380px) {
   .pd-dock-prop img { display: none; }
 }
+
+/* =====================================================================
+   Compact sizing — hero, overview and every section fit a laptop screen
+===================================================================== */
+.pd-page { padding-bottom: 72px; }
+.pd-eyebrow { font-size: 11.5px; letter-spacing: 2.6px; margin-bottom: 10px; }
+.pd-eyebrow::before, .pd-eyebrow.center::after { width: 26px; }
+.pd-section { padding: 60px 0; }
+.pd-head { margin-bottom: 28px; }
+.pd-h2, .pd-h2-line, .pd-head h2 { font-size: clamp(24px, 2.3vw, 34px); margin-bottom: 10px; }
+.pd-h2-line { padding-bottom: 14px; margin-bottom: 20px; }
+.pd-head p { font-size: 15px; }
+.pd-btn { height: 44px; padding: 0 22px; font-size: 12px; letter-spacing: 1px; }
+.pd-btn.sm { height: 38px; padding: 0 18px; font-size: 11.5px; }
+.pd-hl { padding: 12px 16px; font-size: 14.5px; }
+.pd-hl-ic { width: 30px; height: 30px; }
+.pd-amenity { padding: 20px 12px 18px; }
+.pd-amenity span { width: 50px; height: 50px; }
+.pd-amenity strong { font-size: 13.5px; }
+.pd-tr { padding: 13px 22px; font-size: 14px; }
+.pd-faq button { padding: 14px 18px; }
+.pd-faq-q { font-size: 15px; }
+.pd-faq-no { width: 34px; height: 34px; }
+.pd-faq p { padding-left: 68px; font-size: 14px; }
+.pd-touch { padding: 28px 24px 22px; }
+.pd-touch h3, .pd-modal-head h3 { font-size: 24px; }
+.pd-input { height: 46px; }
+.pd-form .pd-btn { height: 48px; }
+.pd-about-visual { min-height: 400px; }
+.pd-about-quote { font-size: clamp(18px, 1.8vw, 26px); }
+.pd-stat strong { font-size: 22px; }
+
+/* top bar */
+.pd-bar-inner { height: 54px; gap: 16px; }
+.pd-bar-logo { height: 36px; padding: 4px 10px; }
+.pd-bar-logo img { height: 26px; max-width: 100px; }
+.pd-bar-title strong { font-size: 14px; }
+.pd-bar-title span { font-size: 12px; }
+.pd-bar-nav button { font-size: 12.5px; padding: 6px 11px; }
+.pd-bar .pd-btn.sm { height: 36px; padding: 0 16px; }
+
+/* hero */
+.pd-hero { min-height: clamp(420px, calc(100vh - 54px - 64px), 560px); }
+.pd-hero-inner { padding: 28px 0; gap: 24px; }
+.pd-hero-info { width: min(430px, 100%); gap: 12px; }
+.pd-glass { padding: 16px 22px; border-radius: 10px; border-left-width: 3px; }
+.pd-hero-eyebrow { font-size: 11px; letter-spacing: 3px; margin-bottom: 6px; }
+.pd-hero-name h1 { font-size: clamp(20px, 1.9vw, 28px); margin-bottom: 6px; }
+.pd-hero-name p { font-size: 14.5px; line-height: 1.5; }
+.pd-hero-grid { gap: 12px 20px; padding-bottom: 12px; margin-bottom: 10px; }
+.pd-hero-grid small, .pd-hero-price small { font-size: 10.5px; margin-bottom: 3px; }
+.pd-hero-grid strong { font-size: 15px; }
+.pd-hero-price strong { font-size: 20px; }
+.pd-hero-card { width: min(360px, 100%); padding: 22px 22px 20px; border-radius: 16px; }
+.pd-hero-card h2 { font-size: 21px; }
+.pd-hero-card > p { font-size: 11px; margin-bottom: 16px; }
+.pd-hform { gap: 12px; }
+.pd-hform > label { gap: 6px; font-size: 11.5px; }
+.pd-hform input:not([type=checkbox]), .pd-hform select { height: 42px; font-size: 14px; padding: 0 12px; }
+.pd-hform-phone { grid-template-columns: 84px 1fr; }
+.pd-hform-phone select { font-size: 14px; }
+.pd-hform-check { font-size: 11px !important; gap: 8px !important; }
+.pd-hform-check input { width: 16px; height: 16px; }
+.pd-hform button { height: 44px; font-size: 13.5px; letter-spacing: 1.6px; }
+
+/* overview: text + photo fit one screen */
+.pd-overview { padding-top: 36px; padding-bottom: 48px; }
+.pd-split { gap: 44px; }
+.pd-title { font-size: clamp(28px, 3vw, 42px); margin-bottom: 14px; }
+.pd-desc { font-size: 15px; line-height: 1.7; -webkit-line-clamp: 3; }
+.pd-readmore { font-size: 13.5px; }
+.pd-facts { margin: 16px 0 14px; }
+.pd-fact { padding: 11px 12px; gap: 10px; }
+.pd-fact-ic { width: 36px; height: 36px; }
+.pd-fact strong { font-size: 14px; }
+.pd-fact small { font-size: 12px; }
+.pd-price-line { margin-bottom: 18px; }
+.pd-price-line span { font-size: 11.5px; }
+.pd-price-line strong { font-size: 22px; }
+.pd-video-btn { font-size: 12px; gap: 10px; }
+.pd-video-btn span { width: 42px; height: 42px; }
+.pd-shape-frame { aspect-ratio: 1.5 / 1; max-height: calc(100vh - 54px - 72px - 60px); width: 100%; }
+.pd-shape-tag strong { font-size: clamp(22px, 2.4vw, 38px); }
+.pd-shape-tag i { margin: 12px 0 10px; }
+.pd-shape-tag small { font-size: 10.5px; letter-spacing: 2.2px; }
+.pd-shape-ctrl { right: 16px; bottom: 16px; }
+.pd-shape-ctrl button { width: 32px; height: 32px; }
+.pd-shape-ctrl span { font-size: 11.5px; padding: 0 10px; }
+
+/* bottom dock */
+.pd-dock-inner { height: 64px; }
+.pd-dock-prop { gap: 12px; }
+.pd-dock-prop img { width: 42px; height: 42px; }
+.pd-dock-prop strong { font-size: 15px; }
+.pd-dock-prop small { font-size: 12.5px; }
+.pd-dock-actions { gap: 10px; }
+.pd-dock-brochure, .pd-dock-enquire { height: 42px; padding: 0 18px; gap: 8px; }
+.pd-dock-brochure { font-size: 14px; }
+.pd-dock-brochure svg { width: 17px; height: 17px; }
+.pd-dock-enquire { font-size: 12.5px; letter-spacing: 1px; }
+.pd-dock-wa { width: 44px; height: 44px; }
+.pd-dock-wa svg { width: 22px; height: 22px; }
+
+@media (max-width: 960px) {
+  .pd-shape-frame { max-height: none; }
+  .pd-hero-card { width: 100%; }
+}
+@media (max-width: 768px) {
+  .pd-page { padding-bottom: 64px; }
+  .pd-section { padding: 44px 0; }
+  .pd-title { font-size: 28px; }
+  .pd-hero-name h1 { font-size: 22px; }
+  .pd-dock-inner { height: 58px; }
+  .pd-dock-prop img { width: 36px; height: 36px; }
+  .pd-dock-prop strong { font-size: 13.5px; }
+  .pd-dock-prop small { font-size: 11.5px; }
+  .pd-dock-brochure { width: 40px; height: 40px; padding: 0; }
+  .pd-dock-enquire { height: 40px; padding: 0 12px; font-size: 11.5px; }
+  .pd-dock-wa { width: 40px; height: 40px; }
+  .pd-dock-wa svg { width: 20px; height: 20px; }
+}
+@media (max-width: 420px) {
+  .pd-dock-prop img { display: none; }
+}
