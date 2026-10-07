@@ -2234,7 +2234,7 @@ button:hover {
 
     display: block !important;
 
-    object-fit: cover !important;
+    object-fit: fill !important;
 
     object-position: center !important;
 

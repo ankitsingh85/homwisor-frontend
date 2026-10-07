@@ -124,7 +124,7 @@
 .pd-shape { position: relative; min-width: 0; padding: 0 0 18px 18px; }
 .pd-shape-accent { position: absolute; left: 0; bottom: 0; width: 46%; height: 62%; background: var(--pd-grad); clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%); border-radius: 0 0 0 4px; }
 .pd-shape-frame { position: relative; aspect-ratio: 1.22 / 1; overflow: hidden; clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%); border-radius: 0 18px 18px 0; background: #111; box-shadow: 0 30px 60px rgba(11,11,11,.18); }
-.pd-shape-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .8s ease, transform 6s ease; }
+.pd-shape-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; opacity: 0; transform: scale(1.04); transition: opacity .8s ease, transform 6s ease; }
 .pd-shape-frame img.on { opacity: 1; transform: scale(1); }
 .pd-shape-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.55) 100%), linear-gradient(0deg, rgba(0,0,0,.45) 0%, transparent 40%); pointer-events: none; }
 .pd-shape-tag { position: absolute; right: 7%; top: 50%; transform: translateY(-50%); text-align: left; color: #fff; max-width: 46%; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
@@ -169,7 +169,7 @@
 /* ---------- gallery bento ---------- */
 .pd-bento { display: grid; gap: 14px; grid-template-columns: 1.25fr 1fr 1fr; grid-template-rows: repeat(2, minmax(200px, 270px)); }
 .pd-bento-item { position: relative; display: block; padding: 0; border: none; border-radius: 16px; overflow: hidden; cursor: zoom-in; background: #111; }
-.pd-bento-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.pd-bento-item img { width: 100%; height: 100%; object-fit: fill; display: block; transition: transform .6s ease; }
 .pd-bento-item::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.6) 0%, transparent 45%); pointer-events: none; }
 .pd-bento-item:hover img { transform: scale(1.05); }
 .pd-bento.n5 .i0 { grid-row: span 2; }
@@ -202,7 +202,7 @@
 .pd-feature span { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--pd-line2); background: var(--pd-soft); color: var(--pd-accent); }
 
 .pd-about-visual { position: relative; min-height: 460px; border-radius: 22px; overflow: hidden; background: #111; box-shadow: 0 30px 60px rgba(11,11,11,.16); }
-.pd-about-visual > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pd-about-visual > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
 .pd-about-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.2) 55%, transparent 100%), linear-gradient(0deg, rgba(0,0,0,.6) 0%, transparent 35%); }
 .pd-about-quote { position: absolute; left: 36px; top: 40px; color: #fff; font-family: var(--pd-serif); font-size: clamp(22px, 2.2vw, 32px); font-weight: 600; line-height: 1.2; letter-spacing: 1px; }
 .pd-about-quote i { display: block; width: 46px; height: 2px; background: var(--pd-grad); margin-bottom: 16px; }
@@ -218,7 +218,7 @@
 .pd-iconic-row { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 54px) / 4); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 6px; }
 .pd-iconic-row::-webkit-scrollbar { display: none; }
 .pd-iconic-card { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 18px; overflow: hidden; scroll-snap-align: start; text-decoration: none; background: #111; }
-.pd-iconic-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.pd-iconic-card img { width: 100%; height: 100%; object-fit: fill; transition: transform .6s; }
 .pd-iconic-card:hover img { transform: scale(1.05); }
 .pd-iconic-card > div { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; padding: 50px 18px 18px; background: linear-gradient(0deg, rgba(0,0,0,.85), transparent); }
 .pd-iconic-card strong { display: block; font-family: var(--pd-serif); font-size: 19px; color: #fff; line-height: 1.2; }
@@ -283,7 +283,7 @@
 .pd-similar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .pd-sim { display: block; border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--pd-line); text-decoration: none; transition: transform .2s, box-shadow .2s; }
 .pd-sim:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(11,11,11,.08); }
-.pd-sim img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.pd-sim img { width: 100%; aspect-ratio: 3 / 2; object-fit: fill; display: block; }
 .pd-sim div { padding: 14px 16px 16px; display: grid; gap: 4px; }
 .pd-sim strong { font-size: 16px; color: var(--pd-ink); }
 .pd-sim .gold { font-weight: 800; font-size: 14px; }
@@ -316,7 +316,7 @@
 .pd-lb-thumbs { display: flex; gap: 8px; justify-content: center; overflow-x: auto; padding: 12px 24px 20px; }
 .pd-lb-thumbs button { flex-shrink: 0; width: 84px; height: 58px; padding: 0; border-radius: 8px; overflow: hidden; border: 2px solid transparent; opacity: .55; cursor: pointer; background: #222; }
 .pd-lb-thumbs button.on { border-color: var(--pd-accent); opacity: 1; }
-.pd-lb-thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.pd-lb-thumbs img { width: 100%; height: 100%; object-fit: fill; }
 
 
 /* =====================================================================
@@ -444,7 +444,7 @@
    Hero — full-width photo, glass info cards, enquiry card
 ===================================================================== */
 .pd-hero { position: relative; overflow: hidden; background: #111; min-height: clamp(560px, calc(100vh - 62px - 88px), 700px); display: flex; align-items: center; }
-.pd-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pd-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
 .pd-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 50%, rgba(0,0,0,.3) 100%); }
 .pd-hero-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 48px 0; }
 .pd-hero-info { width: min(500px, 100%); display: grid; gap: 22px; }
@@ -509,7 +509,7 @@
 .pd-dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: rgba(255,255,255,.97); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--pd-line); box-shadow: 0 -10px 30px rgba(11,11,11,.08); }
 .pd-dock-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 84px; }
 .pd-dock-prop { display: flex; align-items: center; gap: 16px; min-width: 0; }
-.pd-dock-prop img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,.18); }
+.pd-dock-prop img { width: 56px; height: 56px; border-radius: 50%; object-fit: fill; flex-shrink: 0; border: 2px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,.18); }
 .pd-dock-prop span { display: grid; gap: 2px; min-width: 0; }
 .pd-dock-prop strong { font-size: 18px; font-weight: 700; color: var(--pd-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pd-dock-prop small { font-size: 14px; font-weight: 600; color: var(--pd-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

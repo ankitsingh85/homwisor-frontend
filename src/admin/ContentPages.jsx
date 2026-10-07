@@ -136,7 +136,7 @@ export function SnapsPage({ snaps, run }) {
             <h4>Video</h4>
             <div className="hwd-form-grid">
               <Field label="Video link (.mp4) *" full hint="Plays muted on a loop"><Input value={f.videoUrl} onChange={set('videoUrl')} placeholder="https://…/video.mp4" /></Field>
-              <Field label="Thumbnail *" full><div style={{ maxWidth: 220 }}><ImageUpload value={f.thumbnail} onChange={set('thumbnail')} purpose="snap" aspect="4 / 5" /></div></Field>
+              <Field label="Thumbnail *" full><div style={{ maxWidth: 220 }}><ImageUpload value={f.thumbnail} onChange={set('thumbnail')} purpose="snap" aspect="9 / 16" /></div></Field>
             </div>
           </div>
           <div className="hwl-drawer-section">
@@ -355,7 +355,7 @@ export function LocationsPage({ locations, run }) {
       />
       <Drawer open={ed.open} onClose={ed.close} title={ed.editing ? 'Edit location' : 'Add a location'} footer={<DrawerFooter ed={ed} saveLabel="Add location" />}>
         <form id="hwl-form" onSubmit={ed.save}>
-          <Field label="Image *"><ImageUpload value={f.image} onChange={set('image')} purpose="location" aspect="4 / 3" /></Field>
+          <Field label="Image *"><ImageUpload value={f.image} onChange={set('image')} purpose="location" aspect="1 / 1" /></Field>
           <Field label="Location name *" hint="Use the locality name, e.g. Golf Course Road — the card links to its properties"><Input value={f.name} onChange={set('name')} placeholder="e.g. Golf Course Road" /></Field>
           <Field label="Count text" hint="Shown under the name"><Input value={f.count} onChange={set('count')} placeholder="e.g. 142 Projects" /></Field>
         </form>
@@ -500,7 +500,7 @@ export function RecommendedPage({ items, run, properties = [] }) {
               </select>
             </Field>
           )}
-          <Field label="Image *"><div style={{ maxWidth: 300 }}><ImageUpload value={f.image} onChange={set('image')} purpose="recommended" aspect="46 / 45" /></div></Field>
+          <Field label="Image *"><div style={{ maxWidth: 300 }}><ImageUpload value={f.image} onChange={set('image')} purpose="recommended" aspect="1 / 1" /></div></Field>
           <div className="hwd-form-grid">
             <Field label="Name *" full><Input value={f.title} onChange={set('title')} placeholder="e.g. M3M Brabus Residences" /></Field>
             <Field label="Price"><Input value={f.price} onChange={set('price')} placeholder="e.g. ₹20.00 Cr" /></Field>

@@ -151,7 +151,7 @@ export function ImageUpload({ value, onChange, purpose, aspect = '3 / 2', hint, 
       {err && <div className="hwu-err">{err}</div>}
 
       <div className="hwu-foot">
-        {(hint || rule) && <span>{hint || `Use about ${rule.ideal}`}{rule && <> · <b>min {rule.minW} × {rule.minH}</b></>}</span>}
+        {(hint || rule) && <span>{hint ? `${hint} · ` : ''}{rule?.shapeName ? <>Must be <b>{rule.shapeName}</b>, e.g. {rule.ideal}</> : !hint && rule && `Use about ${rule.ideal}`}{rule && <> · <b>min {rule.minW} × {rule.minH}</b></>}</span>}
         {!linkMode
           ? <button type="button" className="hwu-linkbtn" onClick={() => setLinkMode(true)}>or paste an image link</button>
           : (

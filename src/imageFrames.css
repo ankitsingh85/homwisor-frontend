@@ -1,0 +1,97 @@
+/* =====================================================================
+   Image frames = admin upload shapes
+   ---------------------------------------------------------------------
+   Photos use object-fit: fill, so they are never cropped. Every frame
+   below has the same shape the upload check enforces
+   (admin/imageRules.js + backend utils/imageRules.js), so uploaded photos
+   are never stretched either:
+
+     property photo, offer ........ 3:2
+     blog cover ................... 16:9
+     location, recommended ........ 1:1
+     side ad ...................... 9:20   (set in trendingProjects.css)
+
+   Loaded last (main.jsx) — !important beats the components' inline <style>.
+===================================================================== */
+
+/* ---------- property photos — 3:2 ---------- */
+.hw-trending-image,
+.search-property-image,
+.hw-branded-main-image,
+.pd-iconic-card {
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 3 / 2 !important;
+}
+.hw-trending-image img,
+.search-property-image img,
+.hw-branded-main-image img {
+  height: 100% !important;
+}
+
+/* detail page photo slider: always 3:2, never taller than the screen */
+.pd-shape-frame {
+  aspect-ratio: 3 / 2 !important;
+  max-height: none !important;
+  width: min(100%, calc((100vh - 186px) * 1.5)) !important;
+  margin-left: auto;
+}
+@media (max-width: 960px) {
+  .pd-shape-frame { width: 100% !important; }
+}
+
+/* detail page gallery: a grid of 3:2 tiles
+   5 photos → one big 2×2 tile + four small ones (the big one is ~3:2 too) */
+.pd-bento {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-rows: none !important;
+  grid-auto-rows: auto !important;
+}
+.pd-bento .pd-bento-item { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 3 / 2; }
+.pd-bento.n5 .i0 { grid-column: span 2 !important; grid-row: span 2 !important; aspect-ratio: auto; }
+.pd-bento.n1 { grid-template-columns: minmax(0, 1fr) !important; }
+.pd-bento.n2, .pd-bento.n4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.pd-bento.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+@media (max-width: 960px) {
+  .pd-bento, .pd-bento.n3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .pd-bento.n1 { grid-template-columns: minmax(0, 1fr) !important; }
+  .pd-bento.n5 .i0, .pd-bento.n3 .i0 { grid-column: span 2 !important; grid-row: auto !important; aspect-ratio: 3 / 2; }
+}
+
+/* ---------- offers — 3:2 ---------- */
+.hw-festival-card-image { height: auto !important; aspect-ratio: 3 / 2 !important; }
+.hw-festival-card-image img { height: 100% !important; }
+
+/* ---------- blog covers — 16:9 ---------- */
+.featured-image,
+.blog-card-image,
+.bd-card-img,
+.bd-banner {
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 16 / 9 !important;
+}
+.featured-image img,
+.blog-card-image img,
+.bd-card-img img,
+.bd-banner img {
+  height: 100% !important;
+}
+
+/* ---------- locations — 1:1 ---------- */
+.hw-location-card { height: auto !important; aspect-ratio: 1 / 1 !important; }
+
+/* ---------- recommended — 1:1 (mobile cards show the photo at its own shape) ---------- */
+@media (min-width: 769px) {
+  .hwr-card { aspect-ratio: 1 / 1 !important; }
+}
+
+/* ---------- not uploaded through the admin, or full-width / video ----------
+   these frames change shape with the screen, so they crop instead of stretching */
+.pd-hero-bg,
+.pd-about-visual > img,
+.pd-dock-prop img,
+.hw-budget-card img,
+.hw-branded-side-card img {
+  object-fit: cover !important;
+}

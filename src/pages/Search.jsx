@@ -959,7 +959,7 @@ export default function Search() {
           width: 100%;
           height: 100%;
           display: block;
-          object-fit: cover;
+          object-fit: fill;
           transition: transform .55s ease;
         }
 

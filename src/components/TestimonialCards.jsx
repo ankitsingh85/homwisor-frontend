@@ -23,7 +23,7 @@ function Avatar({ t }) {
   return (
     <div className="hw-testimonial-avatar" style={style}>
       {t.photo && !broken
-        ? <img src={t.photo} alt={t.name} loading="lazy" onError={() => setBroken(true)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        ? <img src={t.photo} alt={t.name} loading="lazy" onError={() => setBroken(true)} style={{ width: "100%", height: "100%", objectFit: "fill", display: "block" }} />
         : t.initials || initialsOf(t.name)}
     </div>
   );

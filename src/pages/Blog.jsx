@@ -392,7 +392,7 @@ export default function Blog() {
           width: 100%;
           height: 100%;
           display: block;
-          object-fit: cover;
+          object-fit: fill;
           transition: .4s ease;
         }
 
@@ -522,7 +522,7 @@ export default function Blog() {
           width: 100%;
           height: 100%;
           display: block;
-          object-fit: cover;
+          object-fit: fill;
           transition: .4s ease;
         }
 

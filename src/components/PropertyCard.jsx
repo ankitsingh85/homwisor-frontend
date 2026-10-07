@@ -7,8 +7,8 @@ export default function PropertyCard({ p, featured=false }){
       background:'#fff', borderRadius:14, overflow:'hidden', border:'1px solid #eee',
       display:'flex', flexDirection:'column', position:'relative'
     }}>
-      <Link to={propertyUrl(p)} style={{position:'relative', display:'block', overflow:'hidden', aspectRatio:'1.45'}}>
-        <img src={p.image} alt={p.title} style={{width:'100%', height:'100%', objectFit:'cover', transition:'transform .5s'}} className="card-img"/>
+      <Link to={propertyUrl(p)} style={{position:'relative', display:'block', overflow:'hidden', aspectRatio:'3 / 2'}}>
+        <img src={p.image} alt={p.title} style={{width:'100%', height:'100%', objectFit:'fill', transition:'transform .5s'}} className="card-img"/>
         {/* top badges */}
         <div style={{position:'absolute', top:10, left:10, display:'flex', gap:6}}>
           {p.rera && <span style={{background:'#16a34a', color:'#fff', fontSize:10, fontWeight:800, letterSpacing:.5, padding:'4px 8px', borderRadius:6, display:'flex', alignItems:'center', gap:4}}>
