@@ -14,6 +14,8 @@ import { AMENITIES, AmenityIcon } from '../data/amenities'
 import './admin.css'
 import './property-admin.css'
 import { propertyUrl, slugTyping, slugify } from '../utils/slug'
+import { propertyMeta } from '../utils/seo'
+import SeoFields from './SeoFields'
 
 const errorOf = (e, fallback) => e.response?.data?.error || fallback
 const OTHER = '__other__'
@@ -396,6 +398,17 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel }) {
             addLabel="Add question"
             textareaKey="answer"
             fields={[{ key: 'question', placeholder: 'Question, e.g. What is the possession date?' }, { key: 'answer', placeholder: 'Answer' }]}
+          />
+        </Step>
+
+        {/* 13. SEO */}
+        <Step n="13" title="Search engine (SEO)" sub="How this property appears in Google and when its link is shared.">
+          <SeoFields
+            title={f.seoTitle} description={f.seoDescription}
+            onTitle={v => set('seoTitle', v)} onDescription={v => set('seoDescription', v)}
+            defaultTitle={propertyMeta({ ...f, seoTitle: '' }).title}
+            defaultDescription={propertyMeta({ ...f, location: fullLocation, seoDescription: "" }).description}
+            path={`property/${f.slug || slugify(f.title) || 'project-name'}`}
           />
         </Step>
       </div>

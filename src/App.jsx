@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -6,7 +7,8 @@ import PropertyDetail from './pages/PropertyDetailPage'
 import Snaps from './pages/Snaps'
 import Contact from './pages/Contact'
 import AdminLogin from './admin/AdminLogin'
-import Dashboard from './admin/Dashboard'
+// admin dashboard (incl. the rich-text editor) loads only when an admin opens it
+const Dashboard = lazy(() => import('./admin/Dashboard'))
 import Blog from './pages/Blog'
 import BlogDetail from "./pages/BlogDetail";
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -59,7 +61,7 @@ export default function App(){
         <Route path="/property-snaps" element={<Snaps/>}/>
         <Route path="/snaps" element={<Navigate to="/property-snaps" replace/>}/>
         <Route path="/admin" element={<AdminLogin/>}/>
-        <Route path="/admin/dashboard" element={<Protected><Dashboard/></Protected>}/>
+        <Route path="/admin/dashboard" element={<Protected><Suspense fallback={<div style={{ minHeight: '100vh', background: '#0b0b0b' }} />}><Dashboard/></Suspense></Protected>}/>
         <Route path="/contact" element={<Contact />} />
         {/* Blog articles: homwisor.com/<slug> — fixed pages above always win */}
         <Route path="/:slug" element={<BlogDetail />} />

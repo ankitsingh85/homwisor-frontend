@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API from "../utils/api";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -21,18 +22,31 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState("idle"); // idle | sending | sent
+  const [error, setError] = useState("");
+
+  // Sent to the backend → saved in Admin → Enquiries and emailed to support@homwisor.com
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    alert("Thank you! Our property expert will contact you shortly.");
-
-    setForm({
-      name: "",
-      phone: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+    if (status === "sending") return;
+    setError("");
+    setStatus("sending");
+    try {
+      await API.post("/enquiries", {
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+        subject: form.subject,
+        message: form.message.trim(),
+        source: "contact",
+        page: window.location.pathname,
+      });
+      setStatus("sent");
+      setForm({ name: "", phone: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      setStatus("idle");
+      setError(err?.response?.data?.error || "Could not send your message right now. Please call us instead.");
+    }
   };
 
   return (
@@ -369,11 +383,19 @@ export default function Contact() {
 
               {/* SUBMIT */}
 
+              {status === "sent" && (
+                <div className="contact-form-note ok" role="status">
+                  ✓ Thank you! Your message has been sent — our property expert will contact you shortly.
+                </div>
+              )}
+              {error && <div className="contact-form-note err" role="alert">{error}</div>}
+
               <button
                 type="submit"
                 className="submit-btn"
+                disabled={status === "sending"}
               >
-                Send Message
+                {status === "sending" ? "Sending…" : "Send Message"}
 
                 <svg
                   viewBox="0 0 24 24"
@@ -833,6 +855,18 @@ export default function Contact() {
         /* =====================================================
            SUBMIT
         ===================================================== */
+
+        .contact-form-note {
+          margin: 0 0 14px;
+          padding: 12px 14px;
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 1.5;
+        }
+        .contact-form-note.ok { background: #ecfdf3; border: 1px solid #bbf7d0; color: #166534; }
+        .contact-form-note.err { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .submit-btn:disabled { opacity: .7; cursor: wait; }
 
         .submit-btn {
           width: 100%;

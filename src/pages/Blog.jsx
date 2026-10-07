@@ -6,6 +6,7 @@ import API from "../utils/api";
 import { BLOG_CATEGORIES, blogDate } from "../data/blog";
 
 import { blogUrl } from "../utils/slug";
+import { applyMeta } from "../utils/seo";
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
@@ -27,7 +28,11 @@ export default function Blog() {
     return () => { alive = false; };
   }, []);
 
-  useEffect(() => { document.title = "Real Estate Insights | HomWisor Blog"; }, []);
+  useEffect(() => applyMeta({
+    title: "Real Estate Insights | HomWisor Blog",
+    description: "Property news, market insights, investment ideas and practical guides for Gurgaon and Delhi NCR.",
+    url: window.location.origin + "/blog",
+  }), []);
 
   // the usual categories first, then any new ones the admin created
   const categories = useMemo(() => {

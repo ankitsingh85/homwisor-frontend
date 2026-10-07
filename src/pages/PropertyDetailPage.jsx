@@ -5,6 +5,7 @@ import { AmenityIcon, DEFAULT_AMENITIES } from "../data/amenities";
 import { placeOf, findLocality, findCity } from "../data/locations";
 import "./propertyDetail.css";
 import { propertyUrl } from "../utils/slug";
+import { applyMeta, propertyMeta } from "../utils/seo";
 
 // Contact numbers used across the site
 const PHONE = "9090101401";
@@ -171,12 +172,14 @@ function EnquiryForm({ property, source, dark, compact, onDone }) {
         email: f.email.trim(),
         property: property?.title + (source ? ` — ${source}` : ""),
         message: f.message.trim() || source || "Enquiry from property page",
+        source: "property",
+        page: window.location.pathname,
       });
       setState("sent");
       onDone?.();
-    } catch {
+    } catch (e2) {
       setState("error");
-      setErr("Could not send right now. Please call us instead.");
+      setErr(e2?.response?.data?.error || "Could not send right now. Please call us instead.");
     }
   };
   if (state === "sent") {
@@ -217,7 +220,7 @@ function HeroForm({ property }) {
     if (!f.agree) return setErr("Please allow us to contact you");
     setErr(""); setState("sending");
     try {
-      await API.post("/enquiries", { name: f.name.trim(), phone: `${f.code} ${f.phone.trim()}`, email: "", property: property.title, message: "Enquiry from property page (top form)" });
+      await API.post("/enquiries", { name: f.name.trim(), phone: `${f.code} ${f.phone.trim()}`, email: "", property: property.title, message: "Enquiry from property page (top form)", source: "property", page: window.location.pathname });
       setState("sent");
     } catch {
       setState("idle"); setErr("Could not send right now. Please call us instead.");
@@ -304,6 +307,13 @@ export default function PropertyDetailPage() {
       .catch(() => alive && setStatus("missing"));
     return () => { alive = false; };
   }, [id]);
+
+  // meta title / description from the admin (Property → SEO), else built from the details
+  useEffect(() => {
+    if (!p) return;
+    const meta = propertyMeta(p);
+    return applyMeta({ ...meta, image: p.image, url: window.location.origin + propertyUrl(p), type: "website" });
+  }, [p]);
 
   // highlight the section in view
   useEffect(() => {
