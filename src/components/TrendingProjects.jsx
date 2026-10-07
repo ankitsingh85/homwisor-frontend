@@ -270,8 +270,8 @@ export default function TrendingProjects({
     {
       key: "sco",
       eyebrow: "SCO PROJECTS",
-      title: "SCO Projects in",
-      text: "Explore premium SCO plots and commercial projects in Gurugram",
+      title: "SCO in",
+      text: "Own your commercial address. Handpicked shop-cum-office plots .",
       items: scoDisplay,
       fallbackType: "SCO",
       fallbackArea: "SCO Plot",
@@ -456,13 +456,13 @@ export default function TrendingProjects({
 
 
             <h2>
-              Trending Projects in{" "}
+              Trending Properties in{" "}
               <span>Gurugram</span>
             </h2>
 
 
             <p>
-              Handpicked premium projects for a better tomorrow
+              Discover new launch and ready-to-move projects in Gurugram's top locations, including Dwarka Expressway, Golf Course Road and New Gurgaon.
             </p>
 
           </div>
@@ -752,16 +752,15 @@ export default function TrendingProjects({
 
 
                   <h2>
-                    Gurugram's{" "}
+                    Explore Gurugram by {" "}
                     <span>
-                      Prime Locations
+                      Location
                     </span>
                   </h2>
 
 
                   <p>
-                    Explore properties in the most
-                    sought-after locations
+                    Pick your preferred locality and browse verified projects that match your lifestyle and budget.
                   </p>
 
                 </div>
@@ -829,11 +828,11 @@ export default function TrendingProjects({
                   </div>
 
                   <h2>
-                    Upcoming Projects in <span>Gurugram</span>
+                    Upcoming Launches in <span>Gurugram</span>
                   </h2>
 
                   <p>
-                    Discover the latest upcoming developments in Gurugram
+                    Be among the first to explore Gurugram's newest upcoming residences
                   </p>
 
                 </div>
@@ -1012,11 +1011,11 @@ export default function TrendingProjects({
                   </div>
 
                   <h2>
-                    New Launch Projects in <span>Gurugram</span>
+                    Newly Launched Properties in <span>Gurugram</span>
                   </h2>
 
                   <p>
-                    Explore the latest newly launched projects in Gurugram
+                    Book early in Gurugram's latest projects and get the best choice of units at launch prices.
                   </p>
 
                 </div>
@@ -1224,12 +1223,11 @@ export default function TrendingProjects({
                   </div>
 
                   <h2>
-                    Best Festival Offer in <span>2026</span>
+                    Festive Season Home Offers <span>2026</span>
                   </h2>
 
                   <p>
-                    Exclusive deals on premium residences. Limited period offers,
-                    unmatched value.
+                    Celebrate with a new address. Exclusive festive deals on Gurugram's finest residences, available for a limited time.
                   </p>
 
                 </div>
@@ -1641,39 +1639,40 @@ export default function TrendingProjects({
                   </div>
 
                   <h2>
-                    Where <span>Branded Residences</span> Meets
-                    <br />
-                    Architectural Masterpieces
+                    Where <span>Branded Residences</span> Meet
+                    Landmark Architecture
                   </h2>
 
                   <p>
-                    Indulge in our curated selection of signature branded residences.
-                    Crafted in collaboration with world-class fashion houses and
-                    legendary hoteliers to deliver a life of unmatched sophistication,
-                    bespoke concierge services, and timeless value.
+                    Discover a curated portfolio of branded residences, created with the world's leading fashion houses and hoteliers.
+                     Each home pairs signature design with dedicated concierge service and enduring value.
                   </p>
 
                   <div className="hw-branded-points">
                     <div>
                       <span className="hw-branded-point-icon">◆</span>
-                      <span>Concierge &amp; Valet Services</span>
+                      <span>Concierge & Valet Services</span>
                     </div>
                     <div>
                       <span className="hw-branded-point-icon">◆</span>
-                      <span>Fully RERA Verified Properties</span>
+                      <span>Every Property RERA-Verified</span>
                     </div>
                   </div>
 
                   <div className="hw-branded-actions">
                     <Link to="/search?category=branded" className="hw-branded-primary">
-                      EXPLORE RESIDENCES <span>→</span>
+                      Explore Residences <span>→</span>
                     </Link>
                     <Link to="/search?category=branded" className="hw-branded-secondary">
-                      GET INSTANT CALLBACK
+                      Request a Callback
                     </Link>
                   </div>
+                  <p>
+"Branded Residences" stays intact in the headline, 
+so your gold highlight still works. If you want a different headline direction:
+                  </p>
                 </div>
-
+                  
                 <div className="hw-branded-visual">
                   <div className="hw-branded-main-image">
                     <img
@@ -1934,11 +1933,11 @@ export default function TrendingProjects({
                   </div>
 
                   <h2>
-                    Top Budget <span>Projects</span>
+                    Browse by <span>Budget</span>
                   </h2>
 
                   <p>
-                    Smart homes. Great value. A better tomorrow in Gurugram.
+                    Pick a price range and see matching projects in Gurugram.
                   </p>
                 </div>
 
