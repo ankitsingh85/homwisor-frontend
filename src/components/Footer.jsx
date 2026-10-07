@@ -53,7 +53,7 @@ export default function Footer() {
               </div>
               <div style={{ height: 1, background: 'linear-gradient(90deg, rgba(212,175,55,.4), transparent)', margin: '14px 0' }} />
               <p style={{ fontSize: 13, lineHeight: 1.65, color: 'rgba(255,255,255,.65)' }}>
-                India's leading luxury real estate platform. Buy, sell & invest in premium properties across India.
+                Your Gateway to India’s Most Exclusive Real Estate.
               </p>
               <div style={{ display: 'grid', gap: 10, marginTop: 16 }}>
                 <a href="tel:+919090101401" style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.85)' }}>
@@ -115,7 +115,7 @@ export default function Footer() {
           </div>
 
           <div style={{ borderTop: '1px solid #1a1a1a', marginTop: 28, paddingTop: 14, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, fontSize: 12, color: 'rgba(255,255,255,.45)' }}>
-            <span>© 2026 HomWisor.com — Rishto Ki Shuruwat. All rights reserved. | RERA Registered</span>
+            <span>© 2026 HomWisor.com — YOUR CHOOSEN ONE, All rights reserved. | RERA Registered</span>
             <span style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
 
   {/* Facebook */}

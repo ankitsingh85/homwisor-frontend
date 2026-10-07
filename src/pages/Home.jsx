@@ -583,7 +583,7 @@ export default function Home(){
             letterSpacing: '-.5px'
           }}
         >
-          Which BHK suits your lifestyle best?
+          Which BHK Is Right for You?
         </h2>
 
         <p
@@ -594,7 +594,7 @@ export default function Home(){
             lineHeight: 1.4
           }}
         >
-          Find a home that fits you and tomorrow.
+          Choose a size and see matching homes in Gurugram.
         </p>
 
         <div
@@ -1008,7 +1008,7 @@ export default function Home(){
               letterSpacing: '-.4px'
             }}
           >
-            Why Choose Us
+            Why Buyers Trust Homwisor
           </h2>
 
           <p
@@ -1020,7 +1020,7 @@ export default function Home(){
               color: '#64748B'
             }}
           >
-            India's trusted real estate platform for verified properties, direct builder pricing, and complete end-to-end guidance.
+            We verify every property, get you the builder's price and stay with you until the keys are in your hand.
           </p>
 
         </div>
