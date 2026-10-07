@@ -32,6 +32,7 @@ export default function Home(){
   const [builders, setBuilders] = useState([])
   const [testimonials, setTestimonials] = useState(undefined) // undefined = loading, null = failed
   const [recommendedCards, setRecommendedCards] = useState([])
+  const [brandedFeature, setBrandedFeature] = useState({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -47,7 +48,8 @@ export default function Home(){
           o,
           bd,
           tm,
-          rc
+          rc,
+          bf
         ] = await Promise.all([
 
           API.get('/banners'),
@@ -65,7 +67,11 @@ export default function Home(){
             .catch(() => ({ data: null })),
 
           API.get('/recommended')
-            .catch(() => ({ data: [] }))
+            .catch(() => ({ data: [] })),
+
+          // Admin → Branded Banner ({} = use the built-in content)
+          API.get('/features/branded')
+            .catch(() => ({ data: {} }))
 
         ])
 
@@ -82,6 +88,8 @@ export default function Home(){
         setTestimonials(tm.data ?? null)
 
         setRecommendedCards(rc.data || [])
+
+        setBrandedFeature(bf.data || {})
 
       }catch(e){
 
@@ -786,6 +794,7 @@ export default function Home(){
       ========================================= */}
 <TrendingProjects
   bhkSection={bhkSection}
+  brandedFeature={brandedFeature}
   properties={properties}
   locations={locations}
   upcoming={upcoming}

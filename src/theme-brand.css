@@ -188,8 +188,8 @@
 .filter-field select:focus { border-color: var(--hb-gold) !important; }
 
 /* =====================================================================
-   Homepage hero — proportions of the reference (100acress) design:
-   hero ≈ 30% of the screen width, search box ≤ 960px, overlapping ~75px,
+   Homepage hero (desktop):
+   banner image area is 3:1 (like the uploads), search box ≤ 960px overlapping 40px,
    dark navbar background over the hero.
 ===================================================================== */
 @media (min-width: 769px) {
@@ -202,7 +202,10 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
   }
 
-  .hw-home-hero .hw-hero { height: clamp(360px, 30vw, 470px) !important; }
+  /* image area = 3:1, the shape of uploaded hero banners (2100 × 700), so the whole
+     banner shows with object-fit: fill — nothing cropped, nothing stretched */
+  .hw-home-hero .hw-hero { height: calc(72px + 100vw / 3) !important; }
+  .hw-home-hero .hw-hero .hw-slide img { object-fit: fill !important; }
   /* banner image starts below the 72px navbar so its artwork isn't covered */
   .hw-home-hero .hw-hero .hw-slides {
     inset: auto !important;
@@ -217,10 +220,12 @@
   .hw-home-hero .hw-hero .hw-arrow { top: calc(50% + 36px) !important; }
 
   .hw-home-hero .hw-search-overlay {
-    top: calc(100% - 75px) !important;
+    top: calc(100% - 40px) !important; /* overlaps just the banner's bottom edge */
     bottom: auto !important;
     width: min(960px, calc(100% - 48px)) !important;
   }
+  /* room between the search box and the slim banner slider below it */
+  .hw-new-premium-slider .hw-image-slider { margin-top: 148px !important; }
   .hw-home-hero .hw-search-container {
     width: 100% !important;
     max-width: 960px !important;

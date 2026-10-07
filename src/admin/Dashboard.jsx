@@ -9,6 +9,7 @@ import { Icon, Spinner } from './ui'
 import { SnapsPage, BannersPage, LocationsPage, OffersPage, RecommendedPage } from './ContentPages'
 import { BlogPage } from './BlogPage'
 import { TestimonialsPage } from './TestimonialsPage'
+import { BrandedFeaturePage } from './BrandedFeaturePage'
 import logo from '../images/logo-homwiser.png'
 import './admin.css'
 import './dashboard.css'
@@ -63,6 +64,7 @@ const NAV = [
     { id: 'banners', label: 'Banners', icon: Icon.image },
     { id: 'locations', label: 'Prime Locations', icon: Icon.pin },
     { id: 'offers', label: 'Festival Offers', icon: Icon.gift },
+    { id: 'branded', label: 'Branded Banner', icon: Icon.gem },
     { id: 'testimonials', label: 'Testimonials', icon: Icon.users, count: 'testis' },
   ] },
   { group: 'Content', items: [
@@ -72,7 +74,7 @@ const NAV = [
     { id: 'admins', label: 'Admins & Security', altLabel: 'My Account', icon: Icon.shield },
   ] },
 ]
-const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', properties: 'Properties', snaps: 'Property Snaps', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', blog: 'Blog', testimonials: 'Testimonials', admins: 'Admins & Security' }
+const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', properties: 'Properties', snaps: 'Property Snaps', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', branded: 'Branded Banner', blog: 'Blog', testimonials: 'Testimonials', admins: 'Admins & Security' }
 
 // ---------------------------------------------------------------
 // Overview
@@ -409,10 +411,11 @@ export default function Dashboard() {
               {active === 'snaps' && <SnapsPage snaps={snaps} run={run} />}
               {active === 'banners' && <BannersPage banners={banners} run={run} properties={props} />}
               {active === 'locations' && <LocationsPage locations={locations} run={run} />}
-              {active === 'offers' && <OffersPage offers={offers} run={run} />}
+              {active === 'offers' && <OffersPage offers={offers} run={run} properties={props} />}
               {active === 'recommended' && <RecommendedPage items={recs} run={run} properties={props} />}
               {active === 'blog' && <BlogPage blogs={blogs} run={run} />}
               {active === 'testimonials' && <TestimonialsPage items={testis} run={run} />}
+              {active === 'branded' && <BrandedFeaturePage run={run} properties={props} />}
               {active === 'enquiries' && <EnquiriesPage enqs={enqs} run={run} />}
               {active === 'admins' && <AdminUsers me={me} onMeChange={updateMe} />}
             </>

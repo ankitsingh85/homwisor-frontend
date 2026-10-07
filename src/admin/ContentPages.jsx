@@ -210,7 +210,7 @@ function linkOptions(properties = []) {
 
 const CUSTOM = '__custom__'
 
-export function LinkPicker({ value, onChange, properties }) {
+export function LinkPicker({ value, onChange, properties, emptyLabel = 'Nothing — not clickable' }) {
   const groups = linkOptions(properties)
   const known = groups.some(g => g.items.some(([v]) => v === value))
   const [custom, setCustom] = useState(!!value && value !== '#' && !known)
@@ -227,7 +227,7 @@ export function LinkPicker({ value, onChange, properties }) {
           setCustom(false); onChange(e.target.value)
         }}
       >
-        <option value="">Nothing — not clickable</option>
+        <option value="">{emptyLabel}</option>
         {groups.map(g => g.items.length > 0 && (
           <optgroup key={g.group} label={g.group}>
             {g.items.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
@@ -367,9 +367,9 @@ export function LocationsPage({ locations, run }) {
 // ---------------------------------------------------------------
 // Festival Offers
 // ---------------------------------------------------------------
-const emptyOffer = { title: '', price: '', location: '', image: '', badge: '' }
+const emptyOffer = { title: '', price: '', location: '', image: '', badge: '', link: '' }
 
-export function OffersPage({ offers, run }) {
+export function OffersPage({ offers, run, properties = [] }) {
   const ed = useEditor({
     empty: emptyOffer, run,
     create: (b) => API.post('/offers', b),
@@ -392,6 +392,7 @@ export function OffersPage({ offers, run }) {
         columns={[
           { label: 'Price', render: o => <span className="gold">{o.price}</span> },
           { label: 'Location', render: o => <span className="muted hwl-ellipsis">{o.location}</span>, hideSm: true, hideGrid: true },
+          { label: 'Opens', render: o => o.link ? <span className="hwl-ellipsis" title={o.link}>{properties.find(p => o.link === propertyUrl(p))?.title || o.link}</span> : <span className="muted">Search for the name</span>, hideSm: true },
         ]}
         actions={() => [
           { label: 'Edit', icon: Icon.edit, onClick: ed.openEdit, primary: true },
@@ -411,6 +412,9 @@ export function OffersPage({ offers, run }) {
             <Field label="Price"><Input value={f.price} onChange={set('price')} placeholder="₹5.20 Cr" /></Field>
             <Field label="Badge"><Input value={f.badge} onChange={set('badge')} placeholder="NAVRATRI SPECIAL" /></Field>
             <Field label="Location" full><Input value={f.location} onChange={set('location')} placeholder="Sector 66, Gurugram" /></Field>
+            <Field label="Opens when clicked" full hint="Pick the property this offer is for. Left empty, the card opens a search for the project name.">
+              <LinkPicker value={f.link} onChange={set('link')} properties={properties} />
+            </Field>
           </div>
         </form>
       </Drawer>

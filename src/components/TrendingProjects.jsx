@@ -7,7 +7,9 @@ import s1 from "../images/s4.webp";
 import s2 from "../images/s5.webp";
 import s3 from "../images/s6.webp";
 import './trendingProjects.css'
-import { propertyUrl } from "../utils/slug";
+import { propertyUrl, currentPropertyLink } from "../utils/slug";
+import BannerLink from "./BannerLink";
+import { brandedFeatureContent } from "../data/brandedFeature";
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
@@ -33,6 +35,7 @@ const SECTION_ORDER = [
 
 export default function TrendingProjects({
   bhkSection = null,
+  brandedFeature = null,
   properties = [],
   locations = [],
   upcoming = [],
@@ -215,12 +218,13 @@ export default function TrendingProjects({
   const brandedList = (Array.isArray(branded) ? branded : displayLuxuryProjects).slice(0, 4);
   const luxuryList = (Array.isArray(luxury) ? luxury : displayLuxuryProjects).slice(0, 4);
 
-  const brandedBannerProject =
-    brandedList[0] ||
-    fallbackProperties.find((p) =>
-      String(p?.title || "").toLowerCase().includes("brabus")
-    ) ||
-    fallbackProperties[0];
+  // "Where Branded Residences Meet…" banner — Admin → Branded Banner, else built-in content
+  const bf = brandedFeatureContent(brandedFeature, brandedList[0], propertyUrl);
+  const bfMainLink = currentPropertyLink(bf.main.link, properties);
+  const bfHeading = (() => {
+    const i = bf.highlight ? bf.heading.indexOf(bf.highlight) : -1;
+    return i < 0 ? bf.heading : <>{bf.heading.slice(0, i)}<span>{bf.highlight}</span>{bf.heading.slice(i + bf.highlight.length)}</>;
+  })();
 
 
   /* =====================================================
@@ -390,6 +394,13 @@ export default function TrendingProjects({
 
   }, [ads.length]);
 
+
+  // Offer card link: the property/page chosen in Admin → Festival Offers
+  // (kept current if the property's address changed), else a search for its name
+  const offerLink = (offer) =>
+    offer?.link
+      ? currentPropertyLink(offer.link, properties)
+      : `/search?q=${encodeURIComponent(offer?.title || "")}`;
 
   /* =====================================================
      WHATSAPP
@@ -1484,17 +1495,14 @@ export default function TrendingProjects({
                     .slice(0, 6)
                     .map((offer, index) => (
 
-                      <Link
+                      <BannerLink
                         key={
                           offer.id ||
                           offer._id ||
                           `festival-${index}`
                         }
-                        to={`/property/${
-                          offer.id ||
-                          offer._id ||
-                          index
-                        }`}
+                        link={offerLink(offer)}
+                        label={offer.title}
                         className="hw-festival-card"
                       >
 
@@ -1560,7 +1568,7 @@ export default function TrendingProjects({
 
                         </div>
 
-                      </Link>
+                      </BannerLink>
 
                     ))}
 
@@ -1780,7 +1788,7 @@ export default function TrendingProjects({
                 PREMIUM DESIGN / SAME HOMWISOR STYLE
             ================================================= */}
 
-            <section className="hw-branded-feature">
+            <section className="hw-branded-feature" id="branded">
               <div className="hw-branded-feature-inner">
 
                 <div className="hw-branded-glow" />
@@ -1788,87 +1796,67 @@ export default function TrendingProjects({
                 <div className="hw-branded-copy">
                   <div className="hw-branded-label" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {bf.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
-                  <h2>
-                    Where <span>Branded Residences</span> Meet
-                    Landmark Architecture
-                  </h2>
+                  <h2>{bfHeading}</h2>
 
-                  <p>
-                    Discover a curated portfolio of branded residences, created with the world's leading fashion houses and hoteliers.
-                     Each home pairs signature design with dedicated concierge service and enduring value.
-                  </p>
+                  <p>{bf.description}</p>
 
                   <div className="hw-branded-points">
-                    <div>
-                      <span className="hw-branded-point-icon">◆</span>
-                      <span>Concierge & Valet Services</span>
-                    </div>
-                    <div>
-                      <span className="hw-branded-point-icon">◆</span>
-                      <span>Every Property RERA-Verified</span>
-                    </div>
+                    {bf.points.map((point) => (
+                      <div key={point}>
+                        <span className="hw-branded-point-icon">◆</span>
+                        <span>{point}</span>
+                      </div>
+                    ))}
                   </div>
 
                   <div className="hw-branded-actions">
-                    <Link to="/search?category=branded" className="hw-branded-primary">
-                      Explore Residences <span>→</span>
-                    </Link>
-                    <Link to="/search?category=branded" className="hw-branded-secondary">
-                      Request a Callback
-                    </Link>
+                    <BannerLink link={currentPropertyLink(bf.primaryLink, properties)} className="hw-branded-primary">
+                      {bf.primaryLabel} <span>→</span>
+                    </BannerLink>
+                    <BannerLink link={currentPropertyLink(bf.secondaryLink, properties)} className="hw-branded-secondary">
+                      {bf.secondaryLabel}
+                    </BannerLink>
                   </div>
-                  <p>
-"Branded Residences" stays intact in the headline, 
-so your gold highlight still works. If you want a different headline direction:
-                  </p>
                 </div>
                   
                 <div className="hw-branded-visual">
                   <div className="hw-branded-main-image">
-                    <img
-                      src={
-                        brandedBannerProject?.image ||
-                        brandedBannerProject?.thumbnail ||
-                        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=560&fit=crop"
-                      }
-                      alt={brandedBannerProject?.title || "Branded Residence"}
-                    />
+                    <img src={bf.main.image} alt={bf.main.title} />
 
                     <div className="hw-branded-image-card">
                       <div>
-                        <small>BRANDED RESIDENCES</small>
-                        <strong>
-                          {brandedBannerProject?.title || "M3M Brabus Residences"}
-                        </strong>
+                        <small>{bf.main.label}</small>
+                        <strong>{bf.main.title}</strong>
                       </div>
-                      <Link
-                        to={brandedBannerProject ? propertyUrl(brandedBannerProject) : "/search?category=branded"}
-                      >
+                      <BannerLink link={bfMainLink} label={`Explore ${bf.main.title}`}>
                         EXPLORE <span>→</span>
-                      </Link>
+                      </BannerLink>
                     </div>
                   </div>
 
+                  <BannerLink link={currentPropertyLink(bf.side.link, properties)} label={bf.side.brand || "Branded residence"} className="hw-branded-side-link">
                   <div className="hw-branded-side-card">
-                    <img
-                      src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&h=900&fit=crop"
-                      alt="Luxury branded residence"
-                    />
-                    <div className="hw-branded-side-overlay" />
-                    <div className="hw-branded-side-content">
-                      <span>HOMWISOR</span>
-                      <strong>BRABUS</strong>
-                      <small>RESIDENCES</small>
-                      <em>POWER. PRESTIGE. PERFECTION.</em>
-                      <label>COMING TO</label>
-                      <b>SECTOR 58, GURGAON</b>
-                      <div>4 &amp; 5 BHK • STARTING FROM ₹20 CR*</div>
-                    </div>
+                    <img src={bf.side.image} alt={bf.side.brand || "Luxury branded residence"} />
+                    {(bf.side.brand || bf.side.footer || bf.side.location) && (
+                      <>
+                        <div className="hw-branded-side-overlay" />
+                        <div className="hw-branded-side-content">
+                          {bf.side.label && <span>{bf.side.label}</span>}
+                          {bf.side.brand && <strong>{bf.side.brand}</strong>}
+                          {bf.side.sub && <small>{bf.side.sub}</small>}
+                          {bf.side.tagline && <em>{bf.side.tagline}</em>}
+                          {bf.side.note && <label>{bf.side.note}</label>}
+                          {bf.side.location && <b>{bf.side.location}</b>}
+                          {bf.side.footer && <div>{bf.side.footer}</div>}
+                        </div>
+                      </>
+                    )}
                   </div>
+                  </BannerLink>
                 </div>
 
               </div>
