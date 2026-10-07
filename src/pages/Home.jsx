@@ -526,144 +526,9 @@ export default function Home(){
   const testimonialsFallback = testimonials === null ? FALLBACK_TESTIMONIALS : testimonials
 
 
-  return (
-
-    <div
-      style={{
-        background: '#fcfcfc'
-      }}
-    >
-
-      {/* =========================================
-          HEADER
-      ========================================= */}
-
-      <Header />
-
-
-      {/* =========================================
-          HERO + FLOATING SEARCH
-      ========================================= */}
-
-      <section
-        className="hw-home-hero"
-      >
-
-        <Hero
-          banners={withLinks(banners.hero)}
-        />
-
-
-        {/* FLOATING SEARCH BOX */}
-
-        <div
-          className="hw-search-overlay"
-        >
-
-          <SearchSection />
-
-        </div>
-
-      </section>
-{/* NEW SLIDER */}
-<section className="hw-new-premium-slider">
-  <PremiumAutoSlider
-    banners={withLinks(banners.slider)}
-  />
-</section>
-
-{/* recommended properties */}
-
-<RecommendedProperties items={withLinks(recommendedCards)} />
-
- {/* =========================================
-          TRENDING
-      ========================================= */}
-<TrendingProjects
-  properties={properties}
-  locations={locations}
-  upcoming={upcoming}
-  newlaunch={newlaunch}
-  offers={offers}
-  promos={withLinks(banners.small)}
-  branded={properties.filter(p => p.category === 'branded').slice(0, 4)}
-  luxury={properties.filter(p => p.category === 'luxury').slice(0, 4)}
-/>
-      {/* <section
-        className="container"
-        style={{
-          padding:
-            '28px 16px 0'
-        }}
-      >
-
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent:
-              'space-between',
-            marginBottom: 12
-          }}
-        >
-
-          <h2
-            style={{
-              fontSize: 20,
-              fontWeight: 800,
-              color: '#111'
-            }}
-          >
-            Trending Projects in Gurugram
-          </h2>
-
-          <Link
-            to="/search?category=trending"
-            style={{
-              fontWeight: 700,
-              fontSize: 12,
-              color: '#fff',
-              background: BLACK,
-              padding: '7px 12px',
-              borderRadius: 20,
-              border:
-                `1px solid ${GOLD}`
-            }}
-          >
-            View All Projects
-          </Link>
-
-        </div>
-
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns:
-              'repeat(4,1fr)',
-            gap: 14
-          }}
-          className="grid-4"
-        >
-
-          {trending.map(
-            p => (
-              <PropertyCard
-                key={p.id}
-                p={p}
-              />
-            )
-          )}
-
-        </div>
-
-      </section> */}
-
-
-      {/* =========================================
-          BHK - PREMIUM CATEGORY STRIP
-      ========================================= */}
-
+  // "Which BHK suits your lifestyle best?" — shown inside TrendingProjects, between
+  // Prime Locations and Top Budget Projects (homepage order lives in TrendingProjects' SECTION_ORDER)
+  const bhkSection = (
       <section
         className="container hw-bhk-premium-section"
         style={{
@@ -815,7 +680,7 @@ export default function Home(){
                       marginTop: 2
                     }}
                   >
-                    {b.sub} {b.place ? b.place.replace(/^in\s*/i, 'in ') : 'in Gurugram'}
+                    {[b.sub, b.place].filter(Boolean).join(' ')}
                   </div>
 
                   <div
@@ -864,8 +729,217 @@ export default function Home(){
         </div>
 
       </section>
+  )
+
+  return (
+
+    <div
+      style={{
+        background: '#fcfcfc'
+      }}
+    >
+
+      {/* =========================================
+          HEADER
+      ========================================= */}
+
+      <Header />
 
 
+      {/* =========================================
+          HERO + FLOATING SEARCH
+      ========================================= */}
+
+      <section
+        className="hw-home-hero"
+      >
+
+        <Hero
+          banners={withLinks(banners.hero)}
+        />
+
+
+        {/* FLOATING SEARCH BOX */}
+
+        <div
+          className="hw-search-overlay"
+        >
+
+          <SearchSection />
+
+        </div>
+
+      </section>
+{/* NEW SLIDER */}
+<section className="hw-new-premium-slider">
+  <PremiumAutoSlider
+    banners={withLinks(banners.slider)}
+  />
+</section>
+
+{/* recommended properties */}
+
+<RecommendedProperties items={withLinks(recommendedCards)} />
+
+ {/* =========================================
+          TRENDING
+      ========================================= */}
+<TrendingProjects
+  bhkSection={bhkSection}
+  properties={properties}
+  locations={locations}
+  upcoming={upcoming}
+  newlaunch={newlaunch}
+  offers={offers}
+  promos={withLinks(banners.small)}
+  branded={properties.filter(p => p.category === 'branded').slice(0, 4)}
+  luxury={properties.filter(p => p.category === 'luxury').slice(0, 4)}
+/>
+      {/* <section
+        className="container"
+        style={{
+          padding:
+            '28px 16px 0'
+        }}
+      >
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent:
+              'space-between',
+            marginBottom: 12
+          }}
+        >
+
+          <h2
+            style={{
+              fontSize: 20,
+              fontWeight: 800,
+              color: '#111'
+            }}
+          >
+            Trending Projects in Gurugram
+          </h2>
+
+          <Link
+            to="/search?category=trending"
+            style={{
+              fontWeight: 700,
+              fontSize: 12,
+              color: '#fff',
+              background: BLACK,
+              padding: '7px 12px',
+              borderRadius: 20,
+              border:
+                `1px solid ${GOLD}`
+            }}
+          >
+            View All Projects
+          </Link>
+
+        </div>
+
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns:
+              'repeat(4,1fr)',
+            gap: 14
+          }}
+          className="grid-4"
+        >
+
+          {trending.map(
+            p => (
+              <PropertyCard
+                key={p.id}
+                p={p}
+              />
+            )
+          )}
+
+        </div>
+
+      </section> */}
+
+
+<DeveloperSection builders={builders} properties={properties} />
+
+      {/* =========================================
+          CUSTOMER TESTIMONIALS - PREMIUM
+      ========================================= */}
+
+      {testimonialsFallback?.length > 0 && (
+      <section
+        className="container hw-testimonials-premium"
+        style={{
+          padding: '34px 16px 0'
+        }}
+      >
+
+        
+
+
+       {/* =========================================
+    CUSTOMER TESTIMONIALS
+========================================= */}
+
+<section className="container hw-testimonials-premium">
+
+  {/* Heading */}
+  <div className="hw-testimonial-heading">
+
+    <div className="hw-testimonial-eyebrow">
+      <span></span>
+      <strong>REAL STORIES, REAL HOMES</strong>
+      <span></span>
+    </div>
+
+    <h2>
+      Customer Testimonials
+    </h2>
+
+    <p>
+      Hear from our happy homeowners who found their dream properties with us.
+    </p>
+
+  </div>
+
+
+  {/* Testimonial Cards (managed in Admin → Testimonials) */}
+  <TestimonialCards items={testimonialsFallback} limit={4} />
+
+</section>
+
+        {/* Slider dots */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 6,
+            marginTop: 10
+          }}
+        >
+          {[0, 1, 2, 3].map((d, i) => (
+            <span
+              key={d}
+              style={{
+                width: i === 0 ? 7 : 6,
+                height: i === 0 ? 7 : 6,
+                borderRadius: '50%',
+                background: i === 0 ? GOLD_DARK : '#D1D5DB',
+                display: 'none'
+              }}
+            />
+          ))}
+        </div>
+
+      </section>
+      )}
       {/* =========================================
           WHY CHOOSE HOMWISOR - PREMIUM
       ========================================= */}
@@ -1206,79 +1280,6 @@ export default function Home(){
       </section>
 
 
-      {/* =========================================
-          CUSTOMER TESTIMONIALS - PREMIUM
-      ========================================= */}
-
-      {testimonialsFallback?.length > 0 && (
-      <section
-        className="container hw-testimonials-premium"
-        style={{
-          padding: '34px 16px 0'
-        }}
-      >
-
-        
-
-
-       {/* =========================================
-    CUSTOMER TESTIMONIALS
-========================================= */}
-
-<section className="container hw-testimonials-premium">
-
-  {/* Heading */}
-  <div className="hw-testimonial-heading">
-
-    <div className="hw-testimonial-eyebrow">
-      <span></span>
-      <strong>REAL STORIES, REAL HOMES</strong>
-      <span></span>
-    </div>
-
-    <h2>
-      Customer Testimonials
-    </h2>
-
-    <p>
-      Hear from our happy homeowners who found their dream properties with us.
-    </p>
-
-  </div>
-
-
-  {/* Testimonial Cards (managed in Admin → Testimonials) */}
-  <TestimonialCards items={testimonialsFallback} limit={4} />
-
-</section>
-
-        {/* Slider dots */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 6,
-            marginTop: 10
-          }}
-        >
-          {[0, 1, 2, 3].map((d, i) => (
-            <span
-              key={d}
-              style={{
-                width: i === 0 ? 7 : 6,
-                height: i === 0 ? 7 : 6,
-                borderRadius: '50%',
-                background: i === 0 ? GOLD_DARK : '#D1D5DB',
-                display: 'none'
-              }}
-            />
-          ))}
-        </div>
-
-      </section>
-      )}
-<DeveloperSection builders={builders} properties={properties} />  
 
 
       <Footer />

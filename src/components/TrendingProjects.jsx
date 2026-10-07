@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PropertyCard from "./PropertyCard";
@@ -16,7 +16,23 @@ const BLACK = "#090909";
 // Makes a linked side ad clickable over its whole area
 const AD_LINK = { position: "absolute", inset: 0, zIndex: 2, display: "block" };
 
+// Order of the homepage sections inside this component (beside the sticky side ad)
+const SECTION_ORDER = [
+  "upcoming",   // Upcoming Projects in Gurugram
+  "prime",      // Gurugram's Prime Locations
+  "bhk",        // Which BHK suits your lifestyle best? (passed in from Home)
+  "budget",     // Top Budget Projects
+  "trending",   // Trending Projects in Gurugram
+  "newlaunch",  // New Launch Projects in Gurugram
+  "festival",   // Best Festival Offer
+  "branded",    // Branded Residences (+ feature banner)
+  "sco",        // SCO Projects in Gurugram
+  "luxury",     // India's Finest Luxury Residences
+  "commercial", // Commercial Projects in Gurugram
+];
+
 export default function TrendingProjects({
+  bhkSection = null,
   properties = [],
   locations = [],
   upcoming = [],
@@ -434,12 +450,147 @@ export default function TrendingProjects({
     },
   ];
 
-  return (
-    <section className="hw-trending-section">
+  // Business sections (SCO + Commercial) share one design
+  const renderBusiness = (sec) => sec && sec.items.length > 0 && (
+              <section className="hw-upcoming-projects hw-sco-projects">
 
-      <div className="hw-trending-container">
+                <div className="hw-upcoming-header">
 
+                  <div>
+                    <div className="hw-subsection-eyebrow">
+                      {sec.eyebrow}
+                    </div>
 
+                    <h2>
+                      {sec.title} <span>Gurugram</span>
+                    </h2>
+
+                    <p>
+                      {sec.text}
+                    </p>
+                  </div>
+
+                  <Link
+                    to={`/search?category=${sec.key}`}
+                    className="hw-upcoming-view-all"
+                  >
+                    View All Projects
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m13 6 6 6-6 6" />
+                    </svg>
+                  </Link>
+
+                </div>
+
+                <div className="hw-upcoming-grid hw-trending-properties">
+
+                  {sec.items.map((property, index) => (
+                    <Link
+                      key={property.id || property._id || `${sec.key}-${index}`}
+                      to={propertyUrl(property)}
+                      className="hw-trending-card"
+                    >
+
+                      <div className="hw-trending-image">
+                        <img
+                          src={property.image || property.thumbnail}
+                          alt={property.title || sec.eyebrow}
+                          loading="lazy"
+                        />
+
+                        <div className="hw-image-overlay" />
+
+                        {property.rera !== false && (
+                          <div className="hw-rera-group">
+                            <span className="hw-rera-green">
+                              <b>✓</b> RERA
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="hw-bhk-badge">
+                          {property.propertyType || property.type || sec.fallbackType}
+                        </div>
+                      </div>
+
+                      <div className="hw-trending-card-content">
+                        <h3>
+                          {property.title || property.name || sec.eyebrow}
+                        </h3>
+
+                        <div className="hw-card-price">
+                          {property.priceRange || property.price || "Price on Request"}
+                        </div>
+
+                        <div className="hw-card-location">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                          >
+                            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+                            <circle cx="12" cy="10" r="2.5" />
+                          </svg>
+                          <span>{property.location || property.locality || "Gurugram"}</span>
+                        </div>
+
+                        <div className="hw-card-meta">
+                          <div>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+                              <path d="M4 4h6" /><path d="M4 4v6" />
+                              <path d="M20 20h-6" /><path d="M20 20v-6" />
+                              <path d="M4 20h6" /><path d="M4 20v-6" />
+                              <path d="M20 4h-6" /><path d="M20 4v6" />
+                            </svg>
+                            <span>{property.area || property.landArea || property.bhk || sec.fallbackArea}</span>
+                          </div>
+
+                          <div>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+                              <path d="M3 11h18" />
+                              <path d="M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
+                              <path d="M4 19v-8" /><path d="M20 19v-8" />
+                              <path d="M4 15h16" />
+                            </svg>
+                            <span>{property.propertyType || property.type || "Commercial"}</span>
+                          </div>
+                        </div>
+
+                        <a
+                          href={getWhatsAppUrl(property)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hw-card-whatsapp"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.48 0 .13 5.35.13 11.91c0 2.1.55 4.15 1.6 5.96L.03 24l6.27-1.64a11.86 11.86 0 0 0 5.73 1.46h.01c6.56 0 11.91-5.35 11.91-11.91 0-3.18-1.24-6.17-3.43-8.43ZM12.04 21.84h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.72.98.99-3.63-.23-.37a9.86 9.86 0 0 1-1.51-5.31c0-5.45 4.44-9.89 9.9-9.89a9.84 9.84 0 0 1 7 2.9 9.84 9.84 0 0 1 2.89 7c0 5.46-4.44 9.91-9.9 9.91Zm5.43-7.42c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.11 3.23 5.12 4.53.72.31 1.28.49 1.72.63.72.23 1.37.2 1.88.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
+                          </svg>
+                          <span>WhatsApp</span>
+                        </a>
+
+                      </div>
+                    </Link>
+                  ))}
+
+                </div>
+
+              </section>
+            
+  );
+
+  // Homepage sections in this column, in display order (see SECTION_ORDER)
+  const blocks = {
+    trending: (
+      <>
         {/* =================================================
             SECTION HEADER
         ================================================= */}
@@ -490,23 +641,6 @@ export default function TrendingProjects({
           </Link>
 
         </div>
-
-
-        {/* =================================================
-            TWO COLUMN LAYOUT
-
-            LEFT  = SCROLLING CONTENT
-            RIGHT = STICKY SLIDER
-        ================================================= */}
-
-        <div className="hw-trending-layout">
-
-
-          {/* =================================================
-              LEFT CONTENT
-          ================================================= */}
-
-          <div className="hw-trending-left">
 
 
             {/* =================================================
@@ -733,6 +867,10 @@ export default function TrendingProjects({
 
            
 
+      </>
+    ),
+    prime: (
+      <>
             {/* =================================================
                 PRIME LOCATIONS
             ================================================= */}
@@ -812,6 +950,10 @@ export default function TrendingProjects({
             </section>
 
 
+      </>
+    ),
+    upcoming: (
+      <>
             {/* =================================================
                 UPCOMING PROJECTS
             ================================================= */}
@@ -995,6 +1137,10 @@ export default function TrendingProjects({
             </section>
 
 
+      </>
+    ),
+    newlaunch: (
+      <>
             {/* =================================================
                 NEW LAUNCH PROJECTS
             ================================================= */}
@@ -1206,6 +1352,10 @@ export default function TrendingProjects({
           
 
 
+      </>
+    ),
+    festival: (
+      <>
             {/* =================================================
                 FESTIVAL OFFERS
                 LEFT COLUMN ONLY
@@ -1424,6 +1574,10 @@ export default function TrendingProjects({
 
            
 
+      </>
+    ),
+    branded: (
+      <>
             {/* =================================================
                 TOP LUXURY PROJECTS
                 SAME CARD DESIGN AS TRENDING PROJECTS
@@ -1721,6 +1875,10 @@ export default function TrendingProjects({
               </div>
             </section>
 
+      </>
+    ),
+    luxury: (
+      <>
              {/* =================================================
                 TOP LUXURY PROJECTS
                 SAME CARD DESIGN AS TRENDING PROJECTS
@@ -1740,11 +1898,11 @@ export default function TrendingProjects({
                   </div>
 
                   <h2>
-                    Top Luxury Projects in <span>IN</span>
+                    India's Finest <span>Luxury Residences</span>
                   </h2>
 
                   <p>
-                    Explore premium branded residences and landmark projects
+                    A curated collection of landmark homes with expansive layouts, world-class amenities and prime locations.
                   </p>
 
                 </div>
@@ -1920,6 +2078,10 @@ export default function TrendingProjects({
             </section>
             )}
 
+      </>
+    ),
+    budget: (
+      <>
              {/* =================================================
                 TOP BUDGET PROJECTS
             ================================================= */}
@@ -1990,145 +2152,38 @@ export default function TrendingProjects({
               </div>
             </section>
 
-              {/* =================================================
-                SCO PROJECTS
-                SAME DESIGN AS NEW LAUNCH PROJECTS
-            ================================================= */}
+      </>
+    ),
+    bhk: bhkSection,
+    sco: renderBusiness(businessSections.find((b) => b.key === "sco")),
+    commercial: renderBusiness(businessSections.find((b) => b.key === "commercial")),
+  };
 
-            {businessSections.map((sec) => sec.items.length > 0 && (
-              <section key={sec.key} className="hw-upcoming-projects hw-sco-projects">
+  return (
+    <section className="hw-trending-section">
 
-                <div className="hw-upcoming-header">
+      <div className="hw-trending-container">
 
-                  <div>
-                    <div className="hw-subsection-eyebrow">
-                      {sec.eyebrow}
-                    </div>
 
-                    <h2>
-                      {sec.title} <span>Gurugram</span>
-                    </h2>
+        {/* =================================================
+            TWO COLUMN LAYOUT
 
-                    <p>
-                      {sec.text}
-                    </p>
-                  </div>
+            LEFT  = SCROLLING CONTENT
+            RIGHT = STICKY SLIDER
+        ================================================= */}
 
-                  <Link
-                    to={`/search?category=${sec.key}`}
-                    className="hw-upcoming-view-all"
-                  >
-                    View All Projects
+        <div className="hw-trending-layout">
 
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m13 6 6 6-6 6" />
-                    </svg>
-                  </Link>
 
-                </div>
+          {/* =================================================
+              LEFT CONTENT
+          ================================================= */}
 
-                <div className="hw-upcoming-grid hw-trending-properties">
+          <div className="hw-trending-left">
 
-                  {sec.items.map((property, index) => (
-                    <Link
-                      key={property.id || property._id || `${sec.key}-${index}`}
-                      to={propertyUrl(property)}
-                      className="hw-trending-card"
-                    >
 
-                      <div className="hw-trending-image">
-                        <img
-                          src={property.image || property.thumbnail}
-                          alt={property.title || sec.eyebrow}
-                          loading="lazy"
-                        />
+            {SECTION_ORDER.map((key) => blocks[key] ? <Fragment key={key}>{blocks[key]}</Fragment> : null)}
 
-                        <div className="hw-image-overlay" />
-
-                        {property.rera !== false && (
-                          <div className="hw-rera-group">
-                            <span className="hw-rera-green">
-                              <b>✓</b> RERA
-                            </span>
-                          </div>
-                        )}
-
-                        <div className="hw-bhk-badge">
-                          {property.propertyType || property.type || sec.fallbackType}
-                        </div>
-                      </div>
-
-                      <div className="hw-trending-card-content">
-                        <h3>
-                          {property.title || property.name || sec.eyebrow}
-                        </h3>
-
-                        <div className="hw-card-price">
-                          {property.priceRange || property.price || "Price on Request"}
-                        </div>
-
-                        <div className="hw-card-location">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                          >
-                            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-                            <circle cx="12" cy="10" r="2.5" />
-                          </svg>
-                          <span>{property.location || property.locality || "Gurugram"}</span>
-                        </div>
-
-                        <div className="hw-card-meta">
-                          <div>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-                              <path d="M4 4h6" /><path d="M4 4v6" />
-                              <path d="M20 20h-6" /><path d="M20 20v-6" />
-                              <path d="M4 20h6" /><path d="M4 20v-6" />
-                              <path d="M20 4h-6" /><path d="M20 4v6" />
-                            </svg>
-                            <span>{property.area || property.landArea || property.bhk || sec.fallbackArea}</span>
-                          </div>
-
-                          <div>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-                              <path d="M3 11h18" />
-                              <path d="M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
-                              <path d="M4 19v-8" /><path d="M20 19v-8" />
-                              <path d="M4 15h16" />
-                            </svg>
-                            <span>{property.propertyType || property.type || "Commercial"}</span>
-                          </div>
-                        </div>
-
-                        <a
-                          href={getWhatsAppUrl(property)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hw-card-whatsapp"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.48 0 .13 5.35.13 11.91c0 2.1.55 4.15 1.6 5.96L.03 24l6.27-1.64a11.86 11.86 0 0 0 5.73 1.46h.01c6.56 0 11.91-5.35 11.91-11.91 0-3.18-1.24-6.17-3.43-8.43ZM12.04 21.84h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.72.98.99-3.63-.23-.37a9.86 9.86 0 0 1-1.51-5.31c0-5.45 4.44-9.89 9.9-9.89a9.84 9.84 0 0 1 7 2.9 9.84 9.84 0 0 1 2.89 7c0 5.46-4.44 9.91-9.9 9.91Zm5.43-7.42c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.11 3.23 5.12 4.53.72.31 1.28.49 1.72.63.72.23 1.37.2 1.88.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
-                          </svg>
-                          <span>WhatsApp</span>
-                        </a>
-
-                      </div>
-                    </Link>
-                  ))}
-
-                </div>
-
-              </section>
-            ))}
           </div>
 
 

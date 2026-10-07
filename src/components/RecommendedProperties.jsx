@@ -53,10 +53,10 @@ export default function RecommendedProperties({ items = [] }) {
     <section className="hwr-section">
       <div className="hwr-head">
         <h2>
-          <span className="hwr-brand">HomWisor</span> Recommended
+          <span className="hwr-brand">Our Top </span> Properties
         </h2>
         <span className="hwr-bar" aria-hidden="true" />
-        <p>Discover premium properties handpicked for luxury living and exceptional investment returns</p>
+        <p>Premium properties chosen by HomWisor: built for luxury living, selected for lasting value. </p>
       </div>
 
       <div className="hwr-grid" ref={sliderRef}>

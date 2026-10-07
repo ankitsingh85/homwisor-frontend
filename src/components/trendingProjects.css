@@ -4764,3 +4764,13 @@
   .hw-trending-layout { grid-template-columns: minmax(0, 1fr) 172px !important; gap: 16px !important; }
   .hw-trending-ad { width: 172px !important; min-width: 172px !important; }
 }
+
+/* BHK strip (from Home) sits inside the left column — align with the other sections */
+.hw-trending-left .hw-bhk-premium-section {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
