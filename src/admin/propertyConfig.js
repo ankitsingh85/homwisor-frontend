@@ -1,5 +1,6 @@
 import { placeOf, findLocality, findCity } from '../data/locations'
 import { slugify } from '../utils/slug'
+import { typesOf } from '../utils/propertySearch'
 
 // One place that explains every property category ("section") and field.
 // Category decides WHERE the property appears on the website.
@@ -62,7 +63,8 @@ export const CATEGORIES = [
 export const categoryById = (id) => CATEGORIES.find(c => c.id === id) || CATEGORIES[0]
 
 // Must match the Property model's "type" list on the backend
-export const TYPES = ['Apartment', 'Villa', 'Builder Floor', 'Plots', 'Farmhouse', 'Commercial', 'Retail', 'SCO']
+// Built-in property types. A property can have several; admins can add more in the form.
+export const TYPES = ['Apartment', 'Residential', 'Villa', 'Builder Floor', 'Plots', 'Farmhouse', 'Commercial', 'Retail', 'SCO']
 
 export const STATUSES = ['New Launch', 'Upcoming', 'Under Construction', 'Ready to Move', 'Trending']
 
@@ -86,6 +88,7 @@ export const emptyProperty = {
   locality: '',
   address: '',
   type: 'Apartment',
+  types: ['Apartment'],
   bhk: '',
   tag: 'RERA',
   rera: true,
@@ -125,7 +128,9 @@ export const toPayload = (f) => ({
   location: composeLocation(f),
   city: f.city.trim(),
   locality: f.locality.trim(),
-  type: f.type,
+  // first ticked type = main type (cards), all of them = filters
+  types: [...new Set((f.types || []).map(t => String(t).trim()).filter(Boolean))],
+  type: (f.types || []).map(t => String(t).trim()).find(Boolean) || f.type,
   bhk: f.bhk.trim(),
   tag: f.tag.trim(),
   rera: !!f.rera,
@@ -165,6 +170,8 @@ export const toForm = (p) => {
   const pad = (arr, n) => { const a = [...(arr || [])]; while (a.length < n) a.push(''); return a }
   const f = { ...emptyProperty }
   for (const k of Object.keys(emptyProperty)) if (p[k] !== undefined && p[k] !== null) f[k] = p[k]
+  f.types = typesOf(p).length ? typesOf(p) : ['Apartment']
+  f.type = f.types[0]
   // split the stored address into city / locality / sector
   const place = placeOf(p)
   f.city = place.city || 'Gurugram'

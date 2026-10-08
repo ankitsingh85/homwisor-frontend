@@ -6,6 +6,7 @@ import { placeOf, findLocality, findCity } from "../data/locations";
 import "./propertyDetail.css";
 import { propertyUrl } from "../utils/slug";
 import { applyMeta, propertyMeta } from "../utils/seo";
+import { typesOf } from "../utils/propertySearch";
 
 // Contact numbers used across the site
 const PHONE = "9090101401";
@@ -416,7 +417,7 @@ export default function PropertyDetailPage() {
   const aboutWords = d.aboutHeading.split(/\s+/);
 
   const heroFacts = [
-    ["Property Type", p.propertyTypeDetail || p.type],
+    ["Property Type", p.propertyTypeDetail || typesOf(p).join(" · ")],
     ["Possession", p.possession],
     ["About Project", p.towers || p.bhk],
     ["Land Area", p.landArea || (p.towers ? p.bhk : "")],
@@ -451,7 +452,7 @@ export default function PropertyDetailPage() {
         <div className="pd-wrap pd-hero-inner">
           <div className="pd-hero-info">
             <div className="pd-glass pd-hero-name">
-              <span className="pd-hero-eyebrow">{(p.propertyTypeDetail || p.type || "Residential").toUpperCase()}</span>
+              <span className="pd-hero-eyebrow">{(p.propertyTypeDetail || typesOf(p).join(" · ") || "Residential").toUpperCase()}</span>
               <h1>{p.title}</h1>
               <p>{p.location}</p>
             </div>

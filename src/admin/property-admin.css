@@ -272,3 +272,14 @@
 .hwp-slug .hwa-input { flex: 1; min-width: 0; border-radius: 0 10px 10px 0 !important; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px !important; }
 .hwp-slug .hwa-mini { margin-left: 8px; flex-shrink: 0; }
 @media (max-width: 640px) { .hwp-slug > span { display: none; } .hwp-slug .hwa-input { border-radius: 10px !important; } }
+
+/* property types — tick several, first = main */
+.hwp-types { display: flex; flex-wrap: wrap; gap: 8px; }
+.hwp-type {
+  height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid #e5e1d3; background: #fff;
+  font-family: inherit; font-size: 13px; font-weight: 600; color: #3a3627; cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
+}
+.hwp-type:hover { border-color: #d9c78a; }
+.hwp-type.on { border-color: #D4AF37; background: #fffaeb; color: #111; box-shadow: 0 0 0 2px rgba(212,175,55,.15); }
+.hwp-type.main { background: #111; border-color: #111; color: #E8C766; }

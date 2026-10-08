@@ -55,12 +55,17 @@ export const BUDGETS = [
 
 /* ---------------- TYPES ---------------- */
 
+// A property's types — the admin can tick several (e.g. Apartment + Residential).
+// Older properties only have the single "type" field.
+export const typesOf = (p) => (Array.isArray(p?.types) && p.types.length ? p.types : [p?.type || p?.propertyType]).filter(Boolean)
+
 const RESIDENTIAL = ['apartment', 'villa', 'builder floor', 'plots', 'farmhouse']
 const COMMERCIAL = ['commercial', 'retail', 'sco']
 const BRANDS = ['trump', 'elie saab', 'brabus', 'franck', 'muller', 'tonino', 'armani', 'branded', 'oberoi', 'dlf privana', 'versace', 'lamborghini']
 const LUXURY_FROM_CR = 10
 
-const isHome = (p) => !COMMERCIAL.includes(norm(p.type || p.propertyType)) && !['commercial', 'sco'].includes(p.category)
+const normTypes = (p) => typesOf(p).map(norm)
+const isHome = (p) => !normTypes(p).some(t => COMMERCIAL.includes(t)) && !['commercial', 'sco'].includes(p.category)
 const isLuxury = (p) => isHome(p) && ((priceRangeOf(p)?.max || 0) >= LUXURY_FROM_CR || /luxury/i.test(`${p.tag} ${p.propertyTypeDetail}`))
 const isBranded = (p) => isHome(p) && BRANDS.some(b => norm(`${p.title} ${p.tag} ${p.propertyTypeDetail}`).includes(b))
 
@@ -68,35 +73,37 @@ const isBranded = (p) => isHome(p) && BRANDS.some(b => norm(`${p.title} ${p.tag}
 export const typeMatcher = (raw) => {
   const t = norm(raw)
   if (!t || t === 'all' || t === 'all types') return null
-  const type = (p) => norm(p.type || p.propertyType)
-  const text = (p) => norm(`${p.type} ${p.bhk} ${p.title} ${p.propertyTypeDetail}`)
+  // true if any of the property's types is one of these
+  const is = (p, ...names) => normTypes(p).some(t => names.includes(t))
+  const text = (p) => norm(`${typesOf(p).join(' ')} ${p.bhk} ${p.title} ${p.propertyTypeDetail}`)
   const map = {
-    'residential': p => RESIDENTIAL.includes(type(p)),
-    'residential projects': p => RESIDENTIAL.includes(type(p)),
-    'commercial': p => COMMERCIAL.includes(type(p)) || ['commercial', 'sco'].includes(p.category),
-    'commercial projects': p => COMMERCIAL.includes(type(p)) || ['commercial', 'sco'].includes(p.category),
-    'luxury villas': p => type(p) === 'villa',
-    'villa': p => type(p) === 'villa',
-    'villas': p => type(p) === 'villa',
-    'independent floors': p => type(p) === 'builder floor',
-    'builder floor': p => type(p) === 'builder floor',
+    'residential': p => is(p, 'residential', ...RESIDENTIAL),
+    'residential projects': p => is(p, 'residential', ...RESIDENTIAL),
+    'commercial': p => is(p, ...COMMERCIAL) || ['commercial', 'sco'].includes(p.category),
+    'commercial projects': p => is(p, ...COMMERCIAL) || ['commercial', 'sco'].includes(p.category),
+    'luxury villas': p => is(p, 'villa'),
+    'villa': p => is(p, 'villa'),
+    'villas': p => is(p, 'villa'),
+    'independent floors': p => is(p, 'builder floor'),
+    'builder floor': p => is(p, 'builder floor'),
     'pent house': p => /pent ?house/.test(text(p)),
     'penthouse': p => /pent ?house/.test(text(p)),
-    'residential plots': p => type(p) === 'plots',
-    'plots': p => type(p) === 'plots',
-    'plots land': p => type(p) === 'plots',
-    'sco plots': p => type(p) === 'sco' || p.category === 'sco',
-    'sco': p => type(p) === 'sco' || p.category === 'sco',
+    'residential plots': p => is(p, 'plots'),
+    'plots': p => is(p, 'plots'),
+    'plots land': p => is(p, 'plots'),
+    'sco plots': p => is(p, 'sco') || p.category === 'sco',
+    'sco': p => is(p, 'sco') || p.category === 'sco',
     'branded': p => p.category === 'branded' || isBranded(p),
     'luxury': p => ['luxury', 'branded'].includes(p.category) || isLuxury(p),
     // commercial sub-menus
-    'shops': p => COMMERCIAL.includes(type(p)) || p.category === 'commercial',
-    'office space': p => COMMERCIAL.includes(type(p)) || p.category === 'commercial',
-    'food court': p => COMMERCIAL.includes(type(p)) || p.category === 'commercial',
-    'anchor stores': p => COMMERCIAL.includes(type(p)) || p.category === 'commercial',
-    'cinema entertainment': p => COMMERCIAL.includes(type(p)) || p.category === 'commercial',
+    'shops': p => is(p, ...COMMERCIAL) || p.category === 'commercial',
+    'office space': p => is(p, ...COMMERCIAL) || p.category === 'commercial',
+    'food court': p => is(p, ...COMMERCIAL) || p.category === 'commercial',
+    'anchor stores': p => is(p, ...COMMERCIAL) || p.category === 'commercial',
+    'cinema entertainment': p => is(p, ...COMMERCIAL) || p.category === 'commercial',
   }
-  return map[t] || (p => type(p) === t || type(p).includes(t))
+  // any other name (including types the admin added) → match any of the property's types
+  return map[t] || (p => normTypes(p).some(x => x === t || x.includes(t)))
 }
 
 /* ---------------- BHK ---------------- */
@@ -180,7 +187,7 @@ export const applyFilters = (properties, f, { offerTitles = [] } = {}) => {
   const out = properties.filter(p => {
     const place = placeOf(p)
     if (words.length) {
-      const hay = norm(`${p.title} ${p.location} ${p.developer} ${p.type} ${p.bhk} ${place.locality} ${place.city}`)
+      const hay = norm(`${p.title} ${p.location} ${p.developer} ${typesOf(p).join(' ')} ${p.bhk} ${place.locality} ${place.city}`)
       if (!words.every(w => hay.includes(w))) return false
     }
     if (f.city && norm(place.city) !== norm(f.city)) return false

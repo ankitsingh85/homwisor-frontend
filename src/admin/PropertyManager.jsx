@@ -4,7 +4,7 @@ import { Alert, Spinner } from './ui'
 import { ImageUpload, GalleryUpload, FileUpload } from './ImageUpload'
 import DataList from './DataList'
 import { Icon } from './ui'
-import { priceRangeOf } from '../utils/propertySearch'
+import { priceRangeOf, typesOf } from '../utils/propertySearch'
 import {
   CATEGORIES, categoryById, TYPES, STATUSES, TAGS, configHint,
   emptyProperty, toPayload, toForm, REQUIRED, composeLocation,
@@ -93,13 +93,28 @@ function RowsInput({ rows, onChange, fields, empty, addLabel, max = 20, textarea
 // ---------------------------------------------------------------
 // Add / edit form
 // ---------------------------------------------------------------
-function PropertyForm({ initial, editingId, counts, onSaved, onCancel }) {
+function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptions = TYPES }) {
   const [f, setF] = useState(initial)
   const [touched, setTouched] = useState(false)
   const [saving, setSaving] = useState(false)
   const [err, setErr] = useState('')
 
   const set = (k, v) => setF(prev => ({ ...prev, [k]: v }))
+  // property types: several allowed, first = main; keep "type" = main for older code
+  const [newType, setNewType] = useState('')
+  const setTypes = (list) => setF(prev => ({ ...prev, types: list, type: list[0] || prev.type }))
+  const toggleType = (t) => {
+    if (f.types.includes(t)) { if (f.types.length > 1) setTypes(f.types.filter(x => x !== t)) } // at least one stays
+    else setTypes([...f.types, t])
+  }
+  const addType = () => {
+    const t = newType.trim().replace(/\s+/g, ' ')
+    if (!t) return
+    const known = [...typeOptions, ...f.types].find(x => x.toLowerCase() === t.toLowerCase()) // reuse "Penthouse", not "penthouse"
+    const name = known || t.replace(/\b\w/g, c => c.toUpperCase())
+    if (!f.types.includes(name)) setTypes([...f.types, name])
+    setNewType('')
+  }
   // the web address follows the name until the admin edits it (existing properties keep theirs)
   const [slugTouched, setSlugTouched] = useState(!!initial.slug)
   const setTitle = (v) => setF(prev => ({ ...prev, title: v, slug: slugTouched ? prev.slug : slugify(v) }))
@@ -226,10 +241,18 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel }) {
             <Field label="Developer / Builder" required error={errorFor('developer')}>
               <input className="hwa-input no-icon" value={f.developer} onChange={e => set('developer', e.target.value)} placeholder="e.g. M3M Group" />
             </Field>
-            <Field label="Property type" required>
-              <select className="hwa-input no-icon" value={f.type} onChange={e => set('type', e.target.value)}>
-                {TYPES.map(t => <option key={t}>{t}</option>)}
-              </select>
+            <Field label="Property type" required full hint={`Tick all that apply — the first one (${f.types[0] || '—'}) is the main type shown on cards`}>
+              <div className="hwp-types">
+                {[...new Set([...typeOptions, ...f.types])].map(t => (
+                  <button type="button" key={t} className={`hwp-type${f.types.includes(t) ? ' on' : ''}${f.types[0] === t ? ' main' : ''}`} onClick={() => toggleType(t)} aria-pressed={f.types.includes(t)}>
+                    {f.types.includes(t) ? '✓ ' : ''}{t}{f.types[0] === t && f.types.length > 1 ? ' · main' : ''}
+                  </button>
+                ))}
+              </div>
+              <div className="hwp-inline" style={{ marginTop: 8, maxWidth: 420 }}>
+                <input className="hwa-input no-icon" value={newType} onChange={e => setNewType(e.target.value)} onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addType())} placeholder="Add a type, e.g. Penthouse" maxLength={40} />
+                <button type="button" className="hwa-mini" onClick={addType}>Add</button>
+              </div>
             </Field>
             <Field label="Configuration" required error={errorFor('bhk')} hint="BHK, unit mix or plot size — used by the BHK filter">
               <input className="hwa-input no-icon" value={f.bhk} onChange={e => set('bhk', e.target.value)} placeholder={configHint(f.type)} />
@@ -465,7 +488,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
     const c = categoryById(preset.category || 'trending')
     return {
       key: Date.now(),
-      initial: { ...emptyProperty, category: c.id, type: c.defaultType, status: c.status || emptyProperty.status, ...preset },
+      initial: { ...emptyProperty, category: c.id, type: c.defaultType, types: [c.defaultType || 'Apartment'], status: c.status || emptyProperty.status, ...preset },
     }
   }
 
@@ -490,7 +513,9 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
 
   const cityCount = (name) => placed.filter(x => x.city === name).length
   const localityCount = (name) => placed.filter(x => x.city === city && x.locality === name).length
-  const typeCount = (t) => properties.filter(p => p.type === t).length
+  // built-in types + any the admin added on a property
+  const allTypes = useMemo(() => [...new Set([...TYPES, ...properties.flatMap(typesOf)])], [properties])
+  const typeCount = (t) => properties.filter(p => typesOf(p).includes(t)).length
   const unplaced = placed.filter(x => x.city === city && !localitiesOf(city).some(l => l.name === x.locality))
 
   const shown = placed.filter(({ p, city: c, locality: l }) => {
@@ -500,7 +525,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
       if (locality === OTHER) { if (localitiesOf(city).some(x => x.name === l)) return false }
       else if (locality && l !== locality) return false
     }
-    if (browse === 'type' && type && p.type !== type) return false
+    if (browse === 'type' && type && !typesOf(p).includes(type)) return false
     return true
   }).map(x => x.p)
 
@@ -510,7 +535,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
     if (browse === 'location') return { city, locality: locality && locality !== OTHER ? locality : '' }
     if (browse === 'type' && type) {
       const c = type === 'SCO' ? 'sco' : ['Commercial', 'Retail'].includes(type) ? 'commercial' : undefined
-      return { type, ...(c ? { category: c, type } : {}) }
+      return { type, types: [type], ...(c ? { category: c } : {}) }
     }
     return {}
   }
@@ -525,7 +550,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
     setEditing(null); setNotice('')
     const form = newForm(p)
     // a type preset must survive newForm's section default
-    if (p.type) form.initial.type = p.type
+    if (p.type) { form.initial.type = p.type; form.initial.types = [p.type] }
     setMode(form)
     window.scrollTo(0, 0)
   }
@@ -556,7 +581,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
             <p>Fill the steps below. Fields marked <span className="hwp-req">*</span> are required. The preview on the right updates as you type.</p>
           </div>
         </div>
-        <PropertyForm key={mode.key} initial={mode.initial} editingId={editing?.id} counts={counts} onSaved={saved} onCancel={() => setMode('list')} />
+        <PropertyForm key={mode.key} initial={mode.initial} editingId={editing?.id} counts={counts} typeOptions={allTypes} onSaved={saved} onCancel={() => setMode('list')} />
       </div>
     )
   }
@@ -630,7 +655,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
       {browse === 'type' && (
         <div className="hwp-tabs">
           <button className={type === '' ? 'active' : ''} onClick={() => setType('')}>All <em>{properties.length}</em></button>
-          {TYPES.map(t => (
+          {allTypes.map(t => (
             <button key={t} className={type === t ? 'active' : ''} onClick={() => setType(t)}>{t} <em>{typeCount(t)}</em></button>
           ))}
         </div>
