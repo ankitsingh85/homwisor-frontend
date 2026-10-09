@@ -67,6 +67,7 @@ export default function App(){
         <Route path="/admin/dashboard" element={<Protected><Suspense fallback={<div style={{ minHeight: '100vh', background: '#0b0b0b' }} />}><Dashboard/></Suspense></Protected>}/>
         <Route path="/contact" element={<Contact />} />
         <Route path="/sell" element={<Sell />} />
+        <Route path="/dubai" element={<ToSearch preset={{ category: 'dubai' }}/>}/>
         {/* Blog articles: homwisor.com/<slug> — fixed pages above always win */}
         <Route path="/:slug" element={<BlogDetail />} />
         <Route path="*" element={<Navigate to="/" replace/>}/>

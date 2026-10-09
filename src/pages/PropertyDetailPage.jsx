@@ -474,13 +474,13 @@ export default function PropertyDetailPage() {
                 </div>
               )}
               <div className="pd-hero-bottom">
+                {/* Area → Possession → Price — Admin → Property → Project details */}
+                <div className="pd-hero-mini"><small>AREA</small><strong>{p.area || "On request"}</strong></div>
+                <div className="pd-hero-mini"><small>POSSESSION</small><strong>{p.possession || "On request"}</strong></div>
                 <div className="pd-hero-price">
                   <small>STARTING FROM</small>
                   <strong>{p.price || p.priceRange || "Price on request"}{(p.price || p.priceRange) ? "*" : ""}</strong>
                 </div>
-                {/* Area / unit size + Possession — Admin → Property → Project details */}
-                <div className="pd-hero-mini"><small>AREA</small><strong>{p.area || "On request"}</strong></div>
-                <div className="pd-hero-mini"><small>POSSESSION</small><strong>{p.possession || "On request"}</strong></div>
               </div>
             </div>
           </div>
@@ -542,12 +542,14 @@ export default function PropertyDetailPage() {
             <p>Unit sizes and prices — talk to our expert for the latest offers and availability.</p>
           </div>
           <div className="pd-table">
-            <div className="pd-tr head"><span>Unit Type</span><span>Size</span><span>Price</span><span /></div>
+            <div className="pd-tr head"><span>Unit Type</span><span>Size</span><span>Price</span><span>Payment Plan</span><span /></div>
             {d.pricing.map((r, k) => (
               <div key={k} className="pd-tr">
                 <span className="strong"><Icon n="home" size={17} /> {r.type || "—"}</span>
                 <span>{r.size || "On request"}</span>
                 <span className="gold">{r.price || "On request"}</span>
+                {/* Admin → Property → step 6 */}
+                <span className="pd-plan-cell">{r.paymentPlan || "On request"}</span>
                 <span><button type="button" className="pd-btn outline xs" onClick={() => enquire(`Price details: ${r.type}`)}>Get Details</button></span>
               </div>
             ))}

@@ -83,6 +83,22 @@ export const CITIES = [
       { name: 'South East Pune', slug: 'south-east-pune' },
     ],
   },
+  {
+    city: 'Dubai',
+    aliases: ['dubai uae', 'uae'],
+    localities: [
+      { name: 'Downtown Dubai', slug: 'downtown-dubai', aliases: ['downtown', 'burj khalifa'] },
+      { name: 'Dubai Marina', slug: 'dubai-marina', aliases: ['marina', 'jbr'] },
+      { name: 'Palm Jumeirah', slug: 'palm-jumeirah', aliases: ['the palm'] },
+      { name: 'Business Bay', slug: 'business-bay' },
+      { name: 'Jumeirah Village Circle (JVC)', slug: 'jumeirah-village-circle', aliases: ['jvc'] },
+      { name: 'Dubai Hills Estate', slug: 'dubai-hills-estate', aliases: ['dubai hills'] },
+      { name: 'Dubai Creek Harbour', slug: 'dubai-creek-harbour', aliases: ['creek harbour'] },
+      { name: 'Arabian Ranches', slug: 'arabian-ranches' },
+      { name: 'Jumeirah Lake Towers (JLT)', slug: 'jumeirah-lake-towers', aliases: ['jlt'] },
+      { name: 'Dubai South', slug: 'dubai-south' },
+    ],
+  },
 ]
 
 const norm = (s = '') => String(s).toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim()

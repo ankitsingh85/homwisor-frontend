@@ -58,6 +58,14 @@ export const CATEGORIES = [
     shows: 'Homepage → "SCO Projects in Gurugram" (4 newest)',
     defaultType: 'SCO',
   },
+  {
+    id: 'dubai',
+    label: 'Dubai',
+    icon: '🌴',
+    shows: 'Navbar → "Dubai" page only (not on the homepage)',
+    defaultType: 'Apartment',
+    city: 'Dubai', // picking this section switches the location to Dubai
+  },
 ]
 
 export const categoryById = (id) => CATEGORIES.find(c => c.id === id) || CATEGORIES[0]
@@ -111,7 +119,7 @@ export const emptyProperty = {
   taglineSub: '',
   videoUrl: '',
   brochure: '',
-  pricing: [{ type: '', size: '', price: '' }],
+  pricing: [{ type: '', size: '', price: '', paymentPlan: '' }],
   amenities: [],
   galleryCaptions: [],
   floorPlans: [],
@@ -156,7 +164,7 @@ export const toPayload = (f) => ({
   taglineSub: f.taglineSub.trim(),
   videoUrl: f.videoUrl.trim(),
   brochure: f.brochure.trim(),
-  pricing: f.pricing.map(r => ({ type: r.type.trim(), size: r.size.trim(), price: r.price.trim() })).filter(r => r.type || r.size || r.price),
+  pricing: f.pricing.map(r => ({ type: r.type.trim(), size: r.size.trim(), price: r.price.trim(), paymentPlan: (r.paymentPlan || '').trim() })).filter(r => r.type || r.size || r.price || r.paymentPlan),
   amenities: [...new Set(f.amenities.map(a => a.trim()).filter(Boolean))],
   // one caption per gallery photo (same order)
   galleryCaptions: f.gallery.map((src, i) => (f.galleryCaptions[i] || '').trim()),
@@ -192,7 +200,7 @@ export const toForm = (p) => {
   f.highlights = pad(p.highlights, 4)
   // detail page content
   const padRows = (arr, n, empty) => { const a = (arr || []).map(x => ({ ...empty, ...x })); while (a.length < n) a.push({ ...empty }); return a }
-  f.pricing = padRows(p.pricing, 1, { type: '', size: '', price: '' })
+  f.pricing = padRows(p.pricing, 1, { type: '', size: '', price: '', paymentPlan: '' })
   f.amenities = [...(p.amenities || [])]
   f.galleryCaptions = (p.gallery || []).filter(Boolean).map((_, i) => p.galleryCaptions?.[i] || '')
   f.floorPlans = (p.floorPlans || []).filter(Boolean)

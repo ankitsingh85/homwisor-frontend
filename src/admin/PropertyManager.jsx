@@ -137,6 +137,8 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
     // keep the type sensible for the section, and pre-fill the matching status
     type: ['commercial', 'sco'].includes(c.id) || ['Commercial', 'Retail', 'SCO'].includes(prev.type) ? c.defaultType : prev.type,
     status: c.status || prev.status,
+    // Dubai section → Dubai location (localities list switches with it)
+    ...(c.city && prev.city !== c.city ? { city: c.city, locality: '' } : {}),
   }))
 
   const missing = REQUIRED.filter(([k]) => !String(f[k] || '').trim())
@@ -308,16 +310,17 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
         </Step>
 
         {/* 6. SPACE & PRICING */}
-        <Step n="6" title="Space & Pricing" sub="One row per unit type — shown as the price table on the detail page.">
+        <Step n="6" title="Space & Pricing" sub="One row per unit type — shown as the price table on the detail page (Unit Type · Size · Price · Payment Plan).">
           <RowsInput
             rows={f.pricing}
             onChange={v => set('pricing', v)}
-            empty={{ type: '', size: '', price: '' }}
+            empty={{ type: '', size: '', price: '', paymentPlan: '' }}
             addLabel="Add unit type"
             fields={[
               { key: 'type', placeholder: 'Type, e.g. 4 BHK', w: '1fr' },
               { key: 'size', placeholder: 'Size, e.g. 5,000 Sq.Ft.', w: '1.2fr' },
               { key: 'price', placeholder: 'Price, e.g. ₹20 Cr', w: '1fr' },
+              { key: 'paymentPlan', placeholder: 'Payment plan, e.g. 30:70', w: '1fr' },
             ]}
           />
         </Step>
@@ -507,7 +510,7 @@ export default function PropertyManager({ properties, loaded = true, onChange, i
     const c = categoryById(preset.category || 'trending')
     return {
       key: Date.now(),
-      initial: { ...emptyProperty, category: c.id, type: c.defaultType, types: [c.defaultType || 'Apartment'], status: c.status || emptyProperty.status, ...preset },
+      initial: { ...emptyProperty, category: c.id, type: c.defaultType, types: [c.defaultType || 'Apartment'], status: c.status || emptyProperty.status, ...(c.city ? { city: c.city, locality: '' } : {}), ...preset },
     }
   }
 

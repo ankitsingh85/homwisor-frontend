@@ -189,6 +189,8 @@ export const applyFilters = (properties, f, { offerTitles = [] } = {}) => {
   const offers = offerTitles.map(norm)
 
   const out = properties.filter(p => {
+    // Dubai listings appear only on the Dubai page or when Dubai is the chosen city
+    if (p.category === 'dubai' && String(f.category).toLowerCase() !== 'dubai' && norm(f.city) !== 'dubai') return false
     const place = placeOf(p)
     if (words.length) {
       const hay = norm(`${p.title} ${p.location} ${p.developer} ${typesOf(p).join(' ')} ${p.bhk} ${place.locality} ${place.city}`)
@@ -237,6 +239,6 @@ export const resultsTitle = (f) => {
   const bits = []
   if (f.bhk) bits.push(/bhk|studio/i.test(f.bhk) ? f.bhk : `${f.bhk} BHK`)
   bits.push(f.type ? (TYPE_LABELS[norm(f.type)] || f.type) : 'Properties')
-  const where = f.locality || f.city || 'Gurugram'
+  const where = f.locality || f.city || (String(f.category).toLowerCase() === 'dubai' ? 'Dubai' : 'Gurugram')
   return `${bits.join(' ')} in ${where}`
 }

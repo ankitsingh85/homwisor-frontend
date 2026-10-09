@@ -274,10 +274,21 @@
    always keeps a clear gap after the logo */
 @media (min-width: 1201px) {
   .hw-header .hw-header-actions { display: none !important; }
+  /* slimmer side margins so the menu has room next to the logo */
+  .hw-header .hw-header-inner { padding: 0 clamp(20px, 2vw, 40px) !important; gap: 20px !important; }
   .hw-header .hw-nav {
-    margin-left: 48px !important;
-    gap: clamp(12px, 1.45vw, 26px) !important;
+    margin-left: 0 !important;
+    gap: clamp(8px, 1vw, 20px) !important;
     justify-content: flex-end !important;
     padding-right: 0 !important;
   }
+  .hw-header .hw-nav-link.hw-nav-cta { padding: 0 14px !important; margin-left: 0; }
+}
+
+/* "FREE" pill inside the Sell Property button */
+.hw-nav-cta, .hw-mobile-cta { gap: 8px; }
+.hw-nav-badge {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 5px;
+  background: #fff; color: #8a1c1c; font-size: 10.5px; font-weight: 900; letter-spacing: .9px; line-height: 1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .18);
 }

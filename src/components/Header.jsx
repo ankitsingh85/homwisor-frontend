@@ -90,6 +90,14 @@ export default function Header() {
           label: "Sohna Road",
           link: "/location/sohna-road",
         },
+        {
+          label: "Golf Course Road",
+          link: "/location/golf-course-road",
+        },
+        {
+          label: "Golf Course Extension Road",
+          link: "/location/golf-course-extension-road",
+        },
       ],
     },
 
@@ -455,9 +463,15 @@ export default function Header() {
       ],
     },
     {
+      label: "Dubai",
+      link: "/dubai",
+      cta: true, // gold button, like Sell Property
+    },
+    {
       label: "Sell Property",
       link: "/sell",
       cta: true, // shown as a gold button
+      badge: "FREE", // white pill inside the button
     },
     {
       label: "Contact",
@@ -680,6 +694,7 @@ export default function Header() {
                       className={item.cta ? "hw-nav-link hw-nav-cta" : "hw-nav-link"}
                     >
                       {item.label}
+                      {item.badge && <span className="hw-nav-badge">{item.badge}</span>}
                     </Link>
 
                   )}
@@ -944,6 +959,7 @@ export default function Header() {
                       onClick={closeMenu}
                     >
                       {item.label}
+                      {item.badge && <span className="hw-nav-badge">{item.badge}</span>}
                     </Link>
 
                   )}
