@@ -20,16 +20,16 @@ const AD_LINK = { position: "absolute", inset: 0, zIndex: 2, display: "block" };
 
 // Order of the homepage sections inside this component (beside the sticky side ad)
 const SECTION_ORDER = [
-  "upcoming",   // Upcoming Projects in Gurugram
-  "prime",      // Gurugram's Prime Locations
-  "bhk",        // Which BHK suits your lifestyle best? (passed in from Home)
-  "budget",     // Top Budget Projects
   "trending",   // Trending Projects in Gurugram
   "newlaunch",  // New Launch Projects in Gurugram
-  "festival",   // Best Festival Offer
+  "prime",      // Gurugram's Prime Locations
+  "budget",     // Top Budget Projects
   "branded",    // Branded Residences (+ feature banner)
-  "sco",        // SCO Projects in Gurugram
   "luxury",     // India's Finest Luxury Residences
+  "upcoming",   // Upcoming Projects in Gurugram
+  "bhk",        // Which BHK suits your lifestyle best? (passed in from Home)
+  "festival",   // Best Festival Offer
+  "sco",        // SCO Projects in Gurugram
   "commercial", // Commercial Projects in Gurugram
 ];
 
