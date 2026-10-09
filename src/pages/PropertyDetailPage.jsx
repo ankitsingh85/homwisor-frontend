@@ -7,6 +7,7 @@ import "./propertyDetail.css";
 import { propertyUrl } from "../utils/slug";
 import { applyMeta, propertyMeta } from "../utils/seo";
 import { typesOf } from "../utils/propertySearch";
+import { belongsTo, propertiesOf, developerUrl } from "../data/developers";
 import LeadPopup from "../components/LeadPopup";
 
 // Contact numbers used across the site
@@ -286,6 +287,8 @@ export default function PropertyDetailPage() {
   const navigate = useNavigate();
   const [p, setP] = useState(null);
   const [all, setAll] = useState([]);
+  const [builders, setBuilders] = useState([]); // Admin → Developers (for "more projects by …")
+  useEffect(() => { API.get("/builders").then((r) => setBuilders(r.data || [])).catch(() => {}); }, []);
   const [status, setStatus] = useState("loading");
   const [readMore, setReadMore] = useState(false);
   const [modal, setModal] = useState(null); // { kind: 'enquiry'|'video'|'gallery', ... }
@@ -372,9 +375,12 @@ export default function PropertyDetailPage() {
     if (gallery.length < 5 && p.image && !gallery.some((g) => g.src === p.image)) gallery.unshift({ src: p.image, caption: "" });
 
     const devKey = firstWord(p.developer);
-    const sameDev = devKey ? all.filter((x) => x.id !== p.id && firstWord(x.developer) === devKey) : [];
+    // only projects by the same developer (Admin → Developers names/aliases, else the same first word)
+    const builder = builders.find((b) => belongsTo(b, p));
+    const sameDev = (builder ? propertiesOf(builder, all) : devKey ? all.filter((x) => firstWord(x.developer) === devKey) : []).filter((x) => x.id !== p.id);
     const similar = all.filter((x) => x.id !== p.id && x.category === p.category).slice(0, 4);
-    const iconic = sameDev.length ? sameDev : all.filter((x) => x.id !== p.id).slice(0, 8);
+    const iconic = sameDev; // nothing related → the section is hidden
+    const developerLink = builder ? developerUrl(builder) : `/search?q=${encodeURIComponent(devKey || "")}`;
 
     const about = p.about || {};
     const aboutHeading = about.heading?.trim() || `About ${p.developer || "the Developer"}`;
@@ -394,9 +400,9 @@ export default function PropertyDetailPage() {
       place, images, titleA, titleB, overview, facts, pricing, highlights, amenities, gallery, iconic, similar,
       aboutHeading, aboutDesc, aboutSub: about.subheading?.trim() || "Building a Better Tomorrow",
       aboutImage: about.image || images[1] || images[0], aboutStats: (about.stats || []).filter((x) => x.value || x.label),
-      faqs, sameDev: sameDev.length > 0,
+      faqs, sameDev: sameDev.length > 0, developerLink,
     };
-  }, [p, all]);
+  }, [p, all, builders]);
 
   if (status === "loading") {
     return <div className="pd-loading"><span className="pd-spin" /> Loading property…</div>;
@@ -695,7 +701,7 @@ export default function PropertyDetailPage() {
                   <Eyebrow>{d.sameDev ? "OUR SIGNATURE DEVELOPMENTS" : "MORE PROJECTS"}</Eyebrow>
                   <h2 className="pd-h2">{d.sameDev ? <>Iconic Projects <span className="gold">by {p.developer}</span></> : <>Explore More <span className="gold">Projects</span></>}</h2>
                 </div>
-                <Link className="pd-btn outline sm" to={d.sameDev ? `/search?q=${encodeURIComponent(firstWord(p.developer))}` : "/search"}>VIEW ALL PROJECTS <Icon n="arrowR" size={15} /></Link>
+                <Link className="pd-btn outline sm" to={d.developerLink}>VIEW ALL PROJECTS <Icon n="arrowR" size={15} /></Link>
               </div>
               <IconicRow items={d.iconic} />
             </div>
