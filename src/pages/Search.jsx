@@ -112,7 +112,7 @@ export default function Search() {
     filters.category && ["category", label(CATEGORY_OPTIONS, filters.category)],
   ].filter(Boolean);
 
-  const place = filters.locality || filters.city || "Gurugram";
+  const place = filters.locality || filters.city || (String(filters.category).toLowerCase() === "dubai" ? "Dubai" : "Gurugram");
   const typeKnown = TYPE_OPTIONS.some((g) => g.items.some(([v]) => v === filters.type));
   const budgetKnown = BUDGETS.some((b) => b.value === filters.budget);
   const statusKnown = STATUSES.includes(filters.status);

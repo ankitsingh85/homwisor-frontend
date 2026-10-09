@@ -189,9 +189,12 @@ export const applyFilters = (properties, f, { offerTitles = [] } = {}) => {
   const offers = offerTitles.map(norm)
 
   const out = properties.filter(p => {
-    // Dubai listings appear only on the Dubai page or when Dubai is the chosen city
-    if (p.category === 'dubai' && String(f.category).toLowerCase() !== 'dubai' && norm(f.city) !== 'dubai') return false
     const place = placeOf(p)
+    // Dubai listing = Dubai section OR city Dubai (whatever section it was added under).
+    // They appear only on the Dubai page or when Dubai is the chosen city.
+    const dubai = p.category === 'dubai' || norm(place.city) === 'dubai'
+    const wantDubai = String(f.category).toLowerCase() === 'dubai'
+    if (dubai && !wantDubai && norm(f.city) !== 'dubai') return false
     if (words.length) {
       const hay = norm(`${p.title} ${p.location} ${p.developer} ${typesOf(p).join(' ')} ${p.bhk} ${place.locality} ${place.city}`)
       if (!words.every(w => hay.includes(w))) return false
@@ -208,7 +211,8 @@ export const applyFilters = (properties, f, { offerTitles = [] } = {}) => {
     if (f.category) {
       const c = f.category.toLowerCase()
       // sections (incl. Branded / Luxury) match exactly; "festival" = has an offer
-      if (c === 'festival') { if (!offers.some(o => norm(p.title).includes(o) || o.includes(norm(p.title)))) return false }
+      if (c === 'dubai') { if (!dubai) return false }
+      else if (c === 'festival') { if (!offers.some(o => norm(p.title).includes(o) || o.includes(norm(p.title)))) return false }
       else if (String(p.category).toLowerCase() !== c) return false
     }
     return true

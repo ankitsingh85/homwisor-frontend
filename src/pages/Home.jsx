@@ -84,7 +84,8 @@ export default function Home(){
 
         setBanners(b.data)
 
-        setProperties(p.data)
+        // homepage sections are Gurugram/India — Dubai listings live on the Dubai page only
+        setProperties((p.data || []).filter((x) => x.category !== 'dubai' && String(x.city || '').trim().toLowerCase() !== 'dubai'))
 
         setLocations(l.data)
 

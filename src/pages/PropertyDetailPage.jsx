@@ -49,6 +49,7 @@ const I = {
   key: <><circle cx="8" cy="15" r="4" /><path d="m10.8 12.2 8.7-8.7M16 6l3 3" /></>,
   trophy: <><path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM8 6H4a3 3 0 0 0 4 4M16 6h4a3 3 0 0 1-4 4M12 13v4M8 21h8M10 17h4" /></>,
   home: <><path d="m3 11 9-7 9 7M5 10v10h14V10" /></>,
+  menu: <><path d="M4 7h16M4 12h16M9 17h11" /></>,
 };
 const Icon = ({ n, size = 20, sw = 1.7 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{I[n]}</svg>
@@ -90,6 +91,14 @@ const brandTheme = (hex) => {
 
 const pad2 = (n) => String(n).padStart(2, "0");
 const firstWord = (s = "") => String(s).trim().split(/\s+/)[0].toLowerCase();
+// "6100 Sq.ft" → 6100 <small>Sq.ft</small>; "₹ 28 - 35 Cr" → ₹ 28 - 35 <small>Cr</small> (unit styled small on mobile)
+const withUnit = (v) => {
+  const m = String(v || "").match(/^(.*\d[^A-Za-z]*?)\s*([A-Za-z][A-Za-z.\s]*?)(\*?)$/);
+  return m && m[2] ? <>{m[1]} <small className="pd-unit">{m[2]}</small>{m[3]}</> : v;
+};
+// homepage section → badge on the mobile hero
+const SECTION_LABEL = { newlaunch: "New Launch", upcoming: "Upcoming", trending: "Trending", recommended: "Featured", luxury: "Luxury", branded: "Branded", commercial: "Commercial", sco: "SCO", dubai: "Dubai" };
+
 const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
 // "Sector 58, Golf Course Extension Road, Gurugram" → "Sector 58"
@@ -295,6 +304,7 @@ export default function PropertyDetailPage() {
   const [openFaq, setOpenFaq] = useState(0);
   const [active, setActive] = useState("overview");
   const [logoBroken, setLogoBroken] = useState(false);
+  const [mMenu, setMMenu] = useState(false); // mobile sections menu
 
   useEffect(() => {
     // already showing this property (we just switched the address bar to its slug)
@@ -443,6 +453,7 @@ export default function PropertyDetailPage() {
           {p.logo && !/via\.placeholder\.com|dummyimage\.com/.test(p.logo) && !logoBroken && (
             <span className="pd-bar-logo"><img src={p.logo} alt={p.developer || p.title} onError={() => setLogoBroken(true)} /></span>
           )}
+          <span className="pd-m-name">{p.title}</span>
           <div className="pd-bar-title">
             <strong>{p.title}</strong>
             <span>{p.priceRange || p.price}</span>
@@ -453,7 +464,21 @@ export default function PropertyDetailPage() {
             ))}
           </nav>
           <button type="button" className="pd-btn gold sm" onClick={() => enquire("Enquire now")}>Enquire Now</button>
+          {/* mobile: WhatsApp · call · sections menu */}
+          <div className="pd-m-actions">
+            <a className="pd-m-circle" href={waLink(`Hi, I am interested in ${p.title}. Please share more details.`)} target="_blank" rel="noreferrer" aria-label="WhatsApp"><WaIcon /></a>
+            <a className="pd-m-circle" href={`tel:${PHONE}`} aria-label="Call"><Icon n="phone" size={18} /></a>
+            <button type="button" className="pd-m-circle" onClick={() => setMMenu((v) => !v)} aria-label="Sections" aria-expanded={mMenu}><Icon n={mMenu ? "close" : "menu"} size={20} /></button>
+          </div>
         </div>
+        {mMenu && (
+          <nav className="pd-m-menu">
+            {NAV.filter(([key]) => key !== "plans" || plans.length > 0).map(([key, label]) => (
+              <button key={key} type="button" className={active === key ? "on" : ""} onClick={() => { setMMenu(false); jump(key); }}>{label}</button>
+            ))}
+            <button type="button" className="pd-m-menu-cta" onClick={() => { setMMenu(false); enquire("Enquire now"); }}>Enquire Now</button>
+          </nav>
+        )}
       </div>
 
       {/* ============ HERO ============ */}
@@ -464,7 +489,9 @@ export default function PropertyDetailPage() {
           <div className="pd-hero-info">
             <div className="pd-glass pd-hero-name">
               <span className="pd-hero-eyebrow">{(p.propertyTypeDetail || typesOf(p).join(" · ") || "Residential").toUpperCase()}</span>
+              {SECTION_LABEL[p.category] && <span className="pd-m-pill">{SECTION_LABEL[p.category]}</span>}
               <h1>{p.title}</h1>
+              <span className="pd-m-city">{d.place.city || "Gurugram"}</span>
               <p>{p.location}</p>
             </div>
             <div className="pd-glass pd-hero-facts">
@@ -507,6 +534,7 @@ export default function PropertyDetailPage() {
                 {readMore ? "Read Less" : "Read More"} <Icon n="arrowR" size={16} />
               </button>
             )}
+            {d.images[0] && <img className="pd-m-ovimg" src={d.images[1] || d.images[0]} alt={p.title} loading="lazy" />}
             <div className="pd-facts" style={{ "--pd-facts": Math.max(d.facts.length, 2) }}>
               {d.facts.map((f) => (
                 <div key={f.icon + f.value} className="pd-fact">
@@ -536,6 +564,7 @@ export default function PropertyDetailPage() {
       {/* ============ SPACE & PRICING ============ */}
       <section id="pricing" className="pd-section">
         <div className="pd-wrap">
+          <h2 className="pd-m-ptitle">{p.title} Price</h2>
           <div className="pd-head center">
             <Eyebrow center>SPACE &amp; PRICING</Eyebrow>
             <h2>{p.title} <span className="gold">Price</span></h2>
@@ -546,14 +575,16 @@ export default function PropertyDetailPage() {
             {d.pricing.map((r, k) => (
               <div key={k} className="pd-tr">
                 <span className="strong"><Icon n="home" size={17} /> {r.type || "—"}</span>
-                <span>{r.size || "On request"}</span>
-                <span className="gold">{r.price || "On request"}</span>
+                <span className="pd-size">{withUnit(r.size) || "On request"}</span>
+                <span className="gold">{withUnit(r.price) || "On request"}</span>
                 {/* Admin → Property → step 6 */}
-                <span className="pd-plan-cell">{r.paymentPlan || "On request"}</span>
+                <span className={`pd-plan-cell${r.paymentPlan ? "" : " none"}`}>{r.paymentPlan || "On request"}</span>
                 <span><button type="button" className="pd-btn outline xs" onClick={() => enquire(`Price details: ${r.type}`)}>Get Details</button></span>
               </div>
             ))}
           </div>
+          <p className="pd-m-note">* Prices are indicative. Contact builder for exact pricing.</p>
+          <button type="button" className="pd-m-btn" onClick={() => enquire("Get in touch")}>GET IN TOUCH <Icon n="check" size={17} /></button>
           <div className="pd-center-actions">
             <button type="button" className="pd-btn dark" onClick={() => enquire("Price list request")}>GET COMPLETE PRICE LIST <Icon n="arrowR" size={16} /></button>
             <a className="pd-call-pill" href={`tel:${PHONE}`}><Icon n="phone" size={16} /> Speak with an expert <b>{PHONE_DISPLAY}</b></a>
