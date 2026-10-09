@@ -378,7 +378,10 @@ export default function PropertyDetailPage() {
     // only projects by the same developer (Admin → Developers names/aliases, else the same first word)
     const builder = builders.find((b) => belongsTo(b, p));
     const sameDev = (builder ? propertiesOf(builder, all) : devKey ? all.filter((x) => firstWord(x.developer) === devKey) : []).filter((x) => x.id !== p.id);
-    const similar = all.filter((x) => x.id !== p.id && x.category === p.category).slice(0, 4);
+    // "Similar Projects" used to show any property in the same homepage section, i.e. other
+    // developers. Related projects are the same developer's, already shown in "Iconic Projects
+    // by …" above — so this list stays empty and the section is hidden.
+    const similar = [];
     const iconic = sameDev; // nothing related → the section is hidden
     const developerLink = builder ? developerUrl(builder) : `/search?q=${encodeURIComponent(devKey || "")}`;
 
