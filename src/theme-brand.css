@@ -189,7 +189,7 @@
 
 /* =====================================================================
    Homepage hero (desktop):
-   banner image area is 3:1 (like the uploads), search box ≤ 960px overlapping 40px,
+   first screen shows banner + search box + start of the offer banner,
    dark navbar background over the hero.
 ===================================================================== */
 @media (min-width: 769px) {
@@ -202,10 +202,11 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
   }
 
-  /* image area = 3:1, the shape of uploaded hero banners (2100 × 700), so the whole
-     banner shows with object-fit: fill — nothing cropped, nothing stretched */
-  .hw-home-hero .hw-hero { height: calc(72px + 100vw / 3) !important; }
-  .hw-home-hero .hw-hero .hw-slide img { object-fit: fill !important; }
+  /* first screen = banner + search box + start of the offer banner (like 100acres).
+     Banner image area is exactly 4:1 = the hero upload size (2400 × 600, checked in
+     the admin), so uploads show whole. cover only trims older 3:1 banners. */
+  .hw-home-hero .hw-hero { height: calc(72px + 100vw / 4) !important; }
+  .hw-home-hero .hw-hero .hw-slide img { object-fit: cover !important; object-position: center !important; }
   /* banner image starts below the 72px navbar so its artwork isn't covered */
   .hw-home-hero .hw-hero .hw-slides {
     inset: auto !important;
@@ -220,14 +221,63 @@
   .hw-home-hero .hw-hero .hw-arrow { top: calc(50% + 36px) !important; }
 
   .hw-home-hero .hw-search-overlay {
-    top: calc(100% - 40px) !important; /* overlaps just the banner's bottom edge */
+    top: calc(100% - 80px) !important; /* half of the search box sits on the banner */
     bottom: auto !important;
     width: min(960px, calc(100% - 48px)) !important;
   }
   /* room between the search box and the slim banner slider below it */
-  .hw-new-premium-slider .hw-image-slider { margin-top: 148px !important; }
+  .hw-new-premium-slider .hw-image-slider { margin-top: 85px !important; } /* ~26px below the white search box */
   .hw-home-hero .hw-search-container {
     width: 100% !important;
-    max-width: 960px !important;
+    max-width: 945px !important;
+    height: 139px;
+    margin: 0 auto;
+    padding-top: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(216, 170, 66, .42);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(17, 24, 39, .07);
+  }
+}
+
+/* ---------- navbar "Sell Property" — gold button like "Search Properties" ---------- */
+.hw-header .hw-nav-link.hw-nav-cta,
+.hw-header-inner-page .hw-nav-link.hw-nav-cta {
+  height: 38px !important;
+  padding: 0 18px !important;
+  margin-left: 4px;
+  border-radius: 8px !important;
+  background: var(--hb-grad-btn) !important;
+  color: #111 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 16px rgba(212, 175, 55, .28) !important;
+  display: inline-flex !important;
+  align-items: center;
+  white-space: nowrap;
+  transition: filter .2s, transform .2s !important;
+}
+.hw-header .hw-nav-link.hw-nav-cta::after,
+.hw-header .hw-nav-link.hw-nav-cta::before { display: none !important; }
+.hw-header .hw-nav-link.hw-nav-cta:hover { filter: brightness(1.06); transform: translateY(-1px); color: #111 !important; }
+.hw-mobile-main.hw-mobile-cta {
+  justify-content: center !important;
+  margin: 8px 0 !important;
+  border-radius: 10px !important;
+  background: var(--hb-grad-btn) !important;
+  color: #111 !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- navbar spacing (desktop) ----------
+   menu reaches the right edge (the empty mobile-actions slot is hidden) and
+   always keeps a clear gap after the logo */
+@media (min-width: 1201px) {
+  .hw-header .hw-header-actions { display: none !important; }
+  .hw-header .hw-nav {
+    margin-left: 48px !important;
+    gap: clamp(12px, 1.45vw, 26px) !important;
+    justify-content: flex-end !important;
+    padding-right: 0 !important;
   }
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CITIES } from "../data/locations";
 
 export default function SearchSection() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export default function SearchSection() {
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
   const [budget, setBudget] = useState("");
+  const [city, setCity] = useState(""); // same cities as the navbar "Cities" menu
 
   /* =========================================================
      PREMIUM PROPERTY ICONS
@@ -176,41 +178,13 @@ export default function SearchSection() {
   );
 
   const tabs = [
-    {
-      name: "Apartment",
-      value: "Apartment",
-      icon: ApartmentIcon,
-    },
-    {
-      name: "Villa",
-      value: "Villa",
-      icon: VillaIcon,
-    },
-    {
-      name: "Farmhouse",
-      value: "Farmhouse",
-      icon: FarmhouseIcon,
-    },
-    {
-      name: "Commercial",
-      value: "Commercial",
-      icon: CommercialIcon,
-    },
-    {
-      name: "Branded",
-      value: "Branded",
-      icon: BrandedIcon,
-    },
-    {
-      name: "Luxury",
-      value: "Luxury",
-      icon: LuxuryIcon,
-    },
-    {
-      name: "Plots / Land",
-      value: "Plots / Land",
-      icon: LandIcon,
-    },
+    { name: "Apartment", value: "Apartment", icon: ApartmentIcon },
+    { name: "Luxury", value: "Luxury", icon: LuxuryIcon },
+    { name: "Branded", value: "Branded", icon: BrandedIcon },
+    { name: "Commercial", value: "Commercial", icon: CommercialIcon },
+    { name: "Plots / Land", value: "Plots / Land", icon: LandIcon },
+    { name: "Villa", value: "Villa", icon: VillaIcon },
+    { name: "Farmhouse", value: "Farmhouse", icon: FarmhouseIcon },
   ];
 
   /* =========================================================
@@ -219,23 +193,12 @@ export default function SearchSection() {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-
-    if (activeTab) {
-      params.set("type", activeTab);
-    }
-
-    if (type) {
-      params.set("propertyType", type);
-    }
-
-    if (location) {
-      params.set("location", location);
-    }
-
-    if (budget) {
-      params.set("budget", budget);
-    }
-
+    // the Property Type dropdown wins over the highlighted tab
+    const chosenType = type || activeTab;
+    if (city) params.set("city", city);
+    if (location.trim()) params.set("location", location.trim());
+    if (chosenType) params.set("type", chosenType);
+    if (budget) params.set("budget", budget);
     navigate(`/search?${params.toString()}`);
   };
 
@@ -253,6 +216,19 @@ export default function SearchSection() {
         ===================================================== */}
 
         <div className="hw-search-tabs">
+          <label className={`hw-search-tab hw-search-city${city ? " active" : ""}`}>
+            <span className="hw-tab-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg>
+            </span>
+            <select value={city} onChange={(e) => setCity(e.target.value)} aria-label="City">
+              <option value="">All Cities</option>
+              {CITIES.map((c) => <option key={c.city} value={c.city}>{c.city}</option>)}
+            </select>
+          </label>
+
           {tabs.map((tab) => {
             const Icon = tab.icon;
 
@@ -352,11 +328,13 @@ export default function SearchSection() {
             >
               <option value="">Property Type</option>
               <option value="Apartment">Apartment</option>
+              <option value="Luxury">Luxury</option>
+              <option value="Branded">Branded</option>
+              <option value="Commercial">Commercial</option>
+              <option value="Plots / Land">Plots / Land</option>
               <option value="Villa">Villa</option>
               <option value="Farmhouse">Farmhouse</option>
               <option value="Builder Floor">Builder Floor</option>
-              <option value="Commercial">Commercial</option>
-              <option value="Plots / Land">Plots / Land</option>
             </select>
 
             <span className="hw-select-arrow">↓</span>
@@ -461,6 +439,18 @@ export default function SearchSection() {
           display: none;
         }
 
+
+        .hw-search-city { position: relative; cursor: pointer; }
+        .hw-search-city select {
+          appearance: none; -webkit-appearance: none; border: none; background: transparent; outline: none;
+          font: inherit; color: inherit; cursor: pointer; padding-right: 16px;
+          background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+          background-position: right 4px center, right 0 center; background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+        }
+        .hw-search-city select option { color: #111; }
+        /* phones shrink tabs to icons — keep the city name readable */
+        .hw-search-tabs .hw-search-tab.hw-search-city { flex: 0 0 auto !important; width: auto !important; min-width: 0 !important; padding: 0 12px !important; }
+        .hw-search-tabs .hw-search-tab.hw-search-city .hw-tab-icon { display: inline-flex !important; }
 
         .hw-search-tab {
           height: 39px;

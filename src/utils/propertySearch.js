@@ -59,7 +59,7 @@ export const BUDGETS = [
 // Older properties only have the single "type" field.
 export const typesOf = (p) => (Array.isArray(p?.types) && p.types.length ? p.types : [p?.type || p?.propertyType]).filter(Boolean)
 
-const RESIDENTIAL = ['apartment', 'villa', 'builder floor', 'plots', 'farmhouse']
+const RESIDENTIAL = ['apartment', 'villa', 'builder floor', 'plots', 'farmhouse', 'builder plots', 'deendayal plots', 'normal plots']
 const COMMERCIAL = ['commercial', 'retail', 'sco']
 const BRANDS = ['trump', 'elie saab', 'brabus', 'franck', 'muller', 'tonino', 'armani', 'branded', 'oberoi', 'dlf privana', 'versace', 'lamborghini']
 const LUXURY_FROM_CR = 10
@@ -88,7 +88,11 @@ export const typeMatcher = (raw) => {
     'builder floor': p => is(p, 'builder floor'),
     'pent house': p => /pent ?house/.test(text(p)),
     'penthouse': p => /pent ?house/.test(text(p)),
-    'residential plots': p => is(p, 'plots'),
+    'residential plots': p => is(p, 'plots', 'deendayal plots', 'normal plots'),
+    // Deendayal Jan Awas Yojana (DDJAY) plots vs other residential plots
+    'deendayal plots': p => is(p, 'deendayal plots') || /deendayal|ddjay/.test(text(p)),
+    'normal plots': p => is(p, 'normal plots') || (is(p, 'plots') && !/deendayal|ddjay/.test(text(p))),
+    'builder plots': p => is(p, 'builder plots') || /builder plot/.test(text(p)),
     'plots': p => is(p, 'plots'),
     'plots land': p => is(p, 'plots'),
     'sco plots': p => is(p, 'sco') || p.category === 'sco',
@@ -220,6 +224,7 @@ const TYPE_LABELS = {
   'apartment': 'Apartments', 'villa': 'Villas', 'villas': 'Villas', 'luxury villas': 'Luxury Villas',
   'builder floor': 'Builder Floors', 'independent floors': 'Independent Floors', 'farmhouse': 'Farmhouses',
   'plots': 'Plots', 'plots land': 'Plots & Land', 'residential plots': 'Residential Plots',
+  'deendayal plots': 'Deendayal Plots', 'normal plots': 'Normal Plots', 'builder plots': 'Builder Plots',
   'pent house': 'Penthouses', 'penthouse': 'Penthouses',
   'residential': 'Residential Projects', 'residential projects': 'Residential Projects',
   'commercial': 'Commercial Projects', 'commercial projects': 'Commercial Projects', 'retail': 'Retail Spaces',

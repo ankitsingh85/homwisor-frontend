@@ -174,7 +174,7 @@ const emptyBanner = { image: '', title: '', link: '', developer: '' }
 
 const BANNER_TYPES = {
   hero: {
-    tab: 'Hero banners', one: 'hero banner', purpose: 'hero', aspect: '3 / 1', thumb: 'banner',
+    tab: 'Hero banners', one: 'hero banner', purpose: 'hero', aspect: '4 / 1', thumb: 'banner',
     where: 'The big rotating banner at the very top of the homepage.',
   },
   slider: {

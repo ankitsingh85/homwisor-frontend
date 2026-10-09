@@ -4,6 +4,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Search from './pages/Search'
 import PropertyDetail from './pages/PropertyDetailPage'
+import DeveloperPage from './pages/DeveloperPage'
+import Sell from './pages/Sell'
 import Snaps from './pages/Snaps'
 import Contact from './pages/Contact'
 import AdminLogin from './admin/AdminLogin'
@@ -51,6 +53,7 @@ export default function App(){
         <Route path="/residential-projects" element={<ToSearch preset={{ type: 'residential' }}/>}/>
         <Route path="/commercial-projects" element={<ToSearch preset={{ type: 'commercial' }}/>}/>
         <Route path="/property/:id" element={<PropertyDetail/>}/>
+        <Route path="/developer/:slug" element={<DeveloperPage/>}/>
         <Route path="/blog" element={<Blog/>}/>
         <Route path="/blog/:slug" element={<OldBlogLink />} />
          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -63,6 +66,7 @@ export default function App(){
         <Route path="/admin" element={<AdminLogin/>}/>
         <Route path="/admin/dashboard" element={<Protected><Suspense fallback={<div style={{ minHeight: '100vh', background: '#0b0b0b' }} />}><Dashboard/></Suspense></Protected>}/>
         <Route path="/contact" element={<Contact />} />
+        <Route path="/sell" element={<Sell />} />
         {/* Blog articles: homwisor.com/<slug> — fixed pages above always win */}
         <Route path="/:slug" element={<BlogDetail />} />
         <Route path="*" element={<Navigate to="/" replace/>}/>

@@ -64,7 +64,7 @@ export const categoryById = (id) => CATEGORIES.find(c => c.id === id) || CATEGOR
 
 // Must match the Property model's "type" list on the backend
 // Built-in property types. A property can have several; admins can add more in the form.
-export const TYPES = ['Apartment', 'Residential', 'Villa', 'Builder Floor', 'Plots', 'Farmhouse', 'Commercial', 'Retail', 'SCO']
+export const TYPES = ['Apartment', 'Residential', 'Villa', 'Builder Floor', 'Builder Plots', 'Plots', 'Deendayal Plots', 'Normal Plots', 'Farmhouse', 'Commercial', 'Retail', 'SCO']
 
 export const STATUSES = ['New Launch', 'Upcoming', 'Under Construction', 'Ready to Move', 'Trending']
 
@@ -96,6 +96,7 @@ export const emptyProperty = {
   priceRange: '',
   status: 'New Launch',
   possession: '',
+  area: '',
   landArea: '',
   towers: '',
   propertyTypeDetail: '',
@@ -113,6 +114,9 @@ export const emptyProperty = {
   pricing: [{ type: '', size: '', price: '' }],
   amenities: [],
   galleryCaptions: [],
+  floorPlans: [],
+  floorPlanCaptions: [],
+  floorPlanNote: '',
   about: { heading: '', subheading: '', description: '', image: '', stats: [{ value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }] },
   faqs: [{ question: '', answer: '' }],
 }
@@ -138,6 +142,7 @@ export const toPayload = (f) => ({
   priceRange: f.priceRange.trim(),
   status: f.status,
   possession: f.possession.trim(),
+  area: (f.area || '').trim(),
   landArea: f.landArea.trim(),
   towers: f.towers.trim(),
   propertyTypeDetail: f.propertyTypeDetail.trim(),
@@ -155,6 +160,9 @@ export const toPayload = (f) => ({
   amenities: [...new Set(f.amenities.map(a => a.trim()).filter(Boolean))],
   // one caption per gallery photo (same order)
   galleryCaptions: f.gallery.map((src, i) => (f.galleryCaptions[i] || '').trim()),
+  floorPlans: (f.floorPlans || []).filter(Boolean),
+  floorPlanCaptions: (f.floorPlans || []).filter(Boolean).map((src, i) => (f.floorPlanCaptions?.[i] || '').trim()),
+  floorPlanNote: (f.floorPlanNote || '').trim(),
   about: {
     heading: f.about.heading.trim(),
     subheading: f.about.subheading.trim(),
@@ -187,6 +195,8 @@ export const toForm = (p) => {
   f.pricing = padRows(p.pricing, 1, { type: '', size: '', price: '' })
   f.amenities = [...(p.amenities || [])]
   f.galleryCaptions = (p.gallery || []).filter(Boolean).map((_, i) => p.galleryCaptions?.[i] || '')
+  f.floorPlans = (p.floorPlans || []).filter(Boolean)
+  f.floorPlanCaptions = f.floorPlans.map((_, i) => p.floorPlanCaptions?.[i] || '')
   f.about = {
     heading: p.about?.heading || '',
     subheading: p.about?.subheading || '',

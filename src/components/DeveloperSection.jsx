@@ -1,39 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import dlfLogo from "../images/dlf.avif";
-import godrejLogo from "../images/godrej.avif";
-import experionLogo from "../images/experion.avif";
-import m3mLogo from "../images/m3m.avif";
-import maxLogo from "../images/max.avif";
-import trumpLogo from "../images/trump.avif";
-
-// Local logos for builders whose name starts with one of these keys
-const localLogos = {
-  dlf: dlfLogo,
-  godrej: godrejLogo,
-  experion: experionLogo,
-  m3m: m3mLogo,
-  max: maxLogo,
-  trump: trumpLogo,
-};
+import { logoOf, initials, developerUrl, propertiesOf, cityOf } from "../data/developers";
 
 const SHOW = 12; // tiles before "View all"
 
-const firstWord = (str = "") => String(str).trim().split(/\s+/)[0].toLowerCase();
-const initials = (name = "") => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
-const cityOf = (p) => p.city || String(p.location || "").split(",").pop().trim();
-
 const toDeveloper = (builder, properties) => {
-  const key = firstWord(builder.name);
-  const listed = properties.filter((p) => firstWord(p.developer) === key);
-  const hasUsableLogo = builder.logo && !/via\.placeholder\.com|dummyimage\.com/.test(builder.logo);
+  const listed = propertiesOf(builder, properties);
   return {
     id: builder.id || builder.name,
     name: builder.name,
-    logo: localLogos[key] || (hasUsableLogo ? builder.logo : ""),
-    count: builder.count || parseInt(builder.projects, 10) || 0,
+    logo: logoOf(builder),
+    // admin's project count, else how many are listed on HomWisor
+    count: builder.count || parseInt(builder.projects, 10) || listed.length,
     listed,
-    link: `/search?q=${encodeURIComponent(key)}`,
+    link: developerUrl(builder),
   };
 };
 
@@ -43,7 +23,7 @@ function Logo({ developer }) {
   return <img src={developer.logo} alt={`${developer.name} logo`} loading="lazy" onError={() => setBroken(true)} />;
 }
 
-export default function DeveloperSection({ builders = [], properties = [] }) {
+export default function DeveloperSection({ builders = [], properties = [], content = {} }) {
   const [showAll, setShowAll] = useState(false);
   const developers = builders.map((b) => toDeveloper(b, properties));
   if (!developers.length) return null;
@@ -53,21 +33,26 @@ export default function DeveloperSection({ builders = [], properties = [] }) {
   const live = developers.reduce((s, d) => s + d.listed.length, 0);
   const cities = new Set(developers.flatMap((d) => d.listed.map(cityOf)).filter(Boolean)).size;
 
-  const stats = [
+  // numbers band: set in Admin → Developers, else worked out from the data
+  const autoStats = [
     [`${developers.length}+`, "Developers"],
     totalProjects > 0 && [`${totalProjects}+`, "Projects"],
     live > 0 && [live, "Live Listings"],
     cities > 0 && [cities, cities === 1 ? "City" : "Cities"],
   ].filter(Boolean);
+  const stats = Array.isArray(content?.stats) && content.stats.length ? content.stats.map((x) => [x.value, x.label]) : autoStats;
+  const heading = content?.heading?.trim() || "Top Property Developers";
+  const highlight = content?.highlight?.trim() || (content?.heading?.trim() ? "" : "Developers");
+  const hi = highlight ? heading.lastIndexOf(highlight) : -1;
 
   return (
-    <section className="hwdk">
+    <section className="hwdk" id="developers">
       <div className="hwdk-glow" aria-hidden="true" />
       <div className="hwdk-wrap">
         <header className="hwdk-head">
-          <div className="hwdk-eyebrow"><span />TRUSTED NAMES<span /></div>
-          <h2>Top Property <em>Developers</em></h2>
-          <p>Partnering with India&apos;s most trusted builders to bring you the best properties.</p>
+          <div className="hwdk-eyebrow"><span />{content?.eyebrow?.trim() || "TRUSTED NAMES"}<span /></div>
+          <h2>{hi < 0 ? heading : <>{heading.slice(0, hi)}<em>{highlight}</em>{heading.slice(hi + highlight.length)}</>}</h2>
+          <p>{content?.description?.trim() || "Partnering with India's most trusted builders to bring you the best properties."}</p>
         </header>
 
         <div className="hwdk-grid">

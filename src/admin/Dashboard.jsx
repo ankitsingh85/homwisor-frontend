@@ -10,6 +10,7 @@ import { SnapsPage, BannersPage, LocationsPage, OffersPage, RecommendedPage } fr
 import { BlogPage } from './BlogPage'
 import { TestimonialsPage } from './TestimonialsPage'
 import { BrandedFeaturePage } from './BrandedFeaturePage'
+import { DevelopersPage } from './DevelopersPage'
 import logo from '../images/logo-homwiser.png'
 import './admin.css'
 import './dashboard.css'
@@ -54,10 +55,12 @@ const NAV = [
   { group: 'Main', items: [
     { id: 'overview', label: 'Overview', icon: Icon.grid },
     { id: 'enquiries', label: 'Enquiries', icon: Icon.chat, count: 'enqs', hot: true },
+    { id: 'sell', label: 'Sell Requests', icon: Icon.building, count: 'sells' },
   ] },
   { group: 'Listings', items: [
     { id: 'properties', label: 'Properties', icon: Icon.building, count: 'props' },
     { id: 'snaps', label: 'Property Snaps', icon: Icon.film, count: 'snaps' },
+    { id: 'developers', label: 'Developers', icon: Icon.building, count: 'devs' },
   ] },
   { group: 'Homepage', items: [
     { id: 'recommended', label: 'Recommended', icon: Icon.star, count: 'recs' },
@@ -74,7 +77,7 @@ const NAV = [
     { id: 'admins', label: 'Admins & Security', altLabel: 'My Account', icon: Icon.shield },
   ] },
 ]
-const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', properties: 'Properties', snaps: 'Property Snaps', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', branded: 'Branded Banner', blog: 'Blog', testimonials: 'Testimonials', admins: 'Admins & Security' }
+const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', sell: 'Sell Requests', properties: 'Properties', snaps: 'Property Snaps', developers: 'Developers', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', branded: 'Branded Banner', blog: 'Blog', testimonials: 'Testimonials', admins: 'Admins & Security' }
 
 // ---------------------------------------------------------------
 // Overview
@@ -218,7 +221,10 @@ function Overview({ me, props, enqs, snaps, offers, locations, banners, recs, st
 // ---------------------------------------------------------------
 // Enquiries
 // ---------------------------------------------------------------
-function EnquiriesPage({ enqs, run }) {
+// where a lead came from (enquiry.source)
+const SOURCE_LABEL = { property: 'Property page', blog: 'Blog', contact: 'Contact page', sell: 'Sell property', popup: 'Popup form', other: 'Website' }
+
+function EnquiriesPage({ enqs, run, title = 'Enquiries', sub = 'Leads submitted from the website. Call or WhatsApp them quickly.' }) {
   const [q, setQ] = useState('')
   const [onlyToday, setOnlyToday] = useState(false)
   const shown = enqs.filter(e =>
@@ -230,7 +236,7 @@ function EnquiriesPage({ enqs, run }) {
 
   return (
     <>
-      <PageHead title="Enquiries" count={enqs.length} sub="Leads submitted from property pages. Call or WhatsApp them quickly." />
+      <PageHead title={title} count={enqs.length} sub={sub} />
       <div className="hwd-toolbar">
         <div className="hwd-search"><Icon.search /><input value={q} onChange={e => setQ(e.target.value)} placeholder="Search name, phone, property…" /></div>
         <div className="hwd-seg" style={{ margin: 0 }}>
@@ -249,6 +255,7 @@ function EnquiriesPage({ enqs, run }) {
                   <div className="hwd-e-top">
                     <strong>{e.name || 'Unknown'}</strong>
                     {e.date === today() && <span className="hwd-new">NEW</span>}
+                    <span className="hwd-src">{SOURCE_LABEL[e.source] || SOURCE_LABEL.other}</span>
                     <span className="hwd-e-date">{e.date}</span>
                   </div>
                   <div className="hwd-e-contact">
@@ -284,6 +291,7 @@ export default function Dashboard() {
   const [offers, setOffers] = useState([])
   const [blogs, setBlogs] = useState([])
   const [testis, setTestis] = useState([])
+  const [devs, setDevs] = useState([])
   const [snaps, setSnaps] = useState([])
   const [recs, setRecs] = useState([])
   const [loaded, setLoaded] = useState(false)
@@ -312,7 +320,7 @@ export default function Dashboard() {
 
   const load = async () => {
     try {
-      const [s, p, e, b, l, o, sn, rc, bl, ts] = await Promise.all([
+      const [s, p, e, b, l, o, sn, rc, bl, ts, dv] = await Promise.all([
         API.get('/admin/stats').catch(() => ({ data: {} })),
         API.get('/properties'),
         API.get('/enquiries').catch(() => ({ data: [] })),
@@ -322,9 +330,10 @@ export default function Dashboard() {
         API.get('/snaps'),
         API.get('/recommended').catch(() => ({ data: [] })),
         API.get('/blogs/admin/all').catch(() => ({ data: [] })),
-        API.get('/testimonials/admin/all').catch(() => ({ data: [] }))
+        API.get('/testimonials/admin/all').catch(() => ({ data: [] })),
+        API.get('/builders/admin/all').catch(() => ({ data: [] }))
       ])
-      setStats(s.data); setProps(p.data); setEnqs(e.data || []); setBanners(b.data); setLocations(l.data); setOffers(o.data); setSnaps(sn.data || []); setRecs(rc.data || []); setBlogs(bl.data || []); setTestis(ts.data || [])
+      setStats(s.data); setProps(p.data); setEnqs(e.data || []); setBanners(b.data); setLocations(l.data); setOffers(o.data); setSnaps(sn.data || []); setRecs(rc.data || []); setBlogs(bl.data || []); setTestis(ts.data || []); setDevs(dv.data || [])
     } catch (e) {
       console.error(e)
     } finally { setLoaded(true) }
@@ -342,7 +351,7 @@ export default function Dashboard() {
   const logout = () => { clearSession(); nav('/admin?session=loggedout', { replace: true }) }
   const reset = () => { if (confirm('Reset ALL website data to the demo content? Your properties, offers, banners and enquiries will be replaced.')) run(() => API.post('/admin/reset'), 'Demo data restored') }
 
-  const counts = { enqs: enqs.length, props: props.length, snaps: snaps.length, recs: recs.length, blogs: blogs.length, testis: testis.length }
+  const counts = { enqs: enqs.length, sells: enqs.filter(e => e.source === 'sell').length, props: props.length, snaps: snaps.length, recs: recs.length, blogs: blogs.length, testis: testis.length, devs: devs.length }
   const hoursLeft = Math.max(0, Math.round(timeLeft / 3600000))
   const newToday = useMemo(() => enqs.filter(e => e.date === today()).length, [enqs])
 
@@ -416,7 +425,9 @@ export default function Dashboard() {
               {active === 'blog' && <BlogPage blogs={blogs} run={run} />}
               {active === 'testimonials' && <TestimonialsPage items={testis} run={run} />}
               {active === 'branded' && <BrandedFeaturePage run={run} properties={props} />}
+              {active === 'developers' && <DevelopersPage items={devs} run={run} properties={props} />}
               {active === 'enquiries' && <EnquiriesPage enqs={enqs} run={run} />}
+              {active === 'sell' && <EnquiriesPage enqs={enqs.filter(e => e.source === 'sell')} run={run} title="Sell Requests" sub="Owners who want to sell — sent from the website's Sell page. Each one is also emailed to leads@homwisor.com." />}
               {active === 'admins' && <AdminUsers me={me} onMeChange={updateMe} />}
             </>
           )}

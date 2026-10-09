@@ -13,6 +13,7 @@ import TestimonialCards, { FALLBACK_TESTIMONIALS } from '../components/Testimoni
 import { currentPropertyLink } from '../utils/slug'
 import './Home.css'
 import Footer from '../components/Footer'
+import LeadPopup from '../components/LeadPopup'
 
 const GOLD = '#D4AF37'
 const GOLD_DARK = '#B9943A'
@@ -33,6 +34,7 @@ export default function Home(){
   const [testimonials, setTestimonials] = useState(undefined) // undefined = loading, null = failed
   const [recommendedCards, setRecommendedCards] = useState([])
   const [brandedFeature, setBrandedFeature] = useState({})
+  const [developersContent, setDevelopersContent] = useState({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -49,7 +51,8 @@ export default function Home(){
           bd,
           tm,
           rc,
-          bf
+          bf,
+          dv
         ] = await Promise.all([
 
           API.get('/banners'),
@@ -71,6 +74,10 @@ export default function Home(){
 
           // Admin → Branded Banner ({} = use the built-in content)
           API.get('/features/branded')
+            .catch(() => ({ data: {} })),
+
+          // Admin → Developers: section heading + numbers band
+          API.get('/features/developers')
             .catch(() => ({ data: {} }))
 
         ])
@@ -90,6 +97,8 @@ export default function Home(){
         setRecommendedCards(rc.data || [])
 
         setBrandedFeature(bf.data || {})
+
+        setDevelopersContent(dv.data || {})
 
       }catch(e){
 
@@ -875,7 +884,7 @@ export default function Home(){
       </section> */}
 
 
-<DeveloperSection builders={builders} properties={properties} />
+<DeveloperSection builders={builders} properties={properties} content={developersContent} />
 
       {/* =========================================
           CUSTOMER TESTIMONIALS - PREMIUM
@@ -1292,6 +1301,8 @@ export default function Home(){
 
 
       <Footer />
+
+      <LeadPopup context="Homepage" />
 
 
       {/* =========================================

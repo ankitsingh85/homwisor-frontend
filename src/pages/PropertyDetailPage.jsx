@@ -7,6 +7,7 @@ import "./propertyDetail.css";
 import { propertyUrl } from "../utils/slug";
 import { applyMeta, propertyMeta } from "../utils/seo";
 import { typesOf } from "../utils/propertySearch";
+import LeadPopup from "../components/LeadPopup";
 
 // Contact numbers used across the site
 const PHONE = "9090101401";
@@ -276,7 +277,7 @@ function Modal({ open, onClose, children, wide, dark }) {
    Page
 --------------------------------------------------------------- */
 const NAV = [
-  ["overview", "Overview"], ["pricing", "Price"], ["highlights", "Highlights"], ["amenities", "Amenities"],
+  ["overview", "Overview"], ["pricing", "Price"], ["plans", "Floor Plans"], ["highlights", "Highlights"], ["amenities", "Amenities"],
   ["gallery", "Gallery"], ["location", "Location"], ["about", "Developer"], ["faqs", "FAQs"],
 ];
 
@@ -409,6 +410,8 @@ export default function PropertyDetailPage() {
   }
 
   const enquire = (source) => setModal({ kind: "enquiry", source });
+  // Floor & Site Plans — Admin → Property → step 7
+  const plans = (p.floorPlans || []).filter(Boolean).map((src, k) => ({ src, caption: p.floorPlanCaptions?.[k] || "" }));
   const brochureUrl = p.brochure ? `${p.brochure}${p.brochure.includes("?") ? "&" : "?"}download=1` : "";
   const BrochureLink = ({ className, children }) => brochureUrl
     ? <a className={className} href={brochureUrl} download target="_blank" rel="noreferrer">{children}</a>
@@ -418,7 +421,6 @@ export default function PropertyDetailPage() {
 
   const heroFacts = [
     ["Property Type", p.propertyTypeDetail || typesOf(p).join(" · ")],
-    ["Possession", p.possession],
     ["About Project", p.towers || p.bhk],
     ["Land Area", p.landArea || (p.towers ? p.bhk : "")],
   ].filter(([, v]) => v);
@@ -437,7 +439,7 @@ export default function PropertyDetailPage() {
             <span>{p.priceRange || p.price}</span>
           </div>
           <nav className="pd-bar-nav">
-            {NAV.map(([key, label]) => (
+            {NAV.filter(([key]) => key !== "plans" || plans.length > 0).map(([key, label]) => (
               <button key={key} type="button" className={active === key ? "on" : ""} onClick={() => jump(key)}>{label}</button>
             ))}
           </nav>
@@ -462,9 +464,14 @@ export default function PropertyDetailPage() {
                   {heroFacts.map(([k, v]) => <div key={k}><small>{k.toUpperCase()}</small><strong>{v}</strong></div>)}
                 </div>
               )}
-              <div className="pd-hero-price">
-                <small>STARTING FROM</small>
-                <strong>{p.price || p.priceRange || "Price on request"}{(p.price || p.priceRange) ? "*" : ""}</strong>
+              <div className="pd-hero-bottom">
+                <div className="pd-hero-price">
+                  <small>STARTING FROM</small>
+                  <strong>{p.price || p.priceRange || "Price on request"}{(p.price || p.priceRange) ? "*" : ""}</strong>
+                </div>
+                {/* Area / unit size + Possession — Admin → Property → Project details */}
+                <div className="pd-hero-mini"><small>AREA</small><strong>{p.area || "On request"}</strong></div>
+                <div className="pd-hero-mini"><small>POSSESSION</small><strong>{p.possession || "On request"}</strong></div>
               </div>
             </div>
           </div>
@@ -542,6 +549,30 @@ export default function PropertyDetailPage() {
           </div>
         </div>
       </section>
+
+      {/* ============ FLOOR & SITE PLANS ============ */}
+      {plans.length > 0 && (
+        <section id="plans" className="pd-section tint">
+          <div className="pd-wrap">
+            <div className="pd-head center">
+              <Eyebrow center>LAYOUTS</Eyebrow>
+              <h2>Floor &amp; <span className="gold">Site Plan</span></h2>
+              {p.floorPlanNote && <p>{p.floorPlanNote}</p>}
+            </div>
+            <div className={`pd-plans n${Math.min(plans.length, 4)}`}>
+              {plans.map((pl, k) => (
+                <button type="button" key={pl.src + k} className="pd-plan" onClick={() => setModal({ kind: "plans", index: k })}>
+                  <span className="pd-plan-img"><img src={pl.src} alt={pl.caption || `${p.title} plan ${k + 1}`} loading="lazy" /><i>View plan</i></span>
+                  <span className="pd-plan-cap">{pl.caption || `Plan ${k + 1}`}</span>
+                </button>
+              ))}
+            </div>
+            <div className="pd-center-actions">
+              <button type="button" className="pd-btn dark" onClick={() => enquire("Floor plan request")}>GET ALL FLOOR PLANS <Icon n="arrowR" size={16} /></button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ============ HIGHLIGHTS ============ */}
       <section id="highlights" className="pd-section tint">
@@ -737,6 +768,8 @@ export default function PropertyDetailPage() {
       )}
 
 
+      <LeadPopup key={p.id} context={p.title} />
+
       {/* bottom dock: brochure / enquire / WhatsApp */}
       <div className="pd-dock">
         <div className="pd-wrap pd-dock-inner">
@@ -767,6 +800,10 @@ export default function PropertyDetailPage() {
           ? <div className="pd-video"><iframe src={v.src} title={`${p.title} video`} allow="autoplay; encrypted-media; fullscreen" allowFullScreen /></div>
           : <div className="pd-video"><video src={v.src} controls autoPlay playsInline /></div>; })()}
       </Modal>
+
+      {modal?.kind === "plans" && (
+        <Lightbox items={plans} start={modal.index || 0} title={`${p.title} — Floor & Site Plan`} onClose={() => setModal(null)} />
+      )}
 
       {modal?.kind === "gallery" && (
         <Lightbox items={d.gallery} start={modal.index || 0} title={p.title} onClose={() => setModal(null)} />

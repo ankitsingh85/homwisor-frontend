@@ -3,6 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import API from "../utils/api";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import LeadPopup from "../components/LeadPopup";
 import { CITIES, localitiesOf } from "../data/locations";
 import { propertyUrl } from "../utils/slug";
 import {
@@ -19,7 +20,7 @@ import {
 const KEYS = ["q", "city", "locality", "type", "budget", "bhk", "status", "category", "sort"];
 
 const TYPE_OPTIONS = [
-  { group: "Residential", items: [["Apartment", "Apartment"], ["Villa", "Villa"], ["Builder Floor", "Builder Floor"], ["Penthouse", "Penthouse"], ["Plots", "Plots"], ["Farmhouse", "Farmhouse"]] },
+  { group: "Residential", items: [["Apartment", "Apartment"], ["Villa", "Villa"], ["Builder Floor", "Builder Floor"], ["Penthouse", "Penthouse"], ["Builder Plots", "Builder Plots"], ["Plots", "Residential Plots"], ["Deendayal Plots", "Deendayal Plots"], ["Normal Plots", "Normal Plots"], ["Farmhouse", "Farmhouse"]] },
   { group: "Commercial", items: [["Commercial", "All Commercial"], ["Retail", "Retail / Shops"], ["SCO", "SCO Plots"]] },
   { group: "Collections", items: [["Luxury", "Luxury Homes"], ["Branded", "Branded Residences"]] },
 ];
@@ -645,6 +646,7 @@ export default function Search() {
       </div>
 
       <Footer />
+      <LeadPopup context="Property list" />
 
       {/* =====================================================
           CSS

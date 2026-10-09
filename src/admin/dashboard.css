@@ -388,3 +388,5 @@
 /* headings of pages rendered by PropertyManager / AdminUsers match the page heads */
 .hwd-content .hwa-section-head h2 { font-size: 24px; letter-spacing: -.3px; }
 .hwd-content .hwa-section-head { margin-bottom: 4px; }
+.hwd-src { font-size: 10px; font-weight: 800; letter-spacing: .5px; background: #faf3dc; color: #7a5a10; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+.hwd-e-msg { white-space: pre-line; }

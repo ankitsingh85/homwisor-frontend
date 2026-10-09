@@ -299,6 +299,10 @@ export default function Header() {
           label: "Pent House",
           link: "/property-type/pent-house",
         },
+        {
+          label: "Builder Plots",
+          link: "/property-type/builder-plots",
+        },
       ],
     },
 
@@ -336,6 +340,16 @@ export default function Header() {
     {
       label: "Residential Plots",
       link: "/property-type/residential-plots",
+      children: [
+        {
+          label: "Deendayal Plots",
+          link: "/property-type/deendayal-plots",
+        },
+        {
+          label: "Normal Plots",
+          link: "/property-type/normal-plots",
+        },
+      ],
     },
   ];
 
@@ -366,6 +380,18 @@ export default function Header() {
      MENU ITEMS
   ===================================================== */
 
+  // desktop dropdowns: nudge sideways so they never run off the screen
+  const keepInView = (el) => {
+    if (!el || window.innerWidth <= 768) return;
+    el.style.marginLeft = "0px";
+    const r = el.getBoundingClientRect();
+    const pad = 12;
+    let shift = 0;
+    if (r.right > window.innerWidth - pad) shift = window.innerWidth - pad - r.right;
+    if (r.left + shift < pad) shift = pad - r.left;
+    el.style.marginLeft = shift + "px";
+  };
+
   const menuItems = [
     {
       label: "Home",
@@ -375,6 +401,26 @@ export default function Header() {
     {
       label: "About",
       link: "/about",
+    },
+
+    {
+      label: "Cities",
+      type: "mega",
+      data: cities,
+    },
+
+    // Gurugram's main micro-markets
+    {
+      label: "Location",
+      type: "simple",
+      data: [
+        { label: "Southern Peripheral Road", link: "/location/southern-peripheral-road" },
+        { label: "Dwarka Expressway", link: "/location/dwarka-expressway" },
+        { label: "Sohna Road", link: "/location/sohna-road" },
+        { label: "New Gurugram", link: "/location/new-gurgaon" },
+        { label: "Golf Course Road", link: "/location/golf-course-road" },
+        { label: "Golf Course Extension Road", link: "/location/golf-course-extension-road" },
+      ],
     },
 
     {
@@ -395,12 +441,6 @@ export default function Header() {
       data: projectStatuses,
     },
 
-    {
-      label: "Cities",
-      type: "mega",
-      data: cities,
-    },
-
     // {
     //   label: "Resale",
     //   link: "/status/for-sale",
@@ -415,8 +455,13 @@ export default function Header() {
       ],
     },
     {
+      label: "Sell Property",
+      link: "/sell",
+      cta: true, // shown as a gold button
+    },
+    {
       label: "Contact",
-      link: "./contact",
+      link: "/contact",
     },
   ];
 
@@ -632,7 +677,7 @@ export default function Header() {
 
                     <Link
                       to={item.link}
-                      className="hw-nav-link"
+                      className={item.cta ? "hw-nav-link hw-nav-cta" : "hw-nav-link"}
                     >
                       {item.label}
                     </Link>
@@ -648,7 +693,7 @@ export default function Header() {
                     item.type === "simple" &&
                     openDropdown === item.label && (
 
-                      <div className="hw-dropdown hw-simple-dropdown">
+                      <div className="hw-dropdown hw-simple-dropdown" ref={keepInView}>
 
                         {item.data.map((child) => (
 
@@ -675,7 +720,7 @@ export default function Header() {
                     item.type === "mega" &&
                     openDropdown === item.label && (
 
-                      <div className="hw-dropdown hw-mega-dropdown">
+                      <div className="hw-dropdown hw-mega-dropdown" ref={keepInView}>
 
                         <div className="hw-mega-grid">
 
@@ -895,7 +940,7 @@ export default function Header() {
 
                     <Link
                       to={item.link}
-                      className="hw-mobile-main"
+                      className={item.cta ? "hw-mobile-main hw-mobile-cta" : "hw-mobile-main"}
                       onClick={closeMenu}
                     >
                       {item.label}
@@ -1632,9 +1677,9 @@ export default function Header() {
         .hw-nav-item.hw-scroll-cities
           .hw-mega-dropdown {
 
-          left: auto !important;
+          left: 0 !important;  /* opens to the right of "Cities"; keepInView() nudges it if needed */
 
-          right: 0 !important;
+          right: auto !important;
 
           transform: none !important;
 
@@ -1923,10 +1968,10 @@ export default function Header() {
             .hw-mega-dropdown {
 
             left:
-              auto !important;
+              0 !important;
 
             right:
-              0 !important;
+              auto !important;
 
             width:
               min(
@@ -2059,10 +2104,10 @@ export default function Header() {
             .hw-mega-dropdown {
 
             right:
-              0 !important;
+              auto !important;
 
             left:
-              auto !important;
+              0 !important;
 
             width:
               calc(100vw - 20px) !important;

@@ -1,0 +1,43 @@
+/* /sell */
+.sl-page { background: #fff; }
+.sl-wrap { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+.sl-hero { padding: 120px 0 80px; background: radial-gradient(700px 320px at 0% 0%, rgba(212,175,55,.14), transparent 70%), linear-gradient(180deg, #fff, #faf8f2); }
+.sl-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 56px; align-items: start; }
+.sl-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 3px; color: #9A7418; }
+.sl-copy h1 { margin: 12px 0 16px; font-size: clamp(32px, 4vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -1px; color: #0b0b0b; }
+.sl-copy h1 span { display: block; background: linear-gradient(135deg, #D4AF37, #9A7418); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sl-copy > p { margin: 0 0 30px; font-size: 17px; line-height: 1.7; color: #6b6450; max-width: 520px; }
+.sl-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.sl-points li { display: flex; gap: 14px; align-items: center; }
+.sl-points b { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: #0b0b0b; color: #E8C766; font-weight: 800; }
+.sl-points strong { display: block; font-size: 16px; color: #0b0b0b; }
+.sl-points small { font-size: 13.5px; color: #8f8873; }
+
+.sl-card { padding: 30px 28px 26px; border-radius: 22px; background: #fff; border: 1px solid #ece6d6; box-shadow: 0 30px 70px rgba(11,11,11,.10); }
+.sl-card h2 { margin: 0; font-size: 24px; font-weight: 800; color: #0b0b0b; }
+.sl-sub { margin: 4px 0 20px; font-size: 13px; color: #8f8873; }
+.sl-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sl-fields label { display: grid; gap: 6px; font-size: 12.5px; font-weight: 700; color: #3a3627; min-width: 0; }
+.sl-fields .full { grid-column: 1 / -1; }
+.sl-fields input, .sl-fields select, .sl-fields textarea { width: 100%; min-width: 0; height: 46px; padding: 0 12px; border-radius: 10px; border: 1px solid #e5e1d3; background: #fafaf7; font: inherit; font-size: 14.5px; font-weight: 500; color: #111; outline: none; }
+.sl-fields textarea { height: auto; padding: 10px 12px; resize: vertical; }
+.sl-fields input:focus, .sl-fields select:focus, .sl-fields textarea:focus { border-color: #D4AF37; background: #fff; box-shadow: 0 0 0 3px rgba(212,175,55,.18); }
+.sl-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.sl-err { margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; font-size: 13.5px; font-weight: 600; }
+.sl-submit { width: 100%; height: 52px; margin-top: 18px; border: none; border-radius: 999px; background: linear-gradient(135deg, #E8C766, #D4AF37 50%, #9A7418); color: #111; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 12px 26px rgba(212,175,55,.32); }
+.sl-submit:disabled { opacity: .7; cursor: wait; }
+.sl-fine { display: block; margin-top: 10px; text-align: center; font-size: 11.5px; color: #8f8873; }
+.sl-done { text-align: center; padding: 30px 6px; }
+.sl-done span { width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 50%; display: grid; place-items: center; background: #ecfdf3; color: #16a34a; font-size: 30px; font-weight: 800; }
+.sl-done p { color: #6b6450; }
+.sl-done button { margin-top: 10px; padding: 11px 20px; border-radius: 999px; border: 1px solid #0b0b0b; background: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .sl-grid { grid-template-columns: 1fr; gap: 34px; }
+  .sl-hero { padding: 100px 0 56px; }
+}
+@media (max-width: 520px) {
+  .sl-wrap { width: calc(100% - 32px); }
+  .sl-fields { grid-template-columns: 1fr; }
+  .sl-card { padding: 24px 18px; }
+}
