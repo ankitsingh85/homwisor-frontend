@@ -724,15 +724,22 @@
   .pd-hero-bg { object-fit: cover; }
   .pd-hero-shade { background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.05) 70%) !important; }
   .pd-hero-inner { padding: 0 !important; display: block; }
-  .pd-hero-info { min-height: 300px !important; display: flex !important; align-items: flex-end; justify-content: center; padding: 24px 0 22px; }
-  .pd-hero-facts, .pd-hero-card { display: none !important; }
-  .pd-hero-name { position: relative; width: auto; max-width: 100%; margin: 0 auto; padding: 22px 22px 14px !important; text-align: center; border-radius: 12px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-  .pd-hero-eyebrow { display: none !important; }
-  .pd-m-pill { display: inline-block; position: absolute; top: 0; left: 50%; transform: translate(-50%, -55%); padding: 5px 14px; border-radius: 999px; background: var(--pd-brand); color: var(--pd-on-brand, #fff); font-size: 12.5px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
-  .pd-hero-name h1 { margin: 0 0 4px !important; font-size: 25px !important; letter-spacing: .5px !important; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
-  .pd-m-city { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13.5px; font-weight: 800; letter-spacing: 2px; color: #fff; text-transform: uppercase; margin-bottom: 4px; }
-  .pd-m-city::before, .pd-m-city::after { content: ""; width: 16px; height: 2px; background: var(--pd-on, #E8C766); }
-  .pd-hero-name p { font-size: 13px !important; font-style: italic; color: rgba(255,255,255,.85) !important; font-weight: 500; }
+  /* one compact see-through panel on the bottom edge of the photo: badge, name, address + 6 facts */
+  .pd-hero-info { min-height: 400px !important; display: flex !important; flex-direction: column; justify-content: flex-end; gap: 0 !important; padding: 0 !important; }
+  .pd-hero-card { display: none !important; }
+  .pd-hero-info .pd-glass { width: 100%; margin: 0; border: none !important; box-shadow: none !important; background: rgba(14, 16, 20, .55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .pd-hero-name { position: relative; padding: 8px 12px 5px !important; text-align: left; border-radius: 14px 14px 0 0 !important; }
+  .pd-hero-eyebrow, .pd-m-city { display: none !important; }
+  .pd-m-pill { display: inline-block; position: static; transform: none; margin-bottom: 4px; padding: 2px 8px; border-radius: 999px; background: var(--pd-brand); color: var(--pd-on-brand, #fff); font-size: 9.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap; }
+  .pd-hero-name h1 { margin: 0 0 1px !important; font-size: 16px !important; line-height: 1.2 !important; letter-spacing: .2px !important; text-shadow: none; }
+  .pd-hero-name p { font-size: 11px !important; line-height: 1.35 !important; font-style: normal; color: rgba(255, 255, 255, .8) !important; font-weight: 500; }
+  .pd-hero-facts { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px 8px; padding: 7px 12px 9px !important; border-radius: 0 !important; }
+  .pd-hero-facts::before { content: ""; grid-column: 1 / -1; height: 1px; margin: -7px 0 0; background: rgba(255, 255, 255, .14); }
+  .pd-hero-grid, .pd-hero-bottom { display: contents !important; }
+  .pd-hero-grid > div, .pd-hero-mini, .pd-hero-price { min-width: 0; grid-column: auto !important; }
+  .pd-hero-grid small, .pd-hero-mini small, .pd-hero-price small { font-size: 8.5px !important; letter-spacing: .5px !important; margin-bottom: 1px !important; }
+  .pd-hero-grid strong, .pd-hero-mini strong { font-size: 11px !important; line-height: 1.2; overflow-wrap: anywhere; }
+  .pd-hero-price strong { font-size: 12.5px !important; }
 
   /* ---- overview ---- */
   .pd-overview { padding: 26px 0 30px !important; background: var(--pd-tint, #f6f8fb); }
