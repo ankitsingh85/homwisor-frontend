@@ -1,0 +1,24 @@
+/* Admin → Homepage Headings */
+.hwhd-note { margin: -6px 0 18px; font-size: 13.5px; color: #6b6450; }
+.hwhd-note button { border: none; background: none; padding: 0; font: inherit; font-weight: 700; color: #9A7418; cursor: pointer; text-decoration: underline; }
+.hwhd-list { display: grid; gap: 16px; padding-bottom: 80px; }
+.hwhd-card { padding: 20px 22px; }
+.hwhd-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0ebdc; }
+.hwhd-no { flex: 0 0 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #0b0b0b; color: #E8C766; font-size: 13px; font-weight: 800; }
+.hwhd-preview { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.hwhd-preview small { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: #8a8270; }
+.hwhd-preview small em { font-style: normal; font-size: 10.5px; letter-spacing: .4px; padding: 2px 8px; border-radius: 999px; background: #fff6dc; color: #9A7418; }
+.hwhd-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: 2.4px; color: #9A7418; }
+.hwhd-preview strong { font-size: 20px; font-weight: 800; color: #111; line-height: 1.25; }
+.hwhd-preview strong span { color: #B8901F; }
+.hwhd-preview p { margin: 0; font-size: 13px; color: #6b7280; line-height: 1.5; }
+.hwhd-reset { flex-shrink: 0; height: 34px; padding: 0 12px; font-size: 12.5px; }
+.hwhd-text { height: auto !important; min-height: 64px; padding: 10px 12px !important; line-height: 1.55; font-family: inherit; resize: vertical; }
+.hwhd-savebar { position: sticky; bottom: 16px; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: -60px; padding: 12px 16px 12px 20px; border-radius: 14px; background: #0b0b0b; color: #fff; font-size: 14px; font-weight: 600; box-shadow: 0 16px 36px rgba(0,0,0,.25); }
+@media (max-width: 640px) {
+  .hwhd-head { flex-wrap: wrap; }
+  .hwhd-reset { margin-left: 44px; }
+}
+.hwhd-card .hwd-form-grid { align-items: start; }
+.hwhd-card .hwa-field label { color: #374151; font-weight: 700; font-size: 13px; }
+.hwhd-card .hwa-input::placeholder { color: #b3ab98; opacity: 1; }

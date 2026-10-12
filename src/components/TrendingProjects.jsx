@@ -10,6 +10,7 @@ import './trendingProjects.css'
 import { propertyUrl, currentPropertyLink } from "../utils/slug";
 import BannerLink from "./BannerLink";
 import { brandedFeatureContent } from "../data/brandedFeature";
+import { DEFAULT_HEADINGS, HeadingText } from "../data/homeHeadings";
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
@@ -29,7 +30,7 @@ const SECTION_ORDER = [
   "upcoming",   // Upcoming Projects in Gurugram
   "bhk",        // Which BHK suits your lifestyle best? (passed in from Home)
   "festival",   // Best Festival Offer
-  "sco",        // SCO Projects in Gurugram
+  "sco",        // SCO Plots in Gurugram
   "commercial", // Commercial Projects in Gurugram
 ];
 
@@ -44,6 +45,7 @@ export default function TrendingProjects({
   promos = [],
   branded = null,
   luxury = null,
+  headings = DEFAULT_HEADINGS, // Admin → Homepage Headings
 }) {
 
   /* =====================================================
@@ -289,18 +291,12 @@ export default function TrendingProjects({
   const businessSections = [
     {
       key: "sco",
-      eyebrow: "SCO PROJECTS",
-      title: "SCO in",
-      text: "Own your commercial address. Handpicked shop-cum-office plots .",
       items: scoDisplay,
       fallbackType: "SCO",
       fallbackArea: "SCO Plot",
     },
     {
       key: "commercial",
-      eyebrow: "COMMERCIAL PROJECTS",
-      title: "Commercial Projects in",
-      text: "Retail, office and high-street commercial spaces in Gurugram",
       items: commercialDisplay,
       fallbackType: "Commercial",
       fallbackArea: "Commercial Space",
@@ -370,7 +366,7 @@ export default function TrendingProjects({
   // Side ad slider = "Small banners" from the admin panel (built-in images if none)
   const ads = (Array.isArray(promos) ? promos : [])
     .filter((b) => b?.image)
-    .map((b) => ({ image: b.image, title: b.title, link: b.link && b.link !== "#" ? b.link : "" }));
+    .map((b) => ({ image: b.image, mobileImage: b.mobileImage || "", title: b.title, link: b.link && b.link !== "#" ? b.link : "" }));
   if (!ads.length) ads.push(...[s1, s2, s3].map((image) => ({ image, title: "", link: "" })));
 
   const [activeAd, setActiveAd] = useState(0);
@@ -394,6 +390,65 @@ export default function TrendingProjects({
 
   }, [ads.length]);
 
+
+  // Side ad slider markup — right column on desktop; on mobile it shows after the Branded section
+  const adSlider = (
+    <div className="hw-ad-slider">
+
+
+      {ads.map((ad, index) => {
+        // phones (2:1, like the hero banner): the ad's mobile image, else the tall ad
+        // shown whole over a blurred copy of itself — see .hw-mobile-ad in trendingProjects.css
+        const img = (
+          <>
+            {!ad.mobileImage && <span className="hw-m-blur" aria-hidden="true" style={{ backgroundImage: `url("${ad.image}")` }} />}
+            <picture>
+              {ad.mobileImage && <source media="(max-width: 768px)" srcSet={ad.mobileImage} />}
+              <img
+                src={ad.image}
+                alt={ad.title || "Homwisor Advertisement"}
+              />
+            </picture>
+          </>
+        );
+        return (
+          <div key={index} className={`hw-ad-frame${index === activeAd ? " active" : ""}${ad.mobileImage ? "" : " hw-ad-nomobile"}`}>
+            {ad.link && index === activeAd
+              ? (/^https?:/i.test(ad.link)
+                  ? <a href={ad.link} target="_blank" rel="noopener noreferrer" style={AD_LINK}>{img}</a>
+                  : <Link to={ad.link} style={AD_LINK}>{img}</Link>)
+              : img}
+          </div>
+        );
+      })}
+
+
+     
+
+      <div className="hw-ad-dots">
+
+        {ads.map((_, index) => (
+
+          <button
+            key={index}
+            type="button"
+            aria-label={`Advertisement ${index + 1}`}
+            className={
+              index === activeAd
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setActiveAd(index)
+            }
+          />
+
+        ))}
+
+      </div>
+
+    </div>
+  );
 
   // Offer card link: the property/page chosen in Admin → Festival Offers
   // (kept current if the property's address changed), else a search for its name
@@ -469,15 +524,15 @@ export default function TrendingProjects({
 
                   <div>
                     <div className="hw-subsection-eyebrow">
-                      {sec.eyebrow}
+                      {headings[sec.key].eyebrow}
                     </div>
 
                     <h2>
-                      {sec.title} <span>Gurugram</span>
+                      <HeadingText h={headings[sec.key]} />
                     </h2>
 
                     <p>
-                      {sec.text}
+                      {headings[sec.key].description}
                     </p>
                   </div>
 
@@ -612,19 +667,18 @@ export default function TrendingProjects({
 
             <div className="hw-trending-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-              HOMWISOR
+              {headings.trending.eyebrow}
               <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
             </div>
 
 
             <h2>
-              Trending Properties in{" "}
-              <span>Gurugram</span>
+              <HeadingText h={headings.trending} />
             </h2>
 
 
             <p>
-              Discover new launch and ready-to-move projects in Gurugram's top locations, including Dwarka Expressway, Golf Course Road and New Gurgaon.
+              {headings.trending.description}
             </p>
 
           </div>
@@ -895,21 +949,18 @@ export default function TrendingProjects({
 
                   <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.prime.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
 
                   <h2>
-                    Explore Gurugram by {" "}
-                    <span>
-                      Location
-                    </span>
+                    <HeadingText h={headings.prime} />
                   </h2>
 
 
                   <p>
-                    Pick your preferred locality and browse verified projects that match your lifestyle and budget.
+                    {headings.prime.description}
                   </p>
 
                 </div>
@@ -976,16 +1027,16 @@ export default function TrendingProjects({
 
                   <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.upcoming.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
-                    Upcoming Launches in <span>Gurugram</span>
+                    <HeadingText h={headings.upcoming} />
                   </h2>
 
                   <p>
-                    Be among the first to explore Gurugram's newest upcoming residences
+                    {headings.upcoming.description}
                   </p>
 
                 </div>
@@ -1163,16 +1214,16 @@ export default function TrendingProjects({
 
                   <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.newlaunch.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
-                    Newly Launched Properties in <span>Gurugram</span>
+                    <HeadingText h={headings.newlaunch} />
                   </h2>
 
                   <p>
-                    Book early in Gurugram's latest projects and get the best choice of units at launch prices.
+                    {headings.newlaunch.description}
                   </p>
 
                 </div>
@@ -1379,16 +1430,16 @@ export default function TrendingProjects({
 
                   <div className="hw-festival-brand-line" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.festival.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
-                    Festive Season Home Offers <span>2026</span>
+                    <HeadingText h={headings.festival} />
                   </h2>
 
                   <p>
-                    Celebrate with a new address. Exclusive festive deals on Gurugram's finest residences, available for a limited time.
+                    {headings.festival.description}
                   </p>
 
                 </div>
@@ -1598,16 +1649,16 @@ export default function TrendingProjects({
 
                   <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.branded.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
-                    Branded Residences in <span>IN</span>
+                    <HeadingText h={headings.branded} />
                   </h2>
 
                   <p>
-                    Explore premium branded residences and landmark projects
+                    {headings.branded.description}
                   </p>
 
                 </div>
@@ -1880,16 +1931,16 @@ export default function TrendingProjects({
 
                   <div className="hw-subsection-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.luxury.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
-                    India's Finest <span>Luxury Residences</span>
+                    <HeadingText h={headings.luxury} />
                   </h2>
 
                   <p>
-                    A curated collection of landmark homes with expansive layouts, world-class amenities and prime locations.
+                    {headings.luxury.description}
                   </p>
 
                 </div>
@@ -2078,16 +2129,16 @@ export default function TrendingProjects({
                 <div className="hw-budget-heading">
                   <div className="hw-budget-eyebrow" style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
-                    HOMWISOR
+                    {headings.budget.eyebrow}
                     <span className="hw-section-line" style={{ display: "block", width: 28, height: 1, flex: "0 0 28px", background: GOLD }} />
                   </div>
 
                   <h2>
-                    Browse by <span>Budget</span>
+                    <HeadingText h={headings.budget} />
                   </h2>
 
                   <p>
-                    Pick a price range and see matching projects in Gurugram.
+                    {headings.budget.description}
                   </p>
                 </div>
 
@@ -2169,7 +2220,13 @@ export default function TrendingProjects({
           <div className="hw-trending-left">
 
 
-            {SECTION_ORDER.map((key) => blocks[key] ? <Fragment key={key}>{blocks[key]}</Fragment> : null)}
+            {SECTION_ORDER.map((key) => (
+              <Fragment key={key}>
+                {blocks[key] || null}
+                {/* mobile only: the side ad slider, after the Branded section */}
+                {key === "branded" && <div className="hw-mobile-ad">{adSlider}</div>}
+              </Fragment>
+            ))}
 
           </div>
 
@@ -2180,53 +2237,7 @@ export default function TrendingProjects({
 
           <aside className="hw-trending-ad">
 
-            <div className="hw-ad-slider">
-
-
-              {ads.map((ad, index) => {
-                const img = (
-                  <img
-                    src={ad.image}
-                    alt={ad.title || "Homwisor Advertisement"}
-                  />
-                );
-                return (
-                  <div key={index} className={`hw-ad-frame${index === activeAd ? " active" : ""}`}>
-                    {ad.link && index === activeAd
-                      ? (/^https?:/i.test(ad.link)
-                          ? <a href={ad.link} target="_blank" rel="noopener noreferrer" style={AD_LINK}>{img}</a>
-                          : <Link to={ad.link} style={AD_LINK}>{img}</Link>)
-                      : img}
-                  </div>
-                );
-              })}
-
-
-             
-
-              <div className="hw-ad-dots">
-
-                {ads.map((_, index) => (
-
-                  <button
-                    key={index}
-                    type="button"
-                    aria-label={`Advertisement ${index + 1}`}
-                    className={
-                      index === activeAd
-                        ? "active"
-                        : ""
-                    }
-                    onClick={() =>
-                      setActiveAd(index)
-                    }
-                  />
-
-                ))}
-
-              </div>
-
-            </div>
+            {adSlider}
 
           </aside>
 

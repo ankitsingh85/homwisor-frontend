@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { DEFAULT_HEADINGS, HeadingText } from "../data/homeHeadings";
 
 // Homepage "HomWisor Recommended" cards — managed in Admin → Recommended.
 // items: [{ id, title, image, price, location, link, badge }] (already in display order)
@@ -17,7 +18,7 @@ const WHATSAPP_NUMBER = "919090101401";
 const whatsappUrl = (r) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi, I am interested in ${r.title}. Please share more details.`)}`;
 
-export default function RecommendedProperties({ items = [] }) {
+export default function RecommendedProperties({ items = [], heading = DEFAULT_HEADINGS.recommended }) {
   const sliderRef = useRef(null);
   const cards = (Array.isArray(items) ? items : []).filter((r) => r?.image && r?.title).slice(0, 4);
 
@@ -53,10 +54,10 @@ export default function RecommendedProperties({ items = [] }) {
     <section className="hwr-section">
       <div className="hwr-head">
         <h2>
-          <span className="hwr-brand">Our Top </span> Properties
+          <HeadingText h={heading} className="hwr-brand" />
         </h2>
         <span className="hwr-bar" aria-hidden="true" />
-        <p>Premium properties chosen by HomWisor: built for luxury living, selected for lasting value. </p>
+        <p>{heading.description}</p>
       </div>
 
       <div className="hwr-grid" ref={sliderRef}>
@@ -66,7 +67,8 @@ export default function RecommendedProperties({ items = [] }) {
             <img src={r.image} alt={r.title} loading="lazy" />
             <span className="hwr-shade" aria-hidden="true" />
 
-            {r.badge && (
+            {/* "Founder Choice" (the old default) is no longer shown — other badges from the admin are */}
+            {r.badge && r.badge.trim().toLowerCase() !== "founder choice" && (
               <span className="hwr-badge">
                 <i aria-hidden="true" />
                 {r.badge}

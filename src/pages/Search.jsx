@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import API from "../utils/api";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LeadPopup from "../components/LeadPopup";
 import { CITIES, localitiesOf } from "../data/locations";
 import { propertyUrl } from "../utils/slug";
+import { applyMeta } from "../utils/seo";
+import { loadSeoPages, seoPageParams, sameSearch } from "../utils/seoPages";
 import {
   readFilters,
   applyFilters,
@@ -14,29 +16,31 @@ import {
   budgetLabel,
   BUDGETS,
   STATUSES,
+  TYPE_OPTIONS,
+  CATEGORY_OPTIONS,
+  BHK_OPTIONS,
 } from "../utils/propertySearch";
 
 // Filter keys written to the URL (the URL is the single source of truth)
 const KEYS = ["q", "city", "locality", "type", "budget", "bhk", "status", "category", "sort"];
 
-const TYPE_OPTIONS = [
-  { group: "Residential", items: [["Apartment", "Apartment"], ["Villa", "Villa"], ["Builder Floor", "Builder Floor"], ["Penthouse", "Penthouse"], ["Builder Plots", "Builder Plots"], ["Plots", "Residential Plots"], ["Deendayal Plots", "Deendayal Plots"], ["Normal Plots", "Normal Plots"], ["Farmhouse", "Farmhouse"]] },
-  { group: "Commercial", items: [["Commercial", "All Commercial"], ["Retail", "Retail / Shops"], ["SCO", "SCO Plots"]] },
-  { group: "Collections", items: [["Luxury", "Luxury Homes"], ["Branded", "Branded Residences"]] },
-];
-const CATEGORY_OPTIONS = [
-  ["", "All Projects"], ["trending", "Trending"], ["upcoming", "Upcoming"],
-  ["newlaunch", "New Launch"], ["branded", "Branded"], ["luxury", "Luxury"], ["commercial", "Commercial"], ["sco", "SCO"],
-];
-const BHK_OPTIONS = ["Studio", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "5 BHK"];
 const label = (pairs, v) => pairs.find(([k]) => k === v)?.[1] || v;
 
 const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
 
-export default function Search() {
-  const [params, setParams] = useSearchParams();
+// seoPage (Admin → SEO Pages) = landing page at homwisor.com/<slug>: its saved filters,
+// meta, heading and intro. Changing a filter there moves on to the normal /search?… page.
+export default function Search({ seoPage = null }) {
+  const [urlParams, setUrlParams] = useSearchParams();
+  const navigate = useNavigate();
+  const params = useMemo(() => (seoPage ? seoPageParams(seoPage) : urlParams), [seoPage, urlParams]);
+  const setParams = (out, opts) => {
+    if (!seoPage) return setUrlParams(out, opts);
+    const qs = new URLSearchParams(out).toString();
+    navigate(`/search${qs ? `?${qs}` : ""}`);
+  };
   const [properties, setProperties] = useState([]);
   const [offerTitles, setOfferTitles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -119,6 +123,33 @@ export default function Search() {
   const localityChoices = filters.city
     ? [{ city: filters.city, localities: localitiesOf(filters.city) }]
     : CITIES;
+
+  /* =====================================================
+     SEO — meta tags; a /search?… address that matches an
+     SEO page moves to the page's clean address
+  ===================================================== */
+
+  const [seoPages, setSeoPages] = useState([]);
+  useEffect(() => { if (!seoPage) loadSeoPages().then(setSeoPages); }, [seoPage]);
+  const match = !seoPage && !filters.sort && chips.length > 0
+    ? seoPages.find((pg) => sameSearch(readFilters(seoPageParams(pg)), filters))
+    : null;
+  useEffect(() => {
+    if (match) navigate(`/${match.slug}`, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [match?.slug]);
+
+  const autoTitle = resultsTitle(filters);
+  const cleanQs = new URLSearchParams([...params].filter(([k]) => k !== "sort")).toString();
+  useEffect(() => {
+    if (match) return;
+    return applyMeta({
+      title: seoPage?.metaTitle || `${seoPage?.heading || autoTitle} | HomWisor`,
+      description: seoPage?.metaDescription ||
+        `Explore ${autoTitle.charAt(0).toLowerCase() + autoTitle.slice(1)} — latest prices, floor plans, photos and free site visits with HomWisor.`,
+      url: window.location.origin + (seoPage ? `/${seoPage.slug}` : `/search${cleanQs ? `?${cleanQs}` : ""}`),
+    });
+  }, [seoPage, autoTitle, cleanQs, match]);
 
   /* =====================================================
      WHATSAPP
@@ -365,7 +396,7 @@ export default function Search() {
           <span>›</span>
 
           <span>
-            Projects in {place}
+            {seoPage?.heading || `Projects in ${place}`}
           </span>
         </div>
 
@@ -544,7 +575,7 @@ export default function Search() {
             <div className="results-header">
 
               <div>
-                <h1>{resultsTitle(filters)}</h1>
+                <h1>{seoPage?.heading || autoTitle}</h1>
                 <p>
                   {loading ? "Loading properties…" : `Showing ${filtered.length} result${filtered.length === 1 ? "" : "s"}`}
                   {" "}•{" "}
@@ -574,6 +605,11 @@ export default function Search() {
                 ))}
                 <button type="button" className="active-clear" onClick={clear}>Clear all</button>
               </div>
+            )}
+
+            {/* SEO page intro — Admin → SEO Pages (HTML cleaned by the server) */}
+            {seoPage?.intro && seoPage.intro.replace(/<[^>]*>/g, "").trim() && (
+              <div className="seo-intro" dangerouslySetInnerHTML={{ __html: seoPage.intro }} />
             )}
 
             {/* =================================================
@@ -1460,6 +1496,23 @@ export default function Search() {
         .active-chip span { font-size: 10px; color: ${GOLD_DARK}; }
         .active-chip:hover { border-color: ${GOLD}; }
         .active-clear { border: none; background: none; color: ${GOLD_DARK}; font-size: 11.5px; font-weight: 800; cursor: pointer; }
+
+        /* SEO page intro (Admin → SEO Pages) */
+        .seo-intro {
+          margin: 0 0 22px; padding: 20px 24px; border-radius: 16px;
+          background: #fff; border: 1px solid #efe6cc;
+          color: #4b4637; font-size: 14.5px; line-height: 1.75;
+        }
+        .seo-intro > :first-child { margin-top: 0; }
+        .seo-intro > :last-child { margin-bottom: 0; }
+        .seo-intro h2, .seo-intro h3, .seo-intro h4 { color: #111; margin: 16px 0 8px; line-height: 1.3; }
+        .seo-intro h2 { font-size: 19px; }
+        .seo-intro h3 { font-size: 17px; }
+        .seo-intro p { margin: 0 0 10px; }
+        .seo-intro ul, .seo-intro ol { margin: 0 0 10px; padding-left: 22px; }
+        .seo-intro a { color: ${GOLD_DARK}; font-weight: 700; }
+        .seo-intro img { max-width: 100%; height: auto; border-radius: 10px; }
+        @media (max-width: 768px) { .seo-intro { padding: 16px; font-size: 14px; } }
       `}</style>
 
     </div>

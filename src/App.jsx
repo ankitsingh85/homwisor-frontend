@@ -12,7 +12,7 @@ import AdminLogin from './admin/AdminLogin'
 // admin dashboard (incl. the rich-text editor) loads only when an admin opens it
 const Dashboard = lazy(() => import('./admin/Dashboard'))
 import Blog from './pages/Blog'
-import BlogDetail from "./pages/BlogDetail";
+import TopLevelPage from './pages/TopLevelPage'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from "./pages/TermsAndConditions";
 import { isLoggedIn, getToken } from './utils/auth'
@@ -68,8 +68,8 @@ export default function App(){
         <Route path="/contact" element={<Contact />} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/dubai" element={<ToSearch preset={{ category: 'dubai' }}/>}/>
-        {/* Blog articles: homwisor.com/<slug> — fixed pages above always win */}
-        <Route path="/:slug" element={<BlogDetail />} />
+        {/* homwisor.com/<slug>: SEO page (Admin → SEO Pages) or blog article — fixed pages above always win */}
+        <Route path="/:slug" element={<TopLevelPage />} />
         <Route path="*" element={<Navigate to="/" replace/>}/>
       </Routes>
     </BrowserRouter>

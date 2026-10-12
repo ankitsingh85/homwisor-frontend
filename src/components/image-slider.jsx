@@ -22,6 +22,9 @@ export default function PremiumAutoSlider({ banners = [] }) {
   const slides = banners.length ? banners : fallbackSlides;
 
   const [active, setActive] = useState(0);
+  // Phones: 2:1 mobile images (Admin → Banners → Image slider → Mobile image) once EVERY
+  // slide has one; until then the strip stays hidden on phones (too thin). CSS in imageFrames.css.
+  const mobileBanners = banners.length > 0 && banners.every((b) => b.mobileImage);
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -34,7 +37,7 @@ export default function PremiumAutoSlider({ banners = [] }) {
   }, [slides.length]);
 
   return (
-    <section className="hw-image-slider">
+    <section className={`hw-image-slider${mobileBanners ? " hw-slider-m-banner" : ""}`}>
 
       <div className="hw-image-slider-track">
 
@@ -46,15 +49,25 @@ export default function PremiumAutoSlider({ banners = [] }) {
             }`}
           >
             <BannerLink link={slide.link} label={slide.title} className="hw-image-slide-link">
-              <img
-                src={slide.image}
-                alt={slide.title || "Property Banner"}
-              />
+              <picture>
+                {mobileBanners && <source media="(max-width: 768px)" srcSet={slide.mobileImage} />}
+                <img
+                  src={slide.image}
+                  alt={slide.title || "Property Banner"}
+                />
+              </picture>
             </BannerLink>
           </div>
         ))}
 
       </div>
+
+      {/* phones: slide dots (mobile banner mode only — CSS shows them under 769px) */}
+      {mobileBanners && slides.length > 1 && (
+        <div className="hw-m-dots">
+          {slides.map((_, i) => <button key={i} type="button" className={i === active ? "on" : ""} onClick={() => setActive(i)} aria-label={`Slide ${i + 1}`} />)}
+        </div>
+      )}
 
       <style>{`
 

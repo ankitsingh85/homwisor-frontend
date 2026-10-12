@@ -337,8 +337,29 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
           </div>
         </Step>
 
-        {/* 8. PHOTOS */}
-        <Step n="8" title="Photos & branding" sub="Upload photos from your computer — they’re resized automatically. The preview shows the same crop the website cards use.">
+        {/* 8. PAYMENT PLAN */}
+        <Step n="8" title="Payment Plan" sub="Shown under Floor & Site Plans on the detail page. One row per stage, e.g. 10% · Down Payment · On Booking Date. Leave empty to hide the section.">
+          <RowsInput
+            rows={f.paymentPlanSteps}
+            onChange={v => set('paymentPlanSteps', v)}
+            empty={{ value: '', label: '', note: '' }}
+            addLabel="Add stage"
+            max={6}
+            fields={[
+              { key: 'value', placeholder: 'e.g. 10%', w: '.6fr' },
+              { key: 'label', placeholder: 'e.g. Down Payment', w: '1fr' },
+              { key: 'note', placeholder: 'e.g. On Booking Date', w: '1fr' },
+            ]}
+          />
+          <div className="hwp-grid" style={{ marginTop: 14 }}>
+            <Field label="Description" full hint="A few lines under the stages (optional)">
+              <textarea className="hwa-input no-icon hwp-textarea" rows={3} value={f.paymentPlanNote} onChange={e => set('paymentPlanNote', e.target.value)} placeholder="e.g. Book your unit with a small down payment and pay the rest in easy instalments during construction and on handover." />
+            </Field>
+          </div>
+        </Step>
+
+        {/* 9. PHOTOS */}
+        <Step n="9" title="Photos & branding" sub="Upload photos from your computer — they’re resized automatically. The preview shows the same crop the website cards use.">
           <div className="hwp-grid">
             <Field label="Main photo" required error={errorFor('image')} full>
               <ImageUpload value={f.image} onChange={v => set('image', v)} purpose="property" aspect="3 / 2" hint="Cover photo on every card and the detail page (landscape works best)" />
@@ -359,8 +380,8 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
           </div>
         </Step>
 
-        {/* 6. PROJECT FACTS */}
-        <Step n="9" title="Project details" sub="Shown in the “Overview” boxes on the detail page. Status also powers the “Project Status” filter.">
+        {/* 10. PROJECT FACTS */}
+        <Step n="10" title="Project details" sub="Shown in the “Overview” boxes on the detail page. Status also powers the “Project Status” filter.">
           <div className="hwp-grid">
             <Field label="Project status" hint="Filled automatically from the section; change if needed">
               <select className="hwa-input no-icon" value={f.status} onChange={e => set('status', e.target.value)}>
@@ -385,13 +406,13 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
           </div>
         </Step>
 
-        {/* 7. HIGHLIGHTS */}
-        <Step n="10" title="Highlights" sub="Key selling points — shown with checkmarks on the detail page. 4 is ideal.">
+        {/* 11. HIGHLIGHTS */}
+        <Step n="11" title="Highlights" sub="Key selling points — shown with checkmarks on the detail page. 4 is ideal.">
           <ListInput items={f.highlights} onChange={v => set('highlights', v)} placeholder="e.g. Only 2 apartments per floor with private lobbies" addLabel="Add highlight" />
         </Step>
 
-        {/* 10. AMENITIES */}
-        <Step n="11" title="Amenities" sub="Tick what the project offers, or add your own. Shown as an icon grid on the detail page.">
+        {/* 12. AMENITIES */}
+        <Step n="12" title="Amenities" sub="Tick what the project offers, or add your own. Shown as an icon grid on the detail page.">
           <div className="hwp-amenities">
             {[...AMENITIES.map(([n]) => n), ...f.amenities.filter(a => !AMENITIES.some(([n]) => n === a))].map(name => (
               <button type="button" key={name} className={`hwp-amenity${f.amenities.includes(name) ? ' on' : ''}`} onClick={() => toggleAmenity(name)}>
@@ -406,8 +427,8 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
           <span className="hwa-hint" style={{ display: 'block', marginTop: 6 }}>{f.amenities.length} selected</span>
         </Step>
 
-        {/* 11. ABOUT THE DEVELOPER */}
-        <Step n="12" title="About the developer" sub={`The “About ${f.developer || "the developer"}” section. Leave empty to show a short default about the developer.`}>
+        {/* 13. ABOUT THE DEVELOPER */}
+        <Step n="13" title="About the developer" sub={`The “About ${f.developer || "the developer"}” section. Leave empty to show a short default about the developer.`}>
           <div className="hwp-grid">
             <Field label="Heading" hint={`Default: About ${f.developer || 'the developer'}`}>
               <input className="hwa-input no-icon" value={f.about.heading} onChange={e => setAbout('heading', e.target.value)} placeholder={`About ${f.developer || 'M3M India'}`} />
@@ -434,8 +455,8 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
           </div>
         </Step>
 
-        {/* 12. FAQS */}
-        <Step n="13" title="Questions & answers" sub="Shown in “Everything You Need to Know”. Leave empty to show common questions answered from this property’s details.">
+        {/* 14. FAQS */}
+        <Step n="14" title="Questions & answers" sub="Shown in “Everything You Need to Know”. Leave empty to show common questions answered from this property’s details.">
           <RowsInput
             rows={f.faqs}
             onChange={v => set('faqs', v)}
@@ -446,8 +467,8 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
           />
         </Step>
 
-        {/* 13. SEO */}
-        <Step n="14" title="Search engine (SEO)" sub="How this property appears in Google and when its link is shared.">
+        {/* 15. SEO */}
+        <Step n="15" title="Search engine (SEO)" sub="How this property appears in Google and when its link is shared.">
           <SeoFields
             title={f.seoTitle} description={f.seoDescription}
             onTitle={v => set('seoTitle', v)} onDescription={v => set('seoDescription', v)}

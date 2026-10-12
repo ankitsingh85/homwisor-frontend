@@ -11,6 +11,7 @@ import TrendingProjects from '../components/TrendingProjects'
 import DeveloperSection from '../components/DeveloperSection'
 import TestimonialCards, { FALLBACK_TESTIMONIALS } from '../components/TestimonialCards'
 import { currentPropertyLink } from '../utils/slug'
+import { DEFAULT_HEADINGS, mergeHeadings, HeadingText } from '../data/homeHeadings'
 import './Home.css'
 import Footer from '../components/Footer'
 import LeadPopup from '../components/LeadPopup'
@@ -35,6 +36,11 @@ export default function Home(){
   const [recommendedCards, setRecommendedCards] = useState([])
   const [brandedFeature, setBrandedFeature] = useState({})
   const [developersContent, setDevelopersContent] = useState({})
+  // Admin → Homepage Headings (built-in text until loaded / for empty fields)
+  const [headings, setHeadings] = useState(DEFAULT_HEADINGS)
+  useEffect(() => {
+    API.get('/features/headings').then((r) => setHeadings(mergeHeadings(r.data?.sections))).catch(() => {})
+  }, [])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -578,7 +584,7 @@ export default function Home(){
               color: '#9A7A22'
             }}
           >
-            HOMWISOR
+            {headings.bhk.eyebrow}
           </span>
           <span
             style={{
@@ -601,7 +607,7 @@ export default function Home(){
             letterSpacing: '-.5px'
           }}
         >
-          Which BHK Is Right for You?
+          <HeadingText h={headings.bhk} style={{ color: '#9A7418' }} />
         </h2>
 
         <p
@@ -612,7 +618,7 @@ export default function Home(){
             lineHeight: 1.4
           }}
         >
-          Choose a size and see matching homes in Gurugram.
+          {headings.bhk.description}
         </p>
 
         <div
@@ -797,13 +803,14 @@ export default function Home(){
 
 {/* recommended properties */}
 
-<RecommendedProperties items={withLinks(recommendedCards)} />
+<RecommendedProperties items={withLinks(recommendedCards)} heading={headings.recommended} />
 
  {/* =========================================
           TRENDING
       ========================================= */}
 <TrendingProjects
   bhkSection={bhkSection}
+  headings={headings}
   brandedFeature={brandedFeature}
   properties={properties}
   locations={locations}
@@ -913,16 +920,16 @@ export default function Home(){
 
     <div className="hw-testimonial-eyebrow">
       <span></span>
-      <strong>REAL STORIES, REAL HOMES</strong>
+      <strong>{headings.testimonials.eyebrow}</strong>
       <span></span>
     </div>
 
     <h2>
-      Customer Testimonials
+      <HeadingText h={headings.testimonials} />
     </h2>
 
     <p>
-      Hear from our happy homeowners who found their dream properties with us.
+      {headings.testimonials.description}
     </p>
 
   </div>
@@ -1003,7 +1010,7 @@ export default function Home(){
                 color: '#9A7A22'
               }}
             >
-              HOMWISOR
+              {headings.trust.eyebrow}
             </span>
 
             <span
@@ -1027,7 +1034,7 @@ export default function Home(){
               letterSpacing: '-.4px'
             }}
           >
-            Why Buyers Trust Homwisor
+            <HeadingText h={headings.trust} style={{ color: '#9A7418' }} />
           </h2>
 
           <p
@@ -1039,7 +1046,7 @@ export default function Home(){
               color: '#64748B'
             }}
           >
-            We verify every property, get you the builder's price and stay with you until the keys are in your hand.
+            {headings.trust.description}
           </p>
 
         </div>

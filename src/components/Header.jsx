@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../images/logo-homwiser.png";
 import { BLOG_CATEGORIES } from "../data/blog";
+import { localitiesOf } from "../data/locations";
 
 export default function Header() {
   const location = useLocation();
@@ -466,6 +467,12 @@ export default function Header() {
       label: "Dubai",
       link: "/dubai",
       cta: true, // gold button, like Sell Property
+      // dropdown: every Dubai locality (data/locations.js) → its Dubai listings
+      type: "simple",
+      data: [
+        { label: "All Dubai Properties", link: "/dubai" },
+        ...localitiesOf("Dubai").map((l) => ({ label: l.name, link: `/location/${l.slug}` })),
+      ],
     },
     {
       label: "Sell Property",
@@ -661,7 +668,19 @@ export default function Header() {
                       NAV BUTTON / LINK
                   ================================================= */}
 
-                  {hasDropdown ? (
+                  {hasDropdown && item.cta ? (
+
+                    <Link
+                      to={item.link}
+                      className="hw-nav-link hw-nav-dropdown-button hw-nav-cta"
+                    >
+                      <span>{item.label}</span>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M6 9l6 6 6-6" />
+                      </svg>
+                    </Link>
+
+                  ) : hasDropdown ? (
 
                     <button
                       className="hw-nav-link hw-nav-dropdown-button"
@@ -875,7 +894,7 @@ export default function Header() {
                     <>
 
                       <button
-                        className="hw-mobile-main"
+                        className={item.cta ? "hw-mobile-main hw-mobile-cta" : "hw-mobile-main"}
                         onClick={() =>
                           toggleDropdown(item.label)
                         }

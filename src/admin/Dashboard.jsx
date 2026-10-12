@@ -11,6 +11,8 @@ import { BlogPage } from './BlogPage'
 import { TestimonialsPage } from './TestimonialsPage'
 import { BrandedFeaturePage } from './BrandedFeaturePage'
 import { DevelopersPage } from './DevelopersPage'
+import { SeoPagesPage } from './SeoPagesPage'
+import { HeadingsPage } from './HeadingsPage'
 import logo from '../images/logo-homwiser.png'
 import './admin.css'
 import './dashboard.css'
@@ -63,6 +65,7 @@ const NAV = [
     { id: 'developers', label: 'Developers', icon: Icon.building, count: 'devs' },
   ] },
   { group: 'Homepage', items: [
+    { id: 'headings', label: 'Homepage Headings', icon: Icon.edit },
     { id: 'recommended', label: 'Recommended', icon: Icon.star, count: 'recs' },
     { id: 'banners', label: 'Banners', icon: Icon.image },
     { id: 'locations', label: 'Prime Locations', icon: Icon.pin },
@@ -72,12 +75,13 @@ const NAV = [
   ] },
   { group: 'Content', items: [
     { id: 'blog', label: 'Blog', icon: Icon.edit, count: 'blogs' },
+    { id: 'seo', label: 'SEO Pages', icon: Icon.search, count: 'seos' },
   ] },
   { group: 'Account', items: [
     { id: 'admins', label: 'Admins & Security', altLabel: 'My Account', icon: Icon.shield },
   ] },
 ]
-const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', sell: 'Sell Requests', properties: 'Properties', snaps: 'Property Snaps', developers: 'Developers', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', branded: 'Branded Banner', blog: 'Blog', testimonials: 'Testimonials', admins: 'Admins & Security' }
+const PAGE_NAMES = { overview: 'Overview', enquiries: 'Enquiries', sell: 'Sell Requests', properties: 'Properties', snaps: 'Property Snaps', developers: 'Developers', recommended: 'Recommended', banners: 'Banners', locations: 'Prime Locations', offers: 'Festival Offers', branded: 'Branded Banner', blog: 'Blog', seo: 'SEO Pages', headings: 'Homepage Headings', testimonials: 'Testimonials', admins: 'Admins & Security' }
 
 // ---------------------------------------------------------------
 // Overview
@@ -291,6 +295,7 @@ export default function Dashboard() {
   const [offers, setOffers] = useState([])
   const [blogs, setBlogs] = useState([])
   const [testis, setTestis] = useState([])
+  const [seos, setSeos] = useState([])
   const [devs, setDevs] = useState([])
   const [snaps, setSnaps] = useState([])
   const [recs, setRecs] = useState([])
@@ -320,7 +325,7 @@ export default function Dashboard() {
 
   const load = async () => {
     try {
-      const [s, p, e, b, l, o, sn, rc, bl, ts, dv] = await Promise.all([
+      const [s, p, e, b, l, o, sn, rc, bl, ts, dv, sp] = await Promise.all([
         API.get('/admin/stats').catch(() => ({ data: {} })),
         API.get('/properties'),
         API.get('/enquiries').catch(() => ({ data: [] })),
@@ -331,9 +336,10 @@ export default function Dashboard() {
         API.get('/recommended').catch(() => ({ data: [] })),
         API.get('/blogs/admin/all').catch(() => ({ data: [] })),
         API.get('/testimonials/admin/all').catch(() => ({ data: [] })),
-        API.get('/builders/admin/all').catch(() => ({ data: [] }))
+        API.get('/builders/admin/all').catch(() => ({ data: [] })),
+        API.get('/seo-pages/admin/all').catch(() => ({ data: [] }))
       ])
-      setStats(s.data); setProps(p.data); setEnqs(e.data || []); setBanners(b.data); setLocations(l.data); setOffers(o.data); setSnaps(sn.data || []); setRecs(rc.data || []); setBlogs(bl.data || []); setTestis(ts.data || []); setDevs(dv.data || [])
+      setStats(s.data); setProps(p.data); setEnqs(e.data || []); setBanners(b.data); setLocations(l.data); setOffers(o.data); setSnaps(sn.data || []); setRecs(rc.data || []); setBlogs(bl.data || []); setTestis(ts.data || []); setDevs(dv.data || []); setSeos(sp.data || [])
     } catch (e) {
       console.error(e)
     } finally { setLoaded(true) }
@@ -351,7 +357,7 @@ export default function Dashboard() {
   const logout = () => { clearSession(); nav('/admin?session=loggedout', { replace: true }) }
   const reset = () => { if (confirm('Reset ALL website data to the demo content? Your properties, offers, banners and enquiries will be replaced.')) run(() => API.post('/admin/reset'), 'Demo data restored') }
 
-  const counts = { enqs: enqs.length, sells: enqs.filter(e => e.source === 'sell').length, props: props.length, snaps: snaps.length, recs: recs.length, blogs: blogs.length, testis: testis.length, devs: devs.length }
+  const counts = { enqs: enqs.length, sells: enqs.filter(e => e.source === 'sell').length, props: props.length, snaps: snaps.length, recs: recs.length, blogs: blogs.length, testis: testis.length, devs: devs.length, seos: seos.length }
   const hoursLeft = Math.max(0, Math.round(timeLeft / 3600000))
   const newToday = useMemo(() => enqs.filter(e => e.date === today()).length, [enqs])
 
@@ -423,6 +429,8 @@ export default function Dashboard() {
               {active === 'offers' && <OffersPage offers={offers} run={run} properties={props} />}
               {active === 'recommended' && <RecommendedPage items={recs} run={run} properties={props} />}
               {active === 'blog' && <BlogPage blogs={blogs} run={run} />}
+              {active === 'headings' && <HeadingsPage run={run} go={go} />}
+              {active === 'seo' && <SeoPagesPage items={seos} run={run} properties={props} />}
               {active === 'testimonials' && <TestimonialsPage items={testis} run={run} />}
               {active === 'branded' && <BrandedFeaturePage run={run} properties={props} />}
               {active === 'developers' && <DevelopersPage items={devs} run={run} properties={props} />}

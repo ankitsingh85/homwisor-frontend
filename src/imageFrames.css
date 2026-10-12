@@ -88,10 +88,98 @@
 
 /* ---------- not uploaded through the admin, or full-width / video ----------
    these frames change shape with the screen, so they crop instead of stretching */
-.pd-hero-bg,
 .pd-about-visual > img,
 .pd-dock-prop img,
 .hw-budget-card img,
 .hw-branded-side-card img {
   object-fit: cover !important;
+}
+
+/* property detail hero: whole photo, stretched to the frame (owner's choice — no cropping) */
+.pd-hero-bg { object-fit: fill !important; }
+
+/* ---------- homepage banners on phones ----------
+   Hero: always a 2:1 banner with slide dots. Each banner shows its mobile image
+   (Admin → Banners → Mobile image, 1080 × 540) exactly; a banner without one shows
+   its wide desktop image whole, over a blurred copy of itself (nothing cut or stretched).
+   Offer strip (image slider): shown on phones at 2:1 once EVERY slide has a mobile
+   image; until then hidden on phones (a 5.7:1 strip is too thin to read). */
+.hw-hero .hw-slide picture,
+.hw-image-slide picture { display: contents; }
+.hw-m-dots, .hw-m-blur { display: none; }
+@media (max-width: 768px) {
+  .hw-home-hero > .hw-hero.hw-hero-m-banner {
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 2 / 1;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 24px rgba(11, 11, 11, .12);
+  }
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slides,
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slide,
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slide img,
+  .hw-home-hero > .hw-hero .hw-slide-link {
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slides,
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slide,
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slide img { border-radius: 16px !important; }
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slide img { object-fit: fill !important; }
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-arrow { display: none !important; }
+  /* banner without a mobile image: whole wide image over its blurred copy */
+  .hw-home-hero > .hw-hero .hw-slide-link { position: relative; overflow: hidden; }
+  .hw-home-hero > .hw-hero .hw-slide-nomobile .hw-m-blur {
+    display: block; position: absolute; inset: -24px;
+    background-size: cover; background-position: center;
+    filter: blur(16px) brightness(.85); transform: scale(1.1);
+  }
+  .hw-home-hero > .hw-hero.hw-hero-m-banner .hw-slide-nomobile img {
+    position: relative; z-index: 1;
+    object-fit: contain !important; background: transparent !important;
+  }
+
+  /* offer strip (below the search box) — shown on phones only in mobile banner mode */
+  .hw-image-slider.hw-slider-m-banner {
+    display: block !important;
+    width: calc(100% - 30px) !important;
+    max-width: none !important;
+    height: auto !important;
+    aspect-ratio: 2 / 1;
+    margin: 18px auto 0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 24px rgba(11, 11, 11, .12);
+  }
+  .hw-image-slider.hw-slider-m-banner .hw-image-slider-track,
+  .hw-image-slider.hw-slider-m-banner .hw-image-slide,
+  .hw-image-slider.hw-slider-m-banner .hw-image-slide-link,
+  .hw-image-slider.hw-slider-m-banner .hw-image-slide img { height: 100% !important; }
+  .hw-image-slider.hw-slider-m-banner .hw-image-slide img { object-fit: fill !important; border-radius: 16px; }
+
+  /* slide dots inside the banner, bottom centre */
+  .hw-m-dots {
+    position: absolute; left: 0; right: 0; bottom: 9px; z-index: 5;
+    display: flex; justify-content: center; gap: 6px; pointer-events: none;
+  }
+  .hw-m-dots button {
+    width: 7px; height: 7px; padding: 0; border: none; border-radius: 999px;
+    background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .35);
+    cursor: pointer; pointer-events: auto; transition: width .25s, background .25s;
+  }
+  .hw-m-dots button.on { width: 18px; background: #D4AF37; }
+}
+
+/* ---------- offer strip below the search box (desktop) — 17:3 ----------
+   same shape as the upload rule (Admin → Banners → Image slider, 1700 × 300),
+   so the whole banner shows — nothing cut, nothing stretched */
+@media (min-width: 769px) {
+  .hw-image-slider {
+    height: auto !important;
+    aspect-ratio: 17 / 3;
+  }
+  .hw-image-slider .hw-image-slider-track,
+  .hw-image-slider .hw-image-slide,
+  .hw-image-slider .hw-image-slide-link,
+  .hw-image-slider .hw-image-slide img { height: 100% !important; }
+  .hw-image-slider .hw-image-slide img { object-fit: fill !important; }
 }

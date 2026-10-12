@@ -1,0 +1,13 @@
+/* Admin → SEO Pages */
+.hwsp-form { display: grid; gap: 22px; }
+.hwsp-url { display: flex; align-items: stretch; border-radius: 10px; overflow: hidden; }
+.hwsp-url span { display: flex; align-items: center; padding: 0 12px; background: #f4f1e8; border: 1px solid #e5e0d0; border-right: none; border-radius: 10px 0 0 10px; color: #6b6450; font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.hwsp-url input { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; min-width: 0; flex: 1; }
+.hwsp-box { padding: 16px 18px 6px; border: 1px solid #ece6d6; border-radius: 14px; background: #fcfbf7; }
+.hwsp-box-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.hwsp-box-head strong { font-size: 14.5px; color: #111; }
+.hwsp-box-head span { font-size: 12.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
+.hwsp-box-head span.ok { background: #e7f6ec; color: #166534; }
+.hwsp-box-head span.none { background: #fdecec; color: #b91c1c; }
+.hwsp-check { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #333; cursor: pointer; }
+.hwsp-check input { width: 18px; height: 18px; accent-color: #9A7418; }

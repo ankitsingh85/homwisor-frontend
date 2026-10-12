@@ -13,6 +13,10 @@ export default function Hero({ banners = [] }) {
         { image: bn1 },
       ];
 
+  // Phones always show a 2:1 banner (sizes in imageFrames.css): the banner's mobile image
+  // (Admin → Banners → Mobile image) when it has one, else the wide banner shown whole
+  // over a blurred copy of itself.
+
   useEffect(() => {
     if (hero.length <= 1) return;
 
@@ -35,7 +39,7 @@ export default function Hero({ banners = [] }) {
   };
 
   return (
-    <section className="hw-hero">
+    <section className="hw-hero hw-hero-m-banner">
 
       {/* BACKGROUND */}
       <div className="hw-slides">
@@ -47,19 +51,31 @@ export default function Hero({ banners = [] }) {
               index === idx
                 ? "hw-slide-active"
                 : ""
-            }`}
+            }${banner.mobileImage ? "" : " hw-slide-nomobile"}`}
           >
             <BannerLink link={banner.link} label={banner.title} className="hw-slide-link">
-              <img
-                src={banner.image}
-                alt={banner.title || "Premium Property"}
-              />
+              {/* phones, no mobile image: blurred copy fills the 2:1 frame behind the whole banner */}
+              {!banner.mobileImage && <span className="hw-m-blur" aria-hidden="true" style={{ backgroundImage: `url("${banner.image}")` }} />}
+              <picture>
+                {banner.mobileImage && <source media="(max-width: 768px)" srcSet={banner.mobileImage} />}
+                <img
+                  src={banner.image}
+                  alt={banner.title || "Premium Property"}
+                />
+              </picture>
             </BannerLink>
           </div>
         ))}
 
       </div>
 
+
+      {/* phones: slide dots (CSS shows them under 769px) */}
+      {hero.length > 1 && (
+        <div className="hw-m-dots">
+          {hero.map((_, i) => <button key={i} type="button" className={i === idx ? "on" : ""} onClick={() => setIdx(i)} aria-label={`Slide ${i + 1}`} />)}
+        </div>
+      )}
 
       {/* ARROWS */}
       {hero.length > 1 && (

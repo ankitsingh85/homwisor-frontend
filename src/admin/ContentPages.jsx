@@ -170,7 +170,7 @@ export function SnapsPage({ snaps, run }) {
 // ---------------------------------------------------------------
 // Banners (hero, image slider, side ads) + "opens when clicked" picker
 // ---------------------------------------------------------------
-const emptyBanner = { image: '', title: '', link: '', developer: '' }
+const emptyBanner = { image: '', mobileImage: '', title: '', link: '', developer: '' }
 
 const BANNER_TYPES = {
   hero: {
@@ -178,7 +178,7 @@ const BANNER_TYPES = {
     where: 'The big rotating banner at the very top of the homepage.',
   },
   slider: {
-    tab: 'Image slider', one: 'slider image', purpose: 'slider', aspect: '1373 / 240', thumb: 'banner',
+    tab: 'Image slider', one: 'slider image', purpose: 'slider', aspect: '17 / 3', thumb: 'banner',
     where: 'The wide rotating strip just below the homepage search box.',
   },
   small: {
@@ -284,7 +284,10 @@ export function BannersPage({ banners, run, properties = [] }) {
         id={`banners-${tab}`}
         items={items}
         main={{ aspect: cfg.thumb, thumb: b => b.image, title: b => b.title, sub: b => b.developer || cfg.tab }}
-        badges={b => [{ text: (b.link && b.link !== '#') ? 'CLICKABLE' : 'NO LINK', tone: (b.link && b.link !== '#') ? 'green' : 'grey' }]}
+        badges={b => [
+          { text: (b.link && b.link !== '#') ? 'CLICKABLE' : 'NO LINK', tone: (b.link && b.link !== '#') ? 'green' : 'grey' },
+          (b.mobileImage ? { text: 'MOBILE IMAGE', tone: 'gold' } : { text: 'NO MOBILE IMAGE', tone: 'dark' }),
+        ].filter(Boolean)}
         columns={[{ label: 'Opens when clicked', render: b => linkLabel(b.link) }]}
         actions={b => [
           { label: 'Edit', icon: Icon.edit, onClick: ed.openEdit, primary: true },
@@ -305,6 +308,13 @@ export function BannersPage({ banners, run, properties = [] }) {
               <ImageUpload key={tab} value={f.image} onChange={set('image')} purpose={cfg.purpose} aspect={cfg.aspect} fit={cfg.fit} maxSide={cfg.narrow ? 1800 : 2200} />
             </div>
           </Field>
+          {(
+            <Field label="Mobile image" hint={<>Optional — <b>1080 × 540 px</b> (2:1), shown on phones instead of the {tab === 'small' ? 'tall ad' : 'wide image'}. {tab === 'slider' ? <>Once <b>every</b> slider image has one, phones show the offer strip; until then it stays hidden on phones (too thin).</> : <>Phones always show a 2:1 banner — without a mobile image, the {tab === 'small' ? 'tall ad' : 'wide banner'} is shown whole over a blurred copy.</>}</>}>
+              <div style={{ maxWidth: 300 }}>
+                <ImageUpload key={tab + '-m'} value={f.mobileImage} onChange={set('mobileImage')} purpose="mobileBanner" aspect="2 / 1" maxSide={1600} />
+              </div>
+            </Field>
+          )}
           <Field label="Title *" hint="Used as the image description (and for your reference)"><Input value={f.title} onChange={set('title')} placeholder="e.g. Godrej Verano — Sector 63A" /></Field>
           {tab === 'hero' && <Field label="Developer"><Input value={f.developer} onChange={set('developer')} placeholder="e.g. GODREJ PROPERTIES" /></Field>}
           <Field label="Opens when clicked" hint="Pick a property, listing, location or budget — or any other page / website">
@@ -425,7 +435,7 @@ export function OffersPage({ offers, run, properties = [] }) {
 // ---------------------------------------------------------------
 // Recommended (homepage "Recommended" cards)
 // ---------------------------------------------------------------
-const emptyRec = { title: '', image: '', price: '', location: '', link: '', badge: 'Founder Choice' }
+const emptyRec = { title: '', image: '', price: '', location: '', link: '', badge: '' }
 
 export function RecommendedPage({ items, run, properties = [] }) {
   const ed = useEditor({
@@ -508,7 +518,7 @@ export function RecommendedPage({ items, run, properties = [] }) {
           <div className="hwd-form-grid">
             <Field label="Name *" full><Input value={f.title} onChange={set('title')} placeholder="e.g. M3M Brabus Residences" /></Field>
             <Field label="Price"><Input value={f.price} onChange={set('price')} placeholder="e.g. ₹20.00 Cr" /></Field>
-            <Field label="Badge" hint="Pill on the top-left of the card"><Input value={f.badge} onChange={set('badge')} placeholder="Founder Choice" /></Field>
+            <Field label="Badge" hint="Optional pill on the top-left of the card — leave empty for none"><Input value={f.badge} onChange={set('badge')} placeholder="e.g. Hot Deal" /></Field>
             <Field label="Location" full><Input value={f.location} onChange={set('location')} placeholder="e.g. Sector 58, Golf Course Extension Road, Gurugram" /></Field>
           </div>
           <Field label="Opens when clicked">

@@ -287,7 +287,7 @@ function Modal({ open, onClose, children, wide, dark }) {
    Page
 --------------------------------------------------------------- */
 const NAV = [
-  ["overview", "Overview"], ["pricing", "Price"], ["plans", "Floor Plans"], ["highlights", "Highlights"], ["amenities", "Amenities"],
+  ["overview", "Overview"], ["pricing", "Price"], ["plans", "Floor Plans"], ["payment", "Payment Plan"], ["highlights", "Highlights"], ["amenities", "Amenities"],
   ["gallery", "Gallery"], ["location", "Location"], ["about", "Developer"], ["faqs", "FAQs"],
 ];
 
@@ -431,6 +431,8 @@ export default function PropertyDetailPage() {
   const enquire = (source) => setModal({ kind: "enquiry", source });
   // Floor & Site Plans — Admin → Property → step 7
   const plans = (p.floorPlans || []).filter(Boolean).map((src, k) => ({ src, caption: p.floorPlanCaptions?.[k] || "" }));
+  // Payment Plan — Admin → Property → step 8 (stages like 10% · Down Payment · On Booking Date)
+  const payStages = (p.paymentPlanSteps || []).filter((s) => s.value || s.label);
   const brochureUrl = p.brochure ? `${p.brochure}${p.brochure.includes("?") ? "&" : "?"}download=1` : "";
   const BrochureLink = ({ className, children }) => brochureUrl
     ? <a className={className} href={brochureUrl} download target="_blank" rel="noreferrer">{children}</a>
@@ -459,7 +461,7 @@ export default function PropertyDetailPage() {
             <span>{p.priceRange || p.price}</span>
           </div>
           <nav className="pd-bar-nav">
-            {NAV.filter(([key]) => key !== "plans" || plans.length > 0).map(([key, label]) => (
+            {NAV.filter(([key]) => (key !== "plans" || plans.length > 0) && (key !== "payment" || payStages.length > 0)).map(([key, label]) => (
               <button key={key} type="button" className={active === key ? "on" : ""} onClick={() => jump(key)}>{label}</button>
             ))}
           </nav>
@@ -473,7 +475,7 @@ export default function PropertyDetailPage() {
         </div>
         {mMenu && (
           <nav className="pd-m-menu">
-            {NAV.filter(([key]) => key !== "plans" || plans.length > 0).map(([key, label]) => (
+            {NAV.filter(([key]) => (key !== "plans" || plans.length > 0) && (key !== "payment" || payStages.length > 0)).map(([key, label]) => (
               <button key={key} type="button" className={active === key ? "on" : ""} onClick={() => { setMMenu(false); jump(key); }}>{label}</button>
             ))}
             <button type="button" className="pd-m-menu-cta" onClick={() => { setMMenu(false); enquire("Enquire now"); }}>Enquire Now</button>
@@ -615,6 +617,61 @@ export default function PropertyDetailPage() {
           </div>
         </section>
       )}
+
+      {/* ============ PAYMENT PLAN ============ */}
+      {payStages.length > 0 && (() => {
+        // share of each stage for the bar: "10%" → 10; equal parts if any value isn't a number
+        const nums = payStages.map((s) => parseFloat(String(s.value).replace(/[^\d.]/g, "")));
+        const sized = nums.every((n) => n > 0);
+        const total = sized ? nums.reduce((a, n) => a + n, 0) : 0;
+        const pct = (v) => String(v || "").match(/^(.*?)(\s*%)$/);
+        return (
+          <section id="payment" className="pd-section">
+            <div className="pd-wrap pd-pay2">
+              <div className="pd-pay2-copy">
+                <Eyebrow>PAYMENT PLAN</Eyebrow>
+                <h2>Flexible <span className="gold">Payment Plan</span></h2>
+                <p>{p.paymentPlanNote || `Book your home at ${p.title} with a small down payment and pay the rest in easy stages. Talk to our expert for the complete schedule.`}</p>
+                <div className="pd-pay2-sum">
+                  <span><b>{payStages.length}</b> easy stage{payStages.length > 1 ? "s" : ""}</span>
+                  {sized && Math.round(total) === 100 && <span><b>100%</b> transparent schedule</span>}
+                </div>
+                <div className="pd-pay2-actions">
+                  <button type="button" className="pd-btn dark" onClick={() => enquire("Payment plan request")}>VIEW PAYMENT PLAN <Icon n="arrowR" size={16} /></button>
+                  <a className="pd-call-pill" href={`tel:${PHONE}`}><Icon n="phone" size={16} /> <b>{PHONE_DISPLAY}</b></a>
+                </div>
+              </div>
+
+              <div className="pd-pay2-card">
+                {/* proportion bar */}
+                <div className="pd-pay2-bar" aria-hidden="true">
+                  {payStages.map((s, k) => (
+                    <span key={k} style={{ flexGrow: sized ? nums[k] : 1, "--shade": `${100 - k * (55 / Math.max(payStages.length - 1, 1))}%` }}>
+                      {s.value}
+                    </span>
+                  ))}
+                </div>
+                {/* timeline */}
+                <ol className="pd-pay2-steps">
+                  {payStages.map((s, k) => {
+                    const m = pct(s.value);
+                    return (
+                      <li key={k} style={{ "--shade": `${100 - k * (55 / Math.max(payStages.length - 1, 1))}%` }}>
+                        <i>{String(k + 1).padStart(2, "0")}</i>
+                        <div>
+                          <b>{s.label || `Stage ${k + 1}`}</b>
+                          {s.note && <span>{s.note}</span>}
+                        </div>
+                        <strong>{m ? <>{m[1]}<small>%</small></> : s.value}</strong>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* ============ HIGHLIGHTS ============ */}
       <section id="highlights" className="pd-section tint">

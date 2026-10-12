@@ -43,6 +43,18 @@ export const budgetLabel = (b) => {
   return `₹${b.min} – ${b.max} Cr`
 }
 
+// Search filter choices — the search sidebar and Admin → SEO Pages use the same lists
+export const TYPE_OPTIONS = [
+  { group: "Residential", items: [["Apartment", "Apartment"], ["Villa", "Villa"], ["Builder Floor", "Builder Floor"], ["Penthouse", "Penthouse"], ["Builder Plots", "Builder Plots"], ["Plots", "Residential Plots"], ["Deendayal Plots", "Deendayal Plots"], ["Normal Plots", "Normal Plots"], ["Farmhouse", "Farmhouse"]] },
+  { group: "Commercial", items: [["Commercial", "All Commercial"], ["Retail", "Retail / Shops"], ["SCO", "SCO Plots"]] },
+  { group: "Collections", items: [["Luxury", "Luxury Homes"], ["Branded", "Branded Residences"]] },
+];
+export const CATEGORY_OPTIONS = [
+  ["", "All Projects"], ["trending", "Trending"], ["upcoming", "Upcoming"],
+  ["newlaunch", "New Launch"], ["branded", "Branded"], ["luxury", "Luxury"], ["commercial", "Commercial"], ["sco", "SCO"], ["dubai", "Dubai"],
+];
+export const BHK_OPTIONS = ["Studio", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "5 BHK"];
+
 // Options shown in the Search page budget filter
 export const BUDGETS = [
   { value: 'under-1-cr', label: 'Under ₹1 Cr' },

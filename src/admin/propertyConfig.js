@@ -125,6 +125,8 @@ export const emptyProperty = {
   floorPlans: [],
   floorPlanCaptions: [],
   floorPlanNote: '',
+  paymentPlanSteps: [{ value: '', label: '', note: '' }],
+  paymentPlanNote: '',
   about: { heading: '', subheading: '', description: '', image: '', stats: [{ value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }] },
   faqs: [{ question: '', answer: '' }],
 }
@@ -171,6 +173,8 @@ export const toPayload = (f) => ({
   floorPlans: (f.floorPlans || []).filter(Boolean),
   floorPlanCaptions: (f.floorPlans || []).filter(Boolean).map((src, i) => (f.floorPlanCaptions?.[i] || '').trim()),
   floorPlanNote: (f.floorPlanNote || '').trim(),
+  paymentPlanSteps: (f.paymentPlanSteps || []).map(r => ({ value: (r.value || '').trim(), label: (r.label || '').trim(), note: (r.note || '').trim() })).filter(r => r.value || r.label),
+  paymentPlanNote: (f.paymentPlanNote || '').trim(),
   about: {
     heading: f.about.heading.trim(),
     subheading: f.about.subheading.trim(),
@@ -205,6 +209,8 @@ export const toForm = (p) => {
   f.galleryCaptions = (p.gallery || []).filter(Boolean).map((_, i) => p.galleryCaptions?.[i] || '')
   f.floorPlans = (p.floorPlans || []).filter(Boolean)
   f.floorPlanCaptions = f.floorPlans.map((_, i) => p.floorPlanCaptions?.[i] || '')
+  f.paymentPlanSteps = padRows(p.paymentPlanSteps, 1, { value: '', label: '', note: '' })
+  f.paymentPlanNote = p.paymentPlanNote || ''
   f.about = {
     heading: p.about?.heading || '',
     subheading: p.about?.subheading || '',

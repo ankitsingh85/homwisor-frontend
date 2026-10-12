@@ -721,7 +721,7 @@
   /* ---- hero ---- */
   .pd-hero { display: block; min-height: 0; background: #111; }
   .pd-hero-bg, .pd-hero-shade { height: 100% !important; }
-  .pd-hero-bg { object-fit: cover; }
+  .pd-hero-bg { object-fit: fill; }
   .pd-hero-shade { background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.05) 70%) !important; }
   .pd-hero-inner { padding: 0 !important; display: block; }
   .pd-hero-info { min-height: 300px !important; display: flex !important; align-items: flex-end; justify-content: center; padding: 24px 0 22px; }
@@ -775,4 +775,66 @@
   #pricing .pd-plan-cell.none { display: none !important; }
   .pd-m-note { display: block; margin: 22px 0 18px; text-align: center; font-size: 13px; font-style: italic; color: var(--pd-muted); }
   .pd-m-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: calc(100% - 40px); height: 52px; margin: 0 auto; border: none; border-radius: 10px; background: var(--pd-brand); color: var(--pd-on-brand, #fff); font-family: inherit; font-size: 14.5px; font-weight: 800; letter-spacing: 1.6px; box-shadow: 0 10px 22px rgba(15,23,42,.18); cursor: pointer; }
+}
+
+/* ---------- Payment Plan (Admin → Property → step 8) ----------
+   left: heading, description, summary, actions · right: proportion bar + stage timeline.
+   Colours follow the property's brand colour (--pd-brand); later stages are lighter shades. */
+.pd-pay2 { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+.pd-pay2-copy h2 { margin: 0 0 14px; font-size: clamp(28px, 2.6vw, 38px); font-weight: 800; line-height: 1.15; color: var(--pd-ink); letter-spacing: -.4px; }
+.pd-pay2-copy > p { margin: 0 0 22px; font-size: 15.5px; line-height: 1.8; color: var(--pd-text); max-width: 520px; }
+.pd-pay2-sum { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.pd-pay2-sum span { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; background: var(--pd-soft); border: 1px solid var(--pd-line2); font-size: 13.5px; color: var(--pd-muted); }
+.pd-pay2-sum b { color: var(--pd-brand); font-weight: 800; }
+.pd-pay2-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.pd-pay2-actions .pd-call-pill b { color: var(--pd-ink); }
+
+.pd-pay2-card { position: relative; overflow: hidden; padding: 28px 28px 10px; border-radius: 24px; background: #fff; border: 1px solid var(--pd-line); box-shadow: 0 24px 60px rgba(11, 11, 11, .08); }
+.pd-pay2-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; border-radius: 24px 24px 0 0; background: var(--pd-brand); }
+
+.pd-pay2-bar { display: flex; gap: 4px; height: 44px; margin-bottom: 22px; border-radius: 12px; overflow: hidden; }
+.pd-pay2-bar span {
+  flex-basis: 0; min-width: 48px; display: grid; place-items: center;
+  font-size: 14px; font-weight: 800; letter-spacing: .3px; color: var(--pd-on-brand, #fff);
+  background: color-mix(in srgb, var(--pd-brand) var(--shade, 100%), #fff);
+}
+
+.pd-pay2-steps { list-style: none; margin: 0; padding: 0; }
+.pd-pay2-steps li { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 16px 0; }
+.pd-pay2-steps li + li { border-top: 1px dashed var(--pd-line); }
+/* connector between the step numbers */
+.pd-pay2-steps li:not(:last-child)::after { content: ""; position: absolute; left: 21px; top: calc(50% + 22px); height: calc(100% - 44px); width: 2px; background: var(--pd-line2); }
+.pd-pay2-steps i {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  font-style: normal; font-size: 14px; font-weight: 800; color: var(--pd-on-brand, #fff);
+  background: color-mix(in srgb, var(--pd-brand) var(--shade, 100%), #fff);
+  box-shadow: 0 0 0 5px var(--pd-soft);
+}
+.pd-pay2-steps li > div { display: grid; gap: 3px; min-width: 0; }
+.pd-pay2-steps b { font-size: 16px; font-weight: 800; color: var(--pd-ink); }
+.pd-pay2-steps span { font-size: 13.5px; color: var(--pd-muted); line-height: 1.4; }
+.pd-pay2-steps strong { font-size: 34px; font-weight: 900; line-height: 1; letter-spacing: -1px; color: var(--pd-brand); white-space: nowrap; }
+.pd-pay2-steps strong small { font-size: .5em; font-weight: 800; margin-left: 2px; letter-spacing: 0; }
+
+@media (max-width: 960px) {
+  .pd-pay2 { grid-template-columns: 1fr; gap: 28px; }
+  .pd-pay2-copy > p { max-width: none; }
+}
+@media (max-width: 768px) {
+  .pd-pay2-copy h2 { font-size: 24px; }
+  .pd-pay2-copy > p { font-size: 14.5px; margin-bottom: 16px; }
+  .pd-pay2-sum { margin-bottom: 18px; }
+  .pd-pay2-actions { gap: 12px; }
+  .pd-pay2-actions .pd-btn { width: 100%; justify-content: center; }
+  .pd-pay2-actions .pd-call-pill { width: 100%; justify-content: center; }
+  .pd-pay2-card { padding: 22px 16px 6px; border-radius: 18px; }
+  .pd-pay2-card::before { border-radius: 18px 18px 0 0; }
+  .pd-pay2-bar { height: 38px; margin-bottom: 14px; }
+  .pd-pay2-bar span { min-width: 40px; font-size: 12.5px; }
+  .pd-pay2-steps li { grid-template-columns: 38px minmax(0, 1fr) auto; gap: 12px; padding: 14px 0; }
+  .pd-pay2-steps li:not(:last-child)::after { left: 18px; top: calc(50% + 19px); height: calc(100% - 38px); }
+  .pd-pay2-steps i { width: 38px; height: 38px; font-size: 12.5px; box-shadow: 0 0 0 4px var(--pd-soft); }
+  .pd-pay2-steps b { font-size: 14.5px; }
+  .pd-pay2-steps span { font-size: 12.5px; }
+  .pd-pay2-steps strong { font-size: 28px; }
 }
