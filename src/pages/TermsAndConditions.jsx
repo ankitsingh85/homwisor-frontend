@@ -307,7 +307,7 @@ export default function TermsAndConditions() {
 
                 <a href="tel:9090101401">
                   <small>PHONE</small>
-                  +91 9090 101 401
+                  +91 90 90 101 401
                 </a>
 
                 <div>

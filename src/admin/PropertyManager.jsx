@@ -364,6 +364,9 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
             <Field label="Main photo" required error={errorFor('image')} full>
               <ImageUpload value={f.image} onChange={v => set('image', v)} purpose="property" aspect="3 / 2" hint="Cover photo on every card and the detail page (landscape works best)" />
             </Field>
+            <Field label="Page banner (desktop)" full hint="Optional — the wide photo at the top of this property's page on computers. Must be 3:1, best 2400 × 800 px, so it shows sharp and never stretched. Without it, the main photo is used (slightly cropped). Phones always use the main photo.">
+              <ImageUpload value={f.heroImage} onChange={v => set('heroImage', v)} purpose="propertyHero" aspect="3 / 1" maxSide={2400} />
+            </Field>
             <Field label="Gallery photos" full hint="Shown in the gallery on the detail page — the first 5 make the photo collage; captions appear on the photos">
               <GalleryUpload value={f.gallery} onChange={v => set('gallery', v)} onMakeCover={src => set('image', src)} purpose="property" captions={f.galleryCaptions} onCaptionsChange={v => set('galleryCaptions', v)} />
             </Field>

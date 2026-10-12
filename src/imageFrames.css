@@ -95,8 +95,6 @@
   object-fit: cover !important;
 }
 
-/* property detail hero: whole photo, stretched to the frame (owner's choice — no cropping) */
-.pd-hero-bg { object-fit: fill !important; }
 
 /* ---------- homepage banners on phones ----------
    Hero: always a 2:1 banner with slide dots. Each banner shows its mobile image
@@ -182,4 +180,15 @@
   .hw-image-slider .hw-image-slide-link,
   .hw-image-slider .hw-image-slide img { height: 100% !important; }
   .hw-image-slider .hw-image-slide img { object-fit: fill !important; }
+}
+
+/* ---------- property page hero ----------
+   desktop: exactly 3:1 = the "Page banner" upload rule (2400 × 800), shown whole and sharp;
+   without a banner the main 3:2 photo is cropped to fit (cover) — never stretched.
+   phones: the main photo, cropped to fit. */
+.pd-hero picture { display: contents; }
+.pd-hero-bg { object-fit: cover !important; }
+@media (min-width: 961px) {
+  .pd-hero { min-height: 0 !important; aspect-ratio: 3 / 1; }
+  .pd-hero.has-banner .pd-hero-bg { object-fit: fill !important; }
 }

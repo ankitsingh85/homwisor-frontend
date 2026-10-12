@@ -11,3 +11,14 @@
 .hwsp-box-head span.none { background: #fdecec; color: #b91c1c; }
 .hwsp-check { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #333; cursor: pointer; }
 .hwsp-check input { width: 18px; height: 18px; accent-color: #9A7418; }
+/* FAQ editor */
+.hwsp-faq-note { margin: -4px 0 12px; font-size: 12.5px; color: #6b6450; }
+.hwsp-faq { display: grid; gap: 8px; padding: 12px; margin-bottom: 10px; border: 1px solid #ece6d6; border-radius: 12px; background: #fff; }
+.hwsp-faq-top { display: flex; align-items: center; gap: 8px; }
+.hwsp-faq-top > span { flex: 0 0 auto; min-width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: #0b0b0b; color: #E8C766; font-size: 12px; font-weight: 800; }
+.hwsp-faq-top input { flex: 1; min-width: 0; }
+.hwsp-faq-top button { flex: 0 0 30px; height: 30px; border: 1px solid #e5e0d0; border-radius: 8px; background: #fff; color: #555; font-weight: 800; cursor: pointer; }
+.hwsp-faq-top button:disabled { opacity: .35; cursor: default; }
+.hwsp-faq-top button.del { color: #b91c1c; }
+.hwsp-faq-answer { height: auto !important; min-height: 70px; padding: 10px 12px !important; line-height: 1.55; font-family: inherit; resize: vertical; }
+.hwsp-faq-add { width: 100%; height: 40px; margin: 2px 0 12px; border: 1px dashed #d8c58e; border-radius: 10px; background: #fffaeb; color: #9A7418; font-weight: 800; font-size: 13.5px; cursor: pointer; }

@@ -12,7 +12,7 @@ import LeadPopup from "../components/LeadPopup";
 
 // Contact numbers used across the site
 const PHONE = "9090101401";
-const PHONE_DISPLAY = "+91 9090 101 401";
+const PHONE_DISPLAY = "+91 90 90 101 401";
 const WHATSAPP = "919090101401";
 
 /* ---------------------------------------------------------------
@@ -134,20 +134,13 @@ function ShapeSlider({ images, tagline, taglineSub, auto = true }) {
   if (!n) return null;
   const go = (d) => setI((x) => (x + d + n) % n);
   return (
+    // simple 3:2 photo slider (same shape as property photos) — no slanted frame or text overlay
     <div className="pd-shape">
-      <span className="pd-shape-accent" aria-hidden="true" />
       <div className="pd-shape-frame">
         {images.map((src, k) => (
-          <img key={src + k} src={src} alt="" className={k === i ? "on" : ""} loading={k === 0 ? "eager" : "lazy"} />
+          <img key={src + k} src={src} alt={tagline || ""} className={k === i ? "on" : ""} loading={k === 0 ? "eager" : "lazy"} />
         ))}
         <span className="pd-shape-shade" aria-hidden="true" />
-        {tagline && (
-          <div className="pd-shape-tag">
-            <strong>{tagline}</strong>
-            <i aria-hidden="true" />
-            {taglineSub && <small>{taglineSub}</small>}
-          </div>
-        )}
         {n > 1 && (
           <div className="pd-shape-ctrl">
             <button type="button" onClick={() => go(-1)} aria-label="Previous photo"><Icon n="arrowL" size={18} /></button>
@@ -484,8 +477,14 @@ export default function PropertyDetailPage() {
       </div>
 
       {/* ============ HERO ============ */}
-      <section className="pd-hero">
-        {d.images[0] && <img className="pd-hero-bg" src={d.images[0]} alt={p.title} />}
+      {/* desktop: the 3:1 page banner (Admin → Property → Photos) when there is one, else the main photo */}
+      <section className={`pd-hero${p.heroImage ? " has-banner" : ""}`}>
+        {d.images[0] && (
+          <picture>
+            {p.heroImage && <source media="(min-width: 961px)" srcSet={p.heroImage} />}
+            <img className="pd-hero-bg" src={d.images[0]} alt={p.title} />
+          </picture>
+        )}
         <span className="pd-hero-shade" aria-hidden="true" />
         <div className="pd-wrap pd-hero-inner">
           <div className="pd-hero-info">
@@ -572,6 +571,7 @@ export default function PropertyDetailPage() {
             <h2>{p.title} <span className="gold">Price</span></h2>
             <p>Unit sizes and prices — talk to our expert for the latest offers and availability.</p>
           </div>
+          <p className="pd-m-swipe">Swipe to see all columns →</p>
           <div className="pd-table">
             <div className="pd-tr head"><span>Unit Type</span><span>Size</span><span>Price</span><span>Payment Plan</span><span /></div>
             {d.pricing.map((r, k) => (

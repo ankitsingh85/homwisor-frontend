@@ -30,6 +30,34 @@ const GOLD = "#D4AF37";
 const GOLD_DARK = "#9A7418";
 const BLACK = "#090909";
 
+// FAQs of an SEO page: click-to-open list + FAQPage data for Google
+function SeoFaqs({ faqs, title }) {
+  const [open, setOpen] = useState(0);
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
+  };
+  return (
+    <section className="seo-faqs">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }} />
+      <h2>Frequently Asked Questions</h2>
+      <p className="seo-faqs-sub">About {title}</p>
+      <div className="seo-faqs-list">
+        {faqs.map((f, i) => (
+          <div key={i} className={`seo-faq${open === i ? " open" : ""}`}>
+            <button type="button" onClick={() => setOpen(open === i ? -1 : i)} aria-expanded={open === i}>
+              <span>{f.question}</span>
+              <i aria-hidden="true">{open === i ? "−" : "+"}</i>
+            </button>
+            {open === i && <p>{f.answer}</p>}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // seoPage (Admin → SEO Pages) = landing page at homwisor.com/<slug>: its saved filters,
 // meta, heading and intro. Changing a filter there moves on to the normal /search?… page.
 export default function Search({ seoPage = null }) {
@@ -557,7 +585,7 @@ export default function Search({ seoPage = null }) {
                 href="tel:9090101401"
                 className="expert-call"
               >
-                Call +91 9090 101 401
+                Call +91 90 90 101 401
               </a>
 
             </div>
@@ -609,7 +637,7 @@ export default function Search({ seoPage = null }) {
 
             {/* SEO page intro — Admin → SEO Pages (HTML cleaned by the server) */}
             {seoPage?.intro && seoPage.intro.replace(/<[^>]*>/g, "").trim() && (
-              <div className="seo-intro" dangerouslySetInnerHTML={{ __html: seoPage.intro }} />
+              <div className="seo-intro" dangerouslySetInnerHTML={{ __html: seoPage.intro.replace(/&nbsp;|&#160;|\u00a0/g, " ") }} />
             )}
 
             {/* =================================================
@@ -674,6 +702,9 @@ export default function Search({ seoPage = null }) {
               </div>
 
             )}
+
+            {/* SEO page FAQs — Admin → SEO Pages */}
+            {seoPage?.faqs?.length > 0 && <SeoFaqs faqs={seoPage.faqs} title={seoPage.heading || autoTitle} />}
 
           </main>
 
@@ -1499,10 +1530,11 @@ export default function Search({ seoPage = null }) {
 
         /* SEO page intro (Admin → SEO Pages) */
         .seo-intro {
-          margin: 0 0 22px; padding: 20px 24px; border-radius: 16px;
+          margin: 16px 0 22px; padding: 20px 24px; border-radius: 16px; overflow-wrap: anywhere; min-width: 0;
           background: #fff; border: 1px solid #efe6cc;
           color: #4b4637; font-size: 14.5px; line-height: 1.75;
         }
+        .seo-intro * { background-color: transparent !important; } /* pasted highlight colours */
         .seo-intro > :first-child { margin-top: 0; }
         .seo-intro > :last-child { margin-bottom: 0; }
         .seo-intro h2, .seo-intro h3, .seo-intro h4 { color: #111; margin: 16px 0 8px; line-height: 1.3; }
@@ -1513,6 +1545,22 @@ export default function Search({ seoPage = null }) {
         .seo-intro a { color: ${GOLD_DARK}; font-weight: 700; }
         .seo-intro img { max-width: 100%; height: auto; border-radius: 10px; }
         @media (max-width: 768px) { .seo-intro { padding: 16px; font-size: 14px; } }
+
+        /* SEO page FAQs (Admin → SEO Pages) */
+        .seo-faqs { margin: 34px 0 10px; padding: 26px 26px 18px; border-radius: 18px; background: #fff; border: 1px solid #efe6cc; }
+        .seo-faqs h2 { margin: 0; font-size: 22px; font-weight: 800; color: #111; }
+        .seo-faqs-sub { margin: 4px 0 16px; font-size: 13.5px; color: #8a8270; }
+        .seo-faq { border-top: 1px solid #f0ead8; }
+        .seo-faq button { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 15px 2px; border: none; background: none; text-align: left; font-family: inherit; font-size: 15px; font-weight: 700; color: #1f1f1f; cursor: pointer; }
+        .seo-faq button i { flex: 0 0 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 18px; font-weight: 700; background: #fff6dc; color: ${GOLD_DARK}; }
+        .seo-faq.open button i { background: ${GOLD}; color: #111; }
+        .seo-faq p { margin: -4px 0 16px; padding-right: 40px; font-size: 14.5px; line-height: 1.75; color: #4b4637; white-space: pre-line; }
+        @media (max-width: 768px) {
+          .seo-faqs { margin-top: 24px; padding: 18px 16px 10px; }
+          .seo-faqs h2 { font-size: 19px; }
+          .seo-faq button { font-size: 14px; padding: 13px 0; }
+          .seo-faq p { padding-right: 0; font-size: 14px; }
+        }
       `}</style>
 
     </div>

@@ -157,6 +157,15 @@ export const statusMatcher = (raw) => {
   return p => keys.includes(norm(p.status).replace('newlaunch', 'new launch')) || keys.includes(norm(p.category).replace('newlaunch', 'new launch'))
 }
 
+// Words people type in a search that describe what they want, not which property —
+// ignored when matching the keyword against names, addresses and developers
+const FILLER_WORDS = new Set([
+  'project', 'projects', 'property', 'properties', 'home', 'homes', 'house', 'houses',
+  'flat', 'flats', 'residence', 'residences', 'residential', 'new', 'best', 'top', 'buy',
+  'sale', 'for', 'in', 'at', 'on', 'near', 'the', 'a', 'an', 'and', 'of', 'to', 'with',
+  'by', 'from', 'builder', 'builders', 'developer', 'developers', 'apartment', 'apartments',
+])
+
 /* ---------------- MAIN ---------------- */
 
 // Read every supported URL parameter into one filter object
@@ -193,7 +202,8 @@ export const readFilters = (params) => {
 }
 
 export const applyFilters = (properties, f, { offerTitles = [] } = {}) => {
-  const words = norm(f.q).split(' ').filter(Boolean)
+  // filler words ("projects in gurugram" → "gurugram") never block a match
+  const words = norm(f.q).split(' ').filter((w) => w && !FILLER_WORDS.has(w))
   const tm = typeMatcher(f.type)
   const bm = bhkMatcher(f.bhk)
   const sm = statusMatcher(f.status)

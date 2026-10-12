@@ -17,7 +17,7 @@ import './seo-pages-admin.css'
 // ---------------------------------------------------------------
 const emptyPage = {
   slug: '', heading: '', q: '', city: '', locality: '', type: '', budget: '', bhk: '', status: '', category: '',
-  metaTitle: '', metaDescription: '', intro: '', active: true,
+  metaTitle: '', metaDescription: '', intro: '', faqs: [], active: true,
 }
 
 const site = typeof window !== 'undefined' ? window.location.origin : ''
@@ -26,6 +26,34 @@ const summary = (pg) => {
   const f = filtersOf(pg)
   return [f.locality || f.city, f.type, f.bhk, BUDGETS.find(b => b.value === f.budget)?.label || f.budget, f.status,
     f.category && (CATEGORY_OPTIONS.find(([v]) => v === f.category)?.[1] || f.category), f.q && `“${f.q}”`].filter(Boolean).join(' · ')
+}
+
+// Questions & answers shown under the results (and given to Google as FAQ data)
+function FaqEditor({ faqs, onChange }) {
+  const update = (i, k, v) => onChange(faqs.map((q, j) => (j === i ? { ...q, [k]: v } : q)))
+  const move = (i, d) => { const a = [...faqs]; [a[i], a[i + d]] = [a[i + d], a[i]]; onChange(a) }
+  return (
+    <div className="hwsp-box">
+      <div className="hwsp-box-head">
+        <strong>FAQs</strong>
+        <span className={faqs.length ? 'ok' : ''} style={faqs.length ? undefined : { color: '#8a8270' }}>{faqs.length ? `${faqs.length} question${faqs.length > 1 ? 's' : ''}` : 'Optional'}</span>
+      </div>
+      <p className="hwsp-faq-note">Shown under the properties on this page. Questions without an answer are not saved.</p>
+      {faqs.map((q, i) => (
+        <div key={i} className="hwsp-faq">
+          <div className="hwsp-faq-top">
+            <span>Q{i + 1}</span>
+            <input className="hwa-input no-icon" value={q.question} onChange={e => update(i, 'question', e.target.value)} placeholder="e.g. Which are the best projects on Dwarka Expressway?" maxLength={300} />
+            <button type="button" disabled={i === 0} onClick={() => move(i, -1)} aria-label="Move up">↑</button>
+            <button type="button" disabled={i === faqs.length - 1} onClick={() => move(i, 1)} aria-label="Move down">↓</button>
+            <button type="button" className="del" onClick={() => onChange(faqs.filter((_, j) => j !== i))} aria-label="Remove">✕</button>
+          </div>
+          <textarea className="hwa-input no-icon hwsp-faq-answer" rows={3} value={q.answer} onChange={e => update(i, 'answer', e.target.value)} placeholder="Answer…" maxLength={3000} />
+        </div>
+      ))}
+      {faqs.length < 30 && <button type="button" className="hwsp-faq-add" onClick={() => onChange([...faqs, { question: '', answer: '' }])}>+ Add question</button>}
+    </div>
+  )
 }
 
 function Select({ value, onChange, children }) {
@@ -178,6 +206,8 @@ export function SeoPagesPage({ items, run, properties = [] }) {
           <Field label="Intro text" full hint="Optional — shown above the property list. 1–3 short paragraphs about the area help Google understand the page.">
             <RichEditor value={f.intro} onChange={set('intro')} placeholder="e.g. Southern Peripheral Road (SPR) connects Golf Course Extension Road to NH-48…" />
           </Field>
+
+          <FaqEditor faqs={f.faqs || []} onChange={set('faqs')} />
 
           <label className="hwsp-check"><input type="checkbox" checked={f.active !== false} onChange={e => set('active')(e.target.checked)} /> Page is live on the website</label>
         </form>

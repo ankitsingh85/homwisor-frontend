@@ -128,7 +128,7 @@ export default function Contact() {
                   <span>Call Us</span>
 
                   <a href="tel:9090101401">
-                    +91 9090 101 401
+                    +91 90 90 101 401
                   </a>
                 </div>
               </div>

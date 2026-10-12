@@ -698,7 +698,7 @@
    centred overview + picture + brochure → simple price table + Get in touch
 ===================================================================== */
 .pd-m-name, .pd-m-actions, .pd-m-menu, .pd-m-pill, .pd-m-city, .pd-m-ovimg,
-.pd-m-ptitle, .pd-m-note, .pd-m-btn { display: none; }
+.pd-m-ptitle, .pd-m-note, .pd-m-btn, .pd-m-swipe { display: none; }
 .pd-unit { font-size: inherit; font-weight: inherit; color: inherit; } /* small units on mobile only */
 
 @media (max-width: 768px) {
@@ -721,7 +721,7 @@
   /* ---- hero ---- */
   .pd-hero { display: block; min-height: 0; background: #111; }
   .pd-hero-bg, .pd-hero-shade { height: 100% !important; }
-  .pd-hero-bg { object-fit: fill; }
+  .pd-hero-bg { object-fit: cover; }
   .pd-hero-shade { background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.05) 70%) !important; }
   .pd-hero-inner { padding: 0 !important; display: block; }
   .pd-hero-info { min-height: 300px !important; display: flex !important; align-items: flex-end; justify-content: center; padding: 24px 0 22px; }
@@ -760,19 +760,24 @@
   .pd-m-ptitle { display: block; margin: 0 0 18px; font-family: inherit; font-size: 19px; font-weight: 800; letter-spacing: -.2px; text-transform: uppercase; color: var(--pd-ink); }
   .pd-m-ptitle::after { content: ""; display: block; width: 54px; height: 4px; border-radius: 4px; background: var(--pd-brand); margin-top: 6px; }
   #pricing .pd-table { border: none; border-top: 1px solid var(--pd-line); border-radius: 0; box-shadow: none; background: transparent; }
-  #pricing .pd-tr { grid-template-columns: 1.1fr 1fr 1.25fr !important; gap: 4px 8px !important; padding: 15px 10px !important; text-align: center; align-items: center; background: #fff; border: none !important; }
-  #pricing .pd-tr.head { display: grid !important; background: transparent !important; color: var(--pd-muted) !important; font-size: 13px; letter-spacing: 1px; padding: 12px 10px !important; }
-  #pricing .pd-tr > span { grid-column: auto !important; grid-row: auto !important; text-align: center !important; justify-self: center; }
-  #pricing .pd-tr > span:last-child { display: none !important; }
-  #pricing .pd-tr.head > span:nth-child(4) { display: none !important; }
+  /* all 5 columns (Unit Type · Size · Price · Payment Plan · Get Details) — the table scrolls sideways */
+  #pricing .pd-table { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+  #pricing .pd-tr { grid-template-columns: 96px 112px 118px 104px 112px !important; width: max-content; min-width: 100%; box-sizing: border-box; gap: 8px !important; padding: 13px 10px !important; text-align: left; align-items: center; background: #fff; border: none !important; }
+  #pricing .pd-tr + .pd-tr { border-top: 1px solid var(--pd-line) !important; }
+  #pricing .pd-tr.head { display: grid !important; background: var(--pd-brand) !important; color: var(--pd-on-brand, #fff) !important; font-size: 11px; letter-spacing: 1px; padding: 11px 10px !important; border-radius: 10px 10px 0 0; }
+  #pricing .pd-tr > span { grid-column: auto !important; grid-row: auto !important; text-align: left !important; justify-self: start; }
+  #pricing .pd-tr > span:last-child { justify-self: end; }
+  #pricing .pd-tr.head > span { color: inherit !important; font-size: 11px !important; }
+  #pricing .pd-tr .pd-btn.xs { height: 32px; padding: 0 12px; font-size: 11px; white-space: nowrap; }
   #pricing .pd-tr .strong { font-size: 15px; font-weight: 800; color: var(--pd-ink); }
   #pricing .pd-tr .strong svg { display: none; }
   #pricing .pd-size { font-size: 14px; font-weight: 600; color: var(--pd-text); }
   #pricing .pd-tr .gold { font-size: 15px; font-weight: 800; color: var(--pd-brand) !important; font-family: inherit; }
   #pricing .pd-unit { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--pd-muted); letter-spacing: .3px; }
-  #pricing .pd-plan-cell { grid-column: 1 / -1 !important; font-size: 12.5px !important; font-weight: 600; color: var(--pd-muted); }
-  #pricing .pd-plan-cell::before { content: "Payment plan: "; font-weight: 500; }
-  #pricing .pd-plan-cell.none { display: none !important; }
+  #pricing .pd-plan-cell { font-size: 13.5px !important; font-weight: 700; color: var(--pd-ink); }
+  #pricing .pd-plan-cell::before { content: none !important; }
+  #pricing .pd-plan-cell.none { font-weight: 500; color: var(--pd-muted); font-size: 12.5px !important; }
+  .pd-m-swipe { display: block; margin: -8px 0 10px; font-size: 12px; font-weight: 600; color: var(--pd-muted); text-align: right; }
   .pd-m-note { display: block; margin: 22px 0 18px; text-align: center; font-size: 13px; font-style: italic; color: var(--pd-muted); }
   .pd-m-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: calc(100% - 40px); height: 52px; margin: 0 auto; border: none; border-radius: 10px; background: var(--pd-brand); color: var(--pd-on-brand, #fff); font-family: inherit; font-size: 14.5px; font-weight: 800; letter-spacing: 1.6px; box-shadow: 0 10px 22px rgba(15,23,42,.18); cursor: pointer; }
 }
@@ -838,3 +843,60 @@
   .pd-pay2-steps span { font-size: 12.5px; }
   .pd-pay2-steps strong { font-size: 28px; }
 }
+
+/* ---------- property hero (desktop): details + enquiry form in one slim see-through
+   strip along the bottom, so most of the banner photo stays visible ---------- */
+@media (min-width: 961px) {
+  /* the strip sits inside the banner, on its bottom edge (see-through) */
+  .pd-hero { align-items: flex-end; }
+  .pd-hero-shade { background: linear-gradient(0deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .1) 38%, rgba(0, 0, 0, 0) 60%) !important; }
+  /* two separate panels at the left and right edges, the banner shows between them */
+  .pd-hero-inner {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+    width: calc(100% - 48px) !important; max-width: none !important; margin: 0 auto; padding: 0;
+    background: none; border: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+
+  /* left: name, then all facts in one row */
+  .pd-hero-info {
+    flex: 0 1 auto; width: fit-content; max-width: 720px; min-width: 0; display: grid; gap: 6px; padding: 10px 18px 11px;
+    border-radius: 14px 14px 0 0; border: 1px solid rgba(255, 255, 255, .16); border-bottom: none;
+    background: rgba(14, 16, 20, .5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .pd-hero-info .pd-glass { padding: 0; border: none; border-radius: 0; background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .pd-hero-eyebrow { font-size: 9px; letter-spacing: 2.2px; margin-bottom: 2px; }
+  .pd-hero-name h1 { font-size: clamp(16px, 1.3vw, 19px); margin: 0 0 1px; }
+  .pd-hero-name p { font-size: 11.5px; line-height: 1.35; color: rgba(255, 255, 255, .85); }
+  .pd-hero-facts { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 18px; padding-top: 7px !important; border-top: 1px solid rgba(255, 255, 255, .14) !important; }
+  .pd-hero-grid, .pd-hero-bottom { display: contents; }
+  .pd-hero-grid > div, .pd-hero-mini, .pd-hero-price { min-width: 0; }
+  .pd-hero-grid small, .pd-hero-mini small, .pd-hero-price small { font-size: 8.5px; letter-spacing: .6px; margin-bottom: 1px; }
+  .pd-hero-grid strong, .pd-hero-mini strong { font-size: 12px; }
+  .pd-hero-price strong { font-size: 14px; }
+
+  /* right: compact enquiry form */
+  .pd-hero-card { flex: 0 0 340px; width: 340px; padding: 10px 12px 11px; border-radius: 14px 14px 0 0; border: none; background: rgba(255, 255, 255, .92); box-shadow: 0 -6px 24px rgba(0, 0, 0, .12); }
+  .pd-hero-card h2 { font-size: 13px; margin: 0 0 5px; }
+  .pd-hero-card > p { display: none; }
+  .pd-hero .pd-hform { grid-template-columns: 1fr 1.25fr; gap: 5px 8px; }
+  .pd-hero .pd-hform > label { gap: 2px; font-size: 8.5px; }
+  .pd-hero .pd-hform input:not([type=checkbox]), .pd-hero .pd-hform select { height: 28px; font-size: 12px; padding: 0 9px; }
+  .pd-hero .pd-hform-phone { grid-template-columns: 60px 1fr; }
+  .pd-hero .pd-hform-phone select { font-size: 11.5px; padding: 0 5px; }
+  .pd-hero .pd-hform-check { grid-column: 1 / -1; font-size: 9px !important; gap: 5px !important; line-height: 1.3; }
+  .pd-hero .pd-hform-check input { width: 12px; height: 12px; }
+  .pd-hero .pd-hform .pd-form-err { grid-column: 1 / -1; font-size: 11.5px; }
+  .pd-hero .pd-hform button { grid-column: 1 / -1; height: 30px; font-size: 11.5px; letter-spacing: 1.4px; box-shadow: none; }
+  .pd-hero .pd-form-done { padding: 10px; gap: 4px; }
+  .pd-hero .pd-form-done strong { font-size: 16px; }
+}
+
+/* ---------- overview / highlights photo slider: simple rectangle ----------
+   3:2 like the property photo upload rule — no slanted clip, no colour panel, no text overlay */
+.pd-shape { padding: 0 !important; }
+.pd-shape-accent, .pd-shape-tag { display: none !important; }
+.pd-shape-frame {
+  clip-path: none !important; aspect-ratio: 3 / 2 !important; max-height: none !important;
+  border-radius: 14px !important; box-shadow: 0 18px 40px rgba(11, 11, 11, .12);
+}
+.pd-shape-shade { background: linear-gradient(0deg, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, 0) 30%) !important; }
