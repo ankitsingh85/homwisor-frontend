@@ -42,7 +42,9 @@ export async function uploadImage(file, { purpose, maxSide, keepPng, onProgress 
   let dims = null
   try { dims = await sizeOfFile(file) } catch { /* GIF/unsupported here — the server will check */ }
   if (dims) { const problem = imageProblem(purpose, dims.width, dims.height); if (problem) throw new Error(problem) }
-  const ready = await compressImage(file, { maxSide, keepPng })
+  // exact-size images (e.g. the 2400 × 800 page banner) are never resized and keep near-full quality
+  const exactRule = IMAGE_RULES[purpose]?.exactW
+  const ready = await compressImage(file, exactRule ? { maxSide: 100000, keepPng, quality: 0.95 } : { maxSide, keepPng })
   const fd = new FormData()
   fd.append('purpose', purpose || '') // must come before the file so the server can read it
   fd.append('file', ready)
@@ -151,7 +153,7 @@ export function ImageUpload({ value, onChange, purpose, aspect = '3 / 2', hint, 
       {err && <div className="hwu-err">{err}</div>}
 
       <div className="hwu-foot">
-        {(hint || rule) && <span>{hint ? `${hint} · ` : ''}{rule?.shapeName ? <>Must be <b>{rule.shapeName}</b>, e.g. {rule.ideal}</> : !hint && rule && `Use about ${rule.ideal}`}{rule && <> · <b>min {rule.minW} × {rule.minH}</b></>}</span>}
+        {(hint || rule) && <span>{hint ? `${hint} · ` : ''}{rule?.shapeName ? <>Must be <b>{rule.shapeName}</b>, e.g. {rule.ideal}</> : !hint && rule && `Use about ${rule.ideal}`}{rule && (rule.exactW ? <> · <b>exactly {rule.exactW} × {rule.exactH} px</b></> : <> · <b>min {rule.minW} × {rule.minH}</b></>)}</span>}
         {!linkMode
           ? <button type="button" className="hwu-linkbtn" onClick={() => setLinkMode(true)}>or paste an image link</button>
           : (
