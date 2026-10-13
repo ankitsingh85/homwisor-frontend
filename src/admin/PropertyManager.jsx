@@ -273,6 +273,16 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
                 <button type="button" className={!f.rera ? 'on' : ''} onClick={() => set('rera', false)}>No</button>
               </div>
             </Field>
+            {f.rera && (
+              <>
+                <Field label="RERA number" hint="Shown under the project facts on the detail page">
+                  <input className="hwa-input no-icon" value={f.reraNumber} onChange={e => set('reraNumber', e.target.value)} placeholder="e.g. GGM/864/596/2024/91" maxLength={80} />
+                </Field>
+                <Field label="RERA QR code" hint="Optional — square image (e.g. 500 × 500 px) from the RERA website">
+                  <div style={{ maxWidth: 140 }}><ImageUpload value={f.reraQr} onChange={v => set('reraQr', v)} purpose="qr" aspect="1 / 1" fit="contain" maxSide={800} /></div>
+                </Field>
+              </>
+            )}
           </div>
         </Step>
 

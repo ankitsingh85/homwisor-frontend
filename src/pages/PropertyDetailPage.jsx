@@ -544,6 +544,21 @@ export default function PropertyDetailPage() {
                 </div>
               ))}
             </div>
+            {/* RERA number + QR — Admin → Property → Basic details */}
+            {p.rera !== false && (p.reraNumber || p.reraQr) && (
+              <div className="pd-rera">
+                {p.reraQr && (
+                  <a href={p.reraQr} target="_blank" rel="noreferrer" className="pd-rera-qr" title="Open RERA QR code">
+                    <img src={p.reraQr} alt={`RERA QR code for ${p.title}`} loading="lazy" />
+                  </a>
+                )}
+                <div>
+                  <small>RERA REGISTRATION</small>
+                  <strong>{p.reraNumber || "RERA registered"}</strong>
+                  <span>{p.reraQr ? "Scan the QR code to verify on the RERA website" : "Verify on the state RERA website"}</span>
+                </div>
+              </div>
+            )}
             <div className="pd-price-line">
               <span>Starting from</span>
               <strong>{p.price || p.priceRange || "Price on request"}</strong>
