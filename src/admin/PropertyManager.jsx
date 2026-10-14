@@ -377,6 +377,9 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
             <Field label="Page banner (desktop)" full hint="Optional — the wide photo at the top of this property's page on computers. Upload exactly 2400 × 800 px (no other size is accepted) — it fills the banner sharp, with nothing cut or stretched. Without it, the main photo is enlarged to the full width and its top and bottom are cut off — so add one for every property. Phones always use the main photo.">
               <ImageUpload value={f.heroImage} onChange={v => set('heroImage', v)} purpose="propertyHero" aspect="3 / 1" maxSide={2400} />
             </Field>
+            <Field label="Page banner (mobile)" full hint="Optional — the photo at the top of this property's page on phones. Upload exactly 1080 × 1080 px (square, no other size is accepted) — it shows whole and sharp. Without it, phones use the main photo, cut to fit.">
+              <div style={{ maxWidth: 260 }}><ImageUpload value={f.heroImageMobile} onChange={v => set('heroImageMobile', v)} purpose="propertyHeroMobile" aspect="1 / 1" /></div>
+            </Field>
             <Field label="Gallery photos" full hint="Shown in the gallery on the detail page — the first 5 make the photo collage; captions appear on the photos">
               <GalleryUpload value={f.gallery} onChange={v => set('gallery', v)} onMakeCover={src => set('image', src)} purpose="property" captions={f.galleryCaptions} onCaptionsChange={v => set('galleryCaptions', v)} />
             </Field>

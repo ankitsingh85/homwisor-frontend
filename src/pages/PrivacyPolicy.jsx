@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
           </h1>
 
           <p>
-            Your privacy matters to us. Learn how Homwisor collects, uses,
+            Your privacy matters to us. Learn how HomWisor collects, uses,
             protects and manages information when you interact with our
             website and real estate services.
           </p>
@@ -60,7 +60,7 @@ export default function PrivacyPolicy() {
               <h2>Privacy Policy</h2>
               <p className="updated">Last updated: September 24, 2026</p>
               <p>
-                Homwisor Consultants Pvt. Ltd. ("Homwisor", "we", "us", or
+                HomWisor Consultants Pvt. Ltd. ("HomWisor", "we", "us", or
                 "our") respects your privacy and is committed to protecting
                 the personal information you share with us. This Privacy
                 Policy explains how information may be collected, used,
@@ -73,7 +73,7 @@ export default function PrivacyPolicy() {
             <section id="information">
               <h3>1. Information We Collect</h3>
               <p>
-                Depending on how you interact with Homwisor, we may collect
+                Depending on how you interact with HomWisor, we may collect
                 information that you voluntarily provide, including your
                 name, phone number, email address, property requirements,
                 location preferences, budget information and messages or
@@ -103,7 +103,7 @@ export default function PrivacyPolicy() {
             <section id="sharing">
               <h3>3. Information Sharing & Disclosure</h3>
               <p>
-                Homwisor does not sell personal information as a business
+                HomWisor does not sell personal information as a business
                 practice. Information may be shared when reasonably required
                 to provide a service you have requested, operate our website,
                 work with relevant service providers, protect our legal
@@ -167,7 +167,7 @@ export default function PrivacyPolicy() {
               <p>
                 Our website may contain links to third-party websites,
                 platforms or services. Those third parties operate under
-                their own privacy policies and terms. Homwisor is not
+                their own privacy policies and terms. HomWisor is not
                 responsible for the privacy practices or content of external
                 websites.
               </p>
@@ -208,7 +208,7 @@ export default function PrivacyPolicy() {
               <p>
                 If you have questions, requests or concerns regarding this
                 Privacy Policy or the way your information is handled, please
-                contact Homwisor.
+                contact HomWisor.
               </p>
 
               <div className="privacy-contact-grid">
@@ -231,7 +231,7 @@ export default function PrivacyPolicy() {
 
             <div className="privacy-note">
               <strong>Important:</strong> This page is a website privacy
-              policy template for Homwisor and should be reviewed and
+              policy template for HomWisor and should be reviewed and
               finalized according to the company's actual data practices,
               third-party tools, consent mechanisms and applicable laws.
             </div>

@@ -509,7 +509,7 @@ export default function Header() {
           >
             <img
               src={logo}
-              alt="Homwisor"
+              alt="HomWisor"
               className="hw-logo-image"
             />
           </Link>

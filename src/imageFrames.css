@@ -193,3 +193,9 @@
   .pd-hero.has-banner .pd-hero-bg { object-fit: fill !important; }
   /* no banner yet: the main photo fills the full width (cover) — upload the 2400 × 800 page banner for a perfect fit */
 }
+
+/* phones: the 1:1 mobile page banner (1080 × 1080) fills a square frame exactly */
+@media (max-width: 960px) {
+  .pd-hero.has-mbanner .pd-hero-info { min-height: 100vw !important; }
+  .pd-hero.has-mbanner .pd-hero-bg { object-fit: fill !important; }
+}

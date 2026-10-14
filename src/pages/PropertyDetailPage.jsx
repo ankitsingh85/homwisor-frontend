@@ -478,10 +478,11 @@ export default function PropertyDetailPage() {
 
       {/* ============ HERO ============ */}
       {/* desktop: the 3:1 page banner (Admin → Property → Photos) when there is one, else the main photo */}
-      <section className={`pd-hero${p.heroImage ? " has-banner" : ""}`}>
+      <section className={`pd-hero${p.heroImage ? " has-banner" : ""}${p.heroImageMobile ? " has-mbanner" : ""}`}>
         {d.images[0] && (
           <picture>
             {p.heroImage && <source media="(min-width: 961px)" srcSet={p.heroImage} />}
+            {p.heroImageMobile && <source media="(max-width: 960px)" srcSet={p.heroImageMobile} />}
             <img className="pd-hero-bg" src={d.images[0]} alt={p.title} />
           </picture>
         )}

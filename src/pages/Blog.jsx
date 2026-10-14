@@ -206,7 +206,7 @@ export default function Blog() {
               <h2>Get smarter property insights.</h2>
 
               <p>
-                Follow Homwisor for useful real estate news, property guides
+                Follow HomWisor for useful real estate news, property guides
                 and market updates.
               </p>
             </div>

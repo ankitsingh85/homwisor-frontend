@@ -16,7 +16,7 @@ export const HOME_HEADINGS = [
   { key: 'sco', label: 'SCO Plots', eyebrow: 'SCO PROJECTS', heading: 'SCO Plots in Gurugram', highlight: 'Gurugram', description: 'Own your commercial address. Handpicked shop-cum-office plots .' },
   { key: 'commercial', label: 'Commercial Projects', eyebrow: 'COMMERCIAL PROJECTS', heading: 'Commercial Projects in Gurugram', highlight: 'Gurugram', description: 'Retail, office and high-street commercial spaces in Gurugram' },
   { key: 'testimonials', label: 'Customer Testimonials', eyebrow: 'REAL STORIES, REAL HOMES', heading: 'Customer Testimonials', highlight: '', description: 'Hear from our happy homeowners who found their dream properties with us.' },
-  { key: 'trust', label: 'Why Buyers Trust Us', eyebrow: 'HOMWISOR', heading: 'Why Buyers Trust Homwisor', highlight: '', description: "We verify every property, get you the builder's price and stay with you until the keys are in your hand." },
+  { key: 'trust', label: 'Why Buyers Trust Us', eyebrow: 'HOMWISOR', heading: 'Why Buyers Trust HomWisor', highlight: '', description: "We verify every property, get you the builder's price and stay with you until the keys are in your hand." },
 ]
 
 // saved sections → { key: { eyebrow, heading, highlight, description } } with built-in text for empty fields

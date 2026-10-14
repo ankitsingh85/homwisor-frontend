@@ -944,3 +944,12 @@
     text-shadow: 0 1px 6px rgba(0, 0, 0, .7), 0 0 2px rgba(0, 0, 0, .5);
   }
 }
+@media (max-width: 960px) {
+  /* phones/tablets: same light see-through panel as desktop */
+  .pd-hero-info .pd-glass {
+    background: rgba(14, 16, 20, .16) !important;
+    backdrop-filter: blur(1.5px) !important; -webkit-backdrop-filter: blur(1.5px) !important;
+    border: 1px solid rgba(255, 255, 255, .2) !important; border-bottom: none !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .7), 0 0 2px rgba(0, 0, 0, .5);
+  }
+}
