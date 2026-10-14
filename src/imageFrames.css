@@ -199,3 +199,11 @@
   .pd-hero.has-mbanner .pd-hero-info { min-height: 100vw !important; }
   .pd-hero.has-mbanner .pd-hero-bg { object-fit: fill !important; }
 }
+
+/* ---------- property page banner (desktop) fills the first screen ----------
+   height = screen − top bar (55px) − bottom Enquire bar (65px), so Overview starts on the next screen.
+   The banner upload is 2400 × 1080 (20:9 ≈ most laptop/monitor first screens); cover trims only a little. */
+@media (min-width: 961px) {
+  .pd-hero { aspect-ratio: auto !important; height: max(460px, calc(100svh - 120px)) !important; min-height: 0 !important; }
+  .pd-hero .pd-hero-bg, .pd-hero.has-banner .pd-hero-bg { object-fit: cover !important; object-position: center !important; }
+}

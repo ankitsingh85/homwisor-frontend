@@ -953,3 +953,45 @@
     text-shadow: 0 1px 6px rgba(0, 0, 0, .7), 0 0 2px rgba(0, 0, 0, .5);
   }
 }
+
+/* ---------- phones: banner photo + 2×2 facts card fill the first screen ----------
+   Property Type · Possession / Units (About Project) · Starting From, on the brand colour */
+@media (max-width: 960px) {
+  .pd-hero { --ph: max(340px, calc(100svh - 258px)); background: #fff !important; }
+  .pd-hero.has-mbanner { --ph: 100vw; }
+  .pd-hero-bg, .pd-hero-shade { height: var(--ph) !important; bottom: auto !important; }
+  .pd-hero-info { display: grid !important; grid-template-rows: var(--ph) auto; grid-template-columns: minmax(0, 1fr); justify-content: stretch !important; align-items: stretch !important; min-height: 0 !important; }
+  .pd-hero.has-mbanner .pd-hero-info { min-height: 0 !important; }
+  .pd-hero-name { align-self: end; margin-bottom: 26px !important; border-radius: 14px !important; border-bottom: 1px solid rgba(255, 255, 255, .2) !important; }
+  .pd-hero-info .pd-glass.pd-hero-facts, .pd-hero-facts {
+    display: grid !important; grid-template-columns: 1fr 1fr; gap: 0 !important;
+    width: auto !important; margin: -18px 12px 4px !important; padding: 0 !important; overflow: hidden; justify-self: stretch;
+    border-radius: 14px !important; border: none !important; text-shadow: none !important;
+    background: var(--pd-brand) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+    box-shadow: 0 14px 30px rgba(11, 11, 11, .2) !important; position: relative; z-index: 2;
+  }
+  .pd-hero-facts::before { display: none !important; }
+  .pd-hero-grid, .pd-hero-bottom { display: contents !important; }
+  .pd-hero-grid > div, .pd-hero-mini, .pd-hero-price { display: grid; gap: 3px; align-content: center; justify-items: center; text-align: center; padding: 14px 8px; }
+  .pd-hero-grid > div:nth-child(1) { order: 1; }                       /* property type */
+  .pd-hero-bottom > .pd-hero-mini:nth-child(2) { order: 2; }           /* possession */
+  .pd-hero-grid > div:nth-child(2) { order: 3; }                       /* about project / units */
+  .pd-hero-price { order: 4; }                                         /* starting from */
+  .pd-hero-grid > div:nth-child(n+3), .pd-hero-bottom > .pd-hero-mini:nth-child(1) { display: none !important; } /* land area, area */
+  .pd-hero-facts > * , .pd-hero-grid > div, .pd-hero-mini, .pd-hero-price { border: 0 solid rgba(255, 255, 255, .14); }
+  .pd-hero-grid > div:nth-child(1), .pd-hero-grid > div:nth-child(2) { border-right-width: 1px; }
+  .pd-hero-grid > div:nth-child(1), .pd-hero-bottom > .pd-hero-mini:nth-child(2) { border-bottom-width: 1px; }
+  .pd-hero-grid small, .pd-hero-mini small, .pd-hero-price small { font-size: 10px !important; letter-spacing: 1.2px !important; color: rgba(255, 255, 255, .62) !important; margin: 0 !important; }
+  .pd-hero-grid strong, .pd-hero-mini strong, .pd-hero-price strong { font-size: 14px !important; font-weight: 800 !important; color: #fff !important; line-height: 1.25; }
+}
+@media (max-width: 960px) {
+  /* name panel: same width as the facts card, text centred */
+  .pd-hero-info .pd-glass.pd-hero-name { width: auto !important; margin: 0 12px 26px !important; text-align: center !important; justify-self: stretch; }
+  .pd-hero-name .pd-m-pill { margin-left: auto; margin-right: auto; }
+  .pd-hero-name h1, .pd-hero-name p { text-align: center !important; }
+}
+@media (min-width: 961px) {
+  /* details panel: text centred, equal space left and right */
+  .pd-hero-info .pd-hero-name, .pd-hero-info .pd-hero-name h1, .pd-hero-info .pd-hero-name p { text-align: center !important; }
+  .pd-hero-facts { justify-content: center !important; justify-items: center; text-align: center; }
+}

@@ -374,8 +374,8 @@ function PropertyForm({ initial, editingId, counts, onSaved, onCancel, typeOptio
             <Field label="Main photo" required error={errorFor('image')} full>
               <ImageUpload value={f.image} onChange={v => set('image', v)} purpose="property" aspect="3 / 2" hint="Cover photo on every card and the detail page (landscape works best)" />
             </Field>
-            <Field label="Page banner (desktop)" full hint="Optional — the wide photo at the top of this property's page on computers. Upload exactly 2400 × 800 px (no other size is accepted) — it fills the banner sharp, with nothing cut or stretched. Without it, the main photo is enlarged to the full width and its top and bottom are cut off — so add one for every property. Phones always use the main photo.">
-              <ImageUpload value={f.heroImage} onChange={v => set('heroImage', v)} purpose="propertyHero" aspect="3 / 1" maxSide={2400} />
+            <Field label="Page banner (desktop)" full hint="Optional — the wide photo at the top of this property's page on computers. Upload exactly 2400 × 1080 px (no other size is accepted) — it fills the whole first screen, sharp and never stretched (very wide or very tall screens trim a little from the edges, so keep the building in the middle). Without it, the main photo is enlarged to the full width and its top and bottom are cut off — so add one for every property. Phones always use the main photo.">
+              <ImageUpload value={f.heroImage} onChange={v => set('heroImage', v)} purpose="propertyHero" aspect="20 / 9" maxSide={2400} />
             </Field>
             <Field label="Page banner (mobile)" full hint="Optional — the photo at the top of this property's page on phones. Upload exactly 1080 × 1080 px (square, no other size is accepted) — it shows whole and sharp. Without it, phones use the main photo, cut to fit.">
               <div style={{ maxWidth: 260 }}><ImageUpload value={f.heroImageMobile} onChange={v => set('heroImageMobile', v)} purpose="propertyHeroMobile" aspect="1 / 1" /></div>
