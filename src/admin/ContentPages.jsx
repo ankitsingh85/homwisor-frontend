@@ -178,7 +178,7 @@ const BANNER_TYPES = {
     where: 'The big rotating banner at the very top of the homepage.',
   },
   slider: {
-    tab: 'Image slider', one: 'slider image', purpose: 'slider', aspect: '17 / 3', thumb: 'banner',
+    tab: 'Image slider', one: 'slider image', purpose: 'slider', aspect: '34 / 5', thumb: 'banner',
     where: 'The wide rotating strip just below the homepage search box.',
   },
   small: {

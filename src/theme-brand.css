@@ -311,3 +311,43 @@
   .hw-home-hero .hw-search-overlay { top: calc(100% - 50px) !important; }
   .hw-new-premium-slider .hw-image-slider { margin-top: 117px !important; max-width: 760px !important; }
 }
+
+/* ---------- homepage search box (desktop): sizes set in the browser inspector ---------- */
+@media (min-width: 769px) {
+  .hw-home-hero .hw-search-overlay { width: min(845px, calc(100% - 48px)) !important; }
+  .hw-home-hero .hw-search-container { max-width: 837px !important; height: auto !important; padding-top: 10px !important; }
+  .hw-home-hero .hw-search-tabs { padding: 5px 10px 8px !important; }
+  .hw-home-hero .hw-search-tabs .hw-search-tab { height: 30px !important; }
+  .hw-home-hero .hw-search-fields { padding: 11px 10px 14px !important; }
+  .hw-home-hero .hw-search-field, .hw-home-hero .hw-search-button { height: 46px !important; }
+}
+@media (min-width: 769px) {
+  /* search box a little lower on the banner; offer strip a little closer to it */
+  .hw-home-hero .hw-search-overlay { top: calc(100% - 36px) !important; }
+  .hw-new-premium-slider .hw-image-slider { margin-top: 111px !important; }
+}
+@media (min-width: 769px) {
+  /* offer strip as wide as the search box above it (17:3 shape kept) */
+  .hw-new-premium-slider .hw-image-slider { max-width: 837px !important; width: calc(100% - 48px) !important; }
+}
+
+/* ---------- homepage search box (desktop): back to the live-site size ---------- */
+@media (min-width: 769px) {
+  .hw-home-hero .hw-search-overlay { width: min(960px, calc(100% - 48px)) !important; }
+  .hw-home-hero .hw-search-container { max-width: 945px !important; }
+  .hw-home-hero .hw-search-tabs { padding: 7px 10px 8px !important; gap: 6px !important; }
+  .hw-home-hero .hw-search-tabs .hw-search-tab { height: 34px !important; padding: 0 12px !important; gap: 6px !important; font-size: 13px !important; }
+  .hw-home-hero .hw-search-tabs .hw-search-tab .hw-tab-icon,
+  .hw-home-hero .hw-search-tabs .hw-search-tab .hw-tab-icon svg { width: 17px !important; height: 17px !important; min-width: 17px !important; min-height: 17px !important; }
+  .hw-home-hero .hw-search-fields { padding: 11px 10px 14px !important; }
+  .hw-home-hero .hw-search-field, .hw-home-hero .hw-search-button { height: 52px !important; }
+  .hw-new-premium-slider .hw-image-slider { max-width: 945px !important; }
+}
+@media (min-width: 769px) { .hw-new-premium-slider .hw-image-slider { margin-top: 123px !important; } }
+@media (min-width: 769px) {
+  /* offer strip as tall as the search box: 945 × 139 (34:5 = the 1700 × 250 upload);
+     older 1700 × 300 images are trimmed a little top/bottom, never stretched */
+  .hw-new-premium-slider .hw-image-slider { aspect-ratio: 34 / 5 !important; }
+  .hw-new-premium-slider .hw-image-slider .hw-image-slide img { object-fit: cover !important; object-position: center !important; }
+}
+@media (min-width: 769px) { .hw-new-premium-slider .hw-image-slider { margin-top: 113px !important; } } /* ~10px under the search box */

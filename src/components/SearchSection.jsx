@@ -182,7 +182,7 @@ export default function SearchSection() {
     { name: "Luxury", value: "Luxury", icon: LuxuryIcon },
     { name: "Branded", value: "Branded", icon: BrandedIcon },
     { name: "Commercial", value: "Commercial", icon: CommercialIcon },
-    { name: "Plots / Land", value: "Plots / Land", icon: LandIcon },
+    { name: "Plots", value: "Plots / Land", icon: LandIcon },
     { name: "Villa", value: "Villa", icon: VillaIcon },
     { name: "Farmhouse", value: "Farmhouse", icon: FarmhouseIcon },
   ];
@@ -331,7 +331,7 @@ export default function SearchSection() {
               <option value="Luxury">Luxury</option>
               <option value="Branded">Branded</option>
               <option value="Commercial">Commercial</option>
-              <option value="Plots / Land">Plots / Land</option>
+              <option value="Plots / Land">Plots</option>
               <option value="Villa">Villa</option>
               <option value="Farmhouse">Farmhouse</option>
               <option value="Builder Floor">Builder Floor</option>
