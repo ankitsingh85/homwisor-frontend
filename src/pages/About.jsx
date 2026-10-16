@@ -195,7 +195,7 @@ export default function About() {
 
               <span>EST. 2016</span>
 
-              <strong>HomWisor</strong>
+              <strong>Homwisor</strong>
 
               <small>
                 Real Estate Consultants
@@ -221,14 +221,14 @@ export default function About() {
             </h2>
 
             <p>
-              HomWisor Consultant believes that buying a property is more than
+              Homwisor Consultant believes that buying a property is more than
               just a transaction — it is a life-changing decision connected to
               dreams, security and future growth.
             </p>
 
             <p>
               Built on the vision of combining the comfort of a dream home with
-              the wisdom of expert real estate guidance, HomWisor helps clients
+              the wisdom of expert real estate guidance, Homwisor helps clients
               navigate property opportunities with clarity and confidence.
             </p>
 
@@ -278,7 +278,7 @@ export default function About() {
             </div>
 
             <h2>
-              Principles that shape <span>HomWisor.</span>
+              Principles that shape <span>Homwisor.</span>
             </h2>
 
             <p>
@@ -565,7 +565,7 @@ export default function About() {
             </h2>
 
             <p>
-              Speak with the HomWisor team for property guidance tailored
+              Speak with the Homwisor team for property guidance tailored
               to your requirements.
             </p>
 

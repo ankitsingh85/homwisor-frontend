@@ -3,7 +3,7 @@
 // an empty field shows the built-in text below.
 
 export const HOME_HEADINGS = [
-  { key: 'recommended', label: 'Our Top Properties', eyebrow: '', heading: 'Our Top Properties', highlight: 'Our Top', description: 'Premium properties chosen by HomWisor: built for luxury living, selected for lasting value.', noEyebrow: true },
+  { key: 'recommended', label: 'Our Top Properties', eyebrow: '', heading: 'Our Top Properties', highlight: 'Our Top', description: 'Premium properties chosen by Homwisor: built for luxury living, selected for lasting value.', noEyebrow: true },
   { key: 'trending', label: 'Trending Properties', eyebrow: 'HOMWISOR', heading: 'Trending Properties in Gurugram', highlight: 'Gurugram', description: "Discover new launch and ready-to-move projects in Gurugram's top locations, including Dwarka Expressway, Golf Course Road and New Gurgaon." },
   { key: 'newlaunch', label: 'New Launch', eyebrow: 'HOMWISOR', heading: 'Newly Launched Properties in Gurugram', highlight: 'Gurugram', description: "Book early in Gurugram's latest projects and get the best choice of units at launch prices." },
   { key: 'prime', label: 'Prime Locations', eyebrow: 'HOMWISOR', heading: 'Explore Gurugram by Location', highlight: 'Location', description: 'Pick your preferred locality and browse verified projects that match your lifestyle and budget.' },
@@ -16,12 +16,17 @@ export const HOME_HEADINGS = [
   { key: 'sco', label: 'SCO Plots', eyebrow: 'SCO PROJECTS', heading: 'SCO Plots in Gurugram', highlight: 'Gurugram', description: 'Own your commercial address. Handpicked shop-cum-office plots .' },
   { key: 'commercial', label: 'Commercial Projects', eyebrow: 'COMMERCIAL PROJECTS', heading: 'Commercial Projects in Gurugram', highlight: 'Gurugram', description: 'Retail, office and high-street commercial spaces in Gurugram' },
   { key: 'testimonials', label: 'Customer Testimonials', eyebrow: 'REAL STORIES, REAL HOMES', heading: 'Customer Testimonials', highlight: '', description: 'Hear from our happy homeowners who found their dream properties with us.' },
-  { key: 'trust', label: 'Why Buyers Trust Us', eyebrow: 'HOMWISOR', heading: 'Why Buyers Trust HomWisor', highlight: '', description: "We verify every property, get you the builder's price and stay with you until the keys are in your hand." },
+  { key: 'trust', label: 'Why Buyers Trust Us', eyebrow: 'HOMWISOR', heading: 'Why Buyers Trust Homwisor', highlight: '', description: "We verify every property, get you the builder's price and stay with you until the keys are in your hand." },
 ]
 
 // saved sections → { key: { eyebrow, heading, highlight, description } } with built-in text for empty fields
+// brand is always written "Homwisor" on the site, whatever was typed in the admin
+const brand = (t) => (typeof t === "string" ? t.replace(/homwisor/gi, (m) => (m === "HOMWISOR" ? m : "Homwisor")) : t)
+
 export function mergeHeadings(saved = []) {
-  const byKey = Object.fromEntries((Array.isArray(saved) ? saved : []).map((s) => [s.key, s]))
+  const byKey = Object.fromEntries((Array.isArray(saved) ? saved : []).map((s) => [s.key, {
+    ...s, eyebrow: brand(s.eyebrow), heading: brand(s.heading), highlight: brand(s.highlight), description: brand(s.description),
+  }]))
   return Object.fromEntries(HOME_HEADINGS.map((d) => {
     const s = byKey[d.key] || {}
     let heading = s.heading?.trim() || d.heading

@@ -23,7 +23,7 @@ export default function TermsAndConditions() {
           </h1>
 
           <p>
-            Please read these terms carefully before using the HomWisor
+            Please read these terms carefully before using the Homwisor
             website, property listings, enquiry services and real estate
             consultation services.
           </p>
@@ -64,8 +64,8 @@ export default function TermsAndConditions() {
 
               <p>
                 These Terms and Conditions ("Terms") govern your access to and
-                use of the HomWisor website and related services operated by
-                HomWisor Consultant Private Limited ("HomWisor", "we", "us",
+                use of the Homwisor website and related services operated by
+                Homwisor Consultant Private Limited ("Homwisor", "we", "us",
                 or "our").
               </p>
 
@@ -78,17 +78,17 @@ export default function TermsAndConditions() {
             </div>
 
             <section id="about">
-              <h3>1. About HomWisor</h3>
+              <h3>1. About Homwisor</h3>
               <p>
-                HomWisor is a Gurugram-based real estate platform and agency
+                Homwisor is a Gurugram-based real estate platform and agency
                 that helps property buyers, sellers, tenants and landlords
                 connect and transact with greater confidence. Our services
                 include property search and listings, buyer and seller
                 facilitation, market guidance and real estate advisory.
               </p>
               <p>
-                HomWisor's public company information states that the business
-                operates as HomWisor Consultant Private Limited and is
+                Homwisor's public company information states that the business
+                operates as Homwisor Consultant Private Limited and is
                 registered as a real estate agent with the Haryana Real Estate
                 Regulatory Authority (HARERA), Gurugram.
               </p>
@@ -136,7 +136,7 @@ export default function TermsAndConditions() {
                 details may change without prior notice.
               </p>
               <p>
-                A listing or enquiry on HomWisor does not by itself constitute
+                A listing or enquiry on Homwisor does not by itself constitute
                 an offer, reservation, allotment, sale agreement or guarantee
                 of availability.
               </p>
@@ -145,7 +145,7 @@ export default function TermsAndConditions() {
             <section id="enquiries">
               <h3>4. Property Enquiries & Communication</h3>
               <p>
-                When you submit an enquiry, you authorize HomWisor and
+                When you submit an enquiry, you authorize Homwisor and
                 relevant property or service representatives to contact you
                 regarding the enquiry through phone, email, WhatsApp or other
                 appropriate communication channels.
@@ -160,7 +160,7 @@ export default function TermsAndConditions() {
             <section id="accuracy">
               <h3>5. Accuracy of Information</h3>
               <p>
-                HomWisor aims to provide useful and current property
+                Homwisor aims to provide useful and current property
                 information, but information on the website may contain
                 errors, omissions, outdated details or information supplied by
                 third parties.
@@ -177,9 +177,9 @@ export default function TermsAndConditions() {
             <section id="transactions">
               <h3>6. Property Transactions</h3>
               <p>
-                HomWisor may facilitate introductions, property visits,
+                Homwisor may facilitate introductions, property visits,
                 communication and other real estate assistance. Unless
-                expressly agreed otherwise in writing, HomWisor is not the
+                expressly agreed otherwise in writing, Homwisor is not the
                 seller, developer, owner or legal representative of every
                 property displayed on the website.
               </p>
@@ -198,7 +198,7 @@ export default function TermsAndConditions() {
             <section id="rera">
               <h3>7. Regulatory & RERA Information</h3>
               <p>
-                HomWisor's public company information identifies the business
+                Homwisor's public company information identifies the business
                 as a HARERA-registered real estate agent and states that it
                 facilitates transactions in accordance with the Real Estate
                 (Regulation and Development) Act, 2016 and applicable Haryana
@@ -217,7 +217,7 @@ export default function TermsAndConditions() {
                 Unless otherwise stated, the website's design, branding,
                 logos, text, graphics, photographs, layout, software and
                 other original materials are owned by or licensed to
-                HomWisor.
+                Homwisor.
               </p>
               <p>
                 You may view and use the website for personal and legitimate
@@ -237,7 +237,7 @@ export default function TermsAndConditions() {
               </p>
               <p>
                 Third-party services are governed by their own terms and
-                policies. HomWisor is not responsible for the independent
+                policies. Homwisor is not responsible for the independent
                 operation, availability, content or privacy practices of
                 third-party websites and services.
               </p>
@@ -248,12 +248,12 @@ export default function TermsAndConditions() {
               <p>
                 The website and its information are provided for general
                 property-search, information and consultation purposes.
-                HomWisor does not guarantee that the website or every piece of
+                Homwisor does not guarantee that the website or every piece of
                 information will always be complete, current, uninterrupted
                 or error-free.
               </p>
               <p>
-                To the extent permitted by applicable law, HomWisor will not
+                To the extent permitted by applicable law, Homwisor will not
                 be responsible for losses arising solely from reliance on
                 unverified property information, third-party information,
                 changes in property availability or pricing, transaction
@@ -278,7 +278,7 @@ export default function TermsAndConditions() {
             <section id="changes">
               <h3>12. Changes to These Terms</h3>
               <p>
-                HomWisor may update these Terms from time to time to reflect
+                Homwisor may update these Terms from time to time to reflect
                 changes to the website, services, business practices or
                 applicable legal requirements.
               </p>
@@ -295,7 +295,7 @@ export default function TermsAndConditions() {
               <h3>Questions about these Terms?</h3>
               <p>
                 If you have questions about these Terms and Conditions or
-                HomWisor's services, please contact the company using the
+                Homwisor's services, please contact the company using the
                 information below.
               </p>
 
@@ -321,7 +321,7 @@ export default function TermsAndConditions() {
 
             <div className="terms-note">
               <strong>Important:</strong> This page is a website terms
-              template prepared from HomWisor's publicly available company
+              template prepared from Homwisor's publicly available company
               information and the requested website context. It should be
               reviewed by the company's legal counsel and aligned with its
               actual contracts, services, policies and applicable laws before

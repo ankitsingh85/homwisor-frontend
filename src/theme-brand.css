@@ -1,5 +1,5 @@
 /* =====================================================================
-   HomWisor brand colours for the public website
+   Homwisor brand colours for the public website
    White backgrounds stay as they are — this only unifies headings,
    accents and buttons to the admin palette: near-black + gold gradients.
    Loaded after the component styles (see main.jsx).
@@ -291,4 +291,23 @@
   display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 5px;
   background: #fff; color: #8a1c1c; font-size: 10.5px; font-weight: 900; letter-spacing: .9px; line-height: 1;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .18);
+}
+
+/* ---------- homepage search box (desktop): a little narrower, smaller tabs, bolder text;
+   the City picker is the highlighted tab ---------- */
+@media (min-width: 769px) {
+  .hw-home-hero .hw-search-overlay { width: min(880px, calc(100% - 48px)) !important; }
+  .hw-home-hero .hw-search-container { max-width: 870px !important; }
+  .hw-search-tabs { gap: 5px !important; padding: 8px 10px !important; justify-content: space-between; min-height: 0 !important; }
+  .hw-search-tabs .hw-search-tab { height: 34px !important; padding: 0 9px !important; gap: 5px !important; font-size: 12px !important; font-weight: 700 !important; color: #2a2a2a !important; }
+  .hw-search-tabs .hw-search-tab.active { color: #fff !important; font-weight: 800 !important; }
+  .hw-search-tabs .hw-search-tab .hw-tab-icon, .hw-search-tabs .hw-search-tab .hw-tab-icon svg { width: 16px !important; height: 16px !important; min-width: 16px !important; min-height: 16px !important; }
+  .hw-search-tabs .hw-search-tab.active .hw-tab-icon { color: #fff !important; }
+}
+
+/* ---------- homepage (desktop): search box sits a little lower on the banner (50px overlap
+   instead of 80), offer strip a little smaller and moved down with it ---------- */
+@media (min-width: 769px) {
+  .hw-home-hero .hw-search-overlay { top: calc(100% - 50px) !important; }
+  .hw-new-premium-slider .hw-image-slider { margin-top: 117px !important; max-width: 760px !important; }
 }

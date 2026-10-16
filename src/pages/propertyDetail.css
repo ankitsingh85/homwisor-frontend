@@ -995,3 +995,11 @@
   .pd-hero-info .pd-hero-name, .pd-hero-info .pd-hero-name h1, .pd-hero-info .pd-hero-name p { text-align: center !important; }
   .pd-hero-facts { justify-content: center !important; justify-items: center; text-align: center; }
 }
+@media (max-width: 960px) {
+  /* name panel + facts card: exactly the same width (same border), a little lower, lighter heading */
+  .pd-hero-info .pd-glass.pd-hero-name, .pd-hero-info .pd-glass.pd-hero-facts, .pd-hero-facts { box-sizing: border-box !important; margin-left: 12px !important; margin-right: 12px !important; }
+  .pd-hero-info .pd-glass.pd-hero-facts, .pd-hero-facts { border: 1px solid transparent !important; margin-top: -6px !important; }
+  .pd-hero-info .pd-glass.pd-hero-name { margin-bottom: 14px !important; transform: translateY(2px); }
+  .pd-hero-name h1 { font-weight: 600 !important; letter-spacing: .3px !important; }
+  .pd-hero-grid strong, .pd-hero-mini strong, .pd-hero-price strong { font-weight: 700 !important; }
+}

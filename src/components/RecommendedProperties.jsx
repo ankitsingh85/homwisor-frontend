@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { DEFAULT_HEADINGS, HeadingText } from "../data/homeHeadings";
 
-// Homepage "HomWisor Recommended" cards — managed in Admin → Recommended.
+// Homepage "Homwisor Recommended" cards — managed in Admin → Recommended.
 // items: [{ id, title, image, price, location, link, badge }] (already in display order)
 
 function CardLink({ link, className, children }) {

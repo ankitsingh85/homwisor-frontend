@@ -143,7 +143,7 @@ function AdvisorForm({ post }) {
     <div className="bd-advisor">
       <small>TALK TO AN ADVISOR</small>
       <h3>Planning your next property?</h3>
-      <p>Leave your number and a HomWisor advisor will call you back with current prices and floor plans.</p>
+      <p>Leave your number and a Homwisor advisor will call you back with current prices and floor plans.</p>
       {state === "sent" ? (
         <div className="bd-advisor-done">✓ Thank you, {f.name.split(" ")[0]}! We'll call you shortly.</div>
       ) : (
@@ -152,7 +152,7 @@ function AdvisorForm({ post }) {
           <label>Mobile number<input value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} placeholder="10-digit mobile number" inputMode="tel" autoComplete="tel" /></label>
           {err && <div className="bd-advisor-err">{err}</div>}
           <button type="submit" disabled={state === "sending"}>{state === "sending" ? "Sending…" : "Request a call back"}</button>
-          <span className="bd-advisor-fine">By submitting, you agree to be contacted by HomWisor about this enquiry.</span>
+          <span className="bd-advisor-fine">By submitting, you agree to be contacted by Homwisor about this enquiry.</span>
         </form>
       )}
     </div>
@@ -191,7 +191,7 @@ export default function BlogDetail() {
     if (!post) return;
     // meta title / description from the admin (Blog → SEO), else the title and summary
     return applyMeta({
-      title: post.seoTitle?.trim() || `${post.title} | HomWisor`,
+      title: post.seoTitle?.trim() || `${post.title} | Homwisor`,
       description: post.seoDescription?.trim() || post.excerpt || "",
       image: post.image,
       url: window.location.origin + blogUrl(post),
@@ -262,7 +262,7 @@ export default function BlogDetail() {
     ...others.filter((item) => item.category === post.category),
     ...others.filter((item) => item.category !== post.category),
   ].slice(0, 3);
-  const author = post.author || "HomWisor Insights";
+  const author = post.author || "Homwisor Insights";
   const jump = (e, anchor) => {
     e.preventDefault();
     const el = document.getElementById(anchor);

@@ -172,9 +172,9 @@ export default function Search({ seoPage = null }) {
   useEffect(() => {
     if (match) return;
     return applyMeta({
-      title: seoPage?.metaTitle || `${seoPage?.heading || autoTitle} | HomWisor`,
+      title: seoPage?.metaTitle || `${seoPage?.heading || autoTitle} | Homwisor`,
       description: seoPage?.metaDescription ||
-        `Explore ${autoTitle.charAt(0).toLowerCase() + autoTitle.slice(1)} — latest prices, floor plans, photos and free site visits with HomWisor.`,
+        `Explore ${autoTitle.charAt(0).toLowerCase() + autoTitle.slice(1)} — latest prices, floor plans, photos and free site visits with Homwisor.`,
       url: window.location.origin + (seoPage ? `/${seoPage.slug}` : `/search${cleanQs ? `?${cleanQs}` : ""}`),
     });
   }, [seoPage, autoTitle, cleanQs, match]);

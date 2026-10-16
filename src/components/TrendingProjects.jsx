@@ -406,7 +406,7 @@ export default function TrendingProjects({
               {ad.mobileImage && <source media="(max-width: 768px)" srcSet={ad.mobileImage} />}
               <img
                 src={ad.image}
-                alt={ad.title || "HomWisor Advertisement"}
+                alt={ad.title || "Homwisor Advertisement"}
               />
             </picture>
           </>

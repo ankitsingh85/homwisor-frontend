@@ -293,7 +293,7 @@ export default function Home(){
               color: '#6b7280'
             }}
           >
-            Loading HomWisor luxury...
+            Loading Homwisor luxury...
           </div>
 
           <style>

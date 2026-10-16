@@ -469,7 +469,7 @@ export function RecommendedPage({ items, run, properties = [] }) {
 
   return (
     <>
-      <PageHead title="Recommended" count={items.length} sub="The “HomWisor Recommended” cards on the homepage. The first 4 are shown, in this order — use ↑ ↓ to reorder.">
+      <PageHead title="Recommended" count={items.length} sub="The “Homwisor Recommended” cards on the homepage. The first 4 are shown, in this order — use ↑ ↓ to reorder.">
         <button className="hwd-btn gold" onClick={() => ed.openNew()}><Icon.plus /> Add recommended</button>
       </PageHead>
 
@@ -504,7 +504,7 @@ export function RecommendedPage({ items, run, properties = [] }) {
         defaultView="table"
       />
 
-      <Drawer open={ed.open} onClose={ed.close} title={ed.editing ? 'Edit recommended card' : 'Add recommended card'} sub="Shown in the “HomWisor Recommended” section on the homepage." footer={<DrawerFooter ed={ed} saveLabel="Add to Recommended" />}>
+      <Drawer open={ed.open} onClose={ed.close} title={ed.editing ? 'Edit recommended card' : 'Add recommended card'} sub="Shown in the “Homwisor Recommended” section on the homepage." footer={<DrawerFooter ed={ed} saveLabel="Add to Recommended" />}>
         <form id="hwl-form" onSubmit={ed.save}>
           {!ed.editing && properties.length > 0 && (
             <Field label="Fill from a property (optional)" hint="Copies the name, photo, price, location and link — you can still change anything">

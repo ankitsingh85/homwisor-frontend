@@ -17,8 +17,8 @@ export default function Sell() {
   const set = (k) => (e) => setF((x) => ({ ...x, [k]: e.target.value }));
 
   useEffect(() => applyMeta({
-    title: "Sell Your Property in Gurugram | HomWisor",
-    description: "List your apartment, villa, plot or commercial property with HomWisor. Get a free valuation and verified buyers.",
+    title: "Sell Your Property in Gurugram | Homwisor",
+    description: "List your apartment, villa, plot or commercial property with Homwisor. Get a free valuation and verified buyers.",
     url: window.location.origin + "/sell",
   }), []);
 
@@ -110,7 +110,7 @@ export default function Sell() {
 
                 {error && <div className="sl-err" role="alert">{error}</div>}
                 <button type="submit" className="sl-submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Get a free valuation →"}</button>
-                <span className="sl-fine">By submitting, you agree to be contacted by HomWisor about your property.</span>
+                <span className="sl-fine">By submitting, you agree to be contacted by Homwisor about your property.</span>
               </form>
             )}
           </div>

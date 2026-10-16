@@ -136,7 +136,7 @@ export function TestimonialsPage({ items, run }) {
             <Field label="Customer name *"><Input value={f.name} onChange={set('name')} placeholder="e.g. Neha Gupta" /></Field>
             <Field label="Line under the name" hint="Optional — e.g. Bought a 3 BHK at DLF Privana"><Input value={f.role} onChange={set('role')} placeholder="Verified buyer" /></Field>
             <Field label="Review *" full hint={`${f.text.length}/${MAX_TEXT} characters — about 150–250 reads best`}>
-              <textarea className="hwa-input no-icon hwt-textarea" rows={5} value={f.text} onChange={e => set('text')(e.target.value)} placeholder="What did the customer say about HomWisor?" />
+              <textarea className="hwa-input no-icon hwt-textarea" rows={5} value={f.text} onChange={e => set('text')(e.target.value)} placeholder="What did the customer say about Homwisor?" />
             </Field>
             <Field label="Rating"><Stars value={f.rating} onChange={set('rating')} /></Field>
             <Field label="Review from">

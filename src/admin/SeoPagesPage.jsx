@@ -198,8 +198,8 @@ export function SeoPagesPage({ items, run, properties = [] }) {
             note="What Google shows for this page."
             title={f.metaTitle} description={f.metaDescription}
             onTitle={set('metaTitle')} onDescription={set('metaDescription')}
-            defaultTitle={`${f.heading || live.auto} | HomWisor`}
-            defaultDescription={`Explore ${live.auto.charAt(0).toLowerCase() + live.auto.slice(1)} — latest prices, floor plans, photos and free site visits with HomWisor.`}
+            defaultTitle={`${f.heading || live.auto} | Homwisor`}
+            defaultDescription={`Explore ${live.auto.charAt(0).toLowerCase() + live.auto.slice(1)} — latest prices, floor plans, photos and free site visits with Homwisor.`}
             path={address ? `/${address}` : ''}
           />
 

@@ -126,7 +126,7 @@ export function DevelopersPage({ items, run, properties = [] }) {
         badges={d => [d.active === false ? { text: 'Hidden', tone: 'grey' } : { text: 'On website', tone: 'green' }]}
         columns={[
           { label: 'Projects', render: d => <span>{d.count || '—'}</span> },
-          { label: 'On HomWisor', render: d => <span className="gold">{propertiesOf(d, properties).length} listed</span> },
+          { label: 'On Homwisor', render: d => <span className="gold">{propertiesOf(d, properties).length} listed</span> },
         ]}
         actions={d => {
           const pos = items.findIndex(x => x.id === d.id)
@@ -161,7 +161,7 @@ export function DevelopersPage({ items, run, properties = [] }) {
           </Field>
           <div className="hwd-form-grid">
             <Field label="Tagline"><Input value={f.subtext} onChange={set('subtext')} placeholder="e.g. Building India since 1946" /></Field>
-            <Field label="Total projects" hint="Shown on the tile, e.g. 17 Projects. Empty = the number listed on HomWisor"><Input type="number" min="0" value={f.count} onChange={set('count')} placeholder={String(preview.length)} /></Field>
+            <Field label="Total projects" hint="Shown on the tile, e.g. 17 Projects. Empty = the number listed on Homwisor"><Input type="number" min="0" value={f.count} onChange={set('count')} placeholder={String(preview.length)} /></Field>
             <Field label="Established"><Input value={f.established} onChange={set('established')} placeholder="e.g. 1946" /></Field>
             <Field label="Official website"><Input value={f.website} onChange={set('website')} placeholder="https://…" /></Field>
             <Field label="About the developer" full hint="Shown on the developer page">

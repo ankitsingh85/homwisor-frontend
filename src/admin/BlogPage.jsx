@@ -18,7 +18,7 @@ const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60000
 
 const emptyBlog = {
   title: '', slug: '', category: BLOG_CATEGORIES[0], excerpt: '', image: '',
-  body: '', author: 'HomWisor Insights', tags: '',
+  body: '', author: 'Homwisor Insights', tags: '',
   status: 'published', featured: false, publishedAt: '', seoTitle: '', seoDescription: '',
 }
 
@@ -72,7 +72,7 @@ export function BlogPage({ blogs, run }) {
   const live = blogs.filter(isLive).length
   const words = wordCount({ body: f.body })
   // what the site uses when "Meta title" is left empty (same rule as the article page)
-  const defaultMetaTitle = f.title.trim() ? `${f.title.trim()} | HomWisor` : ''
+  const defaultMetaTitle = f.title.trim() ? `${f.title.trim()} | Homwisor` : ''
 
   return (
     <>
@@ -84,7 +84,7 @@ export function BlogPage({ blogs, run }) {
       <DataList
         id="blogs"
         items={blogs}
-        main={{ aspect: 'wide', thumb: b => b.image, title: b => b.title, sub: b => `${b.category} · ${b.author || 'HomWisor'}` }}
+        main={{ aspect: 'wide', thumb: b => b.image, title: b => b.title, sub: b => `${b.category} · ${b.author || 'Homwisor'}` }}
         badges={b => [
           b.featured && { text: '★ Featured', tone: 'gold' },
           { text: statusOf(b), tone: statusOf(b) === 'Published' ? 'green' : statusOf(b) === 'Draft' ? 'grey' : 'dark' },
@@ -146,7 +146,7 @@ export function BlogPage({ blogs, run }) {
                     <option value="__new">+ New category…</option>
                   </select>}
             </Field>
-            <Field label="Author"><Input value={f.author} onChange={set('author')} placeholder="HomWisor Insights" /></Field>
+            <Field label="Author"><Input value={f.author} onChange={set('author')} placeholder="Homwisor Insights" /></Field>
             <Field label="Status">
               <div className="hwb-seg">
                 {[['published', 'Published'], ['draft', 'Draft']].map(([v, l]) => (

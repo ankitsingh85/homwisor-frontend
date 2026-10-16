@@ -48,12 +48,12 @@ export default function AdminLogin(){
   return (
     <div className="hwa hwa-login">
       <aside className="hwa-login-visual">
-        <img src={logo} alt="HomWisor" className="hwa-login-logo"/>
+        <img src={logo} alt="Homwisor" className="hwa-login-logo"/>
 
         <div className="hwa-login-copy">
           <span className="hwa-eyebrow">Admin Console</span>
           <h1>Manage every listing, lead &amp; <span>launch</span> in one place.</h1>
-          <p>Update properties, banners, offers and snaps — changes go live on HomWisor.com instantly.</p>
+          <p>Update properties, banners, offers and snaps — changes go live on Homwisor.com instantly.</p>
           <div className="hwa-login-points">
             <div><Icon.shield/> Secure JWT sessions</div>
             <div><Icon.clock/> Auto sign-out after 24h</div>
@@ -64,9 +64,9 @@ export default function AdminLogin(){
 
       <main className="hwa-login-panel">
         <div className="hwa-login-card">
-          <img src={logo} alt="HomWisor" className="hwa-login-mobile-logo"/>
+          <img src={logo} alt="Homwisor" className="hwa-login-mobile-logo"/>
           <h2>Welcome back</h2>
-          <p className="hwa-sub">Sign in to the HomWisor admin panel</p>
+          <p className="hwa-sub">Sign in to the Homwisor admin panel</p>
 
           {notice && !err && <Alert type={params.get('session')==='loggedout' ? 'success' : 'info'}>{notice}</Alert>}
           {err && <Alert>{err}</Alert>}

@@ -100,7 +100,7 @@ function Overview({ me, props, enqs, snaps, offers, locations, banners, recs, st
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div className="hwd-hero-date">{new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}</div>
           <h1>{greet}, {firstName}</h1>
-          <p>{newToday > 0 ? `You have ${newToday} new enquir${newToday === 1 ? 'y' : 'ies'} today. ` : 'No new enquiries today yet. '}Everything you publish here goes live on HomWisor.com instantly.</p>
+          <p>{newToday > 0 ? `You have ${newToday} new enquir${newToday === 1 ? 'y' : 'ies'} today. ` : 'No new enquiries today yet. '}Everything you publish here goes live on Homwisor.com instantly.</p>
         </div>
         <div className="hwd-hero-actions">
           <button className="hwd-btn gold" onClick={() => openProperties('all', true)}><Icon.plus /> Add Property</button>
@@ -368,7 +368,7 @@ export default function Dashboard() {
       {/* ---------- SIDEBAR ---------- */}
       <aside className="hwd-side">
         <div className="hwd-side-top">
-          <img src={logo} alt="HomWisor" />
+          <img src={logo} alt="Homwisor" />
           <button className="hwd-side-close" onClick={() => setMenuOpen(false)} aria-label="Close menu"><Icon.x /></button>
         </div>
         <nav className="hwd-nav">
@@ -451,7 +451,7 @@ export default function Dashboard() {
       {me?.mustChangePassword && (
         <div className="hwa hwa-overlay">
           <div className="hwa-modal">
-            <img src={logo} alt="HomWisor" style={{ width: 130, marginBottom: 16 }} />
+            <img src={logo} alt="Homwisor" style={{ width: 130, marginBottom: 16 }} />
             <h3>Set a new password</h3>
             <p>You are signed in with a default password. Choose a new one to continue — it must be at least 8 characters with letters and numbers.</p>
             <ChangePasswordForm admin={me} onChanged={a => { updateMe(a); load() }} submitLabel="Save & Continue" />

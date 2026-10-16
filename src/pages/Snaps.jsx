@@ -79,7 +79,7 @@ export default function Snaps(){
             </div>
             <div style={{flex:1, minWidth:0}}>
               <div style={{fontWeight:700, fontSize:13, lineHeight:1.1, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis', color:'#fff'}}>{s.title}</div>
-              <div style={{fontSize:11, opacity:.8, color:'#fff'}}>HomWisor</div>
+              <div style={{fontSize:11, opacity:.8, color:'#fff'}}>Homwisor</div>
             </div>
             <button onClick={()=> setMuted(!muted)} style={{width:34,height:34, borderRadius:'50%', background: muted? 'rgba(0,0,0,.5)':'rgba(255,255,255,.9)', border:'1px solid rgba(255,255,255,.2)', display:'grid', placeItems:'center', color: muted? '#fff':'#111', cursor:'pointer', backdropFilter:'blur(6px)'}}>
               {muted ? (

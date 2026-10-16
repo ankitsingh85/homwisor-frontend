@@ -29,7 +29,7 @@ export default function Blog() {
   }, []);
 
   useEffect(() => applyMeta({
-    title: "Real Estate Insights | HomWisor Blog",
+    title: "Real Estate Insights | Homwisor Blog",
     description: "Property news, market insights, investment ideas and practical guides for Gurgaon and Delhi NCR.",
     url: window.location.origin + "/blog",
   }), []);
@@ -206,7 +206,7 @@ export default function Blog() {
               <h2>Get smarter property insights.</h2>
 
               <p>
-                Follow HomWisor for useful real estate news, property guides
+                Follow Homwisor for useful real estate news, property guides
                 and market updates.
               </p>
             </div>

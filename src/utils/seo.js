@@ -14,7 +14,7 @@ const TAGS = (m) => [
   ['property', 'og:type', m.type || 'website'],
   ['property', 'og:url', m.url],
   ['property', 'og:image', absolute(m.image)],
-  ['property', 'og:site_name', 'HomWisor'],
+  ['property', 'og:site_name', 'Homwisor'],
   ['name', 'twitter:card', m.image ? 'summary_large_image' : 'summary'],
   ['name', 'twitter:title', m.title],
   ['name', 'twitter:description', m.description],
@@ -61,10 +61,10 @@ export const propertyMeta = (p = {}) => {
   const built = [
     name && `${name}${p.developer ? ` by ${p.developer}` : ''}${p.location ? ` at ${p.location}` : ''}.`,
     p.bhk && `${p.bhk}${price ? ` from ${price}` : ''}.`,
-    'Check the price list, floor plans, amenities and RERA details on HomWisor.',
+    'Check the price list, floor plans, amenities and RERA details on Homwisor.',
   ].filter(Boolean).join(' ')
   return {
-    title: String(p.seoTitle || '').trim() || (name ? `${name} | Price & Floor Plans | HomWisor` : ''),
+    title: String(p.seoTitle || '').trim() || (name ? `${name} | Price & Floor Plans | Homwisor` : ''),
     description: String(p.seoDescription || '').trim() || clipText(p.overview || built, 160),
   }
 }

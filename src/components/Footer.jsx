@@ -4,7 +4,7 @@ const GOLD = '#D4AF37'
 export default function Footer() {
   return (
     <footer style={{ marginTop: 40 }}>
-      {/* Dream Property Banner - as per screenshot, HomWisor palette black→gold */}
+      {/* Dream Property Banner - as per screenshot, Homwisor palette black→gold */}
       <div style={{ background: 'linear-gradient(130deg, #000000 0%, #2a1a05 40%, #D4AF37 100%)', borderTop: `3px solid ${GOLD}`, borderBottom: '1px solid rgba(0,0,0,.1)' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 16px', gap: 16, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main Footer - HomWisor black with gold, structure as per screenshot */}
+      {/* Main Footer - Homwisor black with gold, structure as per screenshot */}
       <div style={{ background: '#0A0A0A', color: 'rgba(255,255,255,.75)', borderTop: '1px solid #1a1a1a' }}>
         <div className="container" style={{ padding: '36px 16px 18px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', gap: 24 }} className="footer-grid">
@@ -42,7 +42,7 @@ export default function Footer() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                <img
   src={logo}
-  alt="HomWisor"
+  alt="Homwisor"
   style={{
     width: 145,
     height: 'auto',
@@ -115,7 +115,7 @@ export default function Footer() {
           </div>
 
           <div style={{ borderTop: '1px solid #1a1a1a', marginTop: 28, paddingTop: 14, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, fontSize: 12, color: 'rgba(255,255,255,.45)' }}>
-            <span>© 2026 HomWisor.com — YOUR CHOOSEN ONE, All rights reserved. | RERA Registered</span>
+            <span>© 2026 Homwisor.com — YOUR CHOOSEN ONE, All rights reserved. | RERA Registered</span>
             <span style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
 
   {/* Facebook */}

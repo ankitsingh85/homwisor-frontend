@@ -10,7 +10,7 @@ const toDeveloper = (builder, properties) => {
     id: builder.id || builder.name,
     name: builder.name,
     logo: logoOf(builder),
-    // admin's project count, else how many are listed on HomWisor
+    // admin's project count, else how many are listed on Homwisor
     count: builder.count || parseInt(builder.projects, 10) || listed.length,
     listed,
     link: developerUrl(builder),

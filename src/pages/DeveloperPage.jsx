@@ -9,7 +9,7 @@ import { logoOf, initials, developerUrl, propertiesOf, cityOf } from "../data/de
 import { typesOf } from "../utils/propertySearch";
 import "./developerPage.css";
 
-// /developer/<slug> — developer profile + every property of theirs on HomWisor
+// /developer/<slug> — developer profile + every property of theirs on Homwisor
 export default function DeveloperPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -46,8 +46,8 @@ export default function DeveloperPage() {
   useEffect(() => {
     if (!dev) return;
     return applyMeta({
-      title: `${dev.name} Projects in Gurugram | HomWisor`,
-      description: dev.subtext || `Explore ${listed.length || ""} ${dev.name} projects on HomWisor — prices, floor plans, amenities and RERA details.`.replace(/\s+/g, " "),
+      title: `${dev.name} Projects in Gurugram | Homwisor`,
+      description: dev.subtext || `Explore ${listed.length || ""} ${dev.name} projects on Homwisor — prices, floor plans, amenities and RERA details.`.replace(/\s+/g, " "),
       image: logoOf(dev),
       url: window.location.origin + developerUrl(dev),
     });
@@ -82,7 +82,7 @@ export default function DeveloperPage() {
               {dev.subtext && <p className="dv-tag">{dev.subtext}</p>}
               <div className="dv-stats">
                 {total > 0 && <div><b>{total}</b><small>Total projects</small></div>}
-                <div><b>{listed.length}</b><small>On HomWisor</small></div>
+                <div><b>{listed.length}</b><small>On Homwisor</small></div>
                 {cities.length > 0 && <div><b>{cities.length}</b><small>{cities.length === 1 ? "City" : "Cities"}</small></div>}
                 {dev.established && <div><b>{dev.established}</b><small>Established</small></div>}
               </div>

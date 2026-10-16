@@ -5,7 +5,7 @@ import { CITIES } from "../data/locations";
 export default function SearchSection() {
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState("Apartment");
+  const [activeTab, setActiveTab] = useState(""); // no type picked until the visitor clicks one
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
   const [budget, setBudget] = useState("");
@@ -216,7 +216,7 @@ export default function SearchSection() {
         ===================================================== */}
 
         <div className="hw-search-tabs">
-          <label className={`hw-search-tab hw-search-city${city ? " active" : ""}`}>
+          <label className="hw-search-tab hw-search-city active">
             <span className="hw-tab-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />

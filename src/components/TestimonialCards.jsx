@@ -3,8 +3,8 @@ import React, { useState } from "react";
 // Shown only if the testimonials can't be loaded from the server
 export const FALLBACK_TESTIMONIALS = [
   { id: "t1", name: "Aayush Gupta", initials: "AG", color: "#F59E0B", platform: "Google", verified: true, rating: 5, text: "Rajesh ji is awesome. One place stop for all your real estate deals. Good natured, an honest and god fearing person." },
-  { id: "t2", name: "Soumya", initials: "SO", color: "#E9D5FF", textColor: "#6B21A8", platform: "Google", verified: true, rating: 5, text: "Honestly, had a really smooth experience with HomWisor. The team was friendly and actually listened to what I needed. They didn't waste my time with random options." },
-  { id: "t3", name: "Amit Kumar", initials: "AK", color: "#D6D3D1", textColor: "#44403C", platform: "Google", verified: true, rating: 5, text: "HomWisor made my home buying journey smooth and hassle-free. Their attention to detail and customer service is exceptional." },
+  { id: "t2", name: "Soumya", initials: "SO", color: "#E9D5FF", textColor: "#6B21A8", platform: "Google", verified: true, rating: 5, text: "Honestly, had a really smooth experience with Homwisor. The team was friendly and actually listened to what I needed. They didn't waste my time with random options." },
+  { id: "t3", name: "Amit Kumar", initials: "AK", color: "#D6D3D1", textColor: "#44403C", platform: "Google", verified: true, rating: 5, text: "Homwisor made my home buying journey smooth and hassle-free. Their attention to detail and customer service is exceptional." },
   { id: "t4", name: "Neha Gupta", initials: "NG", color: "#10B981", platform: "Google", verified: true, rating: 5, text: "Very professional team with deep knowledge of the market. They helped me find the perfect investment property with great returns." },
 ];
 
@@ -57,7 +57,7 @@ export default function TestimonialCards({ items, limit = 4 }) {
               {rating < 5 && <span style={{ color: "#E5E7EB" }}>{"★".repeat(5 - rating)}</span>}
             </div>
 
-            <div className="hw-testimonial-review">"{t.text}"</div>
+            <div className="hw-testimonial-review">"{String(t.text || "").replace(/HomWisor/g, "Homwisor")}"</div>
 
             <div className="hw-testimonial-user">
               <Avatar t={t} />
