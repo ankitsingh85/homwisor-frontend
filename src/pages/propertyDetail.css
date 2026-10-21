@@ -1015,3 +1015,11 @@
   }
   .pd-hero-name h1, .pd-hero-name p { overflow-wrap: anywhere; white-space: normal !important; }
 }
+@media (max-width: 960px) {
+  /* name panel: 3px in from the card on each side (6px narrower) */
+  .pd-hero-info .pd-glass.pd-hero-name { width: calc(100% - 30px) !important; max-width: calc(100% - 30px) !important; margin-left: 15px !important; margin-right: 15px !important; }
+}
+@media (max-width: 960px) {
+  /* name panel: clearly narrower than the card — 8px in on each side */
+  .pd-hero-info .pd-glass.pd-hero-name { width: calc(100% - 40px) !important; max-width: calc(100% - 40px) !important; margin-left: 20px !important; margin-right: 20px !important; }
+}
