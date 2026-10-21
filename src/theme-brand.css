@@ -382,3 +382,40 @@
   .hw-home-hero .hw-search-field { background: transparent !important; }
   .hw-home-hero .hw-search-field input, .hw-home-hero .hw-search-field select { background: transparent !important; }
 }
+@media (min-width: 769px) {
+  /* search fields: light grey-white border, just visible */
+  .hw-home-hero .hw-search-field { border: 1px solid #e6e6e6 !important; }
+}
+
+/* "New Launch" tab: a light shine sweeps across + a soft red glow pulse (like an offer badge) */
+.hw-search-tabs .hw-search-tab.hw-tab-hot { position: relative; overflow: hidden; animation: hw-hot-pulse 1.8s ease-in-out infinite; }
+.hw-search-tabs .hw-search-tab.hw-tab-hot::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 45%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, .6) 50%, transparent 100%);
+  transform: skewX(-20deg); animation: hw-hot-shine 2.4s ease-in-out infinite; pointer-events: none;
+}
+@keyframes hw-hot-shine { 0% { left: -60%; } 55%, 100% { left: 130%; } }
+@keyframes hw-hot-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(214, 38, 45, .45); } 50% { box-shadow: 0 0 0 6px rgba(214, 38, 45, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .hw-search-tabs .hw-search-tab.hw-tab-hot, .hw-search-tabs .hw-search-tab.hw-tab-hot::after { animation: none; }
+}
+
+/* "New Launch": stronger animation — faster shine, glow ring, gentle bounce, flashing bolt-red gradient */
+.hw-search-tabs .hw-search-tab.hw-tab-hot {
+  background: linear-gradient(90deg, #c8161e, #ff3b3f, #c8161e) !important; background-size: 200% 100% !important;
+  animation: hw-hot-pulse 1.2s ease-in-out infinite, hw-hot-bounce 1.2s ease-in-out infinite, hw-hot-flow 2s linear infinite !important;
+}
+.hw-search-tabs .hw-search-tab.hw-tab-hot::after { width: 55%; background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, .85) 50%, transparent 100%); animation: hw-hot-shine 1.4s ease-in-out infinite !important; }
+.hw-search-tabs .hw-search-tab.hw-tab-hot:hover { animation-play-state: paused; }
+@keyframes hw-hot-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 40, 45, .7), 0 4px 14px rgba(214, 38, 45, .45); } 50% { box-shadow: 0 0 0 9px rgba(255, 40, 45, 0), 0 4px 18px rgba(214, 38, 45, .6); } }
+@keyframes hw-hot-bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+@keyframes hw-hot-flow { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+@keyframes hw-hot-shine { 0% { left: -60%; } 60%, 100% { left: 140%; } }
+@media (prefers-reduced-motion: reduce) {
+  .hw-search-tabs .hw-search-tab.hw-tab-hot, .hw-search-tabs .hw-search-tab.hw-tab-hot::after { animation: none !important; }
+}
+@media (min-width: 769px) {
+  /* search field icons + arrows: light grey instead of gold */
+  .hw-home-hero .hw-search-field .hw-search-icon, .hw-home-hero .hw-search-field .hw-search-icon svg,
+  .hw-home-hero .hw-search-field .hw-select-arrow { color: #b4b4b4 !important; stroke: currentColor; }
+}
