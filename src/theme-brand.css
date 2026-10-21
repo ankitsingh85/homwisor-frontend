@@ -419,3 +419,35 @@
   .hw-home-hero .hw-search-field .hw-search-icon, .hw-home-hero .hw-search-field .hw-search-icon svg,
   .hw-home-hero .hw-search-field .hw-select-arrow { color: #b4b4b4 !important; stroke: currentColor; }
 }
+
+/* "New Launch": slower, smaller animation */
+.hw-search-tabs .hw-search-tab.hw-tab-hot {
+  animation: hw-hot-pulse2 2.6s ease-in-out infinite, hw-hot-bounce2 2.6s ease-in-out infinite, hw-hot-flow 4s linear infinite !important;
+}
+.hw-search-tabs .hw-search-tab.hw-tab-hot::after { animation: hw-hot-shine 3s ease-in-out infinite !important; }
+@keyframes hw-hot-pulse2 { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 40, 45, .5), 0 3px 10px rgba(214, 38, 45, .35); } 50% { box-shadow: 0 0 0 4px rgba(255, 40, 45, 0), 0 3px 12px rgba(214, 38, 45, .45); } }
+@keyframes hw-hot-bounce2 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@media (prefers-reduced-motion: reduce) {
+  .hw-search-tabs .hw-search-tab.hw-tab-hot, .hw-search-tabs .hw-search-tab.hw-tab-hot::after { animation: none !important; }
+}
+
+/* ---------- homepage search box on phones: same look as desktop ---------- */
+@media (max-width: 768px) {
+  .hw-search-tabs { align-items: center !important; gap: 6px !important; padding: 8px 10px 4px !important; }
+  .hw-search-tabs .hw-search-tab {
+    flex-direction: row !important; height: 32px !important; min-height: 0 !important; width: auto !important; min-width: 0 !important;
+    padding: 0 12px !important; gap: 5px !important; font-size: 12px !important; font-weight: 700 !important; border-radius: 7px !important;
+  }
+  .hw-search-tabs .hw-search-tab .hw-tab-text { font-size: 12px !important; }
+  .hw-search-tabs .hw-search-tab.hw-search-city .hw-tab-icon,
+  .hw-search-tabs .hw-search-tab.hw-search-city .hw-tab-icon svg { width: 14px !important; height: 14px !important; min-width: 14px !important; min-height: 14px !important; }
+  .hw-search-tabs .hw-search-tab.hw-search-city select { font-size: 12px !important; font-weight: 700 !important; }
+  .hw-search-field { border: 1px solid #e6e6e6 !important; background: transparent !important; box-shadow: none !important; }
+  .hw-search-field .hw-search-icon, .hw-search-field .hw-search-icon svg, .hw-search-field .hw-select-arrow { color: #b4b4b4 !important; }
+}
+@media (max-width: 768px) {
+  .hw-search-tabs .hw-search-tab, .hw-search-tabs .hw-search-tab.hw-search-city { flex: 0 0 auto !important; max-width: none !important; overflow: visible; }
+  .hw-search-tabs .hw-search-tab.hw-tab-hot { overflow: hidden !important; }
+  .hw-search-tabs .hw-search-tab .hw-tab-text { display: inline !important; white-space: nowrap !important; overflow: visible !important; }
+  .hw-search-tabs .hw-search-tab.hw-search-city select { width: auto !important; max-width: 110px; padding-right: 14px !important; }
+}
