@@ -186,8 +186,8 @@ export default function SearchSection() {
   const tabs = [
     { name: "New Launch", value: "new-launch", param: "status", icon: NewLaunchIcon, hot: true },
     { name: "Apartment", value: "Apartment", icon: ApartmentIcon },
-    { name: "Luxury", value: "Luxury", icon: LuxuryIcon },
     { name: "Branded", value: "Branded", icon: BrandedIcon },
+    { name: "Luxury", value: "Luxury", icon: LuxuryIcon },
     { name: "Commercial", value: "Commercial", icon: CommercialIcon },
     { name: "Plots", value: "Plots / Land", icon: LandIcon },
     { name: "Villa", value: "Villa", icon: VillaIcon },

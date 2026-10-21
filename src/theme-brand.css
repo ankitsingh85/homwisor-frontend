@@ -464,3 +464,8 @@
   .hw-search-tabs .hw-search-tab:not(.active):not(.hw-tab-hot), .hw-search-tabs .hw-search-tab:not(.active):not(.hw-tab-hot) .hw-tab-text { color: #6e6868 !important; }
   .hw-search-tabs .hw-search-tab { height: 34px !important; }
 }
+/* "New Launch": a little faster (2.6s → 1.9s beat) */
+.hw-search-tabs .hw-search-tab.hw-tab-hot {
+  animation: hw-hot-pulse2 1.9s ease-in-out infinite, hw-hot-bounce2 1.9s ease-in-out infinite, hw-hot-flow 3s linear infinite !important;
+}
+@media (prefers-reduced-motion: reduce) { .hw-search-tabs .hw-search-tab.hw-tab-hot { animation: none !important; } }
