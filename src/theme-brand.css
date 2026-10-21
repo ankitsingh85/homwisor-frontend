@@ -232,7 +232,7 @@
     max-width: 945px !important;
     height: 139px;
     margin: 0 auto;
-    padding-top: 10px;
+    padding-top: 0px;
     overflow: hidden;
     border: 1px solid rgba(216, 170, 66, .42);
     border-radius: 12px;
@@ -315,7 +315,7 @@
 /* ---------- homepage search box (desktop): sizes set in the browser inspector ---------- */
 @media (min-width: 769px) {
   .hw-home-hero .hw-search-overlay { width: min(845px, calc(100% - 48px)) !important; }
-  .hw-home-hero .hw-search-container { max-width: 837px !important; height: auto !important; padding-top: 10px !important; }
+  .hw-home-hero .hw-search-container { max-width: 837px !important; height: auto !important; padding-top: 0px !important; }
   .hw-home-hero .hw-search-tabs { padding: 5px 10px 8px !important; }
   .hw-home-hero .hw-search-tabs .hw-search-tab { height: 30px !important; }
   .hw-home-hero .hw-search-fields { padding: 11px 10px 14px !important; }
@@ -335,7 +335,7 @@
 @media (min-width: 769px) {
   .hw-home-hero .hw-search-overlay { width: min(960px, calc(100% - 48px)) !important; }
   .hw-home-hero .hw-search-container { max-width: 945px !important; }
-  .hw-home-hero .hw-search-tabs { padding: 7px 10px 8px !important; gap: 6px !important; }
+  .hw-home-hero .hw-search-tabs { padding: 6px 10px 5px !important; gap: 6px !important; }
   .hw-home-hero .hw-search-tabs .hw-search-tab { height: 34px !important; padding: 0 12px !important; gap: 6px !important; font-size: 13px !important; }
   .hw-home-hero .hw-search-tabs .hw-search-tab .hw-tab-icon,
   .hw-home-hero .hw-search-tabs .hw-search-tab .hw-tab-icon svg { width: 17px !important; height: 17px !important; min-width: 17px !important; min-height: 17px !important; }
@@ -370,3 +370,15 @@
 @media (min-width: 769px) { .hw-new-premium-slider .hw-image-slider { margin-top: 100px !important; } } /* keeps ~10px under the shorter search box */
 /* search tabs: text only — no icons (the All Cities pin stays) */
 .hw-search-tabs .hw-search-tab:not(.hw-search-city) .hw-tab-icon { display: none !important; }
+@media (min-width: 769px) {
+  /* search fields: no borders (soft fill so they still read as boxes), no divider line, tighter spacing */
+  .hw-home-hero .hw-search-field { border: none !important; background: #f7f3e8 !important; box-shadow: none !important; }
+  .hw-home-hero .hw-search-tabs { border-bottom: none !important; padding-bottom: 2px !important; }
+  .hw-home-hero .hw-search-fields { padding: 4px 10px 8px !important; }
+}
+@media (min-width: 769px) { .hw-new-premium-slider .hw-image-slider { margin-top: 78px !important; } } /* ~6px under the search box */
+@media (min-width: 769px) {
+  /* search fields: no background either */
+  .hw-home-hero .hw-search-field { background: transparent !important; }
+  .hw-home-hero .hw-search-field input, .hw-home-hero .hw-search-field select { background: transparent !important; }
+}
