@@ -1003,3 +1003,15 @@
   .pd-hero-name h1 { font-weight: 600 !important; letter-spacing: .3px !important; }
   .pd-hero-grid strong, .pd-hero-mini strong, .pd-hero-price strong { font-weight: 700 !important; }
 }
+@media (max-width: 960px) {
+  /* name panel 2px narrower (1px each side) */
+  .pd-hero-info .pd-glass.pd-hero-name { margin-left: 13px !important; margin-right: 13px !important; }
+}
+@media (max-width: 960px) {
+  /* name panel: always exactly 2px narrower than the facts card (1px each side), never pushed wider by a long name */
+  .pd-hero-info .pd-glass.pd-hero-name {
+    box-sizing: border-box !important; width: calc(100% - 26px) !important; max-width: calc(100% - 26px) !important; min-width: 0 !important;
+    margin-left: 13px !important; margin-right: 13px !important; justify-self: center !important; overflow: hidden;
+  }
+  .pd-hero-name h1, .pd-hero-name p { overflow-wrap: anywhere; white-space: normal !important; }
+}
