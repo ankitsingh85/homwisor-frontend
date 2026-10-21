@@ -177,14 +177,20 @@ export default function SearchSection() {
     </svg>
   );
 
+  // tiny bolt icon for the red "New Launch" tab
+  const NewLaunchIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg>
+  );
+
+  // each tab opens the search page straight away; New Launch filters by status, the rest by type
   const tabs = [
+    { name: "New Launch", value: "new-launch", param: "status", icon: NewLaunchIcon, hot: true },
     { name: "Apartment", value: "Apartment", icon: ApartmentIcon },
     { name: "Luxury", value: "Luxury", icon: LuxuryIcon },
     { name: "Branded", value: "Branded", icon: BrandedIcon },
     { name: "Commercial", value: "Commercial", icon: CommercialIcon },
     { name: "Plots", value: "Plots / Land", icon: LandIcon },
     { name: "Villa", value: "Villa", icon: VillaIcon },
-    { name: "Farmhouse", value: "Farmhouse", icon: FarmhouseIcon },
   ];
 
   /* =========================================================
@@ -204,7 +210,10 @@ export default function SearchSection() {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab.value);
-    setType(tab.value);
+    const params = new URLSearchParams();
+    if (city) params.set("city", city);
+    params.set(tab.param || "type", tab.value);
+    navigate(`/search?${params.toString()}`);
   };
 
   return (
@@ -236,9 +245,7 @@ export default function SearchSection() {
               <button
                 key={tab.value}
                 type="button"
-                className={`hw-search-tab ${
-                  activeTab === tab.value ? "active" : ""
-                }`}
+                className={`hw-search-tab${activeTab === tab.value ? " active" : ""}${tab.hot ? " hw-tab-hot" : ""}`}
                 onClick={() => handleTabClick(tab)}
               >
                 <span className="hw-tab-icon">

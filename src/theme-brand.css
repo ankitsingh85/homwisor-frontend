@@ -351,3 +351,22 @@
   .hw-new-premium-slider .hw-image-slider .hw-image-slide img { object-fit: cover !important; object-position: center !important; }
 }
 @media (min-width: 769px) { .hw-new-premium-slider .hw-image-slider { margin-top: 113px !important; } } /* ~10px under the search box */
+
+/* "New Launch" search tab: red, no border */
+.hw-search-tabs .hw-search-tab.hw-tab-hot { background: #d6262d !important; border: none !important; color: #fff !important; font-weight: 800 !important; }
+.hw-search-tabs .hw-search-tab.hw-tab-hot .hw-tab-icon { color: #fff !important; }
+.hw-search-tabs .hw-search-tab.hw-tab-hot:hover { background: #b81d23 !important; color: #fff !important; }
+/* search tabs: no border (soft fill keeps them looking like buttons) */
+.hw-search-tabs .hw-search-tab { border: none !important; background: #f8f3e6; }
+.hw-search-tabs .hw-search-tab:hover { background: #f1e7cc !important; }
+.hw-search-tabs .hw-search-tab.active { background: #b9943a !important; }
+.hw-search-tabs .hw-search-tab.hw-tab-hot { background: #d6262d !important; }
+/* search tabs: no background either — just icon + text (City, New Launch and the picked tab keep their colour) */
+.hw-search-tabs .hw-search-tab:not(.active):not(.hw-tab-hot) { background: transparent !important; }
+.hw-search-tabs .hw-search-tab:not(.active):not(.hw-tab-hot):hover { background: transparent !important; color: #9A7418 !important; }
+@media (min-width: 769px) {
+  .hw-home-hero .hw-search-fields { padding: 6px 10px 6px !important; }
+}
+@media (min-width: 769px) { .hw-new-premium-slider .hw-image-slider { margin-top: 100px !important; } } /* keeps ~10px under the shorter search box */
+/* search tabs: text only — no icons (the All Cities pin stays) */
+.hw-search-tabs .hw-search-tab:not(.hw-search-city) .hw-tab-icon { display: none !important; }
