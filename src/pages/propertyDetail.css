@@ -1023,3 +1023,7 @@
   /* name panel: clearly narrower than the card — 8px in on each side */
   .pd-hero-info .pd-glass.pd-hero-name { width: calc(100% - 40px) !important; max-width: calc(100% - 40px) !important; margin-left: 20px !important; margin-right: 20px !important; }
 }
+@media (max-width: 960px) {
+  /* 2×2 facts card: less padding */
+  .pd-hero-grid > div, .pd-hero-mini, .pd-hero-price { padding: 9px 8px !important; gap: 2px !important; }
+}

@@ -451,3 +451,16 @@
   .hw-search-tabs .hw-search-tab .hw-tab-text { display: inline !important; white-space: nowrap !important; overflow: visible !important; }
   .hw-search-tabs .hw-search-tab.hw-search-city select { width: auto !important; max-width: 110px; padding-right: 14px !important; }
 }
+/* "New Launch": no white shine sweeping across */
+.hw-search-tabs .hw-search-tab.hw-tab-hot::after { content: none !important; display: none !important; animation: none !important; }
+/* All Cities (gold tab): white text + pin on every screen size */
+.hw-search-tabs .hw-search-tab.hw-search-city, .hw-search-tabs .hw-search-tab.hw-search-city select,
+.hw-search-tabs .hw-search-tab.hw-search-city .hw-tab-icon { color: #fff !important; }
+.hw-search-tabs .hw-search-tab.hw-search-city select option { color: #111 !important; }
+@media (max-width: 768px) {
+  /* phone search tabs: bigger, clearer text */
+  .hw-search-tabs .hw-search-tab, .hw-search-tabs .hw-search-tab .hw-tab-text,
+  .hw-search-tabs .hw-search-tab.hw-search-city select { font-size: 14px !important; font-weight: 700 !important; }
+  .hw-search-tabs .hw-search-tab:not(.active):not(.hw-tab-hot), .hw-search-tabs .hw-search-tab:not(.active):not(.hw-tab-hot) .hw-tab-text { color: #6e6868 !important; }
+  .hw-search-tabs .hw-search-tab { height: 34px !important; }
+}

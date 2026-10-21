@@ -72,6 +72,7 @@ export default function Search({ seoPage = null }) {
   const [properties, setProperties] = useState([]);
   const [offerTitles, setOfferTitles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filtersOpen, setFiltersOpen] = useState(false); // phones/tablets: filters hidden until "Filters" is tapped
 
   const filters = readFilters(params);
   const [q, setQ] = useState(filters.q);
@@ -432,13 +433,20 @@ export default function Search({ seoPage = null }) {
             MAIN GRID
         ================================================= */}
 
+        {/* phones/tablets: button that opens / closes the filters */}
+        <button type="button" className={`filter-toggle${filtersOpen ? " open" : ""}`} onClick={() => setFiltersOpen((v) => !v)} aria-expanded={filtersOpen}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M7 12h10M10 18h4" /></svg>
+          Filters{chips.length > 0 && <b>{chips.length}</b>}
+          <svg className="filter-toggle-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="m6 9 6 6 6-6" /></svg>
+        </button>
+
         <div className="search-layout">
 
           {/* =================================================
               FILTER SIDEBAR
           ================================================= */}
 
-          <aside className="filter-sidebar">
+          <aside className={`filter-sidebar${filtersOpen ? " open" : ""}`}>
 
             <div className="filter-header">
               <h3>Filters</h3>
@@ -1545,6 +1553,21 @@ export default function Search({ seoPage = null }) {
         .seo-intro a { color: ${GOLD_DARK}; font-weight: 700; }
         .seo-intro img { max-width: 100%; height: auto; border-radius: 10px; }
         @media (max-width: 768px) { .seo-intro { padding: 16px; font-size: 14px; } }
+
+        /* phones/tablets: filters hidden behind a "Filters" button */
+        .filter-toggle { display: none; }
+        @media (max-width: 960px) {
+          .filter-toggle {
+            display: flex; align-items: center; gap: 8px; width: 100%; height: 46px; margin: 0 0 14px; padding: 0 16px;
+            border: 1px solid #ecdfb0; border-radius: 12px; background: #fff; color: #111;
+            font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 18px rgba(17, 24, 39, .05);
+          }
+          .filter-toggle svg { color: ${GOLD_DARK}; flex-shrink: 0; }
+          .filter-toggle b { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: ${GOLD}; color: #111; font-size: 11.5px; display: grid; place-items: center; }
+          .filter-toggle .filter-toggle-arrow { margin-left: auto; transition: transform .2s; }
+          .filter-toggle.open .filter-toggle-arrow { transform: rotate(180deg); }
+          .filter-sidebar:not(.open) { display: none !important; }
+        }
 
         /* SEO page FAQs (Admin → SEO Pages) */
         .seo-faqs { margin: 34px 0 10px; padding: 26px 26px 18px; border-radius: 18px; background: #fff; border: 1px solid #efe6cc; }
