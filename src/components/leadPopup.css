@@ -1,42 +1,112 @@
-/* enquiry popup */
-.lp-back { position: fixed; inset: 0; z-index: 200000; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.6); backdrop-filter: blur(3px); animation: lp-fade .25s ease; }
+/* enquiry popup — dark luxury card with gold accents */
+.lp-back { position: fixed; inset: 0; z-index: 200000; display: grid; place-items: center; padding: 16px; background: rgba(0, 0, 0, .62); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); animation: lp-fade .25s ease; }
 @keyframes lp-fade { from { opacity: 0; } }
-.lp-box { position: relative; width: min(520px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; padding: 30px 28px 26px; border-radius: 20px; background: #fff; border-top: 4px solid #D4AF37; box-shadow: 0 30px 80px rgba(0,0,0,.35); animation: lp-up .3s ease; }
 @keyframes lp-up { from { transform: translateY(16px); opacity: 0; } }
-.lp-x { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; border: none; background: #f3f0e6; color: #111; font-size: 14px; cursor: pointer; }
-.lp-x:hover { background: #0b0b0b; color: #E8C766; }
-.lp-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2.6px; color: #9A7418; }
-.lp-box h2 { margin: 6px 0 4px; font-size: 26px; font-weight: 800; color: #0b0b0b; letter-spacing: -.4px; }
-.lp-box h2 em { font-style: normal; color: #9A7418; }
-.lp-sub { margin: 0 0 18px; font-size: 14px; color: #6b6450; }
-.lp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.lp-grid label { display: grid; gap: 6px; font-size: 12.5px; font-weight: 700; color: #3a3627; min-width: 0; }
-.lp-grid .full { grid-column: 1 / -1; }
-.lp-grid input, .lp-grid select, .lp-grid textarea { width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #e5e1d3; background: #fafaf7; font: inherit; font-size: 14.5px; font-weight: 500; color: #111; outline: none; }
-.lp-grid textarea { height: auto; padding: 10px 12px; resize: vertical; }
-.lp-grid input:focus, .lp-grid select:focus, .lp-grid textarea:focus { border-color: #D4AF37; background: #fff; box-shadow: 0 0 0 3px rgba(212,175,55,.18); }
-.lp-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.lp-err { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; font-size: 13.5px; font-weight: 600; }
-.lp-submit { width: 100%; height: 50px; margin-top: 16px; border: none; border-radius: 999px; background: linear-gradient(135deg, #E8C766, #D4AF37 50%, #9A7418); color: #111; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 24px rgba(212,175,55,.32); }
-.lp-submit:disabled { opacity: .7; cursor: wait; }
-.lp-done { text-align: center; padding: 18px 4px 4px; }
-.lp-done span { width: 62px; height: 62px; margin: 0 auto 10px; border-radius: 50%; display: grid; place-items: center; background: #ecfdf3; color: #16a34a; font-size: 28px; font-weight: 800; }
-.lp-done p { color: #6b6450; }
-@media (max-width: 480px) {
-  .lp-box { padding: 26px 18px 20px; }
-  .lp-box h2 { font-size: 22px; }
-  .lp-grid { grid-template-columns: 1fr; }
-}
 
-/* compact size */
-.lp-box { width: min(420px, 100%); padding: 22px 20px 18px; border-radius: 16px; border-top-width: 3px; }
-.lp-x { top: 10px; right: 10px; width: 28px; height: 28px; font-size: 12px; }
-.lp-eyebrow { font-size: 10px; letter-spacing: 2.2px; }
-.lp-box h2 { margin: 4px 0 2px; font-size: 20px; }
-.lp-sub { margin: 0 0 12px; font-size: 12.5px; }
+.lp-box {
+  position: relative; width: min(460px, 100%); max-height: calc(100vh - 32px); overflow-y: auto;
+  padding: 30px 30px 18px; border-radius: 22px; color: #e9e2cf;
+  background: radial-gradient(120% 80% at 50% 0%, #1b1a17 0%, #0d0d0c 55%, #080808 100%);
+  border: 1px solid rgba(212, 175, 55, .75);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .6), 0 30px 80px rgba(0, 0, 0, .55), inset 0 0 40px rgba(212, 175, 55, .05);
+  animation: lp-up .3s ease; scrollbar-width: thin;
+}
+/* gold corner flourishes */
+.lp-corner { position: absolute; width: 46px; height: 46px; pointer-events: none; }
+.lp-corner-tl { top: 0; left: 0; border-radius: 22px 0 0 0; background: linear-gradient(135deg, #E8C766 0, #9A7418 22%, transparent 23%); opacity: .9; }
+.lp-corner-br { right: 0; bottom: 0; border-radius: 0 0 22px 0; background: linear-gradient(315deg, #E8C766 0, #9A7418 22%, transparent 23%); opacity: .9; }
+
+.lp-x {
+  position: absolute; top: 14px; right: 14px; z-index: 2; width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; border: 1px solid #D4AF37; background: transparent; color: #E8C766;
+  font-size: 13px; cursor: pointer; transition: background .2s, color .2s;
+}
+.lp-x:hover { background: #D4AF37; color: #111; }
+
+.lp-eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 3px; color: #D4AF37;
+}
+.lp-eyebrow::before, .lp-eyebrow::after { content: ""; width: 44px; height: 1px; background: linear-gradient(90deg, transparent, #D4AF37); }
+.lp-eyebrow::after { transform: scaleX(-1); }
+.lp-box h2 { margin: 10px 0 6px; text-align: center; font-family: "Playfair Display", Georgia, serif; font-size: 30px; font-weight: 500; line-height: 1.15; color: #fff; letter-spacing: -.2px; }
+.lp-box h2 em { font-style: normal; color: #D4AF37; background: linear-gradient(90deg, #E8C766, #C9A44C); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.lp-sub { margin: 0 0 18px; font-size: 14px; line-height: 1.5; color: #b9b2a0; }
+
+.lp-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.lp-grid label { display: grid; gap: 7px; min-width: 0; font-size: 11px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: #D4AF37; }
+.lp-field {
+  position: relative; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px;
+  border-radius: 8px; border: 1px solid rgba(212, 175, 55, .55); background: rgba(255, 255, 255, .02);
+  transition: border-color .2s, box-shadow .2s;
+}
+.lp-field:focus-within { border-color: #E8C766; box-shadow: 0 0 0 3px rgba(212, 175, 55, .15); }
+.lp-field svg { flex: 0 0 18px; width: 18px; height: 18px; color: #C9A44C; }
+.lp-field input, .lp-field select, .lp-field textarea {
+  flex: 1; min-width: 0; height: 100%; border: none; outline: none; background: transparent;
+  font: inherit; font-size: 13.5px; font-weight: 400; letter-spacing: 0; text-transform: none; color: #f2ecdd;
+}
+.lp-field input::placeholder, .lp-field textarea::placeholder { color: #8f887a; }
+.lp-select select { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 22px; color: #f2ecdd; }
+.lp-select select option { color: #111; background: #fff; }
+.lp-select::after { content: ""; position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; margin-top: -6px; border-right: 1.6px solid #E8C766; border-bottom: 1.6px solid #E8C766; transform: rotate(45deg); pointer-events: none; }
+.lp-area { height: auto; align-items: flex-start; padding: 12px 14px; }
+.lp-area textarea { height: auto; min-height: 56px; resize: vertical; padding: 0; line-height: 1.5; }
+.lp-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.lp-safe { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px 0 0; font-size: 10px; font-style: italic; letter-spacing: 1.8px; text-transform: uppercase; color: #a39c8b; }
+.lp-safe svg { width: 20px; height: 20px; color: #D4AF37; }
+.lp-safe i { width: 1px; height: 14px; background: rgba(212, 175, 55, .5); }
+.lp-err { margin-top: 12px; padding: 9px 12px; border-radius: 8px; background: rgba(220, 38, 38, .12); border: 1px solid rgba(248, 113, 113, .45); color: #fca5a5; font-size: 12.5px; font-weight: 600; }
+
+.lp-submit {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; margin-top: 16px;
+  border: none; border-radius: 999px; cursor: pointer; color: #1a1408;
+  background: linear-gradient(180deg, #F2D98C 0%, #D9B45A 45%, #B88E33 100%);
+  font: inherit; font-size: 13px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
+  box-shadow: 0 10px 26px rgba(212, 175, 55, .28), inset 0 1px 0 rgba(255, 255, 255, .5);
+  transition: filter .2s, transform .2s;
+}
+.lp-submit span { font-size: 16px; letter-spacing: 0; }
+.lp-submit:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.lp-submit:disabled { opacity: .7; cursor: wait; transform: none; }
+
+.lp-foot { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; color: #C9A44C; }
+.lp-foot i { flex: 1; max-width: 120px; height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, .7)); }
+.lp-foot i:last-child { transform: scaleX(-1); }
+.lp-foot svg { width: 26px; height: 26px; }
+
+.lp-done { text-align: center; padding: 24px 4px 8px; }
+.lp-done span { width: 62px; height: 62px; margin: 0 auto 12px; border-radius: 50%; display: grid; place-items: center; border: 1px solid #D4AF37; color: #E8C766; font-size: 28px; font-weight: 800; }
+.lp-done h2 { margin-top: 0; }
+.lp-done p { color: #b9b2a0; margin-bottom: 0; }
+
+@media (max-width: 480px) {
+  .lp-box { padding: 26px 18px 16px; }
+  .lp-box h2 { font-size: 25px; }
+  .lp-sub { font-size: 13.5px; }
+}
+.lp-select select { font-weight: 400 !important; color: #8f887a; } .lp-select select:valid:not([value=""]) { color: #f2ecdd; }
+
+/* compact: fits the screen without scrolling (smaller boxes, tighter spacing) */
+.lp-box { width: min(420px, 100%); padding: 20px 22px 12px; scrollbar-width: none; }
+.lp-box::-webkit-scrollbar { display: none; }
+.lp-x { top: 10px; right: 10px; width: 28px; height: 28px; font-size: 11px; }
+.lp-eyebrow { font-size: 9.5px; letter-spacing: 2.4px; }
+.lp-eyebrow::before, .lp-eyebrow::after { width: 32px; }
+.lp-box h2 { margin: 6px 0 4px; font-size: 24px; }
+.lp-sub { margin: 0 0 12px; font-size: 12.5px; line-height: 1.45; }
 .lp-grid { gap: 9px; }
-.lp-grid label { gap: 4px; font-size: 11.5px; }
-.lp-grid input, .lp-grid select { height: 38px; font-size: 13.5px; padding: 0 10px; border-radius: 8px; }
-.lp-grid textarea { font-size: 13.5px; padding: 8px 10px; border-radius: 8px; }
-.lp-submit { height: 42px; margin-top: 12px; font-size: 14px; }
-.lp-err { margin-top: 10px; padding: 8px 10px; font-size: 12.5px; }
+.lp-grid label { gap: 4px; font-size: 10px; letter-spacing: 1.5px; }
+.lp-field { height: 36px; padding: 0 12px; gap: 10px; border-radius: 7px; }
+.lp-field svg { flex-basis: 15px; width: 15px; height: 15px; }
+.lp-field input, .lp-field select, .lp-field textarea { font-size: 12.5px; }
+.lp-select::after { right: 14px; width: 6px; height: 6px; margin-top: -5px; }
+.lp-area { padding: 8px 12px; }
+.lp-area textarea { min-height: 38px; }
+.lp-safe { margin-top: 10px; font-size: 9px; gap: 8px; }
+.lp-safe svg { width: 16px; height: 16px; }
+.lp-submit { height: 40px; margin-top: 10px; font-size: 12px; letter-spacing: 2px; }
+.lp-foot { margin-top: 10px; }
+.lp-foot svg { width: 20px; height: 20px; }
+.lp-corner { width: 34px; height: 34px; }

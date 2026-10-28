@@ -11,6 +11,18 @@ const SUBJECTS = ["Buying a Property", "Selling a Property", "Property Investmen
 const DELAY_MS = 5000;
 const DONE_KEY = "hw_lead_popup_sent";
 const QUIET_DAYS = 7;
+// small line icons for the fields
+const Ic = ({ d }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{d}</svg>;
+const ICONS = {
+  user: <><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></>,
+  phone: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />,
+  mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></>,
+  layers: <><path d="m12 3 9 5-9 5-9-5z" /><path d="m3 13 9 5 9-5" /></>,
+  chat: <><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 9h8M8 13h5" /></>,
+  shield: <><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><rect x="9.5" y="11" width="5" height="4" rx=".8" /><path d="M10.5 11V9.5a1.5 1.5 0 0 1 3 0V11" /></>,
+  city: <path d="M3 21h18M5 21V9l4-2v14M9 21V5l5-2v18M14 21V9h5v12M16.5 12v1M16.5 15v1M11 8v1M11 11v1M11 14v1M7 11v1M7 14v1" />,
+};
+
 const EMPTY = { name: "", phone: "", email: "", subject: "", message: "", website: "" };
 
 const recentlySent = () => {
@@ -67,6 +79,7 @@ export default function LeadPopup({ context = "" }) {
   return (
     <div className="lp-back" role="dialog" aria-modal="true" aria-label="Get in touch" onClick={() => setOpen(false)}>
       <div className="lp-box" onClick={(e) => e.stopPropagation()}>
+        <i className="lp-corner lp-corner-tl" aria-hidden="true" /><i className="lp-corner lp-corner-br" aria-hidden="true" />
         <button type="button" className="lp-x" onClick={() => setOpen(false)} aria-label="Close">✕</button>
 
         {status === "sent" ? (
@@ -83,21 +96,35 @@ export default function LeadPopup({ context = "" }) {
             <p className="lp-sub">Share your details and our property expert will call you back.</p>
 
             <div className="lp-grid">
-              <label>Your Name<input value={f.name} onChange={set("name")} placeholder="Enter your name" autoComplete="name" /></label>
-              <label>Phone Number<input value={f.phone} onChange={set("phone")} placeholder="+91 XXXXX XXXXX" inputMode="tel" autoComplete="tel" /></label>
-              <label className="full">Email Address<input value={f.email} onChange={set("email")} placeholder="Enter your email" inputMode="email" autoComplete="email" /></label>
-              <label className="full">I'm Interested In
-                <select value={f.subject} onChange={set("subject")}>
-                  <option value="">Select an option</option>
-                  {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
-                </select>
+              <label>Your Name
+                <span className="lp-field"><Ic d={ICONS.user} /><input value={f.name} onChange={set("name")} placeholder="Enter your name" autoComplete="name" /></span>
               </label>
-              <label className="full">Message<textarea value={f.message} onChange={set("message")} rows={2} placeholder="Tell us how we can help you..." /></label>
+              <label>Phone Number
+                <span className="lp-field"><Ic d={ICONS.phone} /><input value={f.phone} onChange={set("phone")} placeholder="+91 XXXXX XXXXX" inputMode="tel" autoComplete="tel" /></span>
+              </label>
+              <label>Email Address
+                <span className="lp-field"><Ic d={ICONS.mail} /><input value={f.email} onChange={set("email")} placeholder="Enter your email" inputMode="email" autoComplete="email" /></span>
+              </label>
+              <label>I'm Interested In
+                <span className="lp-field lp-select"><Ic d={ICONS.layers} />
+                  <select value={f.subject} onChange={set("subject")}>
+                    <option value="">Select an option</option>
+                    {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
+                  </select>
+                </span>
+              </label>
+              <label>Message
+                <span className="lp-field lp-area"><Ic d={ICONS.chat} /><textarea value={f.message} onChange={set("message")} rows={3} placeholder="Tell us how we can help you..." /></span>
+              </label>
               <input className="lp-trap" tabIndex={-1} autoComplete="off" value={f.website} onChange={set("website")} aria-hidden="true" />
             </div>
 
+            <p className="lp-safe"><Ic d={ICONS.shield} /><i aria-hidden="true" />Your information is safe with us</p>
             {error && <div className="lp-err" role="alert">{error}</div>}
-            <button type="submit" className="lp-submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Send Message →"}</button>
+            <button type="submit" className="lp-submit" disabled={status === "sending"}>
+              {status === "sending" ? "Sending…" : <>Send Message <span aria-hidden="true">→</span></>}
+            </button>
+            <div className="lp-foot" aria-hidden="true"><i /><Ic d={ICONS.city} /><i /></div>
           </form>
         )}
       </div>

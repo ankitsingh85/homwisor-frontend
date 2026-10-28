@@ -1027,3 +1027,27 @@
   /* 2×2 facts card: less padding */
   .pd-hero-grid > div, .pd-hero-mini, .pd-hero-price { padding: 9px 8px !important; gap: 2px !important; }
 }
+
+/* ---------- bottom bar: Brochure in the same style as Enquire Now; name only (no price) ---------- */
+.pd-dock .pd-dock-brochure {
+  background: var(--pd-brand) !important; color: var(--pd-on-brand, #fff) !important;
+  font-weight: 800 !important; letter-spacing: 1.2px; text-transform: uppercase; font-size: 12.5px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+}
+.pd-dock .pd-dock-brochure:hover { background: var(--pd-brand) !important; filter: brightness(1.15); transform: translateY(-1px); }
+.pd-dock .pd-dock-brochure svg { color: inherit; }
+.pd-dock-prop small { display: none !important; }
+
+/* ---------- desktop banner panel: more opaque + section badge (Trending / New Launch) like phones ---------- */
+@media (min-width: 961px) {
+  .pd-hero-info { background: rgba(14, 16, 20, .45) !important; backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
+  .pd-hero-name .pd-m-pill {
+    display: inline-block; justify-self: center; margin: 0 auto 6px; padding: 3px 10px; border-radius: 999px;
+    background: var(--pd-brand); color: var(--pd-on-brand, #fff); font-size: 10px; font-weight: 800; letter-spacing: 1.4px;
+    text-transform: uppercase; white-space: nowrap; text-shadow: none; box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+  }
+}
+@media (min-width: 961px) {
+  .pd-hero-info .pd-hero-name { display: flex !important; flex-direction: column; align-items: center; }
+  .pd-hero-name .pd-m-pill { order: -1; margin: 0 0 6px !important; border: 1px solid rgba(255, 255, 255, .55); }
+}
