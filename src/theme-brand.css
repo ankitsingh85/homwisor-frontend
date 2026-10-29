@@ -469,3 +469,5 @@
   animation: hw-hot-pulse2 1.9s ease-in-out infinite, hw-hot-bounce2 1.9s ease-in-out infinite, hw-hot-flow 3s linear infinite !important;
 }
 @media (prefers-reduced-motion: reduce) { .hw-search-tabs .hw-search-tab.hw-tab-hot { animation: none !important; } }
+/* "Our Top Properties" heading: no gold underline bar */
+.hwr-head .hwr-bar { display: none !important; }

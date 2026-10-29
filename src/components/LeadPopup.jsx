@@ -92,7 +92,7 @@ export default function LeadPopup({ context = "" }) {
         ) : (
           <form onSubmit={submit} noValidate>
             <span className="lp-eyebrow">TALK TO AN EXPERT</span>
-            <h2>Find your <em>dream property</em></h2>
+            <h2>Find your <em>Dream Property</em></h2>
             <p className="lp-sub">Share your details and our property expert will call you back.</p>
 
             <div className="lp-grid">

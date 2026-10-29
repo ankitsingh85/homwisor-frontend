@@ -445,6 +445,7 @@ export default function PropertyDetailPage() {
       {/* sticky brand bar: developer logo + sections */}
       <div className="pd-bar">
         <div className="pd-wrap pd-bar-inner">
+          <div className="pd-bar-start">
           {p.logo && !/via\.placeholder\.com|dummyimage\.com/.test(p.logo) && !logoBroken && (
             <span className="pd-bar-logo"><img src={p.logo} alt={p.developer || p.title} onError={() => setLogoBroken(true)} /></span>
           )}
@@ -453,12 +454,17 @@ export default function PropertyDetailPage() {
             <strong>{p.title}</strong>
             <span>{p.priceRange || p.price}</span>
           </div>
+          </div>
           <nav className="pd-bar-nav">
             {NAV.filter(([key]) => (key !== "plans" || plans.length > 0) && (key !== "payment" || payStages.length > 0)).map(([key, label]) => (
               <button key={key} type="button" className={active === key ? "on" : ""} onClick={() => jump(key)}>{label}</button>
             ))}
           </nav>
+          <div className="pd-bar-end">
+          {/* RERA no. in the top bar (Admin → Property → Basic details) */}
+          {p.rera !== false && p.reraNumber && <span className="pd-bar-rera"><small>RERA</small>{p.reraNumber}</span>}
           <button type="button" className="pd-btn gold sm" onClick={() => enquire("Enquire now")}>Enquire Now</button>
+          </div>
           {/* mobile: WhatsApp · call · sections menu */}
           <div className="pd-m-actions">
             <a className="pd-m-circle" href={waLink(`Hi, I am interested in ${p.title}. Please share more details.`)} target="_blank" rel="noreferrer" aria-label="WhatsApp"><WaIcon /></a>
