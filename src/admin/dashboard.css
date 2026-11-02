@@ -390,3 +390,13 @@
 .hwd-content .hwa-section-head { margin-bottom: 4px; }
 .hwd-src { font-size: 10px; font-weight: 800; letter-spacing: .5px; background: #faf3dc; color: #7a5a10; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
 .hwd-e-msg { white-space: pre-line; }
+
+/* Enquiries: date range + CSV download */
+.hwd-toolbar { flex-wrap: wrap; }
+.hwd-dates { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.hwd-dates label { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #4b4637; }
+.hwd-dates input { height: 40px; padding: 0 10px; border: 1px solid #e5e0d0; border-radius: 10px; background: #fff; font: inherit; font-size: 13.5px; color: #111; }
+.hwd-dates input:focus { outline: none; border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,.15); }
+.hwd-dates-clear { border: none; background: none; color: #9A7418; font-weight: 800; font-size: 13px; cursor: pointer; }
+.hwd-csv { height: 42px; white-space: nowrap; margin-left: auto; }
+.hwd-csv:disabled { opacity: .5; cursor: not-allowed; }

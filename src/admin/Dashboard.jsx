@@ -231,10 +231,31 @@ const SOURCE_LABEL = { property: 'Property page', blog: 'Blog', contact: 'Contac
 function EnquiriesPage({ enqs, run, title = 'Enquiries', sub = 'Leads submitted from the website. Call or WhatsApp them quickly.' }) {
   const [q, setQ] = useState('')
   const [onlyToday, setOnlyToday] = useState(false)
+  const [from, setFrom] = useState('') // date filter, YYYY-MM-DD (same format as e.date)
+  const [to, setTo] = useState('')
   const shown = enqs.filter(e =>
     (!onlyToday || e.date === today()) &&
+    (!from || (e.date || '') >= from) &&
+    (!to || (e.date || '') <= to) &&
     (!q.trim() || `${e.name} ${e.phone} ${e.email} ${e.property} ${e.message}`.toLowerCase().includes(q.trim().toLowerCase()))
   )
+  // Download exactly the enquiries shown (after search / date filters) as a CSV file (opens in Excel)
+  const downloadCsv = () => {
+    const cols = [['Date', e => e.date], ['Name', e => e.name], ['Phone', e => e.phone], ['Email', e => e.email],
+      ['Source', e => SOURCE_LABEL[e.source] || e.source], ['Interested in', e => e.property], ['Message', e => e.message], ['Page', e => e.page]]
+    const cell = (v) => {
+      let s = String(v ?? '').replace(/\r?\n/g, ' ')
+      if (/^[=+\-@]/.test(s)) s = "'" + s // stop Excel treating text as a formula
+      return `"${s.replace(/"/g, '""')}"`
+    }
+    const csv = [cols.map(c => cell(c[0])).join(','), ...shown.map(e => cols.map(c => cell(c[1](e))).join(','))].join('\r\n')
+    const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }))
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${title.toLowerCase().replace(/\s+/g, '-')}${from || to ? `_${from || 'start'}_to_${to || 'today'}` : ''}.csv`
+    document.body.appendChild(a); a.click(); a.remove()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
   const del = (e) => { if (confirm(`Delete the enquiry from ${e.name || 'this lead'}?`)) run(() => API.delete(`/enquiries/${e.id}`), 'Enquiry deleted') }
   const newCount = enqs.filter(e => e.date === today()).length
 
@@ -247,6 +268,14 @@ function EnquiriesPage({ enqs, run, title = 'Enquiries', sub = 'Leads submitted 
           <button className={!onlyToday ? 'on' : ''} onClick={() => setOnlyToday(false)}>All</button>
           <button className={onlyToday ? 'on' : ''} onClick={() => setOnlyToday(true)}>Today ({newCount})</button>
         </div>
+        <div className="hwd-dates">
+          <label>From<input type="date" value={from} max={to || undefined} onChange={e => setFrom(e.target.value)} /></label>
+          <label>To<input type="date" value={to} min={from || undefined} onChange={e => setTo(e.target.value)} /></label>
+          {(from || to) && <button type="button" className="hwd-dates-clear" onClick={() => { setFrom(''); setTo('') }}>Clear</button>}
+        </div>
+        <button type="button" className="hwd-btn gold hwd-csv" onClick={downloadCsv} disabled={!shown.length} title={shown.length ? `Download ${shown.length} enquiries` : 'Nothing to download'}>
+          ⬇ Download CSV ({shown.length})
+        </button>
       </div>
       {shown.length === 0 ? <div className="hwd-card"><Empty icon={Icon.chat}>{enqs.length ? 'No enquiries match.' : 'No enquiries yet.'}</Empty></div> : (
         <div className="hwd-enq">

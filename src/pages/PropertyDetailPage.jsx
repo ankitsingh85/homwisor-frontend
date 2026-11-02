@@ -49,6 +49,8 @@ const I = {
   key: <><circle cx="8" cy="15" r="4" /><path d="m10.8 12.2 8.7-8.7M16 6l3 3" /></>,
   trophy: <><path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM8 6H4a3 3 0 0 0 4 4M16 6h4a3 3 0 0 1-4 4M12 13v4M8 21h8M10 17h4" /></>,
   home: <><path d="m3 11 9-7 9 7M5 10v10h14V10" /></>,
+  rupee: <><circle cx="12" cy="12" r="9" /><path d="M8.5 8h7M8.5 11h7M11 8c2.5 0 3 3 0 3H9l4.5 5" /></>,
+  towers: <><path d="M3 21h18M6 21V8h5v13M13 21V4h5v17M8 11h1M8 14h1M8 17h1M15 7h1M15 10h1M15 13h1M15 16h1" /></>,
   menu: <><path d="M4 7h16M4 12h16M9 17h11" /></>,
 };
 const Icon = ({ n, size = 20, sw = 1.7 }) => (
@@ -98,6 +100,12 @@ const withUnit = (v) => {
 };
 // homepage section → badge on the mobile hero
 const SECTION_LABEL = { newlaunch: "New Launch", upcoming: "Upcoming", trending: "Trending", recommended: "Featured", luxury: "Luxury", branded: "Branded", commercial: "Commercial", sco: "SCO", dubai: "Dubai" };
+
+// Haryana RERA numbers are shown in full: GGM/… → RC/REP/HARERA/GGM/… (no double prefix)
+const reraNo = (n) => { const v = String(n || "").trim(); return /^GGM\//i.test(v) ? `RC/REP/HARERA/${v}` : v; };
+
+// icon for each banner fact (phones show them in the facts card)
+const HERO_FACT_ICON = { "Property Type": "building", "About Project": "towers", "Land Area": "area" };
 
 const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
@@ -462,7 +470,7 @@ export default function PropertyDetailPage() {
           </nav>
           <div className="pd-bar-end">
           {/* RERA no. in the top bar (Admin → Property → Basic details) */}
-          {p.rera !== false && p.reraNumber && <span className="pd-bar-rera"><small>RERA</small>{p.reraNumber}</span>}
+          {p.rera !== false && p.reraNumber && <span className="pd-bar-rera"><small>RERA</small>{reraNo(p.reraNumber)}</span>}
           <button type="button" className="pd-btn gold sm" onClick={() => enquire("Enquire now")}>Enquire Now</button>
           </div>
           {/* mobile: WhatsApp · call · sections menu */}
@@ -493,6 +501,8 @@ export default function PropertyDetailPage() {
           </picture>
         )}
         <span className="pd-hero-shade" aria-hidden="true" />
+        {/* desktop: RERA no. on the banner, top right, just under the bar */}
+        {p.rera !== false && p.reraNumber && <span className="pd-hero-rera"><small>RERA</small>{reraNo(p.reraNumber)}</span>}
         <div className="pd-wrap pd-hero-inner">
           <div className="pd-hero-info">
             <div className="pd-glass pd-hero-name">
@@ -500,19 +510,22 @@ export default function PropertyDetailPage() {
               {SECTION_LABEL[p.category] && <span className="pd-m-pill">{SECTION_LABEL[p.category]}</span>}
               <h1>{p.title}</h1>
               <span className="pd-m-city">{d.place.city || "Gurugram"}</span>
-              <p>{p.location}</p>
+              <p><i className="pd-hf-pin" aria-hidden="true"><Icon n="pin" size={15} /></i>{p.location}</p>
+              {/* phones: RERA no. inside the name panel */}
+              {p.rera !== false && p.reraNumber && <span className="pd-m-rera">RERA No. {reraNo(p.reraNumber)}</span>}
             </div>
             <div className="pd-glass pd-hero-facts">
               {heroFacts.length > 0 && (
                 <div className="pd-hero-grid">
-                  {heroFacts.map(([k, v]) => <div key={k}><small>{k.toUpperCase()}</small><strong>{v}</strong></div>)}
+                  {heroFacts.map(([k, v]) => <div key={k}><i className="pd-hf-ic" aria-hidden="true"><Icon n={HERO_FACT_ICON[k] || "building"} size={22} /></i><small>{k.toUpperCase()}</small><strong>{v}</strong></div>)}
                 </div>
               )}
               <div className="pd-hero-bottom">
                 {/* Area → Possession → Price — Admin → Property → Project details */}
-                <div className="pd-hero-mini"><small>AREA</small><strong>{p.area || "On request"}</strong></div>
-                <div className="pd-hero-mini"><small>POSSESSION</small><strong>{p.possession || "On request"}</strong></div>
+                <div className="pd-hero-mini"><i className="pd-hf-ic" aria-hidden="true"><Icon n="area" size={22} /></i><small>AREA</small><strong>{p.area || "On request"}</strong></div>
+                <div className="pd-hero-mini"><i className="pd-hf-ic" aria-hidden="true"><Icon n="calendar" size={22} /></i><small>POSSESSION</small><strong>{p.possession || "On request"}</strong></div>
                 <div className="pd-hero-price">
+                  <i className="pd-hf-ic" aria-hidden="true"><Icon n="rupee" size={22} /></i>
                   <small>STARTING FROM</small>
                   <strong>{p.price || p.priceRange || "Price on request"}{(p.price || p.priceRange) ? "*" : ""}</strong>
                 </div>
@@ -561,7 +574,7 @@ export default function PropertyDetailPage() {
                 )}
                 <div>
                   <small>RERA REGISTRATION</small>
-                  <strong>{p.reraNumber || "RERA registered"}</strong>
+                  <strong>{p.reraNumber ? reraNo(p.reraNumber) : "RERA registered"}</strong>
                   <span>{p.reraQr ? "Scan the QR code to verify on the RERA website" : "Verify on the state RERA website"}</span>
                 </div>
               </div>
