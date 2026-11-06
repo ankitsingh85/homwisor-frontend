@@ -169,11 +169,13 @@ export default function BlogDetail() {
   const [all, setAll] = useState([]);
   const [status, setStatus] = useState("loading"); // loading | ok | missing
   const [active, setActive] = useState("");
+  const [tocOpen, setTocOpen] = useState(false);
 
   useEffect(() => {
     if (post && post.slug === slug) return; // just switched an old address to the current one
     let alive = true;
     setStatus("loading");
+    setTocOpen(false);
     window.scrollTo(0, 0);
     API.get(`/blogs/${encodeURIComponent(slug)}`)
       .then((r) => {
@@ -265,6 +267,7 @@ export default function BlogDetail() {
   const author = post.author || "Homwisor Insights";
   const jump = (e, anchor) => {
     e.preventDefault();
+    setTocOpen(false);
     const el = document.getElementById(anchor);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: "smooth" });
   };
@@ -291,6 +294,21 @@ export default function BlogDetail() {
             </div>
             <Share title={post.title} />
         </div>
+        {toc.length > 1 && (
+          <nav className={`bd-toc bd-toc-mobile${tocOpen ? " open" : ""}`} aria-label="In this guide">
+            <button type="button" className="bd-toc-toggle" aria-expanded={tocOpen} onClick={() => setTocOpen((open) => !open)}>
+              <span>IN THIS GUIDE</span>
+              <span className="bd-toc-chevron" aria-hidden="true">⌄</span>
+            </button>
+            <ol>
+              {toc.map((s, i) => (
+                <li key={s.anchor} className={active === s.anchor ? "on" : ""}>
+                  <a href={`#${s.anchor}`} onClick={(e) => jump(e, s.anchor)}><b>{i + 1}</b>{s.heading}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
 
         {/* ---------- banner ---------- */}
         {post.image && (
@@ -322,8 +340,11 @@ export default function BlogDetail() {
 
           <aside className="bd-side">
             {toc.length > 1 && (
-              <nav className="bd-toc" aria-label="In this guide">
-                <small>IN THIS GUIDE</small>
+              <nav className={`bd-toc bd-toc-desktop${tocOpen ? " open" : ""}`} aria-label="In this guide">
+                <button type="button" className="bd-toc-toggle" aria-expanded={tocOpen} onClick={() => setTocOpen((open) => !open)}>
+                  <span>IN THIS GUIDE</span>
+                  <span className="bd-toc-chevron" aria-hidden="true">⌄</span>
+                </button>
                 <ol>
                   {toc.map((s, i) => (
                     <li key={s.anchor} className={active === s.anchor ? "on" : ""}>

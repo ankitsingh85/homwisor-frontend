@@ -100,7 +100,11 @@
 /* ---------- sidebar ---------- */
 .bd-side { position: sticky; top: 96px; display: grid; gap: 18px; }
 .bd-toc { padding: 20px 20px 10px; border: 1px solid var(--bd-line); border-radius: 16px; background: #fff; }
-.bd-toc small, .bd-advisor small { display: block; margin-bottom: 10px; font-size: 10.5px; font-weight: 800; letter-spacing: 1.6px; color: #8f8873; }
+.bd-toc-mobile { display: none; }
+.bd-toc-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: transparent; color: #8f8873; font: inherit; font-size: 10.5px; font-weight: 800; letter-spacing: 1.6px; text-align: left; cursor: pointer; }
+.bd-toc-chevron { display: none; font-size: 18px; line-height: 10px; transition: transform .2s; }
+.bd-toc.open .bd-toc-chevron { transform: rotate(180deg); }
+.bd-advisor small { display: block; margin-bottom: 10px; font-size: 10.5px; font-weight: 800; letter-spacing: 1.6px; color: #8f8873; }
 .bd-toc ol { margin: 0; padding: 0; list-style: none; }
 .bd-toc li + li { border-top: 1px solid #f3eee0; }
 .bd-toc a { display: flex; gap: 12px; padding: 11px 0; font-size: 13.5px; line-height: 1.45; color: var(--bd-text); text-decoration: none; transition: color .2s; }
@@ -142,7 +146,12 @@
   .bd-layout { grid-template-columns: 1fr; gap: 40px; }
   .bd-article { max-width: none; }
   .bd-side { position: static; }
-  .bd-toc { display: none; }
+  .bd-toc-desktop { display: none; }
+  .bd-toc-mobile { display: block; padding: 0; margin-top: 18px; }
+  .bd-toc-toggle { min-height: 52px; margin: 0; padding: 0 16px; }
+  .bd-toc-chevron { display: block; }
+  .bd-toc ol { display: none; padding: 0 16px; }
+  .bd-toc.open ol { display: block; }
   .bd-banner { aspect-ratio: 16 / 9; }
 }
 @media (max-width: 700px) {

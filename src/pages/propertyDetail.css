@@ -1169,17 +1169,23 @@
 }
 @media (min-width: 1201px) and (max-width: 1239px) { .pd-bar-start .pd-bar-title { display: none !important; } }
 
-/* ---------- RERA no. on the banner (desktop), top right just below the bar; removed from the bar ---------- */
-.pd-hero-rera { display: none; }
+/* ---------- RERA no. on the banner, top right just below the bar ---------- */
+.pd-hero-rera {
+  display: flex; align-items: center; gap: 8px; position: absolute; top: 14px; right: 24px; z-index: 3;
+  padding: 6px 12px; border-radius: 8px; background: rgba(14, 16, 20, .55);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, .18);
+  color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .3px; white-space: nowrap;
+}
+.pd-hero-rera small { font-size: 10px; font-weight: 800; letter-spacing: 1.4px; color: var(--pd-on, #E8C766); }
 @media (min-width: 961px) {
   .pd-bar-end .pd-bar-rera { display: none !important; }
+}
+@media (max-width: 960px) {
   .pd-hero-rera {
-    display: flex; align-items: center; gap: 8px; position: absolute; top: 14px; right: 24px; z-index: 3;
-    padding: 6px 12px; border-radius: 8px; background: rgba(14, 16, 20, .55);
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, .18);
-    color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: .3px; white-space: nowrap;
+    top: 10px; right: 12px; max-width: calc(100% - 24px); padding: 5px 9px;
+    gap: 6px; font-size: 10px;
   }
-  .pd-hero-rera small { font-size: 10px; font-weight: 800; letter-spacing: 1.4px; color: var(--pd-on, #E8C766); }
+  .pd-hero-rera small { font-size: 8px; letter-spacing: 1px; }
 }
 /* overview title: the gold last word must always show — if the brand gradient isn't set, use the solid accent colour */
 .pd-title .gold { background-image: var(--pd-grad, linear-gradient(var(--pd-accent), var(--pd-accent))) !important; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
@@ -1218,14 +1224,10 @@
   .pd-dock .pd-dock-enquire, .pd-dock .pd-dock-brochure { font-size: 10.5px !important; letter-spacing: .8px !important; gap: 5px !important; }
 }
 
-/* ---------- phones: RERA no. in the name panel + icons in the facts card ---------- */
-.pd-hf-ic, .pd-hf-pin, .pd-m-rera { display: none; }
+/* ---------- phones: RERA no. on the banner + icons in the facts card ---------- */
+.pd-hf-ic, .pd-hf-pin { display: none; }
 @media (max-width: 960px) {
   .pd-hf-pin { display: inline-flex; vertical-align: -3px; margin-right: 5px; color: #E8C766; }
-  .pd-m-rera {
-    display: block; margin: 8px -12px -5px; padding: 7px 10px 2px; border-top: 1px solid rgba(232, 199, 102, .55);
-    font-size: 10.5px; font-weight: 600; letter-spacing: .3px; color: rgba(255, 255, 255, .9); text-align: center; overflow-wrap: anywhere;
-  }
   /* facts: icon on the left, label + value on the right */
   .pd-hero-facts .pd-hero-grid > div, .pd-hero-facts .pd-hero-mini, .pd-hero-facts .pd-hero-price {
     display: grid !important; grid-template-columns: 26px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 9px; row-gap: 2px;
