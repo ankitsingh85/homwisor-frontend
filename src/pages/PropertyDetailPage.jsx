@@ -412,7 +412,7 @@ export default function PropertyDetailPage() {
 
     return {
       place, images, titleA, titleB, overview, facts, pricing, highlights, amenities, gallery, iconic, similar,
-      aboutHeading, aboutDesc, aboutSub: about.subheading?.trim() || "Building a Better Tomorrow",
+      aboutHeading, aboutDesc, aboutSub: about.subheading?.trim() || "",
       aboutImage: about.image || images[1] || images[0], aboutStats: (about.stats || []).filter((x) => x.value || x.label),
       faqs, sameDev: sameDev.length > 0, developerLink,
     };
@@ -511,8 +511,6 @@ export default function PropertyDetailPage() {
               <h1>{p.title}</h1>
               <span className="pd-m-city">{d.place.city || "Gurugram"}</span>
               <p><i className="pd-hf-pin" aria-hidden="true"><Icon n="pin" size={15} /></i>{p.location}</p>
-              {/* phones: RERA no. inside the name panel */}
-              {p.rera !== false && p.reraNumber && <span className="pd-m-rera">RERA No. {reraNo(p.reraNumber)}</span>}
             </div>
             <div className="pd-glass pd-hero-facts">
               {heroFacts.length > 0 && (
@@ -791,7 +789,7 @@ export default function PropertyDetailPage() {
             <h2 className="pd-h2">
               {aboutWords[0]} <span className="gold">{aboutWords.slice(1).join(" ")}</span>
             </h2>
-            <div className="pd-about-sub">{d.aboutSub}</div>
+            {d.aboutSub && <div className="pd-about-sub">{d.aboutSub}</div>}
             <p className="pd-desc open">{d.aboutDesc}</p>
             {d.aboutStats.length > 0 && (
               <div className="pd-stats">
